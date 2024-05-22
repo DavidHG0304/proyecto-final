@@ -17,6 +17,7 @@ public class VistaPanelMarcas {
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setBackground(Color.gray);
+		marcas();
 	}
 	
 	public void marcas() {

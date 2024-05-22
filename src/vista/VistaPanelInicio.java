@@ -19,6 +19,7 @@ public class VistaPanelInicio {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setBackground(Color.gray);
 		
+		panelPrincipal();
 	}
 	
 	public void panelPrincipal() {

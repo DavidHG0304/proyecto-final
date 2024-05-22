@@ -17,6 +17,8 @@ public class VistaPanelCategorias {
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setBackground(Color.gray);
+		
+		categorias();
 	}
 	
 	public void categorias() {

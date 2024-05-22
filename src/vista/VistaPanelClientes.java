@@ -16,6 +16,8 @@ public class VistaPanelClientes {
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setBackground(Color.gray);
+		
+		clientes();
 	}
 	
 	public void clientes() {

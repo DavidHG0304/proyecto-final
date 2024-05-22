@@ -1,0 +1,57 @@
+package controlador;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import modelo.Modelo;
+import vista.VistaPanelRentas;
+
+public class ControladorRentas implements ActionListener{
+	
+	private VistaPanelRentas panelRentas;
+	private Modelo modelo;
+	private Controlador controlador;
+
+	public ControladorRentas(VistaPanelRentas panelRentas, Modelo modelo, Controlador controlador) {
+		this.panelRentas = panelRentas;
+        this.modelo = modelo;
+        this.controlador = controlador;
+        panelRentas.rentas();
+        panelRentas.asignarActListner(this);
+	}
+	
+	
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		switch (e.getActionCommand()) {
+		case "Inicio pRentas":
+			panelRentas.getFrame().dispose();
+			controlador.panelPrincipal();
+			break;
+		case "Marcas pRentas":
+			panelRentas.getFrame().dispose();
+			controlador.marcas();
+			break;
+		case "Categorias pRentas":
+			panelRentas.getFrame().dispose();
+			controlador.categorias();
+			break;
+		case "Vehiculos pRentas":
+			panelRentas.getFrame().dispose();
+			controlador.vehiculos();
+			break;
+		case "Clientes pRentas":
+			panelRentas.getFrame().dispose();
+			controlador.clientes();
+			break;
+		case "Cerrar Sesión pRentas":
+			panelRentas.getFrame().dispose();
+			controlador.login();
+			controlador.nuevoModelo.setRegistroEncontrado(false);
+			break;
+			
+		}
+	}
+
+}

@@ -9,10 +9,13 @@ public class ControladorMarcas implements ActionListener {
 
     private VistaPanelMarcas panelMarcas;
     private Modelo modelo;
+    private Controlador controlador;
 
-    public ControladorMarcas(VistaPanelMarcas panelMarcas, Modelo modelo) {
+    public ControladorMarcas(VistaPanelMarcas panelMarcas, Modelo modelo, Controlador controlador) {
         this.panelMarcas = panelMarcas;
         this.modelo = modelo;
+        this.controlador = controlador;
+        panelMarcas.marcas();
         panelMarcas.asignarActListner(this);
     }
 
@@ -20,9 +23,30 @@ public class ControladorMarcas implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         switch (e.getActionCommand()) {
             case "Inicio pMarcas":
-                // Manejar la acción de ir al inicio desde el panel de marcas
+                panelMarcas.getFrame().dispose();
+                controlador.panelPrincipal();
                 break;
-            // Otras acciones específicas del panel de marcas
+            case "Categorias pMarcas":
+                panelMarcas.getFrame().dispose();
+                controlador.categorias();
+                break;
+            case "Rentas pMarcas":
+                panelMarcas.getFrame().dispose();
+                controlador.rentas();
+                break;
+            case "Vehiculos pMarcas":
+                panelMarcas.getFrame().dispose();
+                controlador.vehiculos();
+                break;
+            case "Clientes pMarcas":
+                panelMarcas.getFrame().dispose();
+                controlador.clientes();
+                break;
+            case "Cerrar Sesión pMarcas":
+                panelMarcas.getFrame().dispose();
+                controlador.login();
+                controlador.getNuevoModelo().setRegistroEncontrado(false);
+                break;
         }
     }
 }
