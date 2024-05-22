@@ -93,25 +93,6 @@ public class Vista {
 		panelDerecha.setLayout(null);
 		panelPrincipal.add(panelDerecha);
 		
-//		JLabel papu = new JLabel();
-//		try
-//		{
-//			URL url = new URL("https://firebasestorage.googleapis.com/v0/b/fotinhoscarros.appspot.com/o/xm.png?alt=media&token=532df335-a4ed-4d6c-a799-7786a38f5f23");
-//			BufferedImage image = ImageIO.read(url);
-//			image = ImageIO.read(url);
-//			papu = new JLabel(new ImageIcon(image));
-//			papu.setBounds(-110, 100, 750, 450);
-//			panelDerecha.add(papu);
-//			
-//		}catch(
-//				IOException e2)
-//		{
-//			e2.printStackTrace();
-//			ImageIcon I22 = new ImageIcon();
-//			papu.setIcon(I22);
-//		}
-		
-		
 		// Label bienvenida
 		JLabel lblBienvenida = new JLabel("¡Bienvenido!");
 		lblBienvenida.setForeground(Color.WHITE);

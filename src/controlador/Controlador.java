@@ -12,6 +12,7 @@ import com.formdev.flatlaf.FlatLightLaf;
 
 import modelo.Modelo;
 import modelo.entidades.Vehiculo;
+import raven.glasspanepopup.GlassPanePopup;
 import vista.Vista;
 import vista.VistaPanelCategorias;
 import vista.VistaPanelClientes;
@@ -49,28 +50,22 @@ public class Controlador implements ActionListener{
 	// Constructor del controlador donde se inicializan lo que se va a necesitar
 	public Controlador()  {
 		// Instanciar vistas
-		this.nuevaVista = new Vista();
 		this.nuevoModelo = new Modelo();
-		this.accionesLogin = new ListenersLogin(nuevaVista);
 		this.metodos = new MetodosLog_Reg();
-		nuevaVista.asignarActListner(this);
 	}
 	
 	// Metodos para llamar las vistas
 	public void login() {
-		FlatLightLaf.setup();
-		try {
-			UIManager.setLookAndFeel("com.formdev.flatlaf.intellijthemes.FlatCyanLightIJTheme");
-		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
-				| UnsupportedLookAndFeelException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		this.nuevaVista = new Vista();
+		GlassPanePopup.install(nuevaVista.getFrame());
+		this.accionesLogin = new ListenersLogin(nuevaVista);
+		nuevaVista.asignarActListner(this);
 		nuevaVista.login();
 	}
 	
 	public void registro() {
 		this.vistaRegistro = new VistaRegistro();
+		GlassPanePopup.install(vistaRegistro.getFrame());
 		this.accionesRegistro = new ListenersRegistro(vistaRegistro);
 		vistaRegistro.asignarActListner(this);
 		vistaRegistro.registro();
@@ -78,6 +73,7 @@ public class Controlador implements ActionListener{
 	
 	public void panelPrincipal() {
 		this.panelInicio = new VistaPanelInicio();
+		GlassPanePopup.install(panelInicio.getFrame());
 		panelInicio.panelPrincipal();
 		panelInicio.asignarActListner(this);
 	}
@@ -137,19 +133,29 @@ public class Controlador implements ActionListener{
 	
 	// Metodo validacion Login
 	public void accionLogin() {
-		if(metodos.loginValidado(new String (nuevaVista.getTxtContrasenia().getPassword()), nuevaVista.getTxtCorreo(), nuevaVista.getTxtContrasenia())) {
-			sesionIniciada = nuevoModelo.accionLogin(nuevaVista.getTxtCorreo().getText(),new String (nuevaVista.getTxtContrasenia().getPassword()));
-		}
-		metodos.loginNoValido(new String (nuevaVista.getTxtContrasenia().getPassword()),nuevaVista.getTxtCorreo(), nuevaVista.getTxtContrasenia());
-	}	
+        if (metodos.loginValidado(new String(nuevaVista.getTxtContrasenia().getPassword()), nuevaVista.getTxtCorreo(), nuevaVista.getTxtContrasenia())) {
+            sesionIniciada = nuevoModelo.accionLogin(nuevaVista.getTxtCorreo().getText(), new String(nuevaVista.getTxtContrasenia().getPassword()));
+            if (sesionIniciada) {
+                nuevaVista.getFrame().dispose();
+                panelPrincipal();
+            } else {
+                metodos.loginNoValido(new String(nuevaVista.getTxtContrasenia().getPassword()), nuevaVista.getTxtCorreo(), nuevaVista.getTxtContrasenia(), nuevoModelo.isRegistroEncontrado());
+            }
+        }
+    }
 	
 	// Metodo validacion Registro
 	public void accionRegistro() {
-		if(metodos.registroValido(new String(vistaRegistro.getTxtContrasenia().getPassword()), new String(vistaRegistro.getConfirmarContrasenia().getPassword()),  vistaRegistro.getNombre(), vistaRegistro.getApellidos(), vistaRegistro.getTxtCorreo(), vistaRegistro.getTxtContrasenia(), vistaRegistro.getConfirmarContrasenia())){
-			usuarioRegistrado = nuevoModelo.accionRegistro(vistaRegistro.getNombre().getText(), vistaRegistro.getApellidos().getText(), vistaRegistro.getTxtCorreo().getText(), new String(vistaRegistro.getTxtContrasenia().getPassword()), new String(vistaRegistro.getConfirmarContrasenia().getPassword()));
-		}
-//		metodos.registroNoValido(vistaRegistro.getNombre(), vistaRegistro.getApellidos(), vistaRegistro.getTxtCorreo(), vistaRegistro.getTxtContrasenia(), vistaRegistro.getConfirmarContrasenia());
-	}
+        if (metodos.registroValido(new String(vistaRegistro.getTxtContrasenia().getPassword()), new String(vistaRegistro.getConfirmarContrasenia().getPassword()), vistaRegistro.getNombre(), vistaRegistro.getApellidos(), vistaRegistro.getTxtCorreo(), vistaRegistro.getTxtContrasenia(), vistaRegistro.getConfirmarContrasenia())) {
+            usuarioRegistrado = nuevoModelo.accionRegistro(vistaRegistro.getNombre().getText(), vistaRegistro.getApellidos().getText(), vistaRegistro.getTxtCorreo().getText(), new String(vistaRegistro.getTxtContrasenia().getPassword()), new String(vistaRegistro.getConfirmarContrasenia().getPassword()));
+            if (usuarioRegistrado) {
+                vistaRegistro.getFrame().dispose();
+                login();
+            }
+        } else {
+            metodos.registroNoValido(vistaRegistro.getNombre(), vistaRegistro.getApellidos(), vistaRegistro.getTxtCorreo(), vistaRegistro.getTxtContrasenia(), vistaRegistro.getConfirmarContrasenia(), nuevoModelo.isRegistrado(), new String(vistaRegistro.getTxtContrasenia().getPassword()), new String(vistaRegistro.getConfirmarContrasenia().getPassword()));
+        }
+    }
 	
 
 	@Override
@@ -161,30 +167,23 @@ public class Controlador implements ActionListener{
 		case "Iniciar":
 			// System.out.println("Hola");
 			accionLogin();
-//			if (sesionIniciada) {
-//				nuevaVista.getFrame().dispose();
-//				panelPrincipal();
-//			}
-			nuevaVista.getFrame().dispose();
-			panelPrincipal();
+//			nuevaVista.getFrame().dispose();
+//			panelPrincipal();
 			break;
 		case "Crear Cuenta":
 			accionRegistro();
-			if(usuarioRegistrado) {
-				vistaRegistro.getFrame().dispose();
-			}
 			break;
-			
 		// Acciones Registro
 		case "Registrarse":
 			// System.out.println("Registro");
 			nuevaVista.getFrame().dispose();
 			registro();
+			nuevoModelo.setHayRegistro(0);
 			break;
 		case "Iniciar Sesion":
 			// System.out.println("Hola");
 			vistaRegistro.getFrame().dispose();
-			nuevaVista.getFrame().setVisible(true);
+			login();
 			break;
 			
 		// Acciones Botones PaginaPrincipal
@@ -210,7 +209,8 @@ public class Controlador implements ActionListener{
 			break;
 		case "Cerrar Sesión pInicial":
 			panelInicio.getFrame().dispose();
-			nuevaVista.getFrame().setVisible(true);
+			nuevoModelo.setRegistroEncontrado(false);
+			login();
 			break;
 			
 		// Acciones Botones Panel Marcas
@@ -236,7 +236,8 @@ public class Controlador implements ActionListener{
 			break;
 		case "Cerrar Sesión pMarcas":
 			panelMarcas.getFrame().dispose();
-			nuevaVista.getFrame().setVisible(true);
+			login();
+			nuevoModelo.setRegistroEncontrado(false);
 			break;
 			
 		// Acciones Botones Panel Categorias
@@ -262,7 +263,8 @@ public class Controlador implements ActionListener{
 			break;
 		case "Cerrar Sesión pCategorias":
 			panelCategorias.getFrame().dispose();
-			nuevaVista.getFrame().setVisible(true);
+			login();
+			nuevoModelo.setRegistroEncontrado(false);
 			break;
 			
 			// Acciones Botones Panel Rentas
@@ -288,7 +290,8 @@ public class Controlador implements ActionListener{
 			break;
 		case "Cerrar Sesión pRentas":
 			panelRentas.getFrame().dispose();
-			nuevaVista.getFrame().setVisible(true);
+			login();
+			nuevoModelo.setRegistroEncontrado(false);
 			break;
 			
 		// Acciones Botones Panel Vehiculos
@@ -314,7 +317,8 @@ public class Controlador implements ActionListener{
 			break;
 		case "Cerrar Sesión pVehiculos":
 			panelVehiculos.getFrame().dispose();
-			nuevaVista.getFrame().setVisible(true);
+			login();
+			nuevoModelo.setRegistroEncontrado(false);
 			break;
 			
 			
@@ -341,10 +345,12 @@ public class Controlador implements ActionListener{
 			break;
 		case "Cerrar Sesión pClientes":
 			panelClientes.getFrame().dispose();
-			nuevaVista.getFrame().setVisible(true);
+			login();
+			nuevoModelo.setRegistroEncontrado(false);
 			break;
 		
-		// Acciones Clientes
+		// Acciones Otros
+			
 		}
 		
 	}

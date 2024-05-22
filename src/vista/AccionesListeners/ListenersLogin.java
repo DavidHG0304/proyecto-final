@@ -5,7 +5,9 @@ import java.awt.event.*;
 
 import javax.swing.ImageIcon;
 
+import raven.glasspanepopup.GlassPanePopup;
 import vista.Vista;
+import vista.componentes.DialogoPrueba;
 
 public class ListenersLogin  implements ActionListener, FocusListener{
 	

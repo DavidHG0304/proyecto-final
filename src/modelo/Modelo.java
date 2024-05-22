@@ -20,9 +20,34 @@ import vista.componentes.CartasCarros;
 //De datos y todo eso
 
 public class Modelo {
-	boolean registroEncontrado = false;
-	boolean registrado = true;
-	
+	private boolean registroEncontrado = false;
+	private boolean registrado = false;
+	// 0 = no pudo completarse --- 1 = pudo completarse --- 3 = hay coincidencias (no se completa)
+	private int hayRegistro = 0;
+
+	public boolean isRegistroEncontrado() {
+		return registroEncontrado;
+	}
+
+	public boolean isRegistrado() {
+		return registrado;
+	}
+	public void setRegistrado(boolean registrado) {
+		this.registrado = registrado;
+	}
+
+	public void setRegistroEncontrado(boolean registroEncontrado) {
+		this.registroEncontrado = registroEncontrado;
+	}
+
+	public int getHayRegistro() {
+		return hayRegistro;
+	}
+
+	public void setHayRegistro(int hayRegistro) {
+		this.hayRegistro = hayRegistro;
+	}
+
 	public Modelo() {
 	}
 	
@@ -41,6 +66,7 @@ public class Modelo {
 					registroEncontrado = true;
 					break;
 				}
+				
 			}
 			con.close();
 		} catch (ClassNotFoundException e) {
@@ -52,7 +78,6 @@ public class Modelo {
 		}
 		if(registroEncontrado) {
 			System.out.println("Datos Coinciden");
-			
 			return true;
 		}else {
 			System.out.println("Datos No coinciden");
@@ -71,12 +96,14 @@ public class Modelo {
 			int x = st.executeUpdate(query);
 			if(x != 0) {
 				JOptionPane.showMessageDialog(null, "Cuenta creada con exito");
-			}else {
-				JOptionPane.showMessageDialog(null, "No se pudo crear la cuenta");
+				registrado = false;
+				return true;
 			}
+			JOptionPane.showMessageDialog(null, "No se pudo crear la cuenta");
 			con.close();
+			return false;
 		} catch (Exception exception) {
-			JOptionPane.showMessageDialog(null, "El correo ya está en uso");
+			registrado = true;
 			exception.printStackTrace();
         }
 		return false;

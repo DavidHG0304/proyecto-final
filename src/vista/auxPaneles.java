@@ -6,6 +6,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import raven.glasspanepopup.GlassPanePopup;
+import vista.componentes.DialogoPrueba;
 import vista.recursos.componentesPersonalizados.RoundedBorder;
 import vista.recursos.componentesPersonalizados.RoundedPanel;
 import vista.recursos.componentesPersonalizados.SombrasPaneles;
@@ -56,6 +58,7 @@ public class auxPaneles extends JFrame {
 		panelPrincipal = new JPanel();
 		panelPrincipal.setBackground(new Color(33, 147, 246));
 		panelPrincipal.setBorder(new EmptyBorder(5, 5, 5, 5));
+		GlassPanePopup.install(this);
 
 		setContentPane(panelPrincipal);
 		panelPrincipal.setLayout(null);
@@ -84,6 +87,13 @@ public class auxPaneles extends JFrame {
 		btnCerrarSesion.setForeground(new Color(255, 255, 255));
 		btnCerrarSesion.setFont(new Font("Inter", Font.BOLD, 13));
 		btnCerrarSesion.setBounds(703, 25, 129, 23);
+		btnCerrarSesion.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				GlassPanePopup.showPopup(new DialogoPrueba("Titulo", "Contenido"));
+				
+			}
+		});
 		elementosParteSuperior.add(btnCerrarSesion);
 		
 		JButton btnClientes = new JButton("Clientes");

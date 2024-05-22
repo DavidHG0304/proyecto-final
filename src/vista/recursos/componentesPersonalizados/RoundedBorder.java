@@ -35,7 +35,16 @@ public class RoundedBorder extends JButton {
         this.borderRadius = borderRadius;
         this.aplicarGradiant = aplicarGradiant;
         this.color  = color;
-        setOpaque(false);  // Important for custom painting
+        setOpaque(false);
+    }
+    
+    public RoundedBorder(int borderRadius, boolean aplicarGradiant,  boolean aplicarBorde, Color color) {
+    	super();
+        this.borderRadius = borderRadius;
+        this.borderRadius = borderRadius;
+        this.aplicarGradiant = aplicarGradiant;
+        this.color  = color;
+        setOpaque(false);
     }
     
 	public GradientPaint getColorGradiant() {

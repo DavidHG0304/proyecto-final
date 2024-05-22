@@ -3,7 +3,10 @@ package vista;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+
+import raven.glasspanepopup.GlassPanePopup;
 import vista.componentes.PanelesNavegacion;
+
 
 public class VistaPanelInicio {
 	JFrame frame = new JFrame();
@@ -64,8 +67,7 @@ public class VistaPanelInicio {
 		panel.getBtnInicio().setBackground(new Color(255, 255, 255));
 		panel.getBtnInicio().setFocusPainted(false);
 		panel.getBtnInicio().setBorderPainted(false);
-//		panel.getBtnInicio().setContentAreaFilled(false);
-		
+		panel.getBtnInicio().setContentAreaFilled(false);
 		
 		panel.getBtnRentas().setActionCommand("Rentas pInicial");
 		panel.getBtnCategorias().setActionCommand("Categorias pInicial");

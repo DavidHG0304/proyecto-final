@@ -15,5 +15,7 @@
 	<classpathentry kind="lib" path="C:/Users/David/git/BranchMainProg3/Programacion_3/lib/other/jsvg-1.4.0.jar"/>
 	<classpathentry kind="lib" path="C:/Users/David/git/BranchMainProg3/Programacion_3/lib/other/miglayout-core.jar"/>
 	<classpathentry kind="lib" path="C:/Users/David/git/BranchMainProg3/Programacion_3/lib/other/miglayout-swing.jar"/>
+	<classpathentry kind="lib" path="C:/Users/David/git/BranchMainProg3/Prog3_ProyectoFinal/proyecto-final/lib/timingframework-1.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/David/git/BranchMainProg3/Prog3_ProyectoFinal/proyecto-final/lib/glasspane-popup-2.0.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

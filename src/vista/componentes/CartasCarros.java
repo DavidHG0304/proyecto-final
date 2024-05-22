@@ -120,7 +120,8 @@ public class CartasCarros extends RoundedPanel{
 		lblflechaIcono.setBounds(175, 289, 14, 14);
 		add(lblflechaIcono);
 		
-		JButton btnRentar = new JButton("Rentar");
+		RoundedBorder btnRentar = new RoundedBorder(225, false, Color.GRAY);
+		btnRentar.setText("Rentar");
 		btnRentar.setHorizontalAlignment(SwingConstants.LEFT);
 		btnRentar.setOpaque(false);
 		btnRentar.setForeground(new Color(33, 147, 246));
