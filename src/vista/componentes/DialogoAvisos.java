@@ -1,39 +1,29 @@
 package vista.componentes;
 
 import javax.swing.JPanel;
-
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.geom.RoundRectangle2D;
-
 import javax.swing.JLabel;
-import javax.swing.JButton;
 import javax.swing.JEditorPane;
-
 import java.awt.Font;
 import javax.swing.SwingConstants;
-
 import raven.glasspanepopup.GlassPanePopup;
 import vista.recursos.componentesPersonalizados.BtnBordeado;
-
-import java.awt.TextField;
-import java.awt.TextArea;
-import javax.swing.JTextField;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class DialogoPrueba extends JPanel {
+@SuppressWarnings("serial")
+public class DialogoAvisos extends JPanel {
 
-	private JTextField txtLoremIpsumIs;
 
 	/**
 	 * Create the panel.
 	 */
-	public DialogoPrueba(String Mensasje, String Contenido) {
+	public DialogoAvisos(String Mensasje, String Contenido) {
 		setBackground(new Color(255, 255, 255));
 		setLayout(null);
 		setPreferredSize(new Dimension(300, 255));
@@ -50,11 +40,11 @@ public class DialogoPrueba extends JPanel {
 		editorPane.setFont(new Font("Inter", Font.PLAIN, 14));
 		editorPane.setText(Contenido);
 		editorPane.setFocusable(false);
-		editorPane.setBounds(31, 98, 241, 91);
+		editorPane.setBounds(31, 98, 241, 85);
 		editorPane.setOpaque(false);
 		add(editorPane);
 		
-		BtnBordeado boton = new BtnBordeado(20);
+		BtnBordeado boton = new BtnBordeado(30, true);
 		boton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				GlassPanePopup.closePopupLast();

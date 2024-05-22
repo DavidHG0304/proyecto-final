@@ -3,13 +3,7 @@ package controlador;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-
 import javax.swing.SwingWorker;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
-
-import com.formdev.flatlaf.FlatLightLaf;
-
 import modelo.Modelo;
 import modelo.entidades.Vehiculo;
 import raven.glasspanepopup.GlassPanePopup;
@@ -24,7 +18,7 @@ import vista.VistaRegistro;
 import vista.AccionesListeners.ListenersLogin;
 import vista.AccionesListeners.ListenersRegistro;
 import vista.AccionesListeners.MetodosLog_Reg;
-import vista.componentes.DialogoPrueba;
+import vista.componentes.DialogoAvisos;
 import vista.componentes.PanelesNavegacion;
 
 
@@ -50,7 +44,6 @@ public class Controlador implements ActionListener{
 	
 	// Constructor del controlador donde se inicializan lo que se va a necesitar
 	public Controlador()  {
-		// Instanciar vistas
 		this.nuevoModelo = new Modelo();
 		this.metodos = new MetodosLog_Reg();
 	}
@@ -75,6 +68,7 @@ public class Controlador implements ActionListener{
 	public void panelPrincipal() {
 		this.panelInicio = new VistaPanelInicio();
 		GlassPanePopup.install(panelInicio.getFrame());
+		
 		panelInicio.panelPrincipal();
 		panelInicio.asignarActListner(this);
 	}
@@ -138,7 +132,6 @@ public class Controlador implements ActionListener{
             sesionIniciada = nuevoModelo.accionLogin(nuevaVista.getTxtCorreo().getText(), new String(nuevaVista.getTxtContrasenia().getPassword()));
             if (sesionIniciada) {
                 nuevaVista.getFrame().dispose();
-                GlassPanePopup.showPopup(new DialogoPrueba("Inicio Correcto", "Inicio de sesión correcto \nYa puede navegar \npor el sistema."));
                 panelPrincipal();
             } else {
                 metodos.loginNoValido(new String(nuevaVista.getTxtContrasenia().getPassword()), nuevaVista.getTxtCorreo(), nuevaVista.getTxtContrasenia(), nuevoModelo.isRegistroEncontrado());
@@ -153,7 +146,7 @@ public class Controlador implements ActionListener{
             if (usuarioRegistrado) {
                 vistaRegistro.getFrame().dispose();
                 login();
-                GlassPanePopup.showPopup(new DialogoPrueba("Cuenta Creada", "Cuenta creada con éxito \nInicie sesión para poder navegar \npor el sistema."));
+                GlassPanePopup.showPopup(new DialogoAvisos("Cuenta Creada", "Cuenta creada con éxito \nInicie sesión para poder navegar \npor el sistema."));
             }
         } else {
             metodos.registroNoValido(vistaRegistro.getNombre(), vistaRegistro.getApellidos(), vistaRegistro.getTxtCorreo(), vistaRegistro.getTxtContrasenia(), vistaRegistro.getConfirmarContrasenia(), nuevoModelo.isRegistrado(), new String(vistaRegistro.getTxtContrasenia().getPassword()), new String(vistaRegistro.getConfirmarContrasenia().getPassword()), nuevoModelo.getHayRegistro());
@@ -168,23 +161,19 @@ public class Controlador implements ActionListener{
 		
 		// Acciones Login - Registro
 		case "Iniciar":
-			// System.out.println("Hola");
 			accionLogin();
-//			nuevaVista.getFrame().dispose();
-//			panelPrincipal();
 			break;
 		case "Crear Cuenta":
 			accionRegistro();
 			break;
+			
 		// Acciones Registro
 		case "Registrarse":
-			// System.out.println("Registro");
 			nuevaVista.getFrame().dispose();
 			registro();
 			nuevoModelo.setHayRegistro(0);
 			break;
 		case "Iniciar Sesion":
-			// System.out.println("Hola");
 			vistaRegistro.getFrame().dispose();
 			login();
 			break;

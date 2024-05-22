@@ -3,13 +3,8 @@ package vista.AccionesListeners;
 import java.awt.Color;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import javax.swing.JOptionPane;
-import javax.swing.Popup;
-import javax.swing.SwingUtilities;
-
 import raven.glasspanepopup.GlassPanePopup;
-import vista.componentes.DialogoPrueba;
+import vista.componentes.DialogoAvisos;
 import vista.recursos.componentesPersonalizados.*;
 
 public class MetodosLog_Reg {
@@ -36,7 +31,7 @@ public class MetodosLog_Reg {
 				passwordField.setColorB(new Color(217,0,30));
 				passwordField.repaint();
 			}
-			GlassPanePopup.showPopup(new DialogoPrueba("Campos vacios", "Por favor, rellene los campos antes de continuar."));
+			GlassPanePopup.showPopup(new DialogoAvisos("Campos vacios", "Rellene los campos para poder\ncontinuar con el inicio de sesión."));
 			return false;
 		}
 		return true;
@@ -48,7 +43,7 @@ public class MetodosLog_Reg {
 			txtCorreo.repaint();
 			passwordField.setColorB(new Color(217, 0, 30));
 			passwordField.repaint();
-			GlassPanePopup.showPopup(new DialogoPrueba("Datos invalidos", "Revise su información, si no tiene   una cuenta, puede crearla."));
+			GlassPanePopup.showPopup(new DialogoAvisos("Datos invalidos", "Revise su información, si no tiene   una cuenta, puede crearla."));
 		}
 		
 	}
@@ -98,7 +93,7 @@ public class MetodosLog_Reg {
 				confirmarContrasenia.repaint();
 			}
 			// JOptionPane.showMessageDialog(null, "Hay Campos Vacios", "Rellene los campos", JOptionPane.ERROR_MESSAGE);
-			GlassPanePopup.showPopup(new DialogoPrueba("Campos vacios", "Por favor, rellene los campos antes de continuar."));
+			GlassPanePopup.showPopup(new DialogoAvisos("Campos vacios", "Rellene los campos para poder\ncontinuar con el registro."));
 			return false;
 		}
 		
@@ -115,7 +110,7 @@ public class MetodosLog_Reg {
 				confirmarContrasenia.setColorB(new Color(217,0,30));
 				confirmarContrasenia.repaint();
 			}
-			GlassPanePopup.showPopup(new DialogoPrueba("Error", "Su contraseña es demasiado corta \ningrese una mayor a 8 caracteres."));
+			GlassPanePopup.showPopup(new DialogoAvisos("Error", "Su contraseña es demasiado corta \ningrese una mayor a 8 caracteres."));
 			return false;
 			}
 		}
@@ -125,7 +120,7 @@ public class MetodosLog_Reg {
 				registrarContrasenia.repaint();
 				confirmarContrasenia.setColorB(new Color(217,0,30));
 				confirmarContrasenia.repaint();
-				GlassPanePopup.showPopup(new DialogoPrueba("Error", "Las contraseñas no coinciden \nRevise sus contraseñas."));
+				GlassPanePopup.showPopup(new DialogoAvisos("Error", "Las contraseñas no coinciden \nRevise sus contraseñas."));
 				return false;
 			}
 		
@@ -133,7 +128,7 @@ public class MetodosLog_Reg {
 //				System.out.println("El correo no es valido");
 				txtCorreo.setColorB(new Color(217,0,30));
 				txtCorreo.repaint();
-				GlassPanePopup.showPopup(new DialogoPrueba("Error", "Revise su correo electronico e \ningrese uno que sea valido."));
+				GlassPanePopup.showPopup(new DialogoAvisos("Error", "Revise su correo electronico e \ningrese uno que sea valido."));
 				return false;
 			}
 		
@@ -145,9 +140,9 @@ public class MetodosLog_Reg {
 		if(estadoRegistro){
 		txtCorreo.setColorB(new Color(217,0,30));
 		txtCorreo.repaint();
-		GlassPanePopup.showPopup(new DialogoPrueba("Correo en uso", "Ya existe una cuenta con esa \ndirección de correo electronico."));
+		GlassPanePopup.showPopup(new DialogoAvisos("Correo en uso", "Ya existe una cuenta con esa \ndirección de correo electronico."));
 		}else if(sepudocrear == 1){
-			GlassPanePopup.showPopup(new DialogoPrueba("Cuenta Creada", "Cuenta creada con éxito \nInicie sesión para poder navegar \n por el sistema."));
+			GlassPanePopup.showPopup(new DialogoAvisos("Cuenta Creada", "Cuenta creada con éxito \nInicie sesión para poder navegar \n por el sistema."));
 		}
 	}
 	

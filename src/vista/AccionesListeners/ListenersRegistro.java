@@ -138,9 +138,6 @@ public class ListenersRegistro implements ActionListener, FocusListener, MouseLi
 		
 		@Override
 		public void mousePressed(MouseEvent e) {
-			if(e.getSource().equals(nuevaVista.getBoton())) {
-				nuevaVista.getBoton().setForeground(Color.WHITE);
-			}
 			if(e.getSource().equals(nuevaVista.getBotonIniciarSesion())){
 				nuevaVista.getBotonIniciarSesion().setForeground(new Color(0,0,0,64));
 			}
@@ -148,9 +145,6 @@ public class ListenersRegistro implements ActionListener, FocusListener, MouseLi
 		
 		@Override
 		public void mouseReleased(MouseEvent e) {
-			if(e.getSource().equals(nuevaVista.getBoton())) {
-				nuevaVista.getBoton().setForeground(Color.LIGHT_GRAY);
-			}
 			if(e.getSource().equals(nuevaVista.getBotonIniciarSesion())){
 				nuevaVista.getBotonIniciarSesion().setForeground(new Color(0,0,0,64));
 			}
@@ -158,9 +152,6 @@ public class ListenersRegistro implements ActionListener, FocusListener, MouseLi
 		
 		@Override
 		public void mouseEntered(MouseEvent e) {
-			if(e.getSource().equals(nuevaVista.getBoton())) {
-				nuevaVista.getBoton().setForeground(Color.LIGHT_GRAY);
-			}
 			if(e.getSource().equals(nuevaVista.getBotonIniciarSesion())){
 				nuevaVista.getBotonIniciarSesion().setForeground(new Color(0,0,0,95));
 			}
@@ -168,9 +159,6 @@ public class ListenersRegistro implements ActionListener, FocusListener, MouseLi
 		
 		@Override
 		public void mouseExited(MouseEvent e) {
-			if(e.getSource().equals(nuevaVista.getBoton())) {
-				nuevaVista.getBoton().setForeground(Color.WHITE);
-			}
 			if(e.getSource().equals(nuevaVista.getBotonIniciarSesion())){
 				nuevaVista.getBotonIniciarSesion().setForeground(new Color(0,0,0,64));
 			}

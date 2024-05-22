@@ -11,7 +11,7 @@ import vista.recursos.componentesPersonalizados.*;
 
 public class VistaRegistro {
 	JFrame frame = new JFrame();
-	private JButton boton;
+	private BtnBordeado boton;
 	private RoundJTextField nombre;
 	private RoundJTextField apellidos;
 	private RoundJTextField txtCorreo;
@@ -30,7 +30,7 @@ public class VistaRegistro {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setBackground(Color.gray);
 		
-		boton = new RoundedBorder(35);
+		boton = new BtnBordeado(38, true);
 		passCheckBox = new JCheckBox();
 		passCheckBox2 = new JCheckBox();
 		nombre = new RoundJTextField(35, 35);
@@ -250,7 +250,7 @@ public class VistaRegistro {
 	public JCheckBox getPassCheckBox() {
 		return passCheckBox;
 	}
-	public JButton getBoton() {
+	public BtnBordeado getBoton() {
 		return boton;
 	}
 	public JButton getBotonIniciarSesion() {
@@ -285,7 +285,7 @@ public class VistaRegistro {
 	public void setPassCheckBox(JCheckBox passCheckBox) {
 		this.passCheckBox = passCheckBox;
 	}
-	public void setBoton(JButton boton) {
+	public void setBoton(BtnBordeado boton) {
 		this.boton = boton;
 	}
 	public void setBotonIniciarSesion(JButton botonRegistrar) {

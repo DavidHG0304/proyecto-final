@@ -16,9 +16,10 @@ import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 
 import modelo.entidades.Vehiculo;
-import vista.recursos.componentesPersonalizados.RoundedBorder;
+import vista.recursos.componentesPersonalizados.BtnBordeado;
 import vista.recursos.componentesPersonalizados.RoundedPanel;
 
+@SuppressWarnings("serial")
 public class CartasCarros extends RoundedPanel{
 	private JLabel lblImgCarro;
 	
@@ -120,7 +121,7 @@ public class CartasCarros extends RoundedPanel{
 		lblflechaIcono.setBounds(175, 289, 14, 14);
 		add(lblflechaIcono);
 		
-		RoundedBorder btnRentar = new RoundedBorder(225, false, Color.GRAY);
+		JButton btnRentar = new JButton();
 		btnRentar.setText("Rentar");
 		btnRentar.setHorizontalAlignment(SwingConstants.LEFT);
 		btnRentar.setOpaque(false);
@@ -216,19 +217,13 @@ public class CartasCarros extends RoundedPanel{
 		lblPuertas.setBounds(125, 69, 59, 14);
 		panel.add(lblPuertas);
 		
-		RoundedBorder btnDetalles = new RoundedBorder(15, false, new Color(0,0,0,42));
+		
+		BtnBordeado btnDetalles = new BtnBordeado(20, false, true, new Color(0,0,0,100));
 		btnDetalles.setText("Detalles");
-		btnDetalles.setOpaque(false);
-		btnDetalles.setForeground(new Color(0, 0, 0));
 		btnDetalles.setFont(new Font("Inter", Font.BOLD, 10));
-		btnDetalles.setFocusPainted(false);
-		btnDetalles.setBorderPainted(false);
 		btnDetalles.setBackground(Color.WHITE);
 		btnDetalles.setBounds(40, 90, 104, 18);
 		panel.add(btnDetalles);
-		
-		//            URL imageUrl = new URL(vehiculo.getImagenUrl());
-		//            ImageIcon imageIcon = new ImageIcon(imageUrl);
 	}
 
 }

@@ -1,14 +1,10 @@
 package vista.componentes;
-
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.RenderingHints;
-import java.awt.event.ActionListener;
-
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -16,15 +12,16 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
-import vista.recursos.componentesPersonalizados.RoundedBorder;
+import vista.recursos.componentesPersonalizados.BtnBordeado;
 import vista.recursos.componentesPersonalizados.RoundedPanel;
 
+@SuppressWarnings("serial")
 public class PanelesNavegacion extends JPanel{
 	
 	private JButton btnInicio;
 	private JPanel lblCargandoGif;
-	private RoundedBorder btnCerrarSesion;
-	private RoundedBorder btnAgregar;
+	private BtnBordeado btnCerrarSesion;
+	private BtnBordeado btnAgregar;
 	private JButton btnClientes;
 	private JButton btnVehiculos;
 	private JButton btnRentas;
@@ -43,8 +40,8 @@ public class PanelesNavegacion extends JPanel{
 		panelCentral = new RoundedPanel(30);
 		
 		btnInicio = new JButton("Inicio");
-		btnCerrarSesion = new RoundedBorder(20, false); 
-		btnAgregar = new RoundedBorder(20, false);
+		btnCerrarSesion = new BtnBordeado(20, false); 
+		btnAgregar = new BtnBordeado(20, false);
 		btnClientes = new JButton();
 		btnVehiculos = new JButton();
 		btnRentas = new JButton();
@@ -184,16 +181,16 @@ public class PanelesNavegacion extends JPanel{
 	public void setBtnInicio(JButton btnInicio) {
 		this.btnInicio = btnInicio;
 	}
-	public RoundedBorder getBtnCerrarSesion() {
+	public BtnBordeado getBtnCerrarSesion() {
 		return btnCerrarSesion;
 	}
-	public void setBtnCerrarSesion(RoundedBorder btnCerrarSesion) {
+	public void setBtnCerrarSesion(BtnBordeado btnCerrarSesion) {
 		this.btnCerrarSesion = btnCerrarSesion;
 	}
-	public RoundedBorder getBtnAgregar() {
+	public BtnBordeado getBtnAgregar() {
 		return btnAgregar;
 	}
-	public void setBtnagregarAuto(RoundedBorder btnAgregar) {
+	public void setBtnagregarAuto(BtnBordeado btnAgregar) {
 		this.btnAgregar = btnAgregar;
 	}
 	public JButton getBtnClientes() {
@@ -246,7 +243,7 @@ public class PanelesNavegacion extends JPanel{
 	public void setLblCargandoGif(JPanel lblCargandoGif) {
 		this.lblCargandoGif = lblCargandoGif;
 	}
-	public void setBtnAgregar(RoundedBorder btnAgregar) {
+	public void setBtnAgregar(BtnBordeado btnAgregar) {
 		this.btnAgregar = btnAgregar;
 	}
 	public JLabel getLblAniadir() {

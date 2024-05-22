@@ -1,36 +1,24 @@
 package vista;
 
 import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-
 import raven.glasspanepopup.GlassPanePopup;
-import vista.componentes.DialogoPrueba;
-import vista.recursos.componentesPersonalizados.RoundedBorder;
-import vista.recursos.componentesPersonalizados.RoundedPanel;
-import vista.recursos.componentesPersonalizados.SombrasPaneles;
-
-import java.awt.BorderLayout;
-import java.awt.GridLayout;
+import vista.componentes.DialogoAvisos;
 import javax.swing.JLabel;
 import java.awt.Color;
-import java.awt.FlowLayout;
 import javax.swing.JButton;
 import javax.swing.ImageIcon;
 import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
-import javax.swing.Icon;
-import javax.swing.JTable;
 
 public class auxPaneles extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel panelPrincipal;
-	private JTable table;
 
 	/**
 	 * Launch the application.
@@ -90,7 +78,7 @@ public class auxPaneles extends JFrame {
 		btnCerrarSesion.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				GlassPanePopup.showPopup(new DialogoPrueba("Titulo", "Contenido"));
+				GlassPanePopup.showPopup(new DialogoAvisos("Titulo", "Contenido"));
 				
 			}
 		});

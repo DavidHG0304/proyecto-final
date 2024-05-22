@@ -4,8 +4,6 @@ import java.awt.event.*;
 import java.util.ArrayList;
 
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
-
 import modelo.entidades.Vehiculo;
 import vista.componentes.CartasCarros;
 import vista.componentes.PanelesNavegacion;
@@ -13,13 +11,8 @@ import vista.recursos.componentesPersonalizados.*;
 
 public class VistaPanelVehiculos {
 	JFrame frame = new JFrame();
-	private JButton btnInicio = new JButton("Inicio");
-	private RoundedBorder btnCerrarSesion;
-	private RoundedBorder btnagregarAuto;
 //	private JPanel panelPrincipal;
 	private JPanel panelCartasVehiculos;
-	private JPanel lblCargandoGif;
-	private RoundedPanel panelCentral;
 	
 	
 	private PanelesNavegacion panel;
@@ -32,9 +25,6 @@ public class VistaPanelVehiculos {
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setBackground(Color.gray);
-		btnInicio = new JButton("Inicio");
-		btnCerrarSesion = new RoundedBorder(20, false); 
-		btnagregarAuto = new RoundedBorder(20, false);
 	}
 	
 	public void panelVehiculos() {

@@ -2,16 +2,21 @@ package vista.AccionesListeners;
 
 import java.awt.Color;
 import java.awt.event.*;
-
 import javax.swing.ImageIcon;
-
-import raven.glasspanepopup.GlassPanePopup;
 import vista.Vista;
-import vista.componentes.DialogoPrueba;
 
-public class ListenersLogin  implements ActionListener, FocusListener{
+public class ListenersLogin  implements ActionListener, FocusListener, MouseListener{
 	
 	public Vista nuevaVista;
+	private boolean botonPresionado;
+
+	public boolean isBotonPresionado() {
+		return botonPresionado;
+	}
+
+	public void setBotonPresionado(boolean botonPresionado) {
+		this.botonPresionado = botonPresionado;
+	}
 
 	public ListenersLogin (Vista vista){
 		this.nuevaVista = vista;
@@ -20,7 +25,7 @@ public class ListenersLogin  implements ActionListener, FocusListener{
 
 	public void asignarListeners() {
 		nuevaVista.asignarFocusListener(this);
-//		nuevaVista.asignarMouseClicked(this);
+		nuevaVista.asignarMouseClicked(this);
 		nuevaVista.asignarActListnerCheckBox(this);
 	}
 
@@ -87,53 +92,36 @@ public class ListenersLogin  implements ActionListener, FocusListener{
 	}
 
 	// Metodos MouseListener
-//	@Override
-//	public void mouseClicked(MouseEvent e) {
-//		// TODO Auto-generated method stub
-//	}
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+	}
 
-//	@Override
-//	public void mousePressed(MouseEvent e) {
-//		// TODO Auto-generated method stub
-//		if (e.getSource().equals(nuevaVista.getBoton())) {
-//			nuevaVista.getBoton().setForeground(Color.WHITE);
-//		}
-//		if (e.getSource().equals(nuevaVista.getBotonRegistrar())) {
-//			nuevaVista.getBotonRegistrar().setForeground(new Color(0, 0, 0, 64));
-//		}
-//	}
-//
-//	@Override
-//	public void mouseReleased(MouseEvent e) {
-//		// TODO Auto-generated method stub
-//		if (e.getSource().equals(nuevaVista.getBoton())) {
-//			nuevaVista.getBoton().setForeground(Color.LIGHT_GRAY);
-//		}
-//		if (e.getSource().equals(nuevaVista.getBotonRegistrar())) {
-//			nuevaVista.getBotonRegistrar().setForeground(new Color(0, 0, 0, 64));
-//		}
-//	}
-//
-//	@Override
-//	public void mouseEntered(MouseEvent e) {
-//		// TODO Auto-generated method stub
-//
-//		if (e.getSource().equals(nuevaVista.getBoton())) {
-//			nuevaVista.getBoton().setForeground(Color.LIGHT_GRAY);
-//		}
-//		if (e.getSource().equals(nuevaVista.getBotonRegistrar())) {
-//			nuevaVista.getBotonRegistrar().setForeground(new Color(0, 0, 0, 95));
-//		}
-//	}
-//
-//	@Override
-//	public void mouseExited(MouseEvent e) {
-//		// TODO Auto-generated method stub
-//		if (e.getSource().equals(nuevaVista.getBoton())) {
-//			nuevaVista.getBoton().setForeground(Color.WHITE);
-//		}
-//		if (e.getSource().equals(nuevaVista.getBotonRegistrar())) {
-//			nuevaVista.getBotonRegistrar().setForeground(new Color(0, 0, 0, 64));
-//		}
-//	}
+	@Override
+	public void mousePressed(MouseEvent e) {
+		if (e.getSource().equals(nuevaVista.getBotonRegistrar())) {
+			nuevaVista.getBotonRegistrar().setForeground(new Color(0, 0, 0, 64));
+		}
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		if (e.getSource().equals(nuevaVista.getBotonRegistrar())) {
+			nuevaVista.getBotonRegistrar().setForeground(new Color(0, 0, 0, 64));
+		}
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		if (e.getSource().equals(nuevaVista.getBotonRegistrar())) {
+			nuevaVista.getBotonRegistrar().setForeground(new Color(0, 0, 0, 95));
+		}
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		if (e.getSource().equals(nuevaVista.getBotonRegistrar())) {
+			nuevaVista.getBotonRegistrar().setForeground(new Color(0, 0, 0, 64));
+		}
+	}
 }

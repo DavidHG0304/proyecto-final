@@ -8,12 +8,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-
 import javax.swing.JOptionPane;
-import javax.swing.SwingUtilities;
-
 import modelo.entidades.Vehiculo;
-import vista.componentes.CartasCarros;
 
 
 //Aqui se haran todas las validaciones para poder hacer las acciones en base a la base

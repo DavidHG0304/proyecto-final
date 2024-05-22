@@ -1,23 +1,16 @@
 package vista;
 
 import javax.swing.*;
-import javax.swing.text.html.ImageView;
-
-import com.formdev.flatlaf.FlatIntelliJLaf;
-import com.formdev.flatlaf.FlatLightLaf;
-
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.font.TextAttribute;
 import java.util.HashMap;
 import java.util.Map;
-
-
 import vista.recursos.componentesPersonalizados.*;
 
 public class Vista {
 	private JFrame frame;
-	private RoundedBorder boton;
+	private BtnBordeado boton;
 	private RoundJTextField txtCorreo;
 	private RoundJPasswordField txtContrasenia;
 	private JCheckBox passCheckBox;
@@ -36,7 +29,7 @@ public class Vista {
 		passCheckBox = new JCheckBox();
 		txtCorreo = new RoundJTextField(35, 35);
 		txtContrasenia = new RoundJPasswordField(35, 35);
-		boton = new RoundedBorder(35, true);
+		boton = new BtnBordeado(38, true);
 		botonRegistrar = new JButton("Registrarse");
 	}
 	
@@ -106,11 +99,13 @@ public class Vista {
 		boton.setFont(new Font("Inter", Font.PLAIN, 24));
 		boton.setBounds(100, 490, 250, 40);
 		boton.setBackground(new Color(33, 147, 246));
-		boton.setFocusPainted(false);
-		boton.setBorderPainted(false);
-		boton.setContentAreaFilled(false);
-		boton.setFocusPainted(false);
 		panelIzquierda.add(boton);
+		
+//		BtnBordeado testbtn = new BtnBordeado(26, false, true, new Color(0,0,0,100));
+//		testbtn.setText("Hola");
+//		testbtn.setBounds(200, 200, 97, 20);
+//		panelIzquierda.add(testbtn);
+		
 		
 		// lbl Iniciar sesion
 		JLabel lblIniciarSesion = new JLabel("Iniciar Sesión");
@@ -185,6 +180,7 @@ public class Vista {
 		botonRegistrar.setBorderPainted(false);
 		botonRegistrar.setContentAreaFilled(false);
 		
+		
 		panelIzquierda.add(botonRegistrar);
 		// AsignarActionListener a botones
 		frame.revalidate();
@@ -208,10 +204,10 @@ public class Vista {
 		txtContrasenia.addFocusListener(fListener);
 	}
 	
-//	public void asignarMouseClicked(MouseListener mListener) {
-//		boton.addMouseListener(mListener);
-//		botonRegistrar.addMouseListener(mListener);
-//	}
+	public void asignarMouseClicked(MouseListener mListener) {
+		boton.addMouseListener(mListener);
+		botonRegistrar.addMouseListener(mListener);
+	}
 	
 	// Getters
 	public RoundJTextField getTxtCorreo() {
@@ -226,7 +222,7 @@ public class Vista {
 	public JCheckBox getPassCheckBox() {
 		return passCheckBox;
 	}
-	public JButton getBoton() {
+	public BtnBordeado getBoton() {
 		return boton;
 	}
 	public JButton getBotonRegistrar() {
@@ -246,7 +242,7 @@ public class Vista {
 	public void setPassCheckBox(JCheckBox passCheckBox) {
 		this.passCheckBox = passCheckBox;
 	}
-	public void setBoton(RoundedBorder boton) {
+	public void setBoton(BtnBordeado boton) {
 		this.boton = boton;
 	}
 	public void setBotonRegistrar(JButton botonRegistrar) {
