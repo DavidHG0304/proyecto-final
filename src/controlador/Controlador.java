@@ -24,6 +24,7 @@ import vista.VistaRegistro;
 import vista.AccionesListeners.ListenersLogin;
 import vista.AccionesListeners.ListenersRegistro;
 import vista.AccionesListeners.MetodosLog_Reg;
+import vista.componentes.DialogoPrueba;
 import vista.componentes.PanelesNavegacion;
 
 
@@ -137,6 +138,7 @@ public class Controlador implements ActionListener{
             sesionIniciada = nuevoModelo.accionLogin(nuevaVista.getTxtCorreo().getText(), new String(nuevaVista.getTxtContrasenia().getPassword()));
             if (sesionIniciada) {
                 nuevaVista.getFrame().dispose();
+                GlassPanePopup.showPopup(new DialogoPrueba("Inicio Correcto", "Inicio de sesión correcto \nYa puede navegar \npor el sistema."));
                 panelPrincipal();
             } else {
                 metodos.loginNoValido(new String(nuevaVista.getTxtContrasenia().getPassword()), nuevaVista.getTxtCorreo(), nuevaVista.getTxtContrasenia(), nuevoModelo.isRegistroEncontrado());
@@ -151,9 +153,10 @@ public class Controlador implements ActionListener{
             if (usuarioRegistrado) {
                 vistaRegistro.getFrame().dispose();
                 login();
+                GlassPanePopup.showPopup(new DialogoPrueba("Cuenta Creada", "Cuenta creada con éxito \nInicie sesión para poder navegar \npor el sistema."));
             }
         } else {
-            metodos.registroNoValido(vistaRegistro.getNombre(), vistaRegistro.getApellidos(), vistaRegistro.getTxtCorreo(), vistaRegistro.getTxtContrasenia(), vistaRegistro.getConfirmarContrasenia(), nuevoModelo.isRegistrado(), new String(vistaRegistro.getTxtContrasenia().getPassword()), new String(vistaRegistro.getConfirmarContrasenia().getPassword()));
+            metodos.registroNoValido(vistaRegistro.getNombre(), vistaRegistro.getApellidos(), vistaRegistro.getTxtCorreo(), vistaRegistro.getTxtContrasenia(), vistaRegistro.getConfirmarContrasenia(), nuevoModelo.isRegistrado(), new String(vistaRegistro.getTxtContrasenia().getPassword()), new String(vistaRegistro.getConfirmarContrasenia().getPassword()), nuevoModelo.getHayRegistro());
         }
     }
 	

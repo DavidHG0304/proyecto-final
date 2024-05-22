@@ -95,8 +95,8 @@ public class Modelo {
 			
 			int x = st.executeUpdate(query);
 			if(x != 0) {
-				JOptionPane.showMessageDialog(null, "Cuenta creada con exito");
 				registrado = false;
+				hayRegistro = 1;
 				return true;
 			}
 			JOptionPane.showMessageDialog(null, "No se pudo crear la cuenta");
@@ -106,6 +106,7 @@ public class Modelo {
 			registrado = true;
 			exception.printStackTrace();
         }
+		hayRegistro = 0;
 		return false;
 	}
 	

@@ -141,11 +141,13 @@ public class MetodosLog_Reg {
 		return true;
 	}
 	
-	public void registroNoValido(RoundJTextField nombreUsuario, RoundJTextField apellidoUsuario, RoundJTextField txtCorreo, RoundJPasswordField registrarContrasenia, RoundJPasswordField confirmarContrasenia, boolean estadoRegistro, String contrasenia, String confirContrasenia) {
+	public void registroNoValido(RoundJTextField nombreUsuario, RoundJTextField apellidoUsuario, RoundJTextField txtCorreo, RoundJPasswordField registrarContrasenia, RoundJPasswordField confirmarContrasenia, boolean estadoRegistro, String contrasenia, String confirContrasenia, int sepudocrear) {
 		if(estadoRegistro){
 		txtCorreo.setColorB(new Color(217,0,30));
 		txtCorreo.repaint();
 		GlassPanePopup.showPopup(new DialogoPrueba("Correo en uso", "Ya existe una cuenta con esa \ndirección de correo electronico."));
+		}else if(sepudocrear == 1){
+			GlassPanePopup.showPopup(new DialogoPrueba("Cuenta Creada", "Cuenta creada con éxito \nInicie sesión para poder navegar \n por el sistema."));
 		}
 	}
 	
