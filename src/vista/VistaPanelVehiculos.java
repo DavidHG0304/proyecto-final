@@ -48,6 +48,7 @@ public class VistaPanelVehiculos {
 		panel.getBtnInicio().setActionCommand("Inicio pVehiculos");
 		panel.getBtnClientes().setActionCommand("Clientes pVehiculos");
 		panel.getBtnCerrarSesion().setActionCommand("Cerrar Sesión pVehiculos");
+		panel.getBtnAgregar().setActionCommand("AgregarVehiculo");
 		
 		panelCartasVehiculos = new JPanel();
 		panelCartasVehiculos.setBounds(10, 170, 894, 360);
@@ -88,6 +89,7 @@ public class VistaPanelVehiculos {
 		panel.getBtnRentas().addActionListener(listener);
 		panel.getBtnCategorias().addActionListener(listener);
 		panel.getBtnMarcas().addActionListener(listener);
+		panel.getBtnAgregar().addActionListener(listener);
 	}
 	
 	public void asignarListenersCartas(ActionListener listener) {
@@ -98,6 +100,7 @@ public class VistaPanelVehiculos {
                 carta.getBntInfoIcono().addActionListener(listener);
                 carta.getLbleditarIcono().addActionListener(listener);
                 carta.getBtnRentar().addActionListener(listener);
+                carta.getBtnDetalles().addActionListener(listener);
             }
         }
     }

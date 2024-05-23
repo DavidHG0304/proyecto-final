@@ -33,6 +33,7 @@ public class CartasCarros extends RoundedPanel{
 	private JButton lbleditarIcono;
     private JButton btnRentar;
     private JButton lblBorrarIcono;
+    private BtnBordeado btnDetalles;
     
 	
 	
@@ -47,6 +48,14 @@ public class CartasCarros extends RoundedPanel{
         componentes(vehiculo);
     }
 	
+	public BtnBordeado getBtnDetalles() {
+		return btnDetalles;
+	}
+	
+	public void setBtnDetalles(BtnBordeado btnDetalles) {
+		this.btnDetalles = btnDetalles;
+	}
+
 	public JButton getBntInfoIcono() {
 		return bntInfoIcono;
 	}
@@ -170,7 +179,6 @@ public class CartasCarros extends RoundedPanel{
 		
 		btnRentar = new JButton();
 		btnRentar.setText("Rentar");
-		btnRentar.setActionCommand("Rentar Vehiculo");
 		btnRentar.setHorizontalAlignment(SwingConstants.LEFT);
 		btnRentar.setOpaque(false);
 		btnRentar.setForeground(new Color(33, 147, 246));
@@ -267,7 +275,7 @@ public class CartasCarros extends RoundedPanel{
 		panel.add(lblPuertas);
 		
 		
-		BtnBordeado btnDetalles = new BtnBordeado(20, false, true, new Color(0,0,0,100));
+		btnDetalles = new BtnBordeado(20, false, true, new Color(0,0,0,100));
 		btnDetalles.setText("Detalles");
 		btnDetalles.setFont(new Font("Inter", Font.BOLD, 10));
 		btnDetalles.setBackground(Color.WHITE);

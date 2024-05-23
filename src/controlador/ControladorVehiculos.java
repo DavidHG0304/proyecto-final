@@ -13,8 +13,11 @@ import vista.VistaPanelVehiculoAccion;
 import vista.VistaPanelVehiculos;
 import vista.componentes.CartasCarros;
 import vista.componentes.DialogoAvisos;
+import vista.componentes.DialogoConfirmacion;
+import vista.componentes.DialogoDetalles;
 import vista.componentes.DialogoEmergentes;
 import vista.componentes.DialogoRentar;
+import vista.componentes.DialogoAniadir;
 
 public class ControladorVehiculos implements ActionListener{
 	
@@ -89,6 +92,8 @@ public class ControladorVehiculos implements ActionListener{
 			controlador.login();
 			controlador.nuevoModelo.setRegistroEncontrado(false);
 			break;
+			
+			
 		case "Info pVehiculo":
 			Vehiculos vehiculo = new Vehiculos();
 			System.out.println("Info");
@@ -97,16 +102,23 @@ public class ControladorVehiculos implements ActionListener{
 		case "Borrar Vehiculo":
 			System.out.println("Borrar");
 			//GlassPanePopup.showPopup(new DialogoAvisos("Campos vacios", "Rellene los campos para poder\ncontinuar con el inicio de sesión."));GlassPanePopup.showPopup(new DialogoAvisos("Campos vacios", "Rellene los campos para poder\ncontinuar con el inicio de sesión."));
+			GlassPanePopup.showPopup(new DialogoConfirmacion("¿Estas seguro de querer \neliminar el auto?", ""));
 			break;
-		case "Rentar Vehiculo":
-			System.out.println("Rentar");
+		case "Rentar":
+//			GlassPanePopup.showPopup(new DialogoAvisos("Test", "Lorem ipsum mortem"));
 //			GlassPanePopup.showPopup(new DialogoEmergentes("NULL", "Rellene los campos para poder\ncontinuar con el inicio de sesión."));GlassPanePopup.showPopup(new DialogoAvisos("Campos vacios", "Rellene los campos para poder\ncontinuar con el inicio de sesión."));
-			GlassPanePopup.showPopup(new DialogoRentar("Crear vehiculo"));
+			GlassPanePopup.showPopup(new DialogoRentar("Test"));
 			break;
 		case "Editar Vehiculo":
 			System.out.println("Editar");
 			//GlassPanePopup.showPopup(new DialogoAvisos("Campos vacios", "Rellene los campos para poder\ncontinuar con el inicio de sesión."));GlassPanePopup.showPopup(new DialogoAvisos("Campos vacios", "Rellene los campos para poder\ncontinuar con el inicio de sesión."));
-			GlassPanePopup.showPopup(new DialogoRentar("Editar vehiculo"));
+			GlassPanePopup.showPopup(new DialogoAniadir("Editar vehiculo"));
+			break;
+		case "AgregarVehiculo":
+			GlassPanePopup.showPopup(new DialogoAniadir("Crear vehiculo"));
+			break;
+		case "Detalles":
+			GlassPanePopup.showPopup(new DialogoDetalles("Test"));
 			break;
 		}	
 	}

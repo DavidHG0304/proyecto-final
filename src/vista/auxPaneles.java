@@ -6,6 +6,8 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import raven.glasspanepopup.GlassPanePopup;
 import vista.componentes.DialogoAvisos;
+import vista.recursos.componentesPersonalizados.RoundedPanel;
+
 import javax.swing.JLabel;
 import java.awt.Color;
 import javax.swing.JButton;
@@ -157,155 +159,155 @@ public class auxPaneles extends JFrame {
 		
 		
 		// Carta de Carros
-//		RoundedPanel cartasCarros = new RoundedPanel(30, false, true, new Color(0,0,0,61), 6);
-//		cartasCarros.setBackground(new Color(255, 255, 255));
-//		cartasCarros.setBounds(10, 187, 208, 317);
-//		panelCentral.add(cartasCarros);
-//		cartasCarros.setLayout(null);
-//		
-//		JPanel panelImgCarro = new JPanel();
-//		panelImgCarro.setBounds(8, 22, 188, 140);
-//		cartasCarros.add(panelImgCarro);
-//		panelImgCarro.setLayout(null);
-//		
-//		ImageIcon imageIcon = new ImageIcon(getClass().getResource("/vista/recursos/imagenes/blazerG.png"));
-//		JLabel lblImgCarro = new JLabel(imageIcon);
-//		lblImgCarro.setHorizontalAlignment(SwingConstants.CENTER);
-//		lblImgCarro.setBounds(0, 0, 187, 140);
-//		panelImgCarro.add(lblImgCarro);
-//		
-//		ImageIcon borrarIcono = new ImageIcon(getClass().getResource("/vista/recursos/imagenes/eliminar.png"));
-//		JButton lblBorrarIcono = new JButton(borrarIcono);
-//		lblBorrarIcono.setOpaque(false);
-//		lblBorrarIcono.setBorderPainted(false);
-//		lblBorrarIcono.setFocusPainted(false);
-//		lblBorrarIcono.setBackground(Color.WHITE);
-//		lblBorrarIcono.setBounds(184, 5, 14, 14);
-//		cartasCarros.add(lblBorrarIcono);
-//		
-//		ImageIcon editarIcono = new ImageIcon(getClass().getResource("/vista/recursos/imagenes/editar.png"));
-//		JButton lbleditarIcono = new JButton(editarIcono);
-//		lbleditarIcono.setOpaque(false);
-//		lbleditarIcono.setBorderPainted(false);
-//		lbleditarIcono.setFocusPainted(false);
-//		lbleditarIcono.setBackground(Color.WHITE);
-//		lbleditarIcono.setBounds(10, 5, 14, 14);
-//		cartasCarros.add(lbleditarIcono);
-//		
-//		JLabel lblLinea = new JLabel("");
-//		lblLinea.setOpaque(true);
-//		lblLinea.setBackground(new Color(0,0,0,61));
-//		lblLinea.setBounds(0, 281, 202, 1);
-//		cartasCarros.add(lblLinea);
-//		
-//		JLabel lblCosto = new JLabel("$99,999");
-//		lblCosto.setFont(new Font("Inter", Font.BOLD, 11));
-//		lblCosto.setBounds(10, 288, 55, 14);
-//		cartasCarros.add(lblCosto);
-//		
-//		JLabel lbldia = new JLabel("/Dia");
-//		lbldia.setFont(new Font("Inter", Font.PLAIN, 10));
-//		lbldia.setBounds(57, 290, 20, 14);
-//		lbldia.setForeground(new Color(0,0,0,86));
-//		cartasCarros.add(lbldia);
-//		
-//		ImageIcon flechaIcono = new ImageIcon(getClass().getResource("/vista/recursos/imagenes/flecha.png"));
-//		JLabel lblflechaIcono = new JLabel(flechaIcono);
-//		lblflechaIcono.setBounds(175, 289, 14, 14);
-//		cartasCarros.add(lblflechaIcono);
-//		
-//		
-//		JButton btnRentar = new JButton("Rentar");
-//		btnRentar.setHorizontalAlignment(SwingConstants.LEFT);
-//		btnRentar.setOpaque(false);
-//		btnRentar.setForeground(new Color(33, 147, 246));
-//		btnRentar.setFont(new Font("Inter", Font.PLAIN, 10));
-//		btnRentar.setFocusPainted(false);
-//		btnRentar.setBorderPainted(false);
-//		btnRentar.setBackground(Color.WHITE);
-//		btnRentar.setBounds(122, 284, 71, 23);
-//		cartasCarros.add(btnRentar);
-//		
-//		JPanel panel = new JPanel();
-//		panel.setBackground(new Color(255, 255, 255));
-//		panel.setBounds(8, 165, 188, 110);
-//		cartasCarros.add(panel);
-//		
-//		ImageIcon infoIcono = new ImageIcon(getClass().getResource("/vista/recursos/imagenes/info.png"));
-//		panel.setLayout(null);
-//		JButton lblInfoIcono = new JButton(infoIcono);
-//		lblInfoIcono.setOpaque(false);
-//		lblInfoIcono.setBorderPainted(false);
-//		lblInfoIcono.setFocusPainted(false);
-//		lblInfoIcono.setBackground(Color.WHITE);
-//		lblInfoIcono.setBounds(170, 5, 14, 14);
-//		panel.add(lblInfoIcono);
-//		
-//		ImageIcon estrellaIcono = new ImageIcon(getClass().getResource("/vista/recursos/imagenes/estrella.png"));
-//		JLabel lblestrellaIcono = new JLabel(estrellaIcono);
-//		lblestrellaIcono.setBounds(5, 5, 14, 14);
-//		panel.add(lblestrellaIcono);
-//		
-//		JLabel lblNombre = new JLabel("Nombre + Marca + Tipo");
-//		lblNombre.setFont(new Font("Inter", Font.BOLD, 11));
-//		lblNombre.setBounds(7, 28, 129, 14);
-//		panel.add(lblNombre);
-//		
-//		JLabel lblEstrellas = new JLabel("4.8");
-//		lblEstrellas.setFont(new Font("Inter", Font.BOLD, 10));
-//		lblEstrellas.setBounds(22, 5, 24, 14);
-//		panel.add(lblEstrellas);
-//		
-//		JLabel lblReseas = new JLabel("(+999 Reseñas)");
-//		lblReseas.setFont(new Font("Inter", Font.PLAIN, 10));
-//		lblReseas.setBounds(42, 5, 80, 14);
-//		lblReseas.setForeground(new Color(0,0,0,86));
-//		panel.add(lblReseas);
-//		
-//		ImageIcon personasIcono = new ImageIcon(getClass().getResource("/vista/recursos/imagenes/persona2.png"));
-//		JLabel lblPersonasIcono = new JLabel(personasIcono);
-//		lblPersonasIcono.setBounds(5, 46, 14, 14);
-//		panel.add(lblPersonasIcono);
-//		
-//		ImageIcon fechaIcono = new ImageIcon(getClass().getResource("/vista/recursos/imagenes/fecha.png"));
-//		JLabel lblFechaIcono = new JLabel(fechaIcono);
-//		lblFechaIcono.setBounds(5, 69, 14, 14);
-//		panel.add(lblFechaIcono);
-//		
-//		JLabel lblPersonas = new JLabel("2");
-//		lblPersonas.setForeground(new Color(0, 0, 0, 86));
-//		lblPersonas.setFont(new Font("Inter", Font.PLAIN, 10));
-//		lblPersonas.setBounds(22, 47, 15, 14);
-//		panel.add(lblPersonas);
-//		
-//		JLabel lblFecha = new JLabel("2022");
-//		lblFecha.setForeground(new Color(0, 0, 0, 86));
-//		lblFecha.setFont(new Font("Inter", Font.PLAIN, 10));
-//		lblFecha.setBounds(22, 69, 30, 14);
-//		panel.add(lblFecha);
-//		
-//		ImageIcon transmisionIcono = new ImageIcon(getClass().getResource("/vista/recursos/imagenes/transmision.png"));
-//		JLabel lbltransmisionIcono = new JLabel(transmisionIcono);
-//		lbltransmisionIcono.setBounds(108, 46, 14, 14);
-//		panel.add(lbltransmisionIcono);
-//		
-//		ImageIcon puertasIcono = new ImageIcon(getClass().getResource("/vista/recursos/imagenes/puertas.png"));
-//		JLabel lblpuertasIcono = new JLabel(puertasIcono);
-//		lblpuertasIcono.setBounds(108, 69, 14, 14);
-//		panel.add(lblpuertasIcono);
-//		
-//		JLabel lblAutomatico = new JLabel("Automatico");
-//		lblAutomatico.setForeground(new Color(0, 0, 0, 86));
-//		lblAutomatico.setFont(new Font("Inter", Font.PLAIN, 10));
-//		lblAutomatico.setBounds(125, 46, 59, 14);
-//		panel.add(lblAutomatico);
-//		
-//		JLabel lblPuertas = new JLabel("2 Puertas");
-//		lblPuertas.setForeground(new Color(0, 0, 0, 86));
-//		lblPuertas.setFont(new Font("Inter", Font.PLAIN, 10));
-//		lblPuertas.setBounds(125, 69, 59, 14);
-//		panel.add(lblPuertas);
-//		
+		RoundedPanel cartasCarros = new RoundedPanel(30, false, true, new Color(0,0,0,61), 6);
+		cartasCarros.setBackground(new Color(255, 255, 255));
+		cartasCarros.setBounds(10, 187, 208, 317);
+		panelCentral.add(cartasCarros);
+		cartasCarros.setLayout(null);
+		
+		JPanel panelImgCarro = new JPanel();
+		panelImgCarro.setBounds(8, 22, 188, 140);
+		cartasCarros.add(panelImgCarro);
+		panelImgCarro.setLayout(null);
+		
+		ImageIcon imageIcon = new ImageIcon(getClass().getResource("/vista/recursos/imagenes/blazerG.png"));
+		JLabel lblImgCarro = new JLabel(imageIcon);
+		lblImgCarro.setHorizontalAlignment(SwingConstants.CENTER);
+		lblImgCarro.setBounds(0, 0, 187, 140);
+		panelImgCarro.add(lblImgCarro);
+		
+		ImageIcon borrarIcono = new ImageIcon(getClass().getResource("/vista/recursos/imagenes/eliminar.png"));
+		JButton lblBorrarIcono = new JButton(borrarIcono);
+		lblBorrarIcono.setOpaque(false);
+		lblBorrarIcono.setBorderPainted(false);
+		lblBorrarIcono.setFocusPainted(false);
+		lblBorrarIcono.setBackground(Color.WHITE);
+		lblBorrarIcono.setBounds(184, 5, 14, 14);
+		cartasCarros.add(lblBorrarIcono);
+		
+		ImageIcon editarIcono = new ImageIcon(getClass().getResource("/vista/recursos/imagenes/editar.png"));
+		JButton lbleditarIcono = new JButton(editarIcono);
+		lbleditarIcono.setOpaque(false);
+		lbleditarIcono.setBorderPainted(false);
+		lbleditarIcono.setFocusPainted(false);
+		lbleditarIcono.setBackground(Color.WHITE);
+		lbleditarIcono.setBounds(10, 5, 14, 14);
+		cartasCarros.add(lbleditarIcono);
+		
+		JLabel lblLinea = new JLabel("");
+		lblLinea.setOpaque(true);
+		lblLinea.setBackground(new Color(0,0,0,61));
+		lblLinea.setBounds(0, 281, 202, 1);
+		cartasCarros.add(lblLinea);
+		
+		JLabel lblCosto = new JLabel("$99,999");
+		lblCosto.setFont(new Font("Inter", Font.BOLD, 11));
+		lblCosto.setBounds(10, 288, 55, 14);
+		cartasCarros.add(lblCosto);
+		
+		JLabel lbldia = new JLabel("/Dia");
+		lbldia.setFont(new Font("Inter", Font.PLAIN, 10));
+		lbldia.setBounds(57, 290, 20, 14);
+		lbldia.setForeground(new Color(0,0,0,86));
+		cartasCarros.add(lbldia);
+		
+		ImageIcon flechaIcono = new ImageIcon(getClass().getResource("/vista/recursos/imagenes/flecha.png"));
+		JLabel lblflechaIcono = new JLabel(flechaIcono);
+		lblflechaIcono.setBounds(175, 289, 14, 14);
+		cartasCarros.add(lblflechaIcono);
+		
+		
+		JButton btnRentar = new JButton("Rentar");
+		btnRentar.setHorizontalAlignment(SwingConstants.LEFT);
+		btnRentar.setOpaque(false);
+		btnRentar.setForeground(new Color(33, 147, 246));
+		btnRentar.setFont(new Font("Inter", Font.PLAIN, 10));
+		btnRentar.setFocusPainted(false);
+		btnRentar.setBorderPainted(false);
+		btnRentar.setBackground(Color.WHITE);
+		btnRentar.setBounds(122, 284, 71, 23);
+		cartasCarros.add(btnRentar);
+		
+		JPanel panel = new JPanel();
+		panel.setBackground(new Color(255, 255, 255));
+		panel.setBounds(8, 165, 188, 110);
+		cartasCarros.add(panel);
+		
+		ImageIcon infoIcono = new ImageIcon(getClass().getResource("/vista/recursos/imagenes/info.png"));
+		panel.setLayout(null);
+		JButton lblInfoIcono = new JButton(infoIcono);
+		lblInfoIcono.setOpaque(false);
+		lblInfoIcono.setBorderPainted(false);
+		lblInfoIcono.setFocusPainted(false);
+		lblInfoIcono.setBackground(Color.WHITE);
+		lblInfoIcono.setBounds(170, 5, 14, 14);
+		panel.add(lblInfoIcono);
+		
+		ImageIcon estrellaIcono = new ImageIcon(getClass().getResource("/vista/recursos/imagenes/estrella.png"));
+		JLabel lblestrellaIcono = new JLabel(estrellaIcono);
+		lblestrellaIcono.setBounds(5, 5, 14, 14);
+		panel.add(lblestrellaIcono);
+		
+		JLabel lblNombre = new JLabel("Nombre + Marca + Tipo");
+		lblNombre.setFont(new Font("Inter", Font.BOLD, 11));
+		lblNombre.setBounds(7, 28, 129, 14);
+		panel.add(lblNombre);
+		
+		JLabel lblEstrellas = new JLabel("4.8");
+		lblEstrellas.setFont(new Font("Inter", Font.BOLD, 10));
+		lblEstrellas.setBounds(22, 5, 24, 14);
+		panel.add(lblEstrellas);
+		
+		JLabel lblReseas = new JLabel("(+999 Reseñas)");
+		lblReseas.setFont(new Font("Inter", Font.PLAIN, 10));
+		lblReseas.setBounds(42, 5, 80, 14);
+		lblReseas.setForeground(new Color(0,0,0,86));
+		panel.add(lblReseas);
+		
+		ImageIcon personasIcono = new ImageIcon(getClass().getResource("/vista/recursos/imagenes/persona2.png"));
+		JLabel lblPersonasIcono = new JLabel(personasIcono);
+		lblPersonasIcono.setBounds(5, 46, 14, 14);
+		panel.add(lblPersonasIcono);
+		
+		ImageIcon fechaIcono = new ImageIcon(getClass().getResource("/vista/recursos/imagenes/fecha.png"));
+		JLabel lblFechaIcono = new JLabel(fechaIcono);
+		lblFechaIcono.setBounds(5, 69, 14, 14);
+		panel.add(lblFechaIcono);
+		
+		JLabel lblPersonas = new JLabel("2");
+		lblPersonas.setForeground(new Color(0, 0, 0, 86));
+		lblPersonas.setFont(new Font("Inter", Font.PLAIN, 10));
+		lblPersonas.setBounds(22, 47, 15, 14);
+		panel.add(lblPersonas);
+		
+		JLabel lblFecha = new JLabel("2022");
+		lblFecha.setForeground(new Color(0, 0, 0, 86));
+		lblFecha.setFont(new Font("Inter", Font.PLAIN, 10));
+		lblFecha.setBounds(22, 69, 30, 14);
+		panel.add(lblFecha);
+		
+		ImageIcon transmisionIcono = new ImageIcon(getClass().getResource("/vista/recursos/imagenes/transmision.png"));
+		JLabel lbltransmisionIcono = new JLabel(transmisionIcono);
+		lbltransmisionIcono.setBounds(108, 46, 14, 14);
+		panel.add(lbltransmisionIcono);
+		
+		ImageIcon puertasIcono = new ImageIcon(getClass().getResource("/vista/recursos/imagenes/puertas.png"));
+		JLabel lblpuertasIcono = new JLabel(puertasIcono);
+		lblpuertasIcono.setBounds(108, 69, 14, 14);
+		panel.add(lblpuertasIcono);
+		
+		JLabel lblAutomatico = new JLabel("Automatico");
+		lblAutomatico.setForeground(new Color(0, 0, 0, 86));
+		lblAutomatico.setFont(new Font("Inter", Font.PLAIN, 10));
+		lblAutomatico.setBounds(125, 46, 59, 14);
+		panel.add(lblAutomatico);
+		
+		JLabel lblPuertas = new JLabel("2 Puertas");
+		lblPuertas.setForeground(new Color(0, 0, 0, 86));
+		lblPuertas.setFont(new Font("Inter", Font.PLAIN, 10));
+		lblPuertas.setBounds(125, 69, 59, 14);
+		panel.add(lblPuertas);
+		
 //		RoundedBorder btnDetalles = new RoundedBorder(15, false, new Color(0,0,0,42));
 //		btnDetalles.setText("Detalles");
 //		btnDetalles.setOpaque(false);

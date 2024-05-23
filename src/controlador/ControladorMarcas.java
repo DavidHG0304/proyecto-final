@@ -3,7 +3,16 @@ package controlador;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import modelo.Modelo;
+import modelo.entidades.Vehiculos;
+import raven.glasspanepopup.GlassPanePopup;
 import vista.VistaPanelMarcas;
+import vista.componentes.DialogoAvisos;
+import vista.componentes.DialogoConfirmacion;
+import vista.componentes.DialogoDetalles;
+import vista.componentes.DialogoEmergentes;
+import vista.componentes.DialogoRentar;
+import vista.componentes.DialogoAniadir;
+import vista.componentes.DialogoAniadirC_M;
 
 public class ControladorMarcas implements ActionListener {
 
@@ -17,6 +26,10 @@ public class ControladorMarcas implements ActionListener {
         this.controlador = controlador;
         panelMarcas.marcas();
         panelMarcas.asignarActListner(this);
+        
+        // Asignar Listener y agregar el componente Popup al frame
+        panelMarcas.asignarListenersCartas(ControladorMarcas.this);
+        GlassPanePopup.install(panelMarcas.getFrame());
     }
 
     @Override
@@ -47,6 +60,36 @@ public class ControladorMarcas implements ActionListener {
                 controlador.login();
                 controlador.getNuevoModelo().setRegistroEncontrado(false);
                 break;
-        }
+                
+            case "EliminarMarca":
+    			GlassPanePopup.showPopup(new DialogoConfirmacion("¿Estas seguro de querer \neliminar la marca?", ""));
+    		break;
+    		case "EditarMarca":
+    			System.out.println("Hola");
+    			GlassPanePopup.showPopup(new DialogoAniadirC_M("Editar nombre de la marca"));
+    		break;
+    		case "Info pVehiculo":
+    			Vehiculos vehiculo = new Vehiculos();
+    			System.out.println("Info");
+    			GlassPanePopup.showPopup(new DialogoEmergentes((vehiculo.getNombreVehiculo()+" "+vehiculo.getModelo()+" - "+vehiculo.getCategoria()),vehiculo.getPuertasVehiculo(),vehiculo.getAñoVehiculo(),vehiculo.getKilometrajeVehiculo(), vehiculo.getTransmision(), vehiculo.isAireAcondicionado(), vehiculo.getImagenUrl()));
+    			break;
+    		case "Borrar Vehiculo":
+    			System.out.println("Borrar");
+    			GlassPanePopup.showPopup(new DialogoConfirmacion("¿Estas seguro de querer \neliminar el auto?", ""));
+    			break;
+    		case "Rentar":
+    			GlassPanePopup.showPopup(new DialogoRentar("Test"));
+    			break;
+    		case "Editar Vehiculo":
+    			System.out.println("Editar");
+    			GlassPanePopup.showPopup(new DialogoAniadir("Editar vehiculo"));
+    			break;
+    		case "Agregar Marca pMarcas":
+    			GlassPanePopup.showPopup(new DialogoAniadirC_M("Nombre de la nueva marca"));
+    			break;
+    		case "Detalles":
+    			GlassPanePopup.showPopup(new DialogoDetalles("Test"));
+    			break;
+    		}	
     }
 }

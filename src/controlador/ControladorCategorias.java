@@ -4,7 +4,16 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import modelo.Modelo;
+import modelo.entidades.Vehiculos;
+import raven.glasspanepopup.GlassPanePopup;
 import vista.VistaPanelCategorias;
+import vista.componentes.DialogoAvisos;
+import vista.componentes.DialogoConfirmacion;
+import vista.componentes.DialogoDetalles;
+import vista.componentes.DialogoEmergentes;
+import vista.componentes.DialogoRentar;
+import vista.componentes.DialogoAniadir;
+import vista.componentes.DialogoAniadirC_M;
 
 public class ControladorCategorias implements ActionListener{
 	
@@ -18,6 +27,10 @@ public class ControladorCategorias implements ActionListener{
         this.controlador = controlador;
         panelCategorias.categorias();
         panelCategorias.asignarActListner(this);
+        
+        
+        panelCategorias.asignarListenersCartas(ControladorCategorias.this);
+        GlassPanePopup.install(panelCategorias.getFrame());
 	}
 	
 	
@@ -51,7 +64,36 @@ public class ControladorCategorias implements ActionListener{
 			controlador.nuevoModelo.setRegistroEncontrado(false);
 			break;
 			
-		}
+		case "EliminarCategoria":
+			GlassPanePopup.showPopup(new DialogoConfirmacion("¿Estas seguro de querer \neliminar la categoria?", ""));
+		break;
+		case "EditarCategoria":
+			System.out.println("Hola");
+			GlassPanePopup.showPopup(new DialogoAniadirC_M("Editar nombre de la categoria"));
+		break;
+		case "Info pVehiculo":
+			Vehiculos vehiculo = new Vehiculos();
+			System.out.println("Info");
+			GlassPanePopup.showPopup(new DialogoEmergentes((vehiculo.getNombreVehiculo()+" "+vehiculo.getModelo()+" - "+vehiculo.getCategoria()),vehiculo.getPuertasVehiculo(),vehiculo.getAñoVehiculo(),vehiculo.getKilometrajeVehiculo(), vehiculo.getTransmision(), vehiculo.isAireAcondicionado(), vehiculo.getImagenUrl()));
+			break;
+		case "Borrar Vehiculo":
+			System.out.println("Borrar");
+			GlassPanePopup.showPopup(new DialogoConfirmacion("¿Estas seguro de querer \neliminar el auto?", ""));
+			break;
+		case "Rentar":
+			GlassPanePopup.showPopup(new DialogoRentar("Test"));
+			break;
+		case "Editar Vehiculo":
+			System.out.println("Editar");
+			GlassPanePopup.showPopup(new DialogoAniadir("Editar vehiculo"));
+			break;
+		case "Agregar Categoria pCategorias":
+			GlassPanePopup.showPopup(new DialogoAniadirC_M("Nombre de la nueva categoria"));
+			break;
+		case "Detalles":
+			GlassPanePopup.showPopup(new DialogoDetalles("Test"));
+			break;
+		}	
 	}
 
 }

@@ -59,6 +59,8 @@ public class VistaPanelClientes {
 		panel.getBtnCategorias().addActionListener(listener);
 		panel.getBtnCerrarSesion().addActionListener(listener);
 	}
+	
+	
 
 	
 	
