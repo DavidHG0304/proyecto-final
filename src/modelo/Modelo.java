@@ -51,7 +51,7 @@ public class Modelo {
 	public boolean accionLogin(String correoElectronico, String contrasenia) {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			Connection con = DriverManager.getConnection("jdbc:mysql://sql.freedb.tech:3306/freedb_registros?useSSL=false","freedb_prueba","#ZKP5mSgzS6Ps&!");
+			Connection con = DriverManager.getConnection("jdbc:mysql://monorail.proxy.rlwy.net:28289/railway?useSSL=false","root","AZsyCwUGzmURenQkgkEOksyBwsWuQBFI");
 			Statement st = con.createStatement();
 			ResultSet rs = st.executeQuery("SELECT * FROM usuarios");
 			
@@ -84,7 +84,7 @@ public class Modelo {
 	public boolean accionRegistro(String nombreUsuario, String apellidoUsuario, String correo, String contrasenia, String confirContrasenia) {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			Connection con = DriverManager.getConnection("jdbc:mysql://sql.freedb.tech:3306/freedb_registros?useSSL=false","freedb_prueba","#ZKP5mSgzS6Ps&!");
+			Connection con = DriverManager.getConnection("jdbc:mysql://monorail.proxy.rlwy.net:28289/railway?useSSL=false","root","AZsyCwUGzmURenQkgkEOksyBwsWuQBFI");
 			
 			String query = "INSERT INTO usuarios (nombre, prim_apellido, correo_electronico, contraseña) values('" + nombreUsuario + "','" + apellidoUsuario + "','" + correo + "','" + encriptarContrasenia(contrasenia) + "')";
 			Statement st = con.createStatement();
@@ -130,7 +130,8 @@ public class Modelo {
 	            "INNER JOIN categoria c ON v.categoria_id = c.id " +
 	            "INNER JOIN tarifas t ON v.tarifas_id = t.id ";
 		
-		try (Connection con = DriverManager.getConnection("jdbc:mysql://sql.freedb.tech:3306/freedb_registros?useSSL=false","freedb_prueba","#ZKP5mSgzS6Ps&!");
+//		try (Connection con = DriverManager.getConnection("jdbc:mysql://sql.freedb.tech:3306/freedb_registros?useSSL=false","freedb_prueba","#ZKP5mSgzS6Ps&!");
+		try (Connection con = DriverManager.getConnection("jdbc:mysql://monorail.proxy.rlwy.net:28289/railway?useSSL=false","root","AZsyCwUGzmURenQkgkEOksyBwsWuQBFI");
 			PreparedStatement stmt = con.prepareStatement(sql);
 			ResultSet rs = stmt.executeQuery()) {
 				while (rs.next()) {
@@ -155,26 +156,26 @@ public class Modelo {
 	
 	public void obtenerImagenesVehiculos(ArrayList<Vehiculos> vehiculos) {
 		// Solo imagenes
-//		String sql = "SELECT v.id, i.url " + 
-//				"FROM vehiculos v "
-//				+ "INNER JOIN imagenes_vehiculos iv ON v.id = iv.vehiculo_id "
-//				+ "INNER JOIN imagenes i ON iv.imagen_id = i.id";
-//		try (Connection con = DriverManager.getConnection("jdbc:mysql://sql.freedb.tech:3306/freedb_registros?useSSL=false", "freedb_prueba", "#ZKP5mSgzS6Ps&!");
-//				PreparedStatement stmt = con.prepareStatement(sql);
-//				ResultSet rs = stmt.executeQuery()) {
-//			while (rs.next()) {
-//                int vehiculoId = rs.getInt("id");
-////                String url = rs.getString("url");
-//                for (Vehiculo vehiculo : vehiculos) {
-////                	if (vehiculo.getIdVehiculo() == vehiculoId) {
-////                		vehiculo.setImagenUrl(url);
-////                	}
-//                }
-//            }
-//			con.close();
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		}
+		String sql = "SELECT v.id, i.url " + 
+				"FROM vehiculos v "
+				+ "INNER JOIN imagenes_vehiculos iv ON v.id = iv.vehiculo_id "
+				+ "INNER JOIN imagenes i ON iv.imagen_id = i.id";
+		try (Connection con = DriverManager.getConnection("jdbc:mysql://monorail.proxy.rlwy.net:28289/railway?useSSL=false","root","AZsyCwUGzmURenQkgkEOksyBwsWuQBFI");
+				PreparedStatement stmt = con.prepareStatement(sql);
+				ResultSet rs = stmt.executeQuery()) {
+			while (rs.next()) {
+                int vehiculoId = rs.getInt("id");
+                String url = rs.getString("url");
+                for (Vehiculos vehiculo : vehiculos) {
+                	if (vehiculo.getIdVehiculo() == vehiculoId) {
+                		vehiculo.setImagenUrl(url);
+                	}
+                }
+            }
+			con.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public static String encriptarContrasenia(String contrasenia) {
