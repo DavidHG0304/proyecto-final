@@ -6,16 +6,18 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="lib" path="C:/Users/David/git/BranchMainProg3/Programacion_3/lib/flatlaf-intellij-themes-3.4.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/David/git/BranchMainProg3/Programacion_3/lib/json-simple-1.1.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/David/git/BranchMainProg3/Programacion_3/lib/mysql-connector-j-8.4.0.jar"/>
-	<classpathentry kind="lib" path="C:/Users/David/git/BranchMainProg3/Programacion_3/lib/swing-datetime-picker-1.2.0.jar"/>
-	<classpathentry kind="lib" path="C:/Users/David/git/BranchMainProg3/Programacion_3/lib/other/flatlaf-3.4.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/David/git/BranchMainProg3/Programacion_3/lib/other/flatlaf-extras-3.4.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/David/git/BranchMainProg3/Programacion_3/lib/other/jsvg-1.4.0.jar"/>
-	<classpathentry kind="lib" path="C:/Users/David/git/BranchMainProg3/Programacion_3/lib/other/miglayout-core.jar"/>
-	<classpathentry kind="lib" path="C:/Users/David/git/BranchMainProg3/Programacion_3/lib/other/miglayout-swing.jar"/>
-	<classpathentry kind="lib" path="C:/Users/David/git/BranchMainProg3/Prog3_ProyectoFinal/proyecto-final/lib/timingframework-1.0.jar"/>
-	<classpathentry kind="lib" path="C:/Users/David/git/BranchMainProg3/Prog3_ProyectoFinal/proyecto-final/lib/glasspane-popup-2.0.1.jar"/>
+	<classpathentry kind="lib" path="D:/Eclipse/WorkBench/proyecto-final/lib/glasspane-popup-2.0.1.jar"/>
+	<classpathentry kind="lib" path="D:/Eclipse/WorkBench/proyecto-final/lib/json-simple-1.1.1.jar"/>
+	<classpathentry kind="lib" path="D:/Eclipse/WorkBench/proyecto-final/lib/JTattoo-1.6.13.jar"/>
+	<classpathentry kind="lib" path="D:/Eclipse/WorkBench/proyecto-final/lib/mysql-connector-j-8.4.0.jar"/>
+	<classpathentry kind="lib" path="D:/Eclipse/WorkBench/proyecto-final/lib/mysql-connector-java-8.0.11.jar"/>
+	<classpathentry kind="lib" path="D:/Eclipse/WorkBench/proyecto-final/lib/swing-datetime-picker-1.2.0.jar"/>
+	<classpathentry kind="lib" path="D:/Eclipse/WorkBench/proyecto-final/lib/timingframework-1.0.jar"/>
+	<classpathentry kind="lib" path="D:/Eclipse/WorkBench/proyecto-final/lib/flatlaf-intellij-themes-3.4.1.jar"/>
+	<classpathentry kind="lib" path="D:/Eclipse/WorkBench/proyecto-final/lib/other/flatlaf-3.4.1.jar"/>
+	<classpathentry kind="lib" path="D:/Eclipse/WorkBench/proyecto-final/lib/other/flatlaf-extras-3.4.1.jar"/>
+	<classpathentry kind="lib" path="D:/Eclipse/WorkBench/proyecto-final/lib/other/jsvg-1.4.0.jar"/>
+	<classpathentry kind="lib" path="D:/Eclipse/WorkBench/proyecto-final/lib/other/miglayout-core.jar"/>
+	<classpathentry kind="lib" path="D:/Eclipse/WorkBench/proyecto-final/lib/other/miglayout-swing.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
