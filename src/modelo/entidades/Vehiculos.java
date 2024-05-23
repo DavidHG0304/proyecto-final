@@ -7,7 +7,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.sql.SQLException;
 
-public class Vehiculo {
+public class Vehiculos {
     private int idVehiculo;
 	private String nombreVehiculo;
 	private String añoVehiculo;
@@ -22,10 +22,10 @@ public class Vehiculo {
 	private String imagenUrl;
 	private double costoTotal;
 	
-	public Vehiculo() {
+	public Vehiculos() {
 		
 	}
-	public Vehiculo(int idVehiculo, String nombreVehiculo, String añoVehiculo, int puertasVehiculo, int kilometrajeVehiculo, String transmision, boolean aireAcondicionado, String modelo) {
+	public Vehiculos(int idVehiculo, String nombreVehiculo, String añoVehiculo, int puertasVehiculo, int kilometrajeVehiculo, String transmision, boolean aireAcondicionado, String modelo) {
 		this.idVehiculo = idVehiculo;
 		this.nombreVehiculo = nombreVehiculo;
 		this.añoVehiculo = añoVehiculo;
@@ -119,10 +119,6 @@ public class Vehiculo {
 	public void setCostoTotal(double costoTotal) {
 		this.costoTotal = costoTotal;
 	}
-	
-	
-		
-		
 	
 	
 }

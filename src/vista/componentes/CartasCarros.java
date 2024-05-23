@@ -1,9 +1,12 @@
 package vista.componentes;
 
+import java.awt.Button;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.DecimalFormat;
@@ -15,15 +18,25 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 
-import modelo.entidades.Vehiculo;
+import modelo.entidades.Vehiculos;
+import raven.glasspanepopup.GlassPanePopup;
+import vista.VistaPanelVehiculos;
 import vista.recursos.componentesPersonalizados.BtnBordeado;
 import vista.recursos.componentesPersonalizados.RoundedPanel;
 
 @SuppressWarnings("serial")
 public class CartasCarros extends RoundedPanel{
+	private Vehiculos vehiculo;
 	private JLabel lblImgCarro;
 	
-	public CartasCarros(Vehiculo vehiculo) {
+	private JButton bntInfoIcono;
+	private JButton lbleditarIcono;
+    private JButton btnRentar;
+    private JButton lblBorrarIcono;
+    
+	
+	
+	public CartasCarros(Vehiculos vehiculo) {
         super(30, false, true, new Color(0, 0, 0, 61), 6);
         setBackground(new Color(255, 255, 255));
         setPreferredSize(new Dimension(208, 317));
@@ -34,7 +47,39 @@ public class CartasCarros extends RoundedPanel{
         componentes(vehiculo);
     }
 	
-	public void componentes(Vehiculo vehiculo) {
+	public JButton getBntInfoIcono() {
+		return bntInfoIcono;
+	}
+
+	public void setBntInfoIcono(JButton bntInfoIcono) {
+		this.bntInfoIcono = bntInfoIcono;
+	}
+
+	public JButton getLbleditarIcono() {
+		return lbleditarIcono;
+	}
+
+	public void setLbleditarIcono(JButton lbleditarIcono) {
+		this.lbleditarIcono = lbleditarIcono;
+	}
+
+	public JButton getBtnRentar() {
+		return btnRentar;
+	}
+
+	public void setBtnRentar(JButton btnRentar) {
+		this.btnRentar = btnRentar;
+	}
+
+	public JButton getLblBorrarIcono() {
+		return lblBorrarIcono;
+	}
+
+	public void setLblBorrarIcono(JButton lblBorrarIcono) {
+		this.lblBorrarIcono = lblBorrarIcono;
+	}
+
+	public void componentes(Vehiculos vehiculo) {
 //		RoundedPanel cartasCarros = new RoundedPanel(30, false, true, new Color(0,0,0,61), 6);
 //		cartasCarros.setBackground(new Color(255, 255, 255));
 //		cartasCarros.setBounds(10, 187, 208, 317);
@@ -82,7 +127,8 @@ public class CartasCarros extends RoundedPanel{
 		panelImgCarro.add(lblImgCarro);
 		
 		ImageIcon borrarIcono = new ImageIcon(getClass().getResource("/vista/recursos/imagenes/eliminar.png"));
-		JButton lblBorrarIcono = new JButton(borrarIcono);
+		lblBorrarIcono = new JButton(borrarIcono);
+		lblBorrarIcono.setActionCommand("Borrar Vehiculo");
 		lblBorrarIcono.setOpaque(false);
 		lblBorrarIcono.setBorderPainted(false);
 		lblBorrarIcono.setFocusPainted(false);
@@ -91,7 +137,8 @@ public class CartasCarros extends RoundedPanel{
 		add(lblBorrarIcono);
 		
 		ImageIcon editarIcono = new ImageIcon(getClass().getResource("/vista/recursos/imagenes/editar.png"));
-		JButton lbleditarIcono = new JButton(editarIcono);
+		lbleditarIcono = new JButton(editarIcono);
+		lbleditarIcono.setActionCommand("Editar Vehiculo");
 		lbleditarIcono.setOpaque(false);
 		lbleditarIcono.setBorderPainted(false);
 		lbleditarIcono.setFocusPainted(false);
@@ -121,8 +168,9 @@ public class CartasCarros extends RoundedPanel{
 		lblflechaIcono.setBounds(175, 289, 14, 14);
 		add(lblflechaIcono);
 		
-		JButton btnRentar = new JButton();
+		btnRentar = new JButton();
 		btnRentar.setText("Rentar");
+		btnRentar.setActionCommand("Rentar Vehiculo");
 		btnRentar.setHorizontalAlignment(SwingConstants.LEFT);
 		btnRentar.setOpaque(false);
 		btnRentar.setForeground(new Color(33, 147, 246));
@@ -140,13 +188,14 @@ public class CartasCarros extends RoundedPanel{
 		
 		ImageIcon infoIcono = new ImageIcon(getClass().getResource("/vista/recursos/imagenes/info.png"));
 		panel.setLayout(null);
-		JButton lblInfoIcono = new JButton(infoIcono);
-		lblInfoIcono.setOpaque(false);
-		lblInfoIcono.setBorderPainted(false);
-		lblInfoIcono.setFocusPainted(false);
-		lblInfoIcono.setBackground(Color.WHITE);
-		lblInfoIcono.setBounds(170, 5, 14, 14);
-		panel.add(lblInfoIcono);
+		bntInfoIcono = new JButton(infoIcono);
+		bntInfoIcono.setActionCommand("Info pVehiculo");
+		bntInfoIcono.setOpaque(false);
+		bntInfoIcono.setBorderPainted(false);
+		bntInfoIcono.setFocusPainted(false);
+		bntInfoIcono.setBackground(Color.WHITE);
+		bntInfoIcono.setBounds(170, 5, 14, 14);
+		panel.add(bntInfoIcono);
 		
 		ImageIcon estrellaIcono = new ImageIcon(getClass().getResource("/vista/recursos/imagenes/estrella.png"));
 		JLabel lblestrellaIcono = new JLabel(estrellaIcono);
@@ -225,5 +274,9 @@ public class CartasCarros extends RoundedPanel{
 		btnDetalles.setBounds(40, 90, 104, 18);
 		panel.add(btnDetalles);
 	}
-
+	
+	public Vehiculos getVehiculo() {
+        return vehiculo; // Obtener el vehiculo
+    }
+	
 }

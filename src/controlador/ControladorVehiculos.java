@@ -7,12 +7,19 @@ import java.util.ArrayList;
 import javax.swing.SwingWorker;
 
 import modelo.Modelo;
-import modelo.entidades.Vehiculo;
+import modelo.entidades.Vehiculos;
+import raven.glasspanepopup.GlassPanePopup;
+import vista.VistaPanelVehiculoAccion;
 import vista.VistaPanelVehiculos;
+import vista.componentes.CartasCarros;
+import vista.componentes.DialogoAvisos;
+import vista.componentes.DialogoEmergentes;
+import vista.componentes.DialogoRentar;
 
 public class ControladorVehiculos implements ActionListener{
 	
 	private VistaPanelVehiculos pVehiculos;
+	private VistaPanelVehiculoAccion pVAccion;
 	private Modelo modelo;
 	private Controlador controlador;
 
@@ -22,14 +29,19 @@ public class ControladorVehiculos implements ActionListener{
         this.controlador = controlador;
         pVehiculos.panelVehiculos();
 		pVehiculos.asignarActListner(this);
+		
+		
+		
 		cargarVehiculos();
+		GlassPanePopup.install(pVehiculos.getFrame());
+
 	}
 	
 	public void cargarVehiculos() {
-        SwingWorker<ArrayList<Vehiculo>, Void> worker = new SwingWorker<ArrayList<Vehiculo>, Void>() {
+        SwingWorker<ArrayList<Vehiculos>, Void> worker = new SwingWorker<ArrayList<Vehiculos>, Void>() {
             @Override
-            protected ArrayList<Vehiculo> doInBackground() throws Exception {
-                ArrayList<Vehiculo> vehiculos = modelo.obtenerVehiculos();
+            protected ArrayList<Vehiculos> doInBackground() throws Exception {
+                ArrayList<Vehiculos> vehiculos = modelo.obtenerVehiculos();
                 modelo.obtenerImagenesVehiculos(vehiculos);
                 return vehiculos;
             }
@@ -37,8 +49,9 @@ public class ControladorVehiculos implements ActionListener{
             @Override
             protected void done() {
                 try {
-                    ArrayList<Vehiculo> vehiculos = get();
+                    ArrayList<Vehiculos> vehiculos = get();
                     pVehiculos.mostrarVehiculos(vehiculos);
+                    pVehiculos.asignarListenersCartas(ControladorVehiculos.this);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -76,8 +89,25 @@ public class ControladorVehiculos implements ActionListener{
 			controlador.login();
 			controlador.nuevoModelo.setRegistroEncontrado(false);
 			break;
-			
-		}
+		case "Info pVehiculo":
+			Vehiculos vehiculo = new Vehiculos();
+			System.out.println("Info");
+			GlassPanePopup.showPopup(new DialogoEmergentes((vehiculo.getNombreVehiculo()+" "+vehiculo.getModelo()+" - "+vehiculo.getCategoria()),vehiculo.getPuertasVehiculo(),vehiculo.getAñoVehiculo(),vehiculo.getKilometrajeVehiculo(), vehiculo.getTransmision(), vehiculo.isAireAcondicionado(), vehiculo.getImagenUrl()));
+			break;
+		case "Borrar Vehiculo":
+			System.out.println("Borrar");
+			//GlassPanePopup.showPopup(new DialogoAvisos("Campos vacios", "Rellene los campos para poder\ncontinuar con el inicio de sesión."));GlassPanePopup.showPopup(new DialogoAvisos("Campos vacios", "Rellene los campos para poder\ncontinuar con el inicio de sesión."));
+			break;
+		case "Rentar Vehiculo":
+			System.out.println("Rentar");
+//			GlassPanePopup.showPopup(new DialogoEmergentes("NULL", "Rellene los campos para poder\ncontinuar con el inicio de sesión."));GlassPanePopup.showPopup(new DialogoAvisos("Campos vacios", "Rellene los campos para poder\ncontinuar con el inicio de sesión."));
+			GlassPanePopup.showPopup(new DialogoRentar("Crear vehiculo"));
+			break;
+		case "Editar Vehiculo":
+			System.out.println("Editar");
+			//GlassPanePopup.showPopup(new DialogoAvisos("Campos vacios", "Rellene los campos para poder\ncontinuar con el inicio de sesión."));GlassPanePopup.showPopup(new DialogoAvisos("Campos vacios", "Rellene los campos para poder\ncontinuar con el inicio de sesión."));
+			GlassPanePopup.showPopup(new DialogoRentar("Editar vehiculo"));
+			break;
+		}	
 	}
-
 }

@@ -4,7 +4,7 @@ import java.awt.event.*;
 import java.util.ArrayList;
 
 import javax.swing.*;
-import modelo.entidades.Vehiculo;
+import modelo.entidades.Vehiculos;
 import vista.componentes.CartasCarros;
 import vista.componentes.PanelesNavegacion;
 import vista.recursos.componentesPersonalizados.*;
@@ -26,6 +26,7 @@ public class VistaPanelVehiculos {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setBackground(Color.gray);
 		panelVehiculos();
+		
 	}
 	
 	public void panelVehiculos() {
@@ -66,13 +67,14 @@ public class VistaPanelVehiculos {
 		
 	}
 	
-	public void mostrarVehiculos(ArrayList<Vehiculo> vehiculos) {
+	public void mostrarVehiculos(ArrayList<Vehiculos> vehiculos) {
         panelCartasVehiculos.removeAll();
         panel.getPanelCentral().remove(panel.getLblCargandoGif());
-        for (Vehiculo vehiculo : vehiculos) {
+        for (Vehiculos vehiculo : vehiculos) {
             CartasCarros carta = new CartasCarros(vehiculo);
             panelCartasVehiculos.add(carta);
         }
+        
         panelCartasVehiculos.revalidate();
         panelCartasVehiculos.repaint();
         panel.getPanelCentral().repaint();
@@ -87,6 +89,18 @@ public class VistaPanelVehiculos {
 		panel.getBtnCategorias().addActionListener(listener);
 		panel.getBtnMarcas().addActionListener(listener);
 	}
+	
+	public void asignarListenersCartas(ActionListener listener) {
+        for (Component comp : panelCartasVehiculos.getComponents()) {
+            if (comp instanceof CartasCarros) {
+                CartasCarros carta = (CartasCarros) comp;
+                carta.getLblBorrarIcono().addActionListener(listener);
+                carta.getBntInfoIcono().addActionListener(listener);
+                carta.getLbleditarIcono().addActionListener(listener);
+                carta.getBtnRentar().addActionListener(listener);
+            }
+        }
+    }
 	
 	// Getters
 	public JFrame getFrame() {

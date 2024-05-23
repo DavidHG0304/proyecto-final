@@ -60,6 +60,8 @@ public class VistaPanelClientes {
 		panel.getBtnCerrarSesion().addActionListener(listener);
 	}
 
+	
+	
 	public JFrame getFrame() {
 		return frame;
 	}

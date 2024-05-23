@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
-import modelo.entidades.Vehiculo;
+import modelo.entidades.Vehiculos;
 
 
 //Aqui se haran todas las validaciones para poder hacer las acciones en base a la base
@@ -106,8 +106,8 @@ public class Modelo {
 		return false;
 	}
 	
-	public ArrayList<Vehiculo> obtenerVehiculos() {
-		ArrayList<Vehiculo> vehiculos = new ArrayList<>();
+	public ArrayList<Vehiculos> obtenerVehiculos() {
+		ArrayList<Vehiculos> vehiculos = new ArrayList<>();
 		
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
@@ -134,7 +134,7 @@ public class Modelo {
 			PreparedStatement stmt = con.prepareStatement(sql);
 			ResultSet rs = stmt.executeQuery()) {
 				while (rs.next()) {
-					Vehiculo vehiculo = new Vehiculo();
+					Vehiculos vehiculo = new Vehiculos();
 					vehiculo.setIdVehiculo(rs.getInt("id"));
 					vehiculo.setNombreVehiculo(rs.getString("nombre_marca"));
 					vehiculo.setAñoVehiculo(rs.getString("año"));
@@ -153,30 +153,28 @@ public class Modelo {
 		return vehiculos;
 	}
 	
-	public void obtenerImagenesVehiculos(ArrayList<Vehiculo> vehiculos) {
+	public void obtenerImagenesVehiculos(ArrayList<Vehiculos> vehiculos) {
 		// Solo imagenes
-		String sql = "SELECT v.id, i.url " + 
-				"FROM vehiculos v "
-				+ "INNER JOIN imagenes_vehiculos iv ON v.id = iv.vehiculo_id "
-				+ "INNER JOIN imagenes i ON iv.imagen_id = i.id";
-		try (Connection con = DriverManager.getConnection("jdbc:mysql://sql.freedb.tech:3306/freedb_registros?useSSL=false", "freedb_prueba", "#ZKP5mSgzS6Ps&!");
-				PreparedStatement stmt = con.prepareStatement(sql);
-				ResultSet rs = stmt.executeQuery()) {
-			while (rs.next()) {
-                int vehiculoId = rs.getInt("id");
-                String url = rs.getString("url");
-                for (Vehiculo vehiculo : vehiculos) {
-//                	System.out.println("ID Vehiculo de la lista: " + vehiculo.getIdVehiculo());
-//                	System.out.println("ID Vehiculo de la base de datos: " + vehiculoId);
-                	if (vehiculo.getIdVehiculo() == vehiculoId) {
-                		vehiculo.setImagenUrl(url);
-                	}
-                }
-            }
-			con.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+//		String sql = "SELECT v.id, i.url " + 
+//				"FROM vehiculos v "
+//				+ "INNER JOIN imagenes_vehiculos iv ON v.id = iv.vehiculo_id "
+//				+ "INNER JOIN imagenes i ON iv.imagen_id = i.id";
+//		try (Connection con = DriverManager.getConnection("jdbc:mysql://sql.freedb.tech:3306/freedb_registros?useSSL=false", "freedb_prueba", "#ZKP5mSgzS6Ps&!");
+//				PreparedStatement stmt = con.prepareStatement(sql);
+//				ResultSet rs = stmt.executeQuery()) {
+//			while (rs.next()) {
+//                int vehiculoId = rs.getInt("id");
+////                String url = rs.getString("url");
+//                for (Vehiculo vehiculo : vehiculos) {
+////                	if (vehiculo.getIdVehiculo() == vehiculoId) {
+////                		vehiculo.setImagenUrl(url);
+////                	}
+//                }
+//            }
+//			con.close();
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
 	}
 
 	public static String encriptarContrasenia(String contrasenia) {
@@ -194,6 +192,15 @@ public class Modelo {
 	    } catch(Exception ex){
 	       throw new RuntimeException(ex);
 	    }
+	}
+	
+	public Vehiculos obtenerVehiculoPorId(int id) {
+	    for (Vehiculos vehiculo : obtenerVehiculos()) {
+	        if (vehiculo.getIdVehiculo() == id) {
+	            return vehiculo;
+	        }
+	    }
+	    return null;
 	}
 	
 }

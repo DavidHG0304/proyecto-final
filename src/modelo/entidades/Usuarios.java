@@ -1,12 +1,12 @@
 package modelo.entidades;
 
-public class Usuario {
+public class Usuarios {
 	private int idUsuario;
 	private String nombreUsuario;
 	private String apellido;
 	private String correo;
 	
-	public Usuario(int idUsuario, String nombreUsuario, String apellido, String correo) {
+	public Usuarios(int idUsuario, String nombreUsuario, String apellido, String correo) {
 		this.idUsuario = idUsuario;
 		this.nombreUsuario = nombreUsuario;
 		this.apellido = apellido;
