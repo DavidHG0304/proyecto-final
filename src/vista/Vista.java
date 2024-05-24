@@ -11,8 +11,8 @@ import vista.recursos.componentesPersonalizados.*;
 public class Vista {
 	private JFrame frame;
 	private BtnBordeado boton;
-	private RoundJTextField txtCorreo;
-	private RoundJPasswordField txtContrasenia;
+	private JTextFieldRedondeado txtCorreo;
+	private JPasswordFieldRedondeado txtContrasenia;
 	private JCheckBox passCheckBox;
 	private JButton botonRegistrar;
 	private ImageIcon iconoLogo; 
@@ -27,8 +27,8 @@ public class Vista {
 		frame.setBackground(Color.gray);
 		
 		passCheckBox = new JCheckBox();
-		txtCorreo = new RoundJTextField(35, 35);
-		txtContrasenia = new RoundJPasswordField(35, 35);
+		txtCorreo = new JTextFieldRedondeado(35, 35);
+		txtContrasenia = new JPasswordFieldRedondeado(35, 35);
 		boton = new BtnBordeado(38, true);
 		botonRegistrar = new JButton("Registrarse");
 	}
@@ -76,7 +76,7 @@ public class Vista {
 				    } else {
 				        color = color2;
 				    }
-				    PaintRombos rombo = new PaintRombos(color, tamanio, posX[i], posY[i]);
+				    PintarRombos rombo = new PintarRombos(color, tamanio, posX[i], posY[i]);
 				    rombo.paintComponent(g2d);
 				}
 			}
@@ -127,7 +127,7 @@ public class Vista {
 		txtCorreo.setForeground(new Color(0,0,0,90));
 		txtCorreo.setBounds(80, 250, 300, 35);
 		txtCorreo.setBackground(new Color(240,240,240));
-		((RoundJTextField) txtCorreo).setPrefixIcon(new ImageIcon(getClass().getResource("/vista/recursos/imagenes/mail.png")));
+		((JTextFieldRedondeado) txtCorreo).setPrefixIcon(new ImageIcon(getClass().getResource("/vista/recursos/imagenes/mail.png")));
 		panelIzquierda.add(txtCorreo);
 		
 		passCheckBox.setText("CheckBox1");
@@ -143,7 +143,7 @@ public class Vista {
 		txtContrasenia.setFont(new Font("Inter", Font.PLAIN, 12));
 		txtContrasenia.setBounds(80, 350, 300, 35);
 		txtContrasenia.setBackground(new Color(240,240,240));
-		((RoundJPasswordField) txtContrasenia).setPrefixIcon(new ImageIcon(getClass().getResource("/vista/recursos/imagenes/pass.png")));
+		((JPasswordFieldRedondeado) txtContrasenia).setPrefixIcon(new ImageIcon(getClass().getResource("/vista/recursos/imagenes/pass.png")));
 		panelIzquierda.add(txtContrasenia);
 		
 		try {
@@ -210,10 +210,10 @@ public class Vista {
 	}
 	
 	// Getters
-	public RoundJTextField getTxtCorreo() {
+	public JTextFieldRedondeado getTxtCorreo() {
 		return txtCorreo;
 	}
-	public RoundJPasswordField getTxtContrasenia() {
+	public JPasswordFieldRedondeado getTxtContrasenia() {
 		return txtContrasenia;
 	}
 	public JFrame getFrame() {
@@ -233,10 +233,10 @@ public class Vista {
 	public void setFrame(JFrame frame) {
 		this.frame = frame;
 	}
-	public void setTxtCorreo(RoundJTextField txtCorreo) {
+	public void setTxtCorreo(JTextFieldRedondeado txtCorreo) {
 		this.txtCorreo = txtCorreo;
 	}
-	public void setTxtContrasenia(RoundJPasswordField txtContrasenia) {
+	public void setTxtContrasenia(JPasswordFieldRedondeado txtContrasenia) {
 		this.txtContrasenia = txtContrasenia;
 	}
 	public void setPassCheckBox(JCheckBox passCheckBox) {

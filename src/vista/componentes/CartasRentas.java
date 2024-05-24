@@ -3,7 +3,7 @@ package vista.componentes;
 import java.awt.Color;
 import java.awt.Dimension;
 
-import vista.recursos.componentesPersonalizados.RoundedPanel;
+import vista.recursos.componentesPersonalizados.PanelRedondeado;
 import javax.swing.JPanel;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -17,7 +17,7 @@ import java.awt.event.ActionListener;
 
 import vista.recursos.componentesPersonalizados.BtnBordeado;
 
-public class CartasRentas extends RoundedPanel {
+public class CartasRentas extends PanelRedondeado {
 	private BtnBordeado btnbrdEditar;
 	private BtnBordeado btnbrdEliminar;
 	
@@ -35,7 +35,7 @@ public class CartasRentas extends RoundedPanel {
 	
 	public void cartas() {
 		
-		RoundedPanel panelPrincipalCartas = new RoundedPanel(35, false, Color.WHITE);
+		PanelRedondeado panelPrincipalCartas = new PanelRedondeado(35, false, Color.WHITE);
 		panelPrincipalCartas.setBackground(new Color(255, 255, 255));
 		panelPrincipalCartas.setBounds(5, 5, 765, 134);
 		panelPrincipalCartas.setLayout(null);

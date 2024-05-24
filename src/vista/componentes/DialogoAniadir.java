@@ -17,7 +17,7 @@ import javax.swing.SwingUtilities;
 
 import raven.glasspanepopup.GlassPanePopup;
 import vista.recursos.componentesPersonalizados.BtnBordeado;
-import vista.recursos.componentesPersonalizados.RoundJTextField;
+import vista.recursos.componentesPersonalizados.JTextFieldRedondeado;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -57,7 +57,7 @@ public class DialogoAniadir extends JPanel {
 		panel.setBounds(24, 56, 453, 140);
 		add(panel);
 		
-		RoundJTextField txtMarca = new RoundJTextField(20,20, new Color(0,0,0,60));
+		JTextFieldRedondeado txtMarca = new JTextFieldRedondeado(20,20, new Color(0,0,0,60));
 		txtMarca.setFont(new Font("Inter", Font.PLAIN, 11));
 		txtMarca.setBounds(24, 256, 214, 25);
 		txtMarca.setBackground(new Color(0,0,0,5));
@@ -85,19 +85,19 @@ public class DialogoAniadir extends JPanel {
         btnAgregar.setBounds(362, 514, 115, 25);
         add(btnAgregar);
         
-        RoundJTextField txtMarca_1 = new RoundJTextField(20, 20, new Color(0, 0, 0, 60));
+        JTextFieldRedondeado txtMarca_1 = new JTextFieldRedondeado(20, 20, new Color(0, 0, 0, 60));
         txtMarca_1.setFont(new Font("Inter", Font.PLAIN, 11));
         txtMarca_1.setBackground(new Color(0, 0, 0, 5));
         txtMarca_1.setBounds(263, 256, 214, 25);
         add(txtMarca_1);
         
-        RoundJTextField txtMarca_2 = new RoundJTextField(20, 20, new Color(0, 0, 0, 60));
+        JTextFieldRedondeado txtMarca_2 = new JTextFieldRedondeado(20, 20, new Color(0, 0, 0, 60));
         txtMarca_2.setFont(new Font("Inter", Font.PLAIN, 11));
         txtMarca_2.setBackground(new Color(0, 0, 0, 5));
         txtMarca_2.setBounds(24, 317, 214, 25);
         add(txtMarca_2);
         
-        RoundJTextField txtMarca_2_1 = new RoundJTextField(20, 20, new Color(0, 0, 0, 60));
+        JTextFieldRedondeado txtMarca_2_1 = new JTextFieldRedondeado(20, 20, new Color(0, 0, 0, 60));
         txtMarca_2_1.setFont(new Font("Inter", Font.PLAIN, 11));
         txtMarca_2_1.setBackground(new Color(0, 0, 0, 5));
         txtMarca_2_1.setBounds(263, 317, 214, 25);

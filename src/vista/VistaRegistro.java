@@ -12,11 +12,11 @@ import vista.recursos.componentesPersonalizados.*;
 public class VistaRegistro {
 	JFrame frame = new JFrame();
 	private BtnBordeado boton;
-	private RoundJTextField nombre;
-	private RoundJTextField apellidos;
-	private RoundJTextField txtCorreo;
-	private RoundJPasswordField txtContrasenia;
-	private RoundJPasswordField confirmarContrasenia;
+	private JTextFieldRedondeado nombre;
+	private JTextFieldRedondeado apellidos;
+	private JTextFieldRedondeado txtCorreo;
+	private JPasswordFieldRedondeado txtContrasenia;
+	private JPasswordFieldRedondeado confirmarContrasenia;
 	private JCheckBox passCheckBox;
 	private JCheckBox passCheckBox2;
 	private JButton botonIniciarSesion;
@@ -33,11 +33,11 @@ public class VistaRegistro {
 		boton = new BtnBordeado(38, true);
 		passCheckBox = new JCheckBox();
 		passCheckBox2 = new JCheckBox();
-		nombre = new RoundJTextField(35, 35);
-		apellidos = new RoundJTextField(35,35);
-		txtCorreo = new RoundJTextField(35, 35);
-		txtContrasenia = new RoundJPasswordField(35, 35);
-		confirmarContrasenia = new RoundJPasswordField(35, 35);
+		nombre = new JTextFieldRedondeado(35, 35);
+		apellidos = new JTextFieldRedondeado(35,35);
+		txtCorreo = new JTextFieldRedondeado(35, 35);
+		txtContrasenia = new JPasswordFieldRedondeado(35, 35);
+		confirmarContrasenia = new JPasswordFieldRedondeado(35, 35);
 		botonIniciarSesion = new JButton("Iniciar Sesion");
 	}
 	
@@ -76,7 +76,7 @@ public class VistaRegistro {
 					} else {
 						color = color2;
 					}
-					PaintRombos rombo = new PaintRombos(color, tamanio, posX[i], posY[i]);
+					PintarRombos rombo = new PintarRombos(color, tamanio, posX[i], posY[i]);
 					rombo.paintComponent(g2d);
 				}
 			}
@@ -238,10 +238,10 @@ public class VistaRegistro {
 	}
 	
 	// Getters
-	public RoundJTextField getTxtCorreo() {
+	public JTextFieldRedondeado getTxtCorreo() {
 		return txtCorreo;
 	}
-	public RoundJPasswordField getTxtContrasenia() {
+	public JPasswordFieldRedondeado getTxtContrasenia() {
 		return txtContrasenia;
 	}
 	public JFrame getFrame() {
@@ -256,13 +256,13 @@ public class VistaRegistro {
 	public JButton getBotonIniciarSesion() {
 		return botonIniciarSesion;
 	}
-	public RoundJTextField getNombre() {
+	public JTextFieldRedondeado getNombre() {
 		return nombre;
 	}
-	public RoundJTextField getApellidos() {
+	public JTextFieldRedondeado getApellidos() {
 		return apellidos;
 	}
-	public RoundJPasswordField getConfirmarContrasenia() {
+	public JPasswordFieldRedondeado getConfirmarContrasenia() {
 		return confirmarContrasenia;
 	}
 	public JCheckBox getPassCheckBox2() {
@@ -276,10 +276,10 @@ public class VistaRegistro {
 	public void setFrame(JFrame frame) {
 		this.frame = frame;
 	}
-	public void setTxtCorreo(RoundJTextField txtCorreo) {
+	public void setTxtCorreo(JTextFieldRedondeado txtCorreo) {
 		this.txtCorreo = txtCorreo;
 	}
-	public void setTxtContrasenia(RoundJPasswordField txtContrasenia) {
+	public void setTxtContrasenia(JPasswordFieldRedondeado txtContrasenia) {
 		this.txtContrasenia = txtContrasenia;
 	}
 	public void setPassCheckBox(JCheckBox passCheckBox) {
@@ -291,13 +291,13 @@ public class VistaRegistro {
 	public void setBotonIniciarSesion(JButton botonRegistrar) {
 		this.botonIniciarSesion = botonRegistrar;
 	}
-	public void setNombre(RoundJTextField nombre) {
+	public void setNombre(JTextFieldRedondeado nombre) {
 		this.nombre = nombre;
 	}
-	public void setApellidos(RoundJTextField apellidos) {
+	public void setApellidos(JTextFieldRedondeado apellidos) {
 		this.apellidos = apellidos;
 	}
-	public void setConfirmarContrasenia(RoundJPasswordField confirmarContrasenia) {
+	public void setConfirmarContrasenia(JPasswordFieldRedondeado confirmarContrasenia) {
 		this.confirmarContrasenia = confirmarContrasenia;
 	}
 	public void setPassCheckBox2(JCheckBox passCheckBox2) {

@@ -14,7 +14,7 @@ public class MetodosLog_Reg {
 		
 	}
 	
-	public boolean loginValidado(String contrasenia,  RoundJTextField txtCorreo, RoundJPasswordField passwordField ) {
+	public boolean loginValidado(String contrasenia,  JTextFieldRedondeado txtCorreo, JPasswordFieldRedondeado passwordField ) {
 		txtCorreo.setColorB(new Color(0,0,0));
 		txtCorreo.repaint();
 		passwordField.setColorB(new Color(0,0,0));
@@ -37,7 +37,7 @@ public class MetodosLog_Reg {
 		return true;
 	}
 	
-	public void loginNoValido(String contrasenia, RoundJTextField txtCorreo, RoundJPasswordField passwordField, boolean registroEncontrado) {
+	public void loginNoValido(String contrasenia, JTextFieldRedondeado txtCorreo, JPasswordFieldRedondeado passwordField, boolean registroEncontrado) {
 		if(!registroEncontrado && (!txtCorreo.getText().equals("Correo electronico") && !contrasenia.equals("Contraseña"))){
 			txtCorreo.setColorB(new Color(217,0,30));
 			txtCorreo.repaint();
@@ -48,7 +48,7 @@ public class MetodosLog_Reg {
 		
 	}
 	
-	public boolean registroValido(String contrasenia, String confirContrasenia, RoundJTextField nombreUsuario, RoundJTextField apellidoUsuario, RoundJTextField txtCorreo, RoundJPasswordField registrarContrasenia, RoundJPasswordField confirmarContrasenia) {
+	public boolean registroValido(String contrasenia, String confirContrasenia, JTextFieldRedondeado nombreUsuario, JTextFieldRedondeado apellidoUsuario, JTextFieldRedondeado txtCorreo, JPasswordFieldRedondeado registrarContrasenia, JPasswordFieldRedondeado confirmarContrasenia) {
 		
 		nombreUsuario.setColorB(new Color(0,0,0));
 		nombreUsuario.repaint();
@@ -136,7 +136,7 @@ public class MetodosLog_Reg {
 		return true;
 	}
 	
-	public void registroNoValido(RoundJTextField nombreUsuario, RoundJTextField apellidoUsuario, RoundJTextField txtCorreo, RoundJPasswordField registrarContrasenia, RoundJPasswordField confirmarContrasenia, boolean estadoRegistro, String contrasenia, String confirContrasenia, int sepudocrear) {
+	public void registroNoValido(JTextFieldRedondeado nombreUsuario, JTextFieldRedondeado apellidoUsuario, JTextFieldRedondeado txtCorreo, JPasswordFieldRedondeado registrarContrasenia, JPasswordFieldRedondeado confirmarContrasenia, boolean estadoRegistro, String contrasenia, String confirContrasenia, int sepudocrear) {
 		if(estadoRegistro){
 		txtCorreo.setColorB(new Color(217,0,30));
 		txtCorreo.repaint();

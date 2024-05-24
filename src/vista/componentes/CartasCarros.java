@@ -22,10 +22,10 @@ import modelo.entidades.Vehiculos;
 import raven.glasspanepopup.GlassPanePopup;
 import vista.VistaPanelVehiculos;
 import vista.recursos.componentesPersonalizados.BtnBordeado;
-import vista.recursos.componentesPersonalizados.RoundedPanel;
+import vista.recursos.componentesPersonalizados.PanelRedondeado;
 
 @SuppressWarnings("serial")
-public class CartasCarros extends RoundedPanel{
+public class CartasCarros extends PanelRedondeado{
 	private Vehiculos vehiculo;
 	private JLabel lblImgCarro;
 	

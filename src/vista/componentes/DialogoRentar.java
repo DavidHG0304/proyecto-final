@@ -22,8 +22,8 @@ import javax.swing.SwingUtilities;
 
 import raven.glasspanepopup.GlassPanePopup;
 import vista.recursos.componentesPersonalizados.BtnBordeado;
-import vista.recursos.componentesPersonalizados.RoundJTextField;
-import vista.recursos.componentesPersonalizados.RoundedPanel;
+import vista.recursos.componentesPersonalizados.JTextFieldRedondeado;
+import vista.recursos.componentesPersonalizados.PanelRedondeado;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -59,19 +59,19 @@ public class DialogoRentar extends JPanel {
 		Cerrar.setBounds(24, 551, 115, 25);
 		add(Cerrar);
 		
-		RoundJTextField txtMarca = new RoundJTextField(20,20, new Color(0,0,0,60));
+		JTextFieldRedondeado txtMarca = new JTextFieldRedondeado(20,20, new Color(0,0,0,60));
 		txtMarca.setFont(new Font("Inter", Font.PLAIN, 11));
 		txtMarca.setBounds(263, 514, 214, 25);
 		txtMarca.setBackground(new Color(0,0,0,5));
 		add(txtMarca);
         
-        RoundJTextField txtMarca_2 = new RoundJTextField(20, 20, new Color(0, 0, 0, 60));
+        JTextFieldRedondeado txtMarca_2 = new JTextFieldRedondeado(20, 20, new Color(0, 0, 0, 60));
         txtMarca_2.setFont(new Font("Inter", Font.PLAIN, 11));
         txtMarca_2.setBackground(new Color(0, 0, 0, 5));
         txtMarca_2.setBounds(263, 405, 214, 25);
         add(txtMarca_2);
         
-        RoundJTextField txtMarca_2_1 = new RoundJTextField(20, 20, new Color(0, 0, 0, 60));
+        JTextFieldRedondeado txtMarca_2_1 = new JTextFieldRedondeado(20, 20, new Color(0, 0, 0, 60));
         txtMarca_2_1.setFont(new Font("Inter", Font.PLAIN, 11));
         txtMarca_2_1.setBackground(new Color(0, 0, 0, 5));
         txtMarca_2_1.setBounds(263, 458, 214, 25);
@@ -127,7 +127,7 @@ public class DialogoRentar extends JPanel {
         
         ///////////////////////////////
 
-		RoundedPanel panelCartas = new RoundedPanel(30, false, true, new Color(0, 0, 0, 61), 6);
+		PanelRedondeado panelCartas = new PanelRedondeado(30, false, true, new Color(0, 0, 0, 61), 6);
 		panelCartas.setBackground(new Color(255, 255, 255));
 		panelCartas.setPreferredSize(new Dimension(208, 317));
 		panelCartas.setMaximumSize(new Dimension(208, 317));
@@ -245,7 +245,7 @@ public class DialogoRentar extends JPanel {
         lblImgCarro.setIcon(iconoReescalado);
         panel.add(lblImgCarro);
         
-        RoundedPanel panelResumen = new RoundedPanel(30, false, true, new Color(0, 0, 0, 61), 6);
+        PanelRedondeado panelResumen = new PanelRedondeado(30, false, true, new Color(0, 0, 0, 61), 6);
         panelResumen.setBackground(new Color(255, 255, 255));
         panelResumen.setPreferredSize(new Dimension(208, 317));
         panelResumen.setMaximumSize(new Dimension(208, 317));

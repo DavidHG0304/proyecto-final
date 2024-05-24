@@ -40,8 +40,11 @@ public class ControladorVehiculos implements ActionListener{
 
 	}
 	
+	
+	// Implementación de swingworker para poder optimizar la actualización, ejecuta primero la consulta a la base de datos para después de eso llamar al metodo done()
+	// una vez haya terminado la consulta para poder mostrar bien la interfaz y todo
 	public void cargarVehiculos() {
-        SwingWorker<ArrayList<Vehiculos>, Void> worker = new SwingWorker<ArrayList<Vehiculos>, Void>() {
+        SwingWorker<ArrayList<Vehiculos>, Void> cargadprVehiculos = new SwingWorker<ArrayList<Vehiculos>, Void>() {
             @Override
             protected ArrayList<Vehiculos> doInBackground() throws Exception {
                 return modelo.obtenerVehiculos();
@@ -58,7 +61,7 @@ public class ControladorVehiculos implements ActionListener{
                 }
             }
         };
-        worker.execute();
+        cargadprVehiculos.execute();
     }
 	
 	@Override
@@ -99,17 +102,13 @@ public class ControladorVehiculos implements ActionListener{
 			break;
 		case "Borrar Vehiculo":
 			System.out.println("Borrar");
-			//GlassPanePopup.showPopup(new DialogoAvisos("Campos vacios", "Rellene los campos para poder\ncontinuar con el inicio de sesión."));GlassPanePopup.showPopup(new DialogoAvisos("Campos vacios", "Rellene los campos para poder\ncontinuar con el inicio de sesión."));
 			GlassPanePopup.showPopup(new DialogoConfirmacion("¿Estas seguro de querer \neliminar el auto?", ""));
 			break;
 		case "Rentar":
-//			GlassPanePopup.showPopup(new DialogoAvisos("Test", "Lorem ipsum mortem"));
-//			GlassPanePopup.showPopup(new DialogoEmergentes("NULL", "Rellene los campos para poder\ncontinuar con el inicio de sesión."));GlassPanePopup.showPopup(new DialogoAvisos("Campos vacios", "Rellene los campos para poder\ncontinuar con el inicio de sesión."));
 			GlassPanePopup.showPopup(new DialogoRentar("Test", "Crear Renta"));
 			break;
 		case "Editar Vehiculo":
 			System.out.println("Editar");
-			//GlassPanePopup.showPopup(new DialogoAvisos("Campos vacios", "Rellene los campos para poder\ncontinuar con el inicio de sesión."));GlassPanePopup.showPopup(new DialogoAvisos("Campos vacios", "Rellene los campos para poder\ncontinuar con el inicio de sesión."));
 			GlassPanePopup.showPopup(new DialogoAniadir("Editar vehiculo"));
 			break;
 		case "AgregarVehiculo":

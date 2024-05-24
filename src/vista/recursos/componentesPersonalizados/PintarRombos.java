@@ -7,13 +7,13 @@ import java.awt.Graphics2D;
 import javax.swing.JPanel;
 
 @SuppressWarnings("serial")
-public class PaintRombos extends JPanel {
+public class PintarRombos extends JPanel {
 	private Color color;
     private int tamanio;
     private int xPos;
     private int yPos;
 
-    public PaintRombos(Color color, int tamanio, int xPos, int yPos) {
+    public PintarRombos(Color color, int tamanio, int xPos, int yPos) {
         this.color = color;
         this.tamanio = tamanio;
         this.xPos = xPos;

@@ -10,24 +10,32 @@ import java.awt.geom.RoundRectangle2D;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
-import javax.swing.JPasswordField;
+import javax.swing.JTextField;
 
 @SuppressWarnings("serial")
-public class RoundJPasswordField extends JPasswordField {
+public class JTextFieldRedondeado extends JTextField {
     private int borderRadius;
     private Icon prefixIcon;
     private Icon suffixIcon;
     private String hint = "";
     private Color colorB = Color.black;
     
-    public RoundJPasswordField() {
+    public JTextFieldRedondeado() {
+    }
+
+    public JTextFieldRedondeado(int size, int borderRadius) {
+        super(size);
+        this.borderRadius = borderRadius;
+        setOpaque(false);
+    }
+    public JTextFieldRedondeado(int size, int borderRadius, Color colorB) {
+        super(size);
+        this.borderRadius = borderRadius;
+        this.colorB = colorB;
+        setOpaque(false);
+        
     }
     
-    public RoundJPasswordField(int size, int borderRadius) {
-    	super(size);
-    	this.borderRadius = borderRadius;
-    	setOpaque(false); 
-    }
     
     public String getHint() {
         return hint;
@@ -49,15 +57,14 @@ public class RoundJPasswordField extends JPasswordField {
         this.suffixIcon = suffixIcon;
         initBorder();
     }
-    
+        
     public Color getColorB() {
 		return colorB;
 	}
 	public void setColorB(Color colorB) {
 		this.colorB = colorB;
 	}
-    
-    protected void paintComponent(Graphics g) {
+	protected void paintComponent(Graphics g) {
     	((Graphics2D) g).setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g.setColor(getBackground());
         g.fillRoundRect(0, 0, getWidth()-1, getHeight()-1, borderRadius, borderRadius);
@@ -65,14 +72,13 @@ public class RoundJPasswordField extends JPasswordField {
         super.paintComponent(g);
     }
     protected void paintBorder(Graphics g) {
-    	g.setColor(colorB);
+        g.setColor(colorB);
         g.drawRoundRect(0, 0, getWidth()-1, getHeight()-1, borderRadius, borderRadius);
     }
     public boolean contains(int x, int y) {
         Shape shape = new RoundRectangle2D.Float(0, 0, getWidth()-1, getHeight()-1, borderRadius, borderRadius);
         return shape.contains(x, y);
     }
-    
     private void paintIcon(Graphics g) {
         Graphics2D g2 = (Graphics2D) g;
         if (prefixIcon != null) {
@@ -90,7 +96,9 @@ public class RoundJPasswordField extends JPasswordField {
     private void initBorder() {
         int left = 15;
         int right = 35;
+        //  5 is default
         if (prefixIcon != null) {
+            //  prefix is left
             left = prefixIcon.getIconWidth() + 15;
         }
         if (suffixIcon != null) {

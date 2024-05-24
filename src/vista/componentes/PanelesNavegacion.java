@@ -13,7 +13,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import vista.recursos.componentesPersonalizados.BtnBordeado;
-import vista.recursos.componentesPersonalizados.RoundedPanel;
+import vista.recursos.componentesPersonalizados.PanelRedondeado;
 
 @SuppressWarnings("serial")
 public class PanelesNavegacion extends JPanel{
@@ -28,7 +28,7 @@ public class PanelesNavegacion extends JPanel{
 	private JButton btnCategorias;
 	private JButton btnMarcas;
 	private JLabel lblTitulo;
-	private RoundedPanel panelCentral;
+	private PanelRedondeado panelCentral;
 	private JLabel lblAniadir;
 	
 	
@@ -37,7 +37,7 @@ public class PanelesNavegacion extends JPanel{
 		setBackground(new Color(33, 147, 246));
 		setBorder(new EmptyBorder(5, 5, 5, 5));
 		setLayout(null);
-		panelCentral = new RoundedPanel(30);
+		panelCentral = new PanelRedondeado(30);
 		
 		btnInicio = new JButton("Inicio");
 		btnCerrarSesion = new BtnBordeado(20, false); 
@@ -231,10 +231,10 @@ public class PanelesNavegacion extends JPanel{
 	public void setLblTitulo(JLabel lblTitulo) {
 		this.lblTitulo = lblTitulo;
 	}
-	public RoundedPanel getPanelCentral() {
+	public PanelRedondeado getPanelCentral() {
 		return panelCentral;
 	}
-	public void setPanelCentral(RoundedPanel panelCentral) {
+	public void setPanelCentral(PanelRedondeado panelCentral) {
 		this.panelCentral = panelCentral;
 	}
 	public JPanel getLblCargandoGif() {

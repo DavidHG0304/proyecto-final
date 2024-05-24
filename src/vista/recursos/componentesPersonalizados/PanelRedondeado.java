@@ -8,7 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.border.Border;
 
 @SuppressWarnings("serial")
-public class RoundedPanel extends JPanel {
+public class PanelRedondeado extends JPanel {
     private int borderRadius;
     private GradientPaint colorGradiant;
     private boolean conBorde = false;
@@ -16,13 +16,13 @@ public class RoundedPanel extends JPanel {
 	private Color color;
 	private int pixels;
 
-    public RoundedPanel(int borderRadius) {
+    public PanelRedondeado(int borderRadius) {
     	super();
         this.borderRadius = borderRadius;
         setOpaque(false);
     }
     
-    public RoundedPanel(int borderRadius, boolean conBorde, Color color) {
+    public PanelRedondeado(int borderRadius, boolean conBorde, Color color) {
     	super();
         this.borderRadius = borderRadius;
         this.conBorde = conBorde;
@@ -30,7 +30,7 @@ public class RoundedPanel extends JPanel {
         setOpaque(false);
     }
     
-    public RoundedPanel(int borderRadius, boolean conBorde, boolean conSombra, Color color, int pix) {
+    public PanelRedondeado(int borderRadius, boolean conBorde, boolean conSombra, Color color, int pix) {
     	super();
         this.borderRadius = borderRadius;
         this.conBorde = conBorde;

@@ -15,7 +15,7 @@ import raven.glasspanepopup.GlassPanePopup;
 import vista.recursos.componentesPersonalizados.BtnBordeado;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import vista.recursos.componentesPersonalizados.RoundJTextField;
+import vista.recursos.componentesPersonalizados.JTextFieldRedondeado;
 
 @SuppressWarnings("serial")
 public class DialogoAniadirC_M extends JPanel {
@@ -62,7 +62,7 @@ public class DialogoAniadirC_M extends JPanel {
 		});
 		add(cancelar);
 		
-		RoundJTextField txtMarca_2 = new RoundJTextField(20, 20, new Color(0, 0, 0, 60));
+		JTextFieldRedondeado txtMarca_2 = new JTextFieldRedondeado(20, 20, new Color(0, 0, 0, 60));
 		txtMarca_2.setFont(new Font("Inter", Font.PLAIN, 11));
 		txtMarca_2.setBackground(new Color(0, 0, 0, 5));
 		txtMarca_2.setBounds(39, 81, 476, 31);

@@ -71,7 +71,7 @@ public class ControladorRentas implements ActionListener{
 			break;
 		case "Agregar Renta pRentas":
 			System.out.println("AgregarRenta");
-			GlassPanePopup.showPopup(new DialogoAniadirC_M("Nombre de la nueva categoria"));
+			GlassPanePopup.showPopup(new DialogoRentar("Editar nombre de la categoria", "Crear Renta"));
 			break;
 		}
 	}

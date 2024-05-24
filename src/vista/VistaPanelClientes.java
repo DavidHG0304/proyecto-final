@@ -2,11 +2,18 @@ package vista;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+
+import modelo.entidades.Vehiculos;
+import vista.componentes.CartaClientes;
+import vista.componentes.CartasCarros;
+import vista.componentes.CartasRentas;
 import vista.componentes.PanelesNavegacion;
+import vista.recursos.componentesPersonalizados.ScrollBarPersonalizado;
 
 public class VistaPanelClientes {
 	private JFrame frame = new JFrame();
 	private PanelesNavegacion panel;
+	private JPanel panelCartasClientes;
 	
 	public VistaPanelClientes(){
 		frame = new JFrame();
@@ -21,8 +28,6 @@ public class VistaPanelClientes {
 	}
 	
 	public void clientes() {
-		
-		
 		panel = new PanelesNavegacion();
 		
 		frame.add(panel);
@@ -48,6 +53,40 @@ public class VistaPanelClientes {
 		panel.getBtnCerrarSesion().setActionCommand("Cerrar Sesión pClientes");
 		panel.getBtnAgregar().setActionCommand("Agregar Cliente pClientes");
 		
+		panelCartasClientes = new JPanel();
+		panelCartasClientes = new JPanel();
+		panelCartasClientes.setBounds(10, 170, 894, 360);
+		panelCartasClientes.setBackground(Color.WHITE);
+		panelCartasClientes.add(Box.createRigidArea(new Dimension(15, 0)));
+		panelCartasClientes.setLayout(new BoxLayout(panelCartasClientes, BoxLayout.Y_AXIS));
+		
+		panel.getPanelCentral().add(panelCartasClientes);
+		JPanel panelAux = new JPanel();
+		panelAux.setLayout(new BoxLayout(panelAux, BoxLayout.Y_AXIS));
+		panelAux.setBackground(Color.WHITE);
+		
+		int tamanio = 25;
+		for (int i = 0; i < tamanio; i++) {
+			CartaClientes cartaClientes = new CartaClientes();
+			panelAux.add(cartaClientes);
+			panelAux.add(Box.createVerticalStrut(10));
+			panelCartasClientes.add(panelAux);
+		}
+
+		JScrollPane scrollPane = new JScrollPane(panelCartasClientes);
+		scrollPane.setBounds(10, 220, 894, 360);
+		scrollPane.setBorder(null);
+		scrollPane.setPreferredSize(new Dimension(894, 360));
+		scrollPane.getVerticalScrollBar().setUI(new ScrollBarPersonalizado());
+        scrollPane.getHorizontalScrollBar().setUI(new ScrollBarPersonalizado());
+		scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+		panel.getPanelCentral().add(scrollPane);
+		
+		// QUItar gif
+		panel.getPanelCentral().remove(panel.getLblCargandoGif());
+		panel.getPanelCentral().repaint();
+		
 	}
 	
 	public void asignarActListner(ActionListener listener) {
@@ -58,11 +97,23 @@ public class VistaPanelClientes {
 		panel.getBtnRentas().addActionListener(listener);
 		panel.getBtnCategorias().addActionListener(listener);
 		panel.getBtnCerrarSesion().addActionListener(listener);
+		panel.getBtnAgregar().addActionListener(listener);
 	}
 	
-	
-
-	
+	public void asignarListenersCartas(ActionListener listener) {
+        for (Component comp : panelCartasClientes.getComponents()) {
+            if (comp instanceof JPanel) {
+                for (Component innerComp : ((JPanel) comp).getComponents()) {
+                    if (innerComp instanceof CartaClientes) {
+                        CartaClientes carta = (CartaClientes) innerComp;
+                        carta.getBtnbrdEditar().addActionListener(listener);
+                        carta.getBtnbrdDetalles().addActionListener(listener);
+                        carta.getBtnbrdEliminar().addActionListener(listener);
+                    }
+                }
+            }
+        }
+    }
 	
 	public JFrame getFrame() {
 		return frame;

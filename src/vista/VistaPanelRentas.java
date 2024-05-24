@@ -7,7 +7,7 @@ import modelo.entidades.Vehiculos;
 import vista.componentes.CartasCarros;
 import vista.componentes.CartasRentas;
 import vista.componentes.PanelesNavegacion;
-import vista.recursos.componentesPersonalizados.RoundedPanel;
+import vista.recursos.componentesPersonalizados.PanelRedondeado;
 import vista.recursos.componentesPersonalizados.ScrollBarPersonalizado;
 
 

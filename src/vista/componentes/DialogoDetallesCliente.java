@@ -30,23 +30,19 @@ import javax.swing.JTable;
 import java.awt.FlowLayout;
 
 @SuppressWarnings("serial")
-public class DialogoDetalles extends JPanel {
+public class DialogoDetallesCliente extends JPanel {
 
 
 	/**
 	 * Create the panel.
 	 * @param url 
 	 */
-	public DialogoDetalles(String titulo) {
+	public DialogoDetallesCliente(String titulo) {
 		setBackground(new Color(240, 240, 240));
 		setLayout(null);
 		setPreferredSize(new Dimension(750, 600));
 		setOpaque(false);
-		ImageIcon cargandoCarro = new ImageIcon(getClass().getResource("/vista/recursos/imagenes/carroPrueba.png"));
-        Image imagen = cargandoCarro.getImage();
-        Image imagenReescalada = imagen.getScaledInstance(200, 130, Image.SCALE_SMOOTH);
-        ImageIcon iconoReescalado = new ImageIcon(imagenReescalada);
-        
+		
         BtnBordeado Cerrar = new BtnBordeado(30, false, true, new Color(33, 147, 246));
         Cerrar.setBounds(20, 564, 115, 25);
         add(Cerrar);
@@ -65,14 +61,6 @@ public class DialogoDetalles extends JPanel {
         panel.setBounds(20, 54, 705, 500);
         panel.setLayout(null);  
         add(panel);
-
-        JLabel lblNewLabel = new JLabel("Tarifas");
-        lblNewLabel.setSize(705, 43);
-        lblNewLabel.setLocation(0, 10);
-        lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        lblNewLabel.setFont(new Font("Inter", Font.BOLD, 14));
-        lblNewLabel.setPreferredSize(new Dimension(695, 32));
-        panel.add(lblNewLabel);
         
         
 
@@ -89,7 +77,7 @@ public class DialogoDetalles extends JPanel {
 		JTable table = new JTable(datos, columnas);
 		table.setCellSelectionEnabled(false);
 		JScrollPane scrollPane = new JScrollPane(table);
-		scrollPane.setBounds(23, 301, 657, 175);
+		scrollPane.setBounds(23, 65, 657, 374);
 		scrollPane.setBorder(null);
 		scrollPane.getVerticalScrollBar().setUI(new ScrollBarPersonalizado());
 		scrollPane.getHorizontalScrollBar().setUI(new ScrollBarPersonalizado());
@@ -97,16 +85,11 @@ public class DialogoDetalles extends JPanel {
 		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 		panel.add(scrollPane);
 		
-		JLabel lblNewLabel_1 = new JLabel("");
-		lblNewLabel_1.setBounds(0, 250, 705, 3);
-		lblNewLabel_1.setOpaque(true);
-		panel.add(lblNewLabel_1);
-		
 		JLabel lblHistorialRentas = new JLabel("Historial Rentas");
 		lblHistorialRentas.setPreferredSize(new Dimension(695, 32));
 		lblHistorialRentas.setHorizontalAlignment(SwingConstants.CENTER);
 		lblHistorialRentas.setFont(new Font("Inter", Font.BOLD, 14));
-		lblHistorialRentas.setBounds(0, 250, 705, 43);
+		lblHistorialRentas.setBounds(-10, 11, 705, 43);
 		panel.add(lblHistorialRentas);
 		
 		
