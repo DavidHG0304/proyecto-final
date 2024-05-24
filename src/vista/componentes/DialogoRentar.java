@@ -34,12 +34,13 @@ import javax.swing.JRadioButton;
 @SuppressWarnings("serial")
 public class DialogoRentar extends JPanel {
 
+	private BtnBordeado btnCrear; 
 
 	/**
 	 * Create the panel.
 	 * @param url 
 	 */
-	public DialogoRentar(String titulo) {
+	public DialogoRentar(String titulo, String textoBtn) {
 		setBackground(new Color(255, 255, 255));
 		setLayout(null);
 		setPreferredSize(new Dimension(871, 587));
@@ -253,7 +254,7 @@ public class DialogoRentar extends JPanel {
         panelResumen.setBounds(612, 384, 230, 192);
 		add(panelResumen);
 		
-		BtnBordeado btnCrear =  new BtnBordeado(30, false, true, new Color(33, 147, 246));
+		btnCrear =  new BtnBordeado(30, false, true, new Color(33, 147, 246));
 		btnCrear.setBounds(21, 145, 184, 25);
 		btnCrear.setForeground(new Color(33, 147, 246));
 		panelResumen.add(btnCrear);
@@ -263,7 +264,7 @@ public class DialogoRentar extends JPanel {
 			}
 		});
 		
-		btnCrear.setText("Crear Renta");
+		btnCrear.setText(textoBtn);
 		btnCrear.setFont(new Font("Inter", Font.PLAIN, 14));
 		btnCrear.setBackground(new Color(33, 147, 246));
 		
@@ -298,7 +299,6 @@ public class DialogoRentar extends JPanel {
         
 	}
 	
-	
 	@Override
 	protected void paintComponent (Graphics g) {
 		Graphics2D g2 = (Graphics2D) g.create();
@@ -308,4 +308,14 @@ public class DialogoRentar extends JPanel {
 		g2.dispose();
 		super.paintComponent(g);
 	}
+
+	public BtnBordeado getBtnCrear() {
+		return btnCrear;
+	}
+
+	public void setBtnCrear(BtnBordeado btnCrear) {
+		this.btnCrear = btnCrear;
+	}
+	
+	
 }

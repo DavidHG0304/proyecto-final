@@ -124,11 +124,20 @@ public class Modelo {
 //	            "INNER JOIN tarifas t ON v.tarifas_id = t.id " +
 //	            "INNER JOIN imagenes_vehiculos iv ON v.id = iv.vehiculo_id " +
 //	            "INNER JOIN imagenes i ON iv.imagen_id = i.id";
-		String sql = "SELECT v.id, v.nombre AS nombre_vehiculo, v.año, v.cantidad_puertas, v.transmision, v.modelo, m.nombre AS nombre_marca, c.nombre AS categoria, t.tarifa_por_dia AS costo_por_dia " +
-	            "FROM vehiculos v " +
-	            "INNER JOIN marca m ON v.marca_id = m.id " +
-	            "INNER JOIN categoria c ON v.categoria_id = c.id " +
-	            "INNER JOIN tarifas t ON v.tarifas_id = t.id ";
+//		String sql = "SELECT v.id, v.nombre AS nombre_vehiculo, v.año, v.cantidad_puertas, v.transmision, v.modelo, m.nombre AS nombre_marca, c.nombre AS categoria, t.tarifa_por_dia AS costo_por_dia " +
+//	            "FROM vehiculos v " +
+//	            "INNER JOIN marca m ON v.marca_id = m.id " +
+//	            "INNER JOIN categoria c ON v.categoria_id = c.id " +
+//	            "INNER JOIN tarifas t ON v.tarifas_id = t.id ";
+		
+		String sql = "SELECT v.id, v.nombre AS nombre_vehiculo, v.año, v.cantidad_puertas, v.transmision, v.modelo, " + "m.nombre AS nombre_marca, c.nombre AS categoria, t.tarifa_por_dia AS costo_por_dia, i.url AS imagen_url " +
+	             "FROM vehiculos v " +
+	             "INNER JOIN marca m ON v.marca_id = m.id " +
+	             "INNER JOIN categoria c ON v.categoria_id = c.id " +
+	             "INNER JOIN tarifas t ON v.tarifas_id = t.id " +
+	             "INNER JOIN imagenes i ON v.imagenes_id = i.id";
+
+		
 		
 //		try (Connection con = DriverManager.getConnection("jdbc:mysql://sql.freedb.tech:3306/freedb_registros?useSSL=false","freedb_prueba","#ZKP5mSgzS6Ps&!");
 		try (Connection con = DriverManager.getConnection("jdbc:mysql://monorail.proxy.rlwy.net:28289/railway?useSSL=false","root","AZsyCwUGzmURenQkgkEOksyBwsWuQBFI");
@@ -144,7 +153,7 @@ public class Modelo {
 					vehiculo.setModelo(rs.getString("modelo"));
 			        vehiculo.setCategoria(rs.getString("categoria"));
 			        vehiculo.setCostoTotal(rs.getFloat("costo_por_dia"));
-		//	        vehiculo.setImagenUrl(rs.getString("url"));
+			        vehiculo.setImagenUrl(rs.getString("imagen_url"));
 			        vehiculos.add(vehiculo);
 				}
 				con.close();
@@ -154,29 +163,29 @@ public class Modelo {
 		return vehiculos;
 	}
 	
-	public void obtenerImagenesVehiculos(ArrayList<Vehiculos> vehiculos) {
-		// Solo imagenes
-		String sql = "SELECT v.id, i.url " + 
-				"FROM vehiculos v "
-				+ "INNER JOIN imagenes_vehiculos iv ON v.id = iv.vehiculo_id "
-				+ "INNER JOIN imagenes i ON iv.imagen_id = i.id";
-		try (Connection con = DriverManager.getConnection("jdbc:mysql://monorail.proxy.rlwy.net:28289/railway?useSSL=false","root","AZsyCwUGzmURenQkgkEOksyBwsWuQBFI");
-				PreparedStatement stmt = con.prepareStatement(sql);
-				ResultSet rs = stmt.executeQuery()) {
-			while (rs.next()) {
-                int vehiculoId = rs.getInt("id");
-                String url = rs.getString("url");
-                for (Vehiculos vehiculo : vehiculos) {
-                	if (vehiculo.getIdVehiculo() == vehiculoId) {
-                		vehiculo.setImagenUrl(url);
-                	}
-                }
-            }
-			con.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
+//	public void obtenerImagenesVehiculos(ArrayList<Vehiculos> vehiculos) {
+//		// Solo imagenes
+//		String sql = "SELECT v.id, i.url " + 
+//				"FROM vehiculos v "
+//				+ "INNER JOIN imagenes_vehiculos iv ON v.id = iv.vehiculo_id "
+//				+ "INNER JOIN imagenes i ON iv.imagen_id = i.id";
+//		try (Connection con = DriverManager.getConnection("jdbc:mysql://monorail.proxy.rlwy.net:28289/railway?useSSL=false","root","AZsyCwUGzmURenQkgkEOksyBwsWuQBFI");
+//				PreparedStatement stmt = con.prepareStatement(sql);
+//				ResultSet rs = stmt.executeQuery()) {
+//			while (rs.next()) {
+//                int vehiculoId = rs.getInt("id");
+//                String url = rs.getString("url");
+//                for (Vehiculos vehiculo : vehiculos) {
+//                	if (vehiculo.getIdVehiculo() == vehiculoId) {
+//                		vehiculo.setImagenUrl(url);
+//                	}
+//                }
+//            }
+//			con.close();
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
+//	}
 
 	public static String encriptarContrasenia(String contrasenia) {
 		try{

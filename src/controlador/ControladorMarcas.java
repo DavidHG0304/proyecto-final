@@ -78,7 +78,7 @@ public class ControladorMarcas implements ActionListener {
     			GlassPanePopup.showPopup(new DialogoConfirmacion("¿Estas seguro de querer \neliminar el auto?", ""));
     			break;
     		case "Rentar":
-    			GlassPanePopup.showPopup(new DialogoRentar("Test"));
+    			GlassPanePopup.showPopup(new DialogoRentar("Test", "Crear Renta"));
     			break;
     		case "Editar Vehiculo":
     			System.out.println("Editar");

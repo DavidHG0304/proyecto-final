@@ -2,6 +2,9 @@ package controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+
+import javax.swing.SwingWorker;
 
 import modelo.Modelo;
 import modelo.entidades.Vehiculos;
@@ -63,7 +66,6 @@ public class ControladorCategorias implements ActionListener{
 			controlador.login();
 			controlador.nuevoModelo.setRegistroEncontrado(false);
 			break;
-			
 		case "EliminarCategoria":
 			GlassPanePopup.showPopup(new DialogoConfirmacion("¿Estas seguro de querer \neliminar la categoria?", ""));
 		break;
@@ -81,7 +83,7 @@ public class ControladorCategorias implements ActionListener{
 			GlassPanePopup.showPopup(new DialogoConfirmacion("¿Estas seguro de querer \neliminar el auto?", ""));
 			break;
 		case "Rentar":
-			GlassPanePopup.showPopup(new DialogoRentar("Test"));
+			GlassPanePopup.showPopup(new DialogoRentar("Test", "Crear Renta"));
 			break;
 		case "Editar Vehiculo":
 			System.out.println("Editar");

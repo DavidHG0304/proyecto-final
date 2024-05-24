@@ -4,7 +4,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import modelo.Modelo;
+import raven.glasspanepopup.GlassPanePopup;
 import vista.VistaPanelRentas;
+import vista.componentes.DialogoAniadir;
+import vista.componentes.DialogoAniadirC_M;
+import vista.componentes.DialogoConfirmacion;
+import vista.componentes.DialogoDetalles;
+import vista.componentes.DialogoEmergentes;
+import vista.componentes.DialogoRentar;
 
 public class ControladorRentas implements ActionListener{
 	
@@ -18,6 +25,10 @@ public class ControladorRentas implements ActionListener{
         this.controlador = controlador;
         panelRentas.rentas();
         panelRentas.asignarActListner(this);
+        
+        
+        panelRentas.asignarListenersCartas(ControladorRentas.this);
+        GlassPanePopup.install(panelRentas.getFrame());
 	}
 	
 	
@@ -50,8 +61,18 @@ public class ControladorRentas implements ActionListener{
 			controlador.login();
 			controlador.nuevoModelo.setRegistroEncontrado(false);
 			break;
-			
+		case "EliminarRenta":
+			System.out.println("Eliminar");
+			GlassPanePopup.showPopup(new DialogoConfirmacion("¿Estas seguro de querer \neliminar la renta?", ""));
+			break;
+		case "EditarRenta":
+			System.out.println("Editar");
+			GlassPanePopup.showPopup(new DialogoRentar("Editar nombre de la categoria", "Editar Renta"));
+			break;
+		case "Agregar Renta pRentas":
+			System.out.println("AgregarRenta");
+			GlassPanePopup.showPopup(new DialogoAniadirC_M("Nombre de la nueva categoria"));
+			break;
 		}
 	}
-
 }

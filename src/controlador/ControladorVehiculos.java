@@ -44,9 +44,7 @@ public class ControladorVehiculos implements ActionListener{
         SwingWorker<ArrayList<Vehiculos>, Void> worker = new SwingWorker<ArrayList<Vehiculos>, Void>() {
             @Override
             protected ArrayList<Vehiculos> doInBackground() throws Exception {
-                ArrayList<Vehiculos> vehiculos = modelo.obtenerVehiculos();
-                modelo.obtenerImagenesVehiculos(vehiculos);
-                return vehiculos;
+                return modelo.obtenerVehiculos();
             }
 
             @Override
@@ -107,7 +105,7 @@ public class ControladorVehiculos implements ActionListener{
 		case "Rentar":
 //			GlassPanePopup.showPopup(new DialogoAvisos("Test", "Lorem ipsum mortem"));
 //			GlassPanePopup.showPopup(new DialogoEmergentes("NULL", "Rellene los campos para poder\ncontinuar con el inicio de sesión."));GlassPanePopup.showPopup(new DialogoAvisos("Campos vacios", "Rellene los campos para poder\ncontinuar con el inicio de sesión."));
-			GlassPanePopup.showPopup(new DialogoRentar("Test"));
+			GlassPanePopup.showPopup(new DialogoRentar("Test", "Crear Renta"));
 			break;
 		case "Editar Vehiculo":
 			System.out.println("Editar");
