@@ -5,9 +5,8 @@ Proyecto Final Programación 3
 Para la correcta visualización del programa instalar la fuente que utiliza el sistema (https://fonts.google.com/specimen/Inter)
 # 2- Clonar proyecto al repositorio
 Para poder importarlo desde el IDE de preferencia
-# 3- Revisar la dependencia con las librerias del proyecto
-Si llegase a dar un error, para solucionarlo reañadir las librerias al "Referenced Libraries" seleccionandolas todas, seleccionando con clic derecho "Build Path" y presionando "Add to build path"
-# 4- Usuarios de prueba
+# 3- Usuarios de prueba
+## Para poder utilizar el sistema puedes crear una cuenta o bien utilizar los usuarios de prueba
 <br />
 jesus23@gmail.com     contraseña123
 <br />
