@@ -149,9 +149,11 @@ public class MetodosLog_Reg {
 	public static boolean esCorreoValido(String correoValidando) {
 	    if (correoValidando != null) {
 	        Pattern[] formatos = {
-	            Pattern.compile("^[A-Za-z].*?@gmail\\.com$"),
-	            Pattern.compile("^[A-Za-z].*?@outlook\\.com$"),
-	            Pattern.compile("^[A-Za-z].*?@alu\\.uabcs\\.mx$")
+//	            Pattern.compile("^[A-Za-z].*?@gmail\\.com$"),
+//	            Pattern.compile("^[A-Za-z].*?@outlook\\.com$"),
+//	            Pattern.compile("^[A-Za-z].*?@alu\\.uabcs\\.mx$"),
+//	            Pattern.compile("^[A-Za-z].*?@.\\.mx$"),
+	            Pattern.compile("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$")
 	        };
 	        
 	        for (Pattern formato : formatos) {

@@ -1,12 +1,17 @@
 package vista;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
+
 import javax.swing.*;
 
+import controlador.ControladorClientes;
+import modelo.entidades.Usuarios;
 import modelo.entidades.Vehiculos;
 import vista.componentes.CartaClientes;
 import vista.componentes.CartasCarros;
 import vista.componentes.CartasRentas;
+import vista.componentes.DialogoCrearCliente;
 import vista.componentes.PanelesNavegacion;
 import vista.recursos.componentesPersonalizados.ScrollBarPersonalizado;
 
@@ -14,8 +19,13 @@ public class VistaPanelClientes {
 	private JFrame frame = new JFrame();
 	private PanelesNavegacion panel;
 	private JPanel panelCartasClientes;
+	private JPanel panelAux;
+	private ArrayList<CartaClientes> cartaClientes;
+	private ControladorClientes controlador;
+	private DialogoCrearCliente dialogoComplementos;
 	
-	public VistaPanelClientes(){
+	public VistaPanelClientes(ControladorClientes controlador){
+		this.controlador = controlador;
 		frame = new JFrame();
 		frame.setSize(950, 700);
 		frame.setVisible(true);
@@ -61,17 +71,17 @@ public class VistaPanelClientes {
 		panelCartasClientes.setLayout(new BoxLayout(panelCartasClientes, BoxLayout.Y_AXIS));
 		
 		panel.getPanelCentral().add(panelCartasClientes);
-		JPanel panelAux = new JPanel();
+		panelAux = new JPanel();
 		panelAux.setLayout(new BoxLayout(panelAux, BoxLayout.Y_AXIS));
 		panelAux.setBackground(Color.WHITE);
 		
-		int tamanio = 25;
-		for (int i = 0; i < tamanio; i++) {
-			CartaClientes cartaClientes = new CartaClientes();
-			panelAux.add(cartaClientes);
-			panelAux.add(Box.createVerticalStrut(10));
-			panelCartasClientes.add(panelAux);
-		}
+//		int tamanio = 25;
+//		for (int i = 0; i < tamanio; i++) {
+//			CartaClientes cartaClientes = new CartaClientes();
+//			panelAux.add(cartaClientes);
+//			panelAux.add(Box.createVerticalStrut(10));
+//			panelCartasClientes.add(panelAux);
+//		}
 
 		JScrollPane scrollPane = new JScrollPane(panelCartasClientes);
 		scrollPane.setBounds(10, 220, 894, 360);
@@ -83,11 +93,60 @@ public class VistaPanelClientes {
 		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 		panel.getPanelCentral().add(scrollPane);
 		
+		
+		cartaClientes = new ArrayList<>();
 		// QUItar gif
-		panel.getPanelCentral().remove(panel.getLblCargandoGif());
-		panel.getPanelCentral().repaint();
+//		panel.getPanelCentral().remove(panel.getLblCargandoGif());
+//		panel.getPanelCentral().repaint();
 		
 	}
+	
+//	public void mostrarClientes(ArrayList<Usuarios> usuarios) {
+//		cartaClientes.clear();
+//		panelCartasClientes.removeAll();
+//		panelAux.removeAll();
+//        panel.getPanelCentral().remove(panel.getLblCargandoGif());
+//        for (Usuarios usuario : usuarios) {
+//        	CartaClientes carta = new CartaClientes(usuario);
+//            panelAux.add(carta);
+//            panelAux.add(Box.createVerticalStrut(10));
+//            panelCartasClientes.add(panelAux);
+//            cartaClientes.add(carta);
+//        }
+//        
+//        panelAux.revalidate();
+//        panelAux.repaint();
+//        panelCartasClientes.revalidate();
+//        panelCartasClientes.repaint();
+//        panel.getPanelCentral().repaint();
+//    }
+	
+	public void mostrarClientes(ArrayList<Usuarios> usuarios) {
+        cartaClientes.clear();
+        panelCartasClientes.removeAll();
+        panelAux.removeAll();
+        panel.getPanelCentral().remove(panel.getLblCargandoGif());
+
+        for (Usuarios usuario : usuarios) {
+            CartaClientes carta = new CartaClientes(usuario, controlador);
+            carta.getBtnbrdEliminar().addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    eliminarCartaCliente(usuario);
+                }
+            });
+            panelAux.add(carta);
+            panelAux.add(Box.createVerticalStrut(10));
+            panelCartasClientes.add(panelAux);
+            cartaClientes.add(carta);
+        }
+
+        panelAux.revalidate();
+        panelAux.repaint();
+        panelCartasClientes.revalidate();
+        panelCartasClientes.repaint();
+        panel.getPanelCentral().repaint();
+    }
 	
 	public void asignarActListner(ActionListener listener) {
 		panel.getBtnInicio().addActionListener(listener);
@@ -98,6 +157,10 @@ public class VistaPanelClientes {
 		panel.getBtnCategorias().addActionListener(listener);
 		panel.getBtnCerrarSesion().addActionListener(listener);
 		panel.getBtnAgregar().addActionListener(listener);
+		
+//		dialogoComplementos = new DialogoCrearCliente("Crear Cliente", "Crear", new Usuarios());
+//		dialogoComplementos.getBtnCrear().addActionListener(listener);
+		
 	}
 	
 	public void asignarListenersCartas(ActionListener listener) {
@@ -115,10 +178,53 @@ public class VistaPanelClientes {
         }
     }
 	
+	// Devuelve el usuario que fue seleccionado para mostrar los datos del usuario y poder modificarlos
+	public Usuarios getUsuarioSeleccionado() {
+		for (CartaClientes carta : cartaClientes) {
+	        if (carta.isSeleccionado()) {
+	            Usuarios usuario = carta.getUsuario();
+	            return carta.getUsuario();
+	        }
+	    }
+
+		return null;
+	}
+	
+
+	
+	public void eliminarCartaCliente(Usuarios usuario) {
+        CartaClientes cartaEliminar = null;
+        for (CartaClientes carta : cartaClientes) {
+            if (carta.getUsuario().equals(usuario)) {
+                cartaEliminar = carta;
+                break;
+            }
+        }
+
+        if (cartaEliminar != null) {
+            cartaClientes.remove(cartaEliminar);
+            panelAux.remove(cartaEliminar);
+            panelCartasClientes.revalidate();
+            panelCartasClientes.repaint();
+            panel.getPanelCentral().repaint();
+        }
+    }
+	
+	
 	public JFrame getFrame() {
 		return frame;
 	}
 	public void setFrame(JFrame frame) {
 		this.frame = frame;
 	}
+
+	public ControladorClientes getControlador() {
+		return controlador;
+	}
+
+	public void setControlador(ControladorClientes controlador) {
+		this.controlador = controlador;
+	}
+	
+	
 }

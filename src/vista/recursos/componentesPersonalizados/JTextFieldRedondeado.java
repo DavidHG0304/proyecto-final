@@ -33,9 +33,7 @@ public class JTextFieldRedondeado extends JTextField {
         this.borderRadius = borderRadius;
         this.colorB = colorB;
         setOpaque(false);
-        
     }
-    
     
     public String getHint() {
         return hint;

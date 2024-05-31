@@ -10,6 +10,11 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 
+import controlador.ControladorClientes;
+import modelo.Modelo;
+import modelo.entidades.Usuarios;
+import raven.glasspanepopup.GlassPanePopup;
+
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -18,23 +23,32 @@ import java.awt.event.ActionListener;
 import vista.recursos.componentesPersonalizados.BtnBordeado;
 
 public class CartaClientes extends PanelRedondeado {
+	private Usuarios usuario;
+	private boolean seleccionado;
 	private BtnBordeado btnbrdDetalles;
 	private BtnBordeado btnbrdEliminar;
 	private BtnBordeado btnbrdEditar;
+
+	
+	private ControladorClientes controlador;
 	
 	
-	public CartaClientes() {
+	
+	public CartaClientes(Usuarios usuario, ControladorClientes controlador) {
 		super(30, false, true, new Color(0, 0, 0, 10), 5);
+		this.usuario = usuario;
+		this.seleccionado = false;
+		 this.controlador = controlador;
         setBackground(new Color(255, 255, 255));
         setPreferredSize(new Dimension(780, 150));
         setMaximumSize(new Dimension(800, 150));
 //      setLayout(null);
         
-        cartas();
+        cartas(usuario);
 	}
 	
 	
-	public void cartas() {
+	public void cartas(Usuarios usuario) {
 		
 		PanelRedondeado panelPrincipalCartas = new PanelRedondeado(35, false, Color.WHITE);
 		panelPrincipalCartas.setBackground(new Color(255, 255, 255));
@@ -60,25 +74,25 @@ public class CartaClientes extends PanelRedondeado {
 		panelImgCarro.repaint();
         
         
-        JLabel lblNombre = new JLabel("@Usuario123123");
+        JLabel lblNombre = new JLabel("@"+usuario.getNombreUsuario());
         lblNombre.setFont(new Font("Inter", Font.BOLD, 10));
         lblNombre.setBounds(10, 11, 99, 14);
         panelImgCarro.add(lblNombre);
         
         JPanel panelInfoCliente = new JPanel();
         panelInfoCliente.setBackground(new Color(255, 255, 255));
-        panelInfoCliente.setBounds(222, 3, 261, 136);
+        panelInfoCliente.setBounds(222, 3, 343, 136);
         panelInfoCliente.setLayout(null);
         panelPrincipalCartas.add(panelInfoCliente);
         
-        JLabel lblCorreoElectronicio = new JLabel("Correo Electronico");
+        JLabel lblCorreoElectronicio = new JLabel("Correo Electronico: " + usuario.getCorreo());
         lblCorreoElectronicio.setFont(new Font("Inter", Font.BOLD, 13));
-        lblCorreoElectronicio.setBounds(10, 23, 169, 14);
+        lblCorreoElectronicio.setBounds(10, 23, 323, 14);
         panelInfoCliente.add(lblCorreoElectronicio);
         
-        JLabel lblNombreC = new JLabel("Nombre del cliente");
+        JLabel lblNombreC = new JLabel("Nombre del cliente: " + usuario.getNombreUsuario() + " " + usuario.getApellido());
         lblNombreC.setFont(new Font("Inter", Font.BOLD, 10));
-        lblNombreC.setBounds(10, 44, 99, 14);
+        lblNombreC.setBounds(10, 44, 323, 14);
         panelInfoCliente.add(lblNombreC);
         
         btnbrdEliminar = new BtnBordeado(30, false, true, new Color(250, 0, 0));
@@ -87,7 +101,7 @@ public class CartaClientes extends PanelRedondeado {
         btnbrdEliminar.setForeground(new Color(250, 0, 0));
         btnbrdEliminar.setFont(new Font("Inter", Font.PLAIN, 14));
         btnbrdEliminar.setBackground(Color.WHITE);
-        btnbrdEliminar.setBounds(581, 114, 172, 25);
+        btnbrdEliminar.setBounds(581, 108, 172, 25);
         panelPrincipalCartas.add(btnbrdEliminar);
         
         btnbrdDetalles = new BtnBordeado(30, false, true, new Color(0,0,0,70));
@@ -107,8 +121,43 @@ public class CartaClientes extends PanelRedondeado {
         btnbrdEditar.setActionCommand("EditarCliente");
         btnbrdEditar.setBounds(581, 11, 172, 25);
         panelPrincipalCartas.add(btnbrdEditar);
+        
+        btnbrdEditar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				editarUsuario(usuario);
+			}
+		});
+        
+        btnbrdEliminar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                eliminarUsuario(usuario);
+            }
+        });
 	}
+	
+	private void editarUsuario(Usuarios usuario) {
+		GlassPanePopup.showPopup(new DialogoCrearCliente("Editar Cliente", "Editar", usuario));
+        getUsuario();
+    }
+	
+	
+	private void eliminarUsuario(Usuarios usuario) {
+		 if (controlador != null) {
+	            controlador.eliminarCliente(usuario);
+	        }
+    }
+	
+	
 
+	public Usuarios getUsuario() {
+        return usuario;
+    }
+    public boolean isSeleccionado() {
+        return seleccionado;
+    }
 	public BtnBordeado getBtnbrdEditar() {
 		return btnbrdEditar;
 	}
@@ -129,7 +178,5 @@ public class CartaClientes extends PanelRedondeado {
 	public void setBtnbrdDetalles(BtnBordeado btnbrdDetalles) {
 		this.btnbrdDetalles = btnbrdDetalles;
 	}
-	
-	
 	
 }

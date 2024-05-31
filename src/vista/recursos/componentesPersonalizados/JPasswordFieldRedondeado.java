@@ -29,6 +29,13 @@ public class JPasswordFieldRedondeado extends JPasswordField {
     	setOpaque(false); 
     }
     
+    public JPasswordFieldRedondeado(int size, int borderRadius,  Color colorB) {
+    	super(size);
+    	this.borderRadius = borderRadius;
+    	this.colorB = colorB;
+    	setOpaque(false); 
+    }
+    
     public String getHint() {
         return hint;
     }

@@ -70,23 +70,23 @@ public class Controlador implements ActionListener{
 	}
 	
 	public void clientes() {
-		VistaPanelClientes panelClientes = new VistaPanelClientes();
+		VistaPanelClientes panelClientes = new VistaPanelClientes(controladorClientes);
 		this.controladorClientes = new ControladorClientes(panelClientes, nuevoModelo, this);
 	}
 	
 	// Metodo validacion Login
 	public void accionLogin() {
-        if (metodos.loginValidado(new String(nuevaVista.getTxtContrasenia().getPassword()), nuevaVista.getTxtCorreo(), nuevaVista.getTxtContrasenia())) {
-            sesionIniciada = nuevoModelo.accionLogin(nuevaVista.getTxtCorreo().getText(), new String(nuevaVista.getTxtContrasenia().getPassword()));
-            if (sesionIniciada) {
-                nuevaVista.getFrame().dispose();
-                panelPrincipal();
-            } else {
-                metodos.loginNoValido(new String(nuevaVista.getTxtContrasenia().getPassword()), nuevaVista.getTxtCorreo(), nuevaVista.getTxtContrasenia(), nuevoModelo.isRegistroEncontrado());
-            }
-        }
-//		nuevaVista.getFrame().dispose();
-//      panelPrincipal();
+//        if (metodos.loginValidado(new String(nuevaVista.getTxtContrasenia().getPassword()), nuevaVista.getTxtCorreo(), nuevaVista.getTxtContrasenia())) {
+//            sesionIniciada = nuevoModelo.accionLogin(nuevaVista.getTxtCorreo().getText(), new String(nuevaVista.getTxtContrasenia().getPassword()));
+//            if (sesionIniciada) {
+//                nuevaVista.getFrame().dispose();
+//                panelPrincipal();
+//            } else {
+//                metodos.loginNoValido(new String(nuevaVista.getTxtContrasenia().getPassword()), nuevaVista.getTxtCorreo(), nuevaVista.getTxtContrasenia(), nuevoModelo.isRegistroEncontrado());
+//            }
+//        }
+		nuevaVista.getFrame().dispose();
+      panelPrincipal();
     }
 	
 	// Metodo validacion Registro

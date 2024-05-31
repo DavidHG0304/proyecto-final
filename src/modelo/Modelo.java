@@ -9,6 +9,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+
+import modelo.entidades.Usuarios;
 import modelo.entidades.Vehiculos;
 
 
@@ -186,6 +188,59 @@ public class Modelo {
 //			e.printStackTrace();
 //		}
 //	}
+	
+	
+	// Obtener la inormación de los usuarios para imprimirla en pantalla
+	public ArrayList<Usuarios> obtenerUsuarios() {
+		ArrayList<Usuarios> usuarios = new ArrayList<>();
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		String sql = "SELECT id, nombre, prim_apellido, correo_electronico, contraseña FROM usuarios";
+		
+		try (Connection con = DriverManager.getConnection("jdbc:mysql://monorail.proxy.rlwy.net:28289/railway?useSSL=false","root","AZsyCwUGzmURenQkgkEOksyBwsWuQBFI");
+				PreparedStatement stmt = con.prepareStatement(sql);
+				ResultSet rs = stmt.executeQuery()) {
+					while (rs.next()) {
+						Usuarios usuario = new Usuarios();
+						usuario.setIdUsuario(rs.getInt("id"));
+						usuario.setNombreUsuario(rs.getString("nombre"));
+						usuario.setApellido(rs.getString("prim_apellido"));
+						usuario.setCorreo(rs.getString("correo_electronico"));
+						usuarios.add(usuario);
+					}
+					con.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+		return usuarios;
+	}
+	
+	public boolean eliminarUsuario(int idUsuario) {
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	    String sql = "DELETE FROM usuarios WHERE id = ?";
+	    try (Connection con = DriverManager.getConnection("jdbc:mysql://monorail.proxy.rlwy.net:28289/railway?useSSL=false","root","AZsyCwUGzmURenQkgkEOksyBwsWuQBFI");
+	        PreparedStatement stmt = con.prepareStatement(sql)) {
+	        
+	        stmt.setInt(1, idUsuario);
+	        int filasAfectadas = stmt.executeUpdate();
+	        return filasAfectadas > 0;
+	        
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        return false;
+	    }
+	}
 
 	public static String encriptarContrasenia(String contrasenia) {
 		try{

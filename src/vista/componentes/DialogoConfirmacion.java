@@ -18,6 +18,8 @@ import java.awt.event.ActionEvent;
 
 @SuppressWarnings("serial")
 public class DialogoConfirmacion extends JPanel {
+	private boolean confirmar = false;
+	private BtnBordeado boton;
 
 
 	/**
@@ -35,10 +37,12 @@ public class DialogoConfirmacion extends JPanel {
 		lblNewLabel.setBounds(10, 11, 533, 105);
 		add(lblNewLabel);
 		
-		BtnBordeado boton = new BtnBordeado(30, true);
+		boton = new BtnBordeado(30, true);
 		boton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				GlassPanePopup.closePopupLast();
+				setConfirmar(true);
+				
 			}
 		});
 		boton.setFont(new Font("Inter", Font.PLAIN, 15));
@@ -62,7 +66,6 @@ public class DialogoConfirmacion extends JPanel {
 		add(cancelar);
 	}
 	
-	
 	@Override
 	protected void paintComponent (Graphics g) {
 		Graphics2D g2 = (Graphics2D) g.create();
@@ -71,5 +74,18 @@ public class DialogoConfirmacion extends JPanel {
 		g2.fill(new RoundRectangle2D.Double(0,0,getWidth(),getHeight(),30,30));
 		g2.dispose();
 		super.paintComponent(g);
+	}
+	
+	public BtnBordeado getBoton() {
+		return boton;
+	}
+	public void setBoton(BtnBordeado boton) {
+		this.boton = boton;
+	}
+	public boolean isConfirmar() {
+		return confirmar;
+	}
+	public void setConfirmar(boolean confirmar) {
+		this.confirmar = confirmar;
 	}
 }
