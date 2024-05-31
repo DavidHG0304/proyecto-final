@@ -25,13 +25,13 @@ public class DialogoConfirmacion extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public DialogoConfirmacion(String Mensasje, String Contenido) {
+	public DialogoConfirmacion(String mensaje, String Contenido) {
 		setBackground(new Color(255, 255, 255));
 		setLayout(null);
 		setPreferredSize(new Dimension(553, 195));
 		setOpaque(false);
 		
-		JLabel lblNewLabel = new JLabel(Mensasje);
+		JLabel lblNewLabel = new JLabel(mensaje);
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setFont(new Font("Inter", Font.BOLD, 22));
 		lblNewLabel.setBounds(10, 11, 533, 105);

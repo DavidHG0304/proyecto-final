@@ -95,10 +95,6 @@ public class VistaPanelClientes {
 		
 		
 		cartaClientes = new ArrayList<>();
-		// QUItar gif
-//		panel.getPanelCentral().remove(panel.getLblCargandoGif());
-//		panel.getPanelCentral().repaint();
-		
 	}
 	
 //	public void mostrarClientes(ArrayList<Usuarios> usuarios) {
@@ -132,7 +128,7 @@ public class VistaPanelClientes {
             carta.getBtnbrdEliminar().addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    eliminarCartaCliente(usuario);
+                     controlador.prepararEliminacionCliente(usuario);
                 }
             });
             panelAux.add(carta);
@@ -160,6 +156,7 @@ public class VistaPanelClientes {
 		
 //		dialogoComplementos = new DialogoCrearCliente("Crear Cliente", "Crear", new Usuarios());
 //		dialogoComplementos.getBtnCrear().addActionListener(listener);
+		
 		
 	}
 	

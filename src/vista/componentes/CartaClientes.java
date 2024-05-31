@@ -129,14 +129,14 @@ public class CartaClientes extends PanelRedondeado {
 				editarUsuario(usuario);
 			}
 		});
-        
-        btnbrdEliminar.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                eliminarUsuario(usuario);
-            }
-        });
+//        btnbrdEliminar.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                eliminarUsuario(usuario);
+//            }
+//        });
 	}
+	
 	
 	private void editarUsuario(Usuarios usuario) {
 		GlassPanePopup.showPopup(new DialogoCrearCliente("Editar Cliente", "Editar", usuario));
@@ -144,11 +144,11 @@ public class CartaClientes extends PanelRedondeado {
     }
 	
 	
-	private void eliminarUsuario(Usuarios usuario) {
-		 if (controlador != null) {
-	            controlador.eliminarCliente(usuario);
-	        }
-    }
+//	private void eliminarUsuario(Usuarios usuario) {
+//		 if (controlador != null) {
+//	            controlador.eliminarCliente(usuario);
+//	        }
+//    }
 	
 	
 

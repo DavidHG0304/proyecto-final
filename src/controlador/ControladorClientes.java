@@ -31,7 +31,9 @@ public class ControladorClientes implements ActionListener{
 	private Controlador controlador;
 	private MetodosLog_Reg metodos;
 	private DialogoCrearCliente dialogoCrearCliente;
+	private DialogoConfirmacion dialogoConfirmacion;
 	private ListenersRegistrarCliente accionesRegistroCliente; 
+	private Usuarios usuarioSeleccionadoParaEliminar;  
 	private boolean usuarioRegistrado;
 
 	
@@ -46,7 +48,7 @@ public class ControladorClientes implements ActionListener{
         
         
         panelClientes.setControlador(this);
-        inicializar();
+//        inicializar();
         panelClientes.clientes();
         panelClientes.asignarActListner(this);
         cargarUsuario();
@@ -63,6 +65,8 @@ public class ControladorClientes implements ActionListener{
 		modelo.eliminarUsuario(usuario.getIdUsuario());
 	        ArrayList<Usuarios> usuariosActualizados = modelo.obtenerUsuarios();
 	        panelClientes.mostrarClientes(usuariosActualizados);
+            panelClientes.asignarListenersCartas(ControladorClientes.this);
+
 	    } else {
 	        System.out.println("No se pudo");
 	    }
@@ -97,11 +101,20 @@ public class ControladorClientes implements ActionListener{
 	                GlassPanePopup.closePopupLast();
 	                GlassPanePopup.showPopup(new DialogoAvisos("Cuenta Creada", "Cuenta creada con éxito \nEl cliente ha sido registrado."));
 	                usuarioRegistrado = false;
+	                modelo.setHayRegistro(0);
 	            }
 	        } else {
 	            metodos.registroNoValido(dialogoCrearCliente.getTxtNombre(), dialogoCrearCliente.getTxtApellidos(), dialogoCrearCliente.getTxtCorreo(), dialogoCrearCliente.getTxtContrasenia(), dialogoCrearCliente.getTxtConfirmarContrasenia(), modelo.isRegistrado(), new String(dialogoCrearCliente.getTxtContrasenia().getPassword()), new String(dialogoCrearCliente.getTxtConfirmarContrasenia().getPassword()), modelo.getHayRegistro());
 	        }
-	    }
+	}
+	 
+	public void prepararEliminacionCliente(Usuarios usuario) {
+	        usuarioSeleccionadoParaEliminar = usuario;
+	        dialogoConfirmacion = new DialogoConfirmacion("¿Estás seguro de querer eliminar el cliente?", "");
+	        dialogoConfirmacion.getBoton().setActionCommand("ConfirmarEliminar");
+	        dialogoConfirmacion.getBoton().addActionListener(this);
+	        GlassPanePopup.showPopup(dialogoConfirmacion);
+	}
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -132,25 +145,18 @@ public class ControladorClientes implements ActionListener{
 			controlador.login();
 			controlador.nuevoModelo.setRegistroEncontrado(false);
 			break;
-		case "EliminarCliente":
-			System.out.println("Eliminar");
-//			Usuarios usuarioSeleccionado = panelClientes.getUsuarioSeleccionado();
-//			if(usuarioSeleccionado != null) {
-//			    panelClientes.eliminarCartaCliente(usuarioSeleccionado);
-//			}
-//			DialogoConfirmacion dialogoConfirmacion = new DialogoConfirmacion("¿Estas seguro de querer \neliminar el cliente?", "");
-//			GlassPanePopup.showPopup(dialogoConfirmacion);
-//			if(dialogoConfirmacion.isConfirmar()) {
-//				System.out.println("Le picó");
-//			}
-			Usuarios usuarioSeleccionado = panelClientes.getUsuarioSeleccionado();
-			if (usuarioSeleccionado != null) {
-				eliminarCliente(usuarioSeleccionado);
-			} else {
-
-			}
+			
+//		case "EliminarCliente":
+//			System.out.println("Eliminar");
+//			break;
+			
+		case "ConfirmarEliminar":
+			System.out.println("Eliminado");
+                eliminarCliente(usuarioSeleccionadoParaEliminar);
+                GlassPanePopup.closePopupLast();
 			break;
 		case "EditarCliente":
+			Usuarios usuarioSeleccionado = panelClientes.getUsuarioSeleccionado();
             usuarioSeleccionado = panelClientes.getUsuarioSeleccionado();
             if(usuarioSeleccionado != null) {
                 cargarUsuario();
