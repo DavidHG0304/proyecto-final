@@ -118,20 +118,6 @@ public class Modelo {
 			e.printStackTrace();
 		}
 		
-		
-//		String sql = "SELECT v.nombre AS nombre_vehiculo, v.año, v.cantidad_puertas, v.transmision, v.modelo, m.nombre AS nombre_marca, c.nombre AS categoria, t.tarifa_por_dia AS costo_por_dia, i.url " +
-//	            "FROM vehiculos v " +
-//	            "INNER JOIN marca m ON v.marca_id = m.id " +
-//	            "INNER JOIN categoria c ON v.categoria_id = c.id " +
-//	            "INNER JOIN tarifas t ON v.tarifas_id = t.id " +
-//	            "INNER JOIN imagenes_vehiculos iv ON v.id = iv.vehiculo_id " +
-//	            "INNER JOIN imagenes i ON iv.imagen_id = i.id";
-//		String sql = "SELECT v.id, v.nombre AS nombre_vehiculo, v.año, v.cantidad_puertas, v.transmision, v.modelo, m.nombre AS nombre_marca, c.nombre AS categoria, t.tarifa_por_dia AS costo_por_dia " +
-//	            "FROM vehiculos v " +
-//	            "INNER JOIN marca m ON v.marca_id = m.id " +
-//	            "INNER JOIN categoria c ON v.categoria_id = c.id " +
-//	            "INNER JOIN tarifas t ON v.tarifas_id = t.id ";
-		
 		String sql = "SELECT v.id, v.nombre AS nombre_vehiculo, v.año, v.cantidad_puertas, v.transmision, v.modelo, " + "m.nombre AS nombre_marca, c.nombre AS categoria, t.tarifa_por_dia AS costo_por_dia, i.url AS imagen_url " +
 	             "FROM vehiculos v " +
 	             "INNER JOIN marca m ON v.marca_id = m.id " +
@@ -233,6 +219,31 @@ public class Modelo {
 	        PreparedStatement stmt = con.prepareStatement(sql)) {
 	        
 	        stmt.setInt(1, idUsuario);
+	        int filasAfectadas = stmt.executeUpdate();
+	        return filasAfectadas > 0;
+	        
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        return false;
+	    }
+	}
+	
+	public boolean actualizarUsuario(int id, String nombre, String apellidos, String correo, String contrasenia) {
+	    try {
+	        Class.forName("com.mysql.cj.jdbc.Driver");
+	    } catch (ClassNotFoundException e) {
+	        e.printStackTrace();
+	    }
+
+	    String sql = "UPDATE usuarios SET nombre = ?, prim_apellido = ?, correo_electronico = ?, contraseña = ? WHERE id = ?";
+	    try (Connection con = DriverManager.getConnection("jdbc:mysql://monorail.proxy.rlwy.net:28289/railway?useSSL=false","root","AZsyCwUGzmURenQkgkEOksyBwsWuQBFI");
+	         PreparedStatement stmt = con.prepareStatement(sql)) {
+	        stmt.setString(1, nombre);
+	        stmt.setString(2, apellidos);
+	        stmt.setString(3, correo);
+	        stmt.setString(4, encriptarContrasenia(contrasenia));
+	        stmt.setInt(5, id);
+	        
 	        int filasAfectadas = stmt.executeUpdate();
 	        return filasAfectadas > 0;
 	        

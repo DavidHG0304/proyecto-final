@@ -139,8 +139,9 @@ public class CartaClientes extends PanelRedondeado {
 	
 	
 	private void editarUsuario(Usuarios usuario) {
-		GlassPanePopup.showPopup(new DialogoCrearCliente("Editar Cliente", "Editar", usuario));
-        getUsuario();
+//		GlassPanePopup.showPopup(new DialogoCrearCliente("Editar Cliente", "Editar", usuario));
+//        getUsuario();
+		controlador.prepararEdicionCliente(usuario);
     }
 	
 	
