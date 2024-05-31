@@ -7,6 +7,9 @@ Para la correcta visualización del programa instalar la fuente que utiliza el s
 Para poder importarlo desde el IDE de preferencia
 # 3- Usuarios de prueba
 ## Para poder utilizar el sistema puedes crear una cuenta o bien utilizar los usuarios de prueba
+
+al crear un usuario NO UTILIZAR en el correo letra "Ñ", acentos, caracteres especiales (!*^...)
+
 <br />
 jesus23@gmail.com     contraseña123
 <br />
