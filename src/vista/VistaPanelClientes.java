@@ -153,11 +153,6 @@ public class VistaPanelClientes {
 		panel.getBtnCategorias().addActionListener(listener);
 		panel.getBtnCerrarSesion().addActionListener(listener);
 		panel.getBtnAgregar().addActionListener(listener);
-		
-//		dialogoComplementos = new DialogoCrearCliente("Crear Cliente", "Crear", new Usuarios());
-//		dialogoComplementos.getBtnCrear().addActionListener(listener);
-		
-		
 	}
 	
 	public void asignarListenersCartas(ActionListener listener) {

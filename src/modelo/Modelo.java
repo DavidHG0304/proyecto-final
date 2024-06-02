@@ -49,6 +49,7 @@ public class Modelo {
 	public Modelo() {
 	}
 	
+	/*
 	
 	public boolean accionLogin(String correoElectronico, String contrasenia) {
 		try {
@@ -80,6 +81,44 @@ public class Modelo {
 		}else {
 			System.out.println("Datos No coinciden");
 			return false;
+		}
+	}
+	
+	*/
+	
+	public Usuarios accionLogin(String correoElectronico, String contrasenia) {
+		Usuarios usuarioIniciar = null;
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection con = DriverManager.getConnection("jdbc:mysql://monorail.proxy.rlwy.net:28289/railway?useSSL=false","root","AZsyCwUGzmURenQkgkEOksyBwsWuQBFI");
+			String query = "SELECT * FROM usuarios WHERE correo_electronico = ? AND contraseña = ?";
+            PreparedStatement pst = con.prepareStatement(query);
+            pst.setString(1, correoElectronico);
+            pst.setString(2, encriptarContrasenia(contrasenia));
+            ResultSet rs = pst.executeQuery();
+			
+			while (rs.next() ) {
+				usuarioIniciar = new Usuarios();
+				usuarioIniciar.setIdUsuario(rs.getInt("id"));
+				usuarioIniciar.setNombreUsuario(rs.getString("nombre"));
+				usuarioIniciar.setApellido(rs.getString("prim_apellido"));
+                usuarioIniciar.setCorreo(rs.getString("correo_electronico"));
+                registroEncontrado = true;
+			}
+			con.close();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		if(registroEncontrado) {
+			System.out.println("Datos Coinciden");
+			return usuarioIniciar;
+		}else {
+			System.out.println("Datos No coinciden");
+			return null;
 		}
 	}
 	
@@ -151,31 +190,6 @@ public class Modelo {
 		return vehiculos;
 	}
 	
-//	public void obtenerImagenesVehiculos(ArrayList<Vehiculos> vehiculos) {
-//		// Solo imagenes
-//		String sql = "SELECT v.id, i.url " + 
-//				"FROM vehiculos v "
-//				+ "INNER JOIN imagenes_vehiculos iv ON v.id = iv.vehiculo_id "
-//				+ "INNER JOIN imagenes i ON iv.imagen_id = i.id";
-//		try (Connection con = DriverManager.getConnection("jdbc:mysql://monorail.proxy.rlwy.net:28289/railway?useSSL=false","root","AZsyCwUGzmURenQkgkEOksyBwsWuQBFI");
-//				PreparedStatement stmt = con.prepareStatement(sql);
-//				ResultSet rs = stmt.executeQuery()) {
-//			while (rs.next()) {
-//                int vehiculoId = rs.getInt("id");
-//                String url = rs.getString("url");
-//                for (Vehiculos vehiculo : vehiculos) {
-//                	if (vehiculo.getIdVehiculo() == vehiculoId) {
-//                		vehiculo.setImagenUrl(url);
-//                	}
-//                }
-//            }
-//			con.close();
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		}
-//	}
-	
-	
 	// Obtener la inormación de los usuarios para imprimirla en pantalla
 	public ArrayList<Usuarios> obtenerUsuarios() {
 		ArrayList<Usuarios> usuarios = new ArrayList<>();
@@ -237,7 +251,7 @@ public class Modelo {
 
 	    String sql = "UPDATE usuarios SET nombre = ?, prim_apellido = ?, correo_electronico = ?, contraseña = ? WHERE id = ?";
 	    try (Connection con = DriverManager.getConnection("jdbc:mysql://monorail.proxy.rlwy.net:28289/railway?useSSL=false","root","AZsyCwUGzmURenQkgkEOksyBwsWuQBFI");
-	         PreparedStatement stmt = con.prepareStatement(sql)) {
+	        PreparedStatement stmt = con.prepareStatement(sql)) {
 	        stmt.setString(1, nombre);
 	        stmt.setString(2, apellidos);
 	        stmt.setString(3, correo);

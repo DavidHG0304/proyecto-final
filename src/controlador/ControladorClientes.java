@@ -39,9 +39,7 @@ public class ControladorClientes implements ActionListener{
 		this.modelo = modelo;
 		this.controlador = controlador;
 		this.metodos = new MetodosLog_Reg();
-
 		panelClientes.setControlador(this);
-//      inicializar();
 		panelClientes.clientes();
 		panelClientes.asignarActListner(this);
 		cargarUsuario();
@@ -63,6 +61,7 @@ public class ControladorClientes implements ActionListener{
 		} else {
 			System.out.println("No se pudo");
 		}
+		
 	}
 
 	public void cargarUsuario() {
@@ -147,11 +146,6 @@ public class ControladorClientes implements ActionListener{
 			controlador.login();
 			controlador.nuevoModelo.setRegistroEncontrado(false);
 			break;
-			
-//		case "EliminarCliente":
-//			System.out.println("Eliminar");
-//			break;
-			
 		case "ConfirmarEliminar":
 			System.out.println("Eliminado");
                 eliminarCliente(usuarioSeleccionadoParaEliminar);
@@ -161,8 +155,7 @@ public class ControladorClientes implements ActionListener{
 			Usuarios usuarioSeleccionado = panelClientes.getUsuarioSeleccionado();
             usuarioSeleccionado = panelClientes.getUsuarioSeleccionado();
             if(usuarioSeleccionado != null) {
-            	prepararEdicionCliente(usuarioSeleccionado);            	
-//                cargarUsuario();
+            	prepararEdicionCliente(usuarioSeleccionado);   
             }
             break;
 		case "EditarUnCliente":
@@ -178,10 +171,6 @@ public class ControladorClientes implements ActionListener{
                 }
 			}
 			break;
-		case "DetallesCliente":
-			System.out.println("Detalles");
-			GlassPanePopup.showPopup(new DialogoDetallesCliente(""));
-			break;
 		case "Agregar Cliente pClientes":
 			Usuarios nuevoUsuario = new Usuarios();
             dialogoCrearCliente = new DialogoCrearCliente("Crear Cliente", "Crear", nuevoUsuario);
@@ -192,6 +181,11 @@ public class ControladorClientes implements ActionListener{
 		case "CrearUnCliente":
 			System.out.println("Hola");
 			accionRegistro();
+			break;
+		case "DetallesCliente":
+			System.out.println("Detalles");
+			nuevoUsuario = new Usuarios();
+			GlassPanePopup.showPopup(new DialogoDetallesCliente("", nuevoUsuario));
 			break;
 		}
 	}

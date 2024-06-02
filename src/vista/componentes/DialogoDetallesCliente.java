@@ -15,6 +15,8 @@ import javax.swing.JButton;
 import javax.swing.JEditorPane;
 import java.awt.Font;
 import javax.swing.SwingConstants;
+
+import modelo.entidades.Usuarios;
 import raven.glasspanepopup.GlassPanePopup;
 import vista.recursos.componentesPersonalizados.BtnBordeado;
 import vista.recursos.componentesPersonalizados.JTextFieldRedondeado;
@@ -37,7 +39,7 @@ public class DialogoDetallesCliente extends JPanel {
 	 * Create the panel.
 	 * @param url 
 	 */
-	public DialogoDetallesCliente(String titulo) {
+	public DialogoDetallesCliente(String titulo, Usuarios usuario) {
 		setBackground(new Color(240, 240, 240));
 		setLayout(null);
 		setPreferredSize(new Dimension(750, 600));
@@ -63,27 +65,29 @@ public class DialogoDetallesCliente extends JPanel {
         add(panel);
         
         
-
 		String[] columnas = { "Usuario", "Fecha Inicial", "Fecha Final", "Auto", "Pago" };
-		String[][] datos = new String[50][5];
-		for (int i = 0; i < 50; i++) {
-            datos[i][0] = "@Usuario" + (i + 1);
-            datos[i][1] = "12/12/2024";
-            datos[i][2] = "13/12/2024";        
-            datos[i][3] = "AutoEjemplo";     
-            datos[i][4] = "$" + (1800 + i);
-        }
+		
+		if(usuario == null) {
+			String[][] datos = new String[50][5];
+			for (int i = 0; i < 50; i++) {
+				datos[i][0] = "@Usuario" + (i + 1);
+				datos[i][1] = "12/12/2024";
+				datos[i][2] = "13/12/2024";        
+				datos[i][3] = "AutoEjemplo";     
+				datos[i][4] = "$" + (1800 + i);
+				JTable table = new JTable(datos, columnas);
+				table.setCellSelectionEnabled(false);
+				JScrollPane scrollPane = new JScrollPane(table);
+				scrollPane.setBounds(23, 65, 657, 374);
+				scrollPane.setBorder(null);
+				scrollPane.getVerticalScrollBar().setUI(new ScrollBarPersonalizado());
+				scrollPane.getHorizontalScrollBar().setUI(new ScrollBarPersonalizado());
+				scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+				scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+				panel.add(scrollPane);
+			}
+		}
 
-		JTable table = new JTable(datos, columnas);
-		table.setCellSelectionEnabled(false);
-		JScrollPane scrollPane = new JScrollPane(table);
-		scrollPane.setBounds(23, 65, 657, 374);
-		scrollPane.setBorder(null);
-		scrollPane.getVerticalScrollBar().setUI(new ScrollBarPersonalizado());
-		scrollPane.getHorizontalScrollBar().setUI(new ScrollBarPersonalizado());
-		scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-		panel.add(scrollPane);
 		
 		JLabel lblHistorialRentas = new JLabel("Historial Rentas");
 		lblHistorialRentas.setPreferredSize(new Dimension(695, 32));
@@ -92,19 +96,7 @@ public class DialogoDetallesCliente extends JPanel {
 		lblHistorialRentas.setBounds(-10, 11, 705, 43);
 		panel.add(lblHistorialRentas);
 		
-		
 	}
-        
-//        JScrollPane scrollPane= new JScrollPane(panel);
-//		scrollPane.setBounds(10, 220, 894, 410);
-//		scrollPane.setBorder(null);
-//		scrollPane.setPreferredSize(new Dimension(894, 360));
-//		scrollPane.getVerticalScrollBar().setUI(new ScrollBarPersonalizado());
-//      scrollPane.getHorizontalScrollBar().setUI(new ScrollBarPersonalizado());
-//		scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-//		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-//		panel.add(scrollPane);
-	
 	
 	@Override
 	protected void paintComponent (Graphics g) {
