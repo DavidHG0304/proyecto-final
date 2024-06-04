@@ -28,7 +28,10 @@ public class ControladorMarcas implements ActionListener {
         panelMarcas.asignarActListner(this);
         
 //        modelo.mostrarMarcas(9);
-          modelo.aniadirMarcas("Nueva Marca");
+//         modelo.aniadirMarcas("Nueva Marca");
+//        modelo.eliminarMarcas(11);
+        modelo.editarMarcas(12, "Carrirour do fortnite");
+        
         // Asignar Listener y agregar el componente Popup al frame
         panelMarcas.asignarListenersCartas(ControladorMarcas.this);
         GlassPanePopup.install(panelMarcas.getFrame());

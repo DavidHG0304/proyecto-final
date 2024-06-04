@@ -602,7 +602,6 @@ public class Modelo {
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
-
 		try (Connection con = DriverManager.getConnection(
 				"jdbc:mysql://monorail.proxy.rlwy.net:28289/railway?useSSL=false", "root",
 				"AZsyCwUGzmURenQkgkEOksyBwsWuQBFI");) {
@@ -610,9 +609,6 @@ public class Modelo {
 
 			stmt.setString(1, nombreMarca);
 			System.out.println("");
-			
-			
-			
 			
 			int filasAfectadas = stmt.executeUpdate();
 			con.close();
@@ -623,14 +619,53 @@ public class Modelo {
 			e.printStackTrace();
 			return false;
 		}
-	
-
-
-
-
-
-
-
 	}
+	// Metodo para eliminar marcas
+	public boolean eliminarMarcas(int idMarcas) {
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		String sqlCategoria = "DELETE FROM marca WHERE id = ?";
+		try (Connection con = DriverManager.getConnection(
+				"jdbc:mysql://monorail.proxy.rlwy.net:28289/railway?useSSL=false", "root",
+				"AZsyCwUGzmURenQkgkEOksyBwsWuQBFI");
+				PreparedStatement stmtCategoria = con.prepareStatement(sqlCategoria)) {
+			stmtCategoria.setInt(1, idMarcas);
+			int filasAfectadas = stmtCategoria.executeUpdate();
+		System.out.println("Marca Eliminada");
+			return filasAfectadas > 0;
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+		
+	}
+	// editar marca
+	public boolean editarMarcas(int idMarcas, String nombreMarcas) {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        String sql = "UPDATE marca SET nombre = ? WHERE id = ?";
+        try (Connection con = DriverManager.getConnection("jdbc:mysql://monorail.proxy.rlwy.net:28289/railway?useSSL=false", "root", "AZsyCwUGzmURenQkgkEOksyBwsWuQBFI");
+			PreparedStatement stmt = con.prepareStatement(sql)) {
+
+        	stmt.setString(1, nombreMarcas);
+            stmt.setInt(2, idMarcas);
+            
+            int filasAfectadas = stmt.executeUpdate();
+            System.out.println("Editar categoria");
+            return filasAfectadas > 0;
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }
 	
