@@ -27,6 +27,7 @@ public class ControladorRentas implements ActionListener{
         panelRentas.asignarActListner(this);
         
         modelo.mostrarRentas(3);
+        modelo.eliminarRenta(3);
         
         panelRentas.asignarListenersCartas(ControladorRentas.this);
         GlassPanePopup.install(panelRentas.getFrame());

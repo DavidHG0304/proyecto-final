@@ -379,4 +379,29 @@ public class Modelo {
 	
 	
 	
+	public boolean eliminarRenta(int idRenta) {
+		
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	    String sql = "DELETE FROM rentas WHERE id = ?";
+	    try (Connection con = DriverManager.getConnection("jdbc:mysql://monorail.proxy.rlwy.net:28289/railway?useSSL=false","root","AZsyCwUGzmURenQkgkEOksyBwsWuQBFI");
+	        PreparedStatement stmt = con.prepareStatement(sql)) {
+	        
+	        stmt.setInt(1, idRenta);
+	        int filasAfectadas = stmt.executeUpdate();
+	        return filasAfectadas > 0;
+	        
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        return false;
+	    }
+	}
+	
+	
+	
 }
