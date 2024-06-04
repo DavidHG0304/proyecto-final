@@ -315,12 +315,13 @@ public class Modelo {
 			if (rs.next() ) {
 				renta= new Rentas();
 				renta.setId(rs.getInt("id"));
+				renta.setFecha_nacimiento(rs.getString("fecha_nacimiento"));
 				renta.setVehiculo_id(rs.getInt("vehiculo_id"));
 				renta.setUsuario_id(rs.getInt("usuario_id"));
 				renta.setFecha_inicial(rs.getString("fecha_inicial"));
 				renta.setFecha_final(rs.getString("fecha_final"));
 				renta.setCosto(rs.getDouble("Costo"));
-				System.out.println(renta.getId() + " | " + renta.getVehiculo_id() + " | " +renta.getFecha_inicial() + " | " + renta.getFecha_final() + " | " + renta.getCosto());
+				System.out.println(renta.getId() + " | " + renta.getVehiculo_id() + " | " +renta.getFecha_inicial() + " | " + renta.getFecha_final() + " | " + renta.getCosto() + " | " + renta.getUsuario_id());
 				
 				
 				 
@@ -334,10 +335,47 @@ public class Modelo {
 		
 		System.out.println("Holaaa");
 		return renta;
+		
+		
+		
 	}
 	
-	
-	
+	// Metódo añadir rentas
+	public boolean añadirRentas(Rentas renta) {
+		
+		String sql = "INSERT INTO rentas(fecha_inicial, fecha_final, fecha_nacimiento, costo, usuario_id, vehiculo_id) VALUES (?, ?, ?, ?, ?, ?)";
+				
+		//boolean rentaEncontrada;
+		try {
+	        Class.forName("com.mysql.cj.jdbc.Driver");
+	    } catch (ClassNotFoundException e) {
+	        e.printStackTrace();
+	    }
+
+		
+		try (Connection con = DriverManager.getConnection("jdbc:mysql://monorail.proxy.rlwy.net:28289/railway?useSSL=false","root","AZsyCwUGzmURenQkgkEOksyBwsWuQBFI");){
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setInt(1, renta.getId());
+            stmt.setString(2, renta.getFecha_inicial());
+            stmt.setString(3, renta.getFecha_final());
+            stmt.setString(4, renta.getFecha_nacimiento());
+            stmt.setDouble(5, renta.getCosto());
+            stmt.setInt(6, renta.getUsuario_id());
+            stmt.setInt(7, renta.getVehiculo_id());
+            ResultSet rs = stmt.executeQuery();
+			
+			
+			con.close();
+			int filasAfectadas = stmt.executeUpdate();
+	        return filasAfectadas > 0;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		System.out.println("Holaaa");
+		return false;
+	}
 	
 	
 	
