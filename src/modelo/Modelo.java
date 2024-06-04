@@ -341,7 +341,7 @@ public class Modelo {
 	}
 	
 	// Metódo añadir rentas
-	public boolean añadirRentas(Rentas renta) {
+	public boolean aniadirRentas(Rentas renta, String fechaFinal, String fechaInicial, String fechaNacimiento, Double costo, int usuarioId, int vehiculoId) {
 		
 		String sql = "INSERT INTO rentas(fecha_inicial, fecha_final, fecha_nacimiento, costo, usuario_id, vehiculo_id) VALUES (?, ?, ?, ?, ?, ?)";
 				
@@ -355,19 +355,29 @@ public class Modelo {
 		
 		try (Connection con = DriverManager.getConnection("jdbc:mysql://monorail.proxy.rlwy.net:28289/railway?useSSL=false","root","AZsyCwUGzmURenQkgkEOksyBwsWuQBFI");){
             PreparedStatement stmt = con.prepareStatement(sql);
-            stmt.setInt(1, renta.getId());
-            stmt.setString(2, renta.getFecha_inicial());
-            stmt.setString(3, renta.getFecha_final());
-            stmt.setString(4, renta.getFecha_nacimiento());
-            stmt.setDouble(5, renta.getCosto());
-            stmt.setInt(6, renta.getUsuario_id());
-            stmt.setInt(7, renta.getVehiculo_id());
-            ResultSet rs = stmt.executeQuery();
+//            stmt.setInt(1, renta.getId());
+//            stmt.setString(2, renta.getFecha_inicial());
+//            stmt.setString(3, renta.getFecha_final());
+//            stmt.setString(4, renta.getFecha_nacimiento());
+//            stmt.setDouble(5, renta.getCosto());
+//            stmt.setInt(6, renta.getUsuario_id());
+//            stmt.setInt(7, renta.getVehiculo_id());
+//            ResultSet rs = stmt.executeQuery();
+            
+           
+            stmt.setString(1, fechaInicial);
+            stmt.setString(2, fechaFinal);
+            stmt.setString(3, fechaNacimiento);
+            stmt.setDouble(4, costo);
+            stmt.setInt(5, usuarioId);
+            stmt.setInt(6, vehiculoId);
 			
 			
-			con.close();
+			
 			int filasAfectadas = stmt.executeUpdate();
+			con.close();
 	        return filasAfectadas > 0;
+	        
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -378,27 +388,31 @@ public class Modelo {
 	}
 	
 	
-	public boolean editarRenta(Rentas renta) {
-        String sql = "UPDATE rentas SET fecha_inicial = ?, fecha_final = ?, fecha_nacimiento = ?, costo = ?, usuario_id = ?, vehiculo_id = ? WHERE id = ?";
+	public boolean editarRenta(Rentas renta, int idRenta, String fechaFinal, String fechaInicial, String fechaNacimiento, Double costo, int usuarioId, int vehiculoId) {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
 
+        String sql = "UPDATE rentas SET fecha_inicial = ?, fecha_final = ?, fecha_nacimiento = ?, costo = ?, usuario_id = ?, vehiculo_id = ? WHERE id = ?";
         try (Connection con = DriverManager.getConnection("jdbc:mysql://monorail.proxy.rlwy.net:28289/railway?useSSL=false", "root", "AZsyCwUGzmURenQkgkEOksyBwsWuQBFI");
-             PreparedStatement stmt = con.prepareStatement(sql)) {
+			PreparedStatement stmt = con.prepareStatement(sql)) {
 
-            stmt.setString(1, renta.getFecha_inicial());
-            stmt.setString(2, renta.getFecha_final());
-            stmt.setString(3, renta.getFecha_nacimiento());
-            stmt.setDouble(4, renta.getCosto());
-            stmt.setInt(5, renta.getUsuario_id());
-            stmt.setInt(6, renta.getVehiculo_id());
-            stmt.setInt(7, renta.getId());
-            System.out.println("Editado");
+            stmt.setString(1, fechaInicial);
+            stmt.setString(2, fechaFinal);
+            stmt.setString(3, fechaNacimiento);
+            stmt.setDouble(4, costo);
+            stmt.setInt(5, usuarioId);
+            stmt.setInt(6, vehiculoId);
+            stmt.setInt(7, idRenta);
+            System.out.println("Editada");
+           
+            
             int filasAfectadas = stmt.executeUpdate();
+            System.out.println(filasAfectadas > 0);
             return filasAfectadas > 0;
+            
         } catch (SQLException e) {
             e.printStackTrace();
             return false;

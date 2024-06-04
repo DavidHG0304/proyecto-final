@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import modelo.Modelo;
+import modelo.entidades.Rentas;
 import raven.glasspanepopup.GlassPanePopup;
 import vista.VistaPanelRentas;
 import vista.componentes.DialogoAniadir;
@@ -25,11 +26,12 @@ public class ControladorRentas implements ActionListener{
         this.controlador = controlador;
         panelRentas.rentas();
         panelRentas.asignarActListner(this);
-        
-       // modelo.mostrarRentas(3);
-        // modelo.eliminarRenta(3);
-        modelo.editarRenta(3);
-        
+
+		// modelo.mostrarRentas(3);
+		// modelo.eliminarRenta(3);
+		Rentas renta = new Rentas();
+		modelo.aniadirRentas(renta, "2024-04-02", "2024-05-03", "24-06-04", 1.0, 3, 10);
+		//modelo.editarRenta(renta, 14, "2024-02-02", "2024-03-03", "24-04-04", 1.0, 3, 10);
         
         
         
