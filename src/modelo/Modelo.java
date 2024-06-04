@@ -10,6 +10,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
+import modelo.entidades.Categorias;
 import modelo.entidades.Rentas;
 import modelo.entidades.Usuarios;
 import modelo.entidades.Vehiculos;
@@ -322,8 +323,6 @@ public class Modelo {
 				renta.setFecha_final(rs.getString("fecha_final"));
 				renta.setCosto(rs.getDouble("Costo"));
 				System.out.println(renta.getId() + " | " + renta.getVehiculo_id() + " | " +renta.getFecha_inicial() + " | " + renta.getFecha_final() + " | " + renta.getCosto() + " | " + renta.getUsuario_id());
-				
-				
 				 
 			}
 			con.close();
@@ -333,11 +332,7 @@ public class Modelo {
 			e.printStackTrace();
 		}
 		
-		System.out.println("Holaaa");
 		return renta;
-		
-		
-		
 	}
 	
 	// Metódo añadir rentas
@@ -355,15 +350,6 @@ public class Modelo {
 		
 		try (Connection con = DriverManager.getConnection("jdbc:mysql://monorail.proxy.rlwy.net:28289/railway?useSSL=false","root","AZsyCwUGzmURenQkgkEOksyBwsWuQBFI");){
             PreparedStatement stmt = con.prepareStatement(sql);
-//            stmt.setInt(1, renta.getId());
-//            stmt.setString(2, renta.getFecha_inicial());
-//            stmt.setString(3, renta.getFecha_final());
-//            stmt.setString(4, renta.getFecha_nacimiento());
-//            stmt.setDouble(5, renta.getCosto());
-//            stmt.setInt(6, renta.getUsuario_id());
-//            stmt.setInt(7, renta.getVehiculo_id());
-//            ResultSet rs = stmt.executeQuery();
-            
            
             stmt.setString(1, fechaInicial);
             stmt.setString(2, fechaFinal);
@@ -383,7 +369,6 @@ public class Modelo {
 			e.printStackTrace();
 		}
 		
-		System.out.println("Holaaa");
 		return false;
 	}
 	
@@ -406,11 +391,9 @@ public class Modelo {
             stmt.setInt(5, usuarioId);
             stmt.setInt(6, vehiculoId);
             stmt.setInt(7, idRenta);
-            System.out.println("Editada");
            
             
             int filasAfectadas = stmt.executeUpdate();
-            System.out.println(filasAfectadas > 0);
             return filasAfectadas > 0;
             
         } catch (SQLException e) {
@@ -418,7 +401,6 @@ public class Modelo {
             return false;
         }
     }
-	
 	
 	public boolean eliminarRenta(int idRenta) {
 		
@@ -448,6 +430,102 @@ public class Modelo {
 		
 	}
 	
+	// metodo mostrarcategorias
+	public ArrayList<Categorias> mostrarCategorias(int idRenta) {
+	    ArrayList<Categorias> categorias = new ArrayList<>();
+		
+	    try {
+	        Class.forName("com.mysql.cj.jdbc.Driver");
+	    } catch (ClassNotFoundException e) {
+	        e.printStackTrace();
+	    }
+
+	    String sql = "SELECT * FROM categoria WHERE id =  ?";
+		try (Connection con = DriverManager.getConnection("jdbc:mysql://monorail.proxy.rlwy.net:28289/railway?useSSL=false","root","AZsyCwUGzmURenQkgkEOksyBwsWuQBFI");){
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setInt(1, idRenta);
+            ResultSet rs = stmt.executeQuery();
+			
+			if (rs.next() ) {
+				Categorias categoria= new Categorias();
+				categoria.setId(rs.getInt("id"));
+				categoria.setNombre(rs.getString("nombre"));
+				categorias.add(categoria);
+				
+			}
+			con.close();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	    return categorias;
+	}
 	
-	
-}
+	// Meotodo para añadir categorias
+	public boolean aniadirCategorias(String nombreCategoria) {
+
+		String sql = "INSERT INTO categoria(nombre) VALUES (?)";
+
+		// boolean rentaEncontrada;
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+
+		try (Connection con = DriverManager.getConnection(
+				"jdbc:mysql://monorail.proxy.rlwy.net:28289/railway?useSSL=false", "root",
+				"AZsyCwUGzmURenQkgkEOksyBwsWuQBFI");) {
+			PreparedStatement stmt = con.prepareStatement(sql);
+
+			stmt.setString(1, nombreCategoria);
+
+			int filasAfectadas = stmt.executeUpdate();
+			con.close();
+			return filasAfectadas > 0;
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+
+	//metodo eliminar catego
+	public boolean eliminarCategorias(int idCategoria) {
+			try {
+				Class.forName("com.mysql.cj.jdbc.Driver");
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			}
+//			String sqlVehiculos = "DELETE FROM vehiculos WHERE categoria_id = ?";
+//			try (Connection con = DriverManager.getConnection(
+//					"jdbc:mysql://monorail.proxy.rlwy.net:28289/railway?useSSL=false", "root",
+//					"AZsyCwUGzmURenQkgkEOksyBwsWuQBFI");
+//					PreparedStatement stmtVehiculos = con.prepareStatement(sqlVehiculos)) {
+//				stmtVehiculos.setInt(1, idCategoria);
+//				stmtVehiculos.executeUpdate();
+//
+//			} catch (SQLException e) {
+//				e.printStackTrace();
+//				return false;
+//			}
+			String sqlCategoria = "DELETE FROM categoria WHERE id = ?";
+			try (Connection con = DriverManager.getConnection(
+					"jdbc:mysql://monorail.proxy.rlwy.net:28289/railway?useSSL=false", "root",
+					"AZsyCwUGzmURenQkgkEOksyBwsWuQBFI");
+					PreparedStatement stmtCategoria = con.prepareStatement(sqlCategoria)) {
+				stmtCategoria.setInt(1, idCategoria);
+				int filasAfectadas = stmtCategoria.executeUpdate();
+			System.out.println("Eliminado Cat");
+				return filasAfectadas > 0;
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+				return false;
+			}
+		}
+	}
