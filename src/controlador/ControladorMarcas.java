@@ -9,7 +9,7 @@ import vista.VistaPanelMarcas;
 import vista.componentes.DialogoAvisos;
 import vista.componentes.DialogoConfirmacion;
 import vista.componentes.DialogoDetalles;
-import vista.componentes.DialogoEmergentes;
+import vista.componentes.DialogoInfoCarro;
 import vista.componentes.DialogoRentar;
 import vista.componentes.DialogoAniadir;
 import vista.componentes.DialogoAniadirC_M;
@@ -71,14 +71,15 @@ public class ControladorMarcas implements ActionListener {
     		case "Info pVehiculo":
     			Vehiculos vehiculo = new Vehiculos();
     			System.out.println("Info");
-    			GlassPanePopup.showPopup(new DialogoEmergentes((vehiculo.getNombreVehiculo()+" "+vehiculo.getModelo()+" - "+vehiculo.getCategoria()),vehiculo.getPuertasVehiculo(),vehiculo.getAñoVehiculo(),vehiculo.getKilometrajeVehiculo(), vehiculo.getTransmision(), vehiculo.isAireAcondicionado(), vehiculo.getImagenUrl()));
+    			GlassPanePopup.showPopup(new DialogoInfoCarro(vehiculo));
     			break;
     		case "Borrar Vehiculo":
     			System.out.println("Borrar");
     			GlassPanePopup.showPopup(new DialogoConfirmacion("¿Estas seguro de querer \neliminar el auto?", ""));
     			break;
     		case "Rentar":
-    			GlassPanePopup.showPopup(new DialogoRentar("Test", "Crear Renta"));
+    			//To - do
+    			GlassPanePopup.showPopup(new DialogoRentar("Test", "Crear Renta", null));
     			break;
     		case "Editar Vehiculo":
     			System.out.println("Editar");

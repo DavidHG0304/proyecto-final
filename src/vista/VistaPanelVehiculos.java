@@ -105,6 +105,7 @@ public class VistaPanelVehiculos {
         }
     }
 	
+	
 	// Getters
 	public JFrame getFrame() {
 		return frame;

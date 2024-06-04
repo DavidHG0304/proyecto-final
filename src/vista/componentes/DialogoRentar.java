@@ -20,6 +20,8 @@ import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 
+import modelo.entidades.Usuarios;
+import modelo.entidades.Vehiculos;
 import raven.glasspanepopup.GlassPanePopup;
 import vista.recursos.componentesPersonalizados.BtnBordeado;
 import vista.recursos.componentesPersonalizados.JTextFieldRedondeado;
@@ -40,7 +42,7 @@ public class DialogoRentar extends JPanel {
 	 * Create the panel.
 	 * @param url 
 	 */
-	public DialogoRentar(String titulo, String textoBtn) {
+	public DialogoRentar(String titulo, String textoBtn, Vehiculos vehiculo) {
 		setBackground(new Color(255, 255, 255));
 		setLayout(null);
 		setPreferredSize(new Dimension(871, 587));

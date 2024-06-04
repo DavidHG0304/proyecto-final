@@ -34,8 +34,6 @@ public class CartasCarros extends PanelRedondeado{
     private JButton btnRentar;
     private JButton lblBorrarIcono;
     private BtnBordeado btnDetalles;
-    
-	
 	
 	public CartasCarros(Vehiculos vehiculo) {
         super(30, false, true, new Color(0, 0, 0, 61), 6);
@@ -286,5 +284,6 @@ public class CartasCarros extends PanelRedondeado{
 	public Vehiculos getVehiculo() {
         return vehiculo; // Obtener el vehiculo
     }
+	
 	
 }

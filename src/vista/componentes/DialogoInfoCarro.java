@@ -15,6 +15,7 @@ import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 
+import modelo.entidades.Vehiculos;
 import raven.glasspanepopup.GlassPanePopup;
 import vista.recursos.componentesPersonalizados.BtnBordeado;
 import java.awt.event.ActionListener;
@@ -22,20 +23,20 @@ import java.awt.event.ActionEvent;
 import javax.swing.Icon;
 
 @SuppressWarnings("serial")
-public class DialogoEmergentes extends JPanel {
+public class DialogoInfoCarro extends JPanel {
 
 
 	/**
 	 * Create the panel.
 	 * @param url 
 	 */
-	public DialogoEmergentes(String nomCarro, int noPuertas, String anioDelV,  int noKilometraje, String transmision, Boolean tieneAire, String url) {
+	public DialogoInfoCarro(Vehiculos vehiculo) {
 		setBackground(new Color(255, 255, 255));
 		setLayout(null);
 		setPreferredSize(new Dimension(500, 300));
 		setOpaque(false);
 		
-		JLabel lblNewLabel = new JLabel(nomCarro);
+		JLabel lblNewLabel = new JLabel(vehiculo.getNombreVehiculo());
 		lblNewLabel.setHorizontalAlignment(SwingConstants.LEFT);
 		lblNewLabel.setFont(new Font("Inter", Font.BOLD, 14));
 		lblNewLabel.setBounds(24, 22, 453, 32);
@@ -44,7 +45,7 @@ public class DialogoEmergentes extends JPanel {
 		
 		JEditorPane tPersonas = new JEditorPane();
 		tPersonas.setFont(new Font("Inter", Font.PLAIN, 10));
-		tPersonas.setText(""+noPuertas);
+		tPersonas.setText(""+vehiculo.getPuertasVehiculo());
 		tPersonas.setFocusable(false);
 		tPersonas.setBounds(55, 204, 124, 19);
 		tPersonas.setOpaque(false);
@@ -69,7 +70,7 @@ public class DialogoEmergentes extends JPanel {
 		add(panel);
 		
 		JEditorPane anioV = new JEditorPane();
-		anioV.setText(anioDelV);
+		anioV.setText(vehiculo.getAñoVehiculo());
 		anioV.setOpaque(false);
 		anioV.setFont(new Font("Inter", Font.PLAIN, 10));
 		anioV.setFocusable(false);
@@ -77,7 +78,7 @@ public class DialogoEmergentes extends JPanel {
 		add(anioV);
 		
 		JEditorPane nPuertas = new JEditorPane();
-		nPuertas.setText(""+noPuertas);
+		nPuertas.setText(""+vehiculo.getPuertasVehiculo());
 		nPuertas.setOpaque(false);
 		nPuertas.setFont(new Font("Inter", Font.PLAIN, 10));
 		nPuertas.setFocusable(false);
@@ -93,7 +94,7 @@ public class DialogoEmergentes extends JPanel {
 		add(kilometraje);
 		
 		JEditorPane tTransmision = new JEditorPane();
-		tTransmision.setText(transmision);
+		tTransmision.setText(vehiculo.getTransmision());
 		tTransmision.setOpaque(false);
 		tTransmision.setFont(new Font("Inter", Font.PLAIN, 10));
 		tTransmision.setFocusable(false);
@@ -101,7 +102,7 @@ public class DialogoEmergentes extends JPanel {
 		add(tTransmision);
 		
 		JEditorPane aireAcondicionado = new JEditorPane();
-		if(tieneAire) {
+		if(vehiculo.isAireAcondicionado()) {
 			aireAcondicionado.setText("Si");
 		}else {
 			aireAcondicionado.setText("No");

@@ -95,17 +95,19 @@ public class Controlador implements ActionListener{
 	
 	// Metodo validacion Login
 	public void accionLogin() {
-		if (metodos.loginValidado(new String(nuevaVista.getTxtContrasenia().getPassword()), nuevaVista.getTxtCorreo(), nuevaVista.getTxtContrasenia())) {
-			Usuarios usuario = nuevoModelo.accionLogin(nuevaVista.getTxtCorreo().getText(), new String(nuevaVista.getTxtContrasenia().getPassword()));
-	        if (usuario != null) {
-	        	nuevaVista.getFrame().dispose();
-	            // Aquí puedes utilizar el objeto usuario para lo que necesites, por ejemplo:
-	            System.out.println("Usuario logueado: " + usuario.getNombreUsuario());
-	            panelPrincipal();
-	        } else {
-	        	metodos.loginNoValido(new String(nuevaVista.getTxtContrasenia().getPassword()), nuevaVista.getTxtCorreo(), nuevaVista.getTxtContrasenia(), nuevoModelo.isRegistroEncontrado());
-	        }
-		}
+//		if (metodos.loginValidado(new String(nuevaVista.getTxtContrasenia().getPassword()), nuevaVista.getTxtCorreo(), nuevaVista.getTxtContrasenia())) {
+//			Usuarios usuario = nuevoModelo.accionLogin(nuevaVista.getTxtCorreo().getText(), new String(nuevaVista.getTxtContrasenia().getPassword()));
+//	        if (usuario != null) {
+//	        	nuevaVista.getFrame().dispose();
+//	            // Aquí puedes utilizar el objeto usuario para lo que necesites, por ejemplo:
+//	            System.out.println("Usuario logueado: " + usuario.getNombreUsuario());
+//	            panelPrincipal();
+//	        } else {
+//	        	metodos.loginNoValido(new String(nuevaVista.getTxtContrasenia().getPassword()), nuevaVista.getTxtCorreo(), nuevaVista.getTxtContrasenia(), nuevoModelo.isRegistroEncontrado());
+//	        }
+//		}
+		nuevaVista.getFrame().dispose();
+		panelPrincipal();
 	}
 	
 	// Metodo validacion Registro

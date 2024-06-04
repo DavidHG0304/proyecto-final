@@ -10,7 +10,7 @@ import vista.componentes.DialogoAniadir;
 import vista.componentes.DialogoAniadirC_M;
 import vista.componentes.DialogoConfirmacion;
 import vista.componentes.DialogoDetalles;
-import vista.componentes.DialogoEmergentes;
+import vista.componentes.DialogoInfoCarro;
 import vista.componentes.DialogoRentar;
 
 public class ControladorRentas implements ActionListener{
@@ -66,12 +66,13 @@ public class ControladorRentas implements ActionListener{
 			GlassPanePopup.showPopup(new DialogoConfirmacion("¿Estas seguro de querer \neliminar la renta?", ""));
 			break;
 		case "EditarRenta":
+			// To - do
 			System.out.println("Editar");
-			GlassPanePopup.showPopup(new DialogoRentar("Editar nombre de la categoria", "Editar Renta"));
+			GlassPanePopup.showPopup(new DialogoRentar("Editar nombre de la categoria", "Editar Renta", null));
 			break;
 		case "Agregar Renta pRentas":
 			System.out.println("AgregarRenta");
-			GlassPanePopup.showPopup(new DialogoRentar("Editar nombre de la categoria", "Crear Renta"));
+			GlassPanePopup.showPopup(new DialogoRentar("Editar nombre de la categoria", "Crear Renta", null));
 			break;
 		}
 	}
