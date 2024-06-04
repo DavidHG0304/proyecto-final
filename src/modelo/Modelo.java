@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 import modelo.entidades.Categorias;
+import modelo.entidades.Marcas;
 import modelo.entidades.Rentas;
 import modelo.entidades.Usuarios;
 import modelo.entidades.Vehiculos;
@@ -551,5 +552,44 @@ public class Modelo {
 				e.printStackTrace();
 				return false;
 			}
-		}
+			
 	}
+			
+				
+	public ArrayList<Marcas> mostrarMarcas(int idMarcas) {
+		ArrayList<Marcas> marcas = new ArrayList<>();
+
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+
+		String sql = "SELECT * FROM marca WHERE id =  ?";
+		try (Connection con = DriverManager.getConnection(
+				"jdbc:mysql://monorail.proxy.rlwy.net:28289/railway?useSSL=false", "root",
+				"AZsyCwUGzmURenQkgkEOksyBwsWuQBFI");) {
+			PreparedStatement stmt = con.prepareStatement(sql);
+
+			stmt.setInt(1, idMarcas);
+			ResultSet rs = stmt.executeQuery();
+
+			if (rs.next()) {
+				Marcas marca = new Marcas();
+				marca.setId(rs.getInt("id"));
+				marca.setNombre(rs.getString("nombre"));
+				marcas.add(marca);
+				System.out.println(marca.getNombre());
+				
+			}
+			con.close();
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return marcas;
+	}
+}
+	
