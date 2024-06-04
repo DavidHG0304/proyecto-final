@@ -591,5 +591,46 @@ public class Modelo {
 
 		return marcas;
 	}
+// añadir Marca
+	public boolean aniadirMarcas(String nombreMarca) {
+
+		String sql = "INSERT INTO marca(nombre) VALUES (?)";
+
+		// boolean rentaEncontrada;
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+
+		try (Connection con = DriverManager.getConnection(
+				"jdbc:mysql://monorail.proxy.rlwy.net:28289/railway?useSSL=false", "root",
+				"AZsyCwUGzmURenQkgkEOksyBwsWuQBFI");) {
+			PreparedStatement stmt = con.prepareStatement(sql);
+
+			stmt.setString(1, nombreMarca);
+			System.out.println("");
+			
+			
+			
+			
+			int filasAfectadas = stmt.executeUpdate();
+			con.close();
+			return filasAfectadas > 0;
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+	
+
+
+
+
+
+
+
+	}
 }
 	
