@@ -10,6 +10,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
+import modelo.entidades.Rentas;
 import modelo.entidades.Usuarios;
 import modelo.entidades.Vehiculos;
 
@@ -292,5 +293,35 @@ public class Modelo {
 	    }
 	    return null;
 	}
+	
+	
+	
+	public Rentas mostrarRentas() {
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection con = DriverManager.getConnection("jdbc:mysql://monorail.proxy.rlwy.net:28289/railway?useSSL=false","root","AZsyCwUGzmURenQkgkEOksyBwsWuQBFI");
+			String query = "SELECT * FROM usuarios WHERE correo_electronico = ? AND contraseña = ?";
+            PreparedStatement pst = con.prepareStatement(query);
+            ResultSet rs = pst.executeQuery();
+			
+			while (rs.next() ) {
+				
+			}
+			con.close();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	
+	
+	
+	
+	
 	
 }
