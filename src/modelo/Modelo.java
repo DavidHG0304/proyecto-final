@@ -492,7 +492,31 @@ public class Modelo {
 			return false;
 		}
 	}
+	
+	
+	public boolean editarCategorias(int idCategoria, String nombreCategoria) {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
 
+        String sql = "UPDATE categoria SET nombre = ? WHERE id = ?";
+        try (Connection con = DriverManager.getConnection("jdbc:mysql://monorail.proxy.rlwy.net:28289/railway?useSSL=false", "root", "AZsyCwUGzmURenQkgkEOksyBwsWuQBFI");
+			PreparedStatement stmt = con.prepareStatement(sql)) {
+
+        	stmt.setString(1, nombreCategoria);
+            stmt.setInt(2, idCategoria);
+            
+            int filasAfectadas = stmt.executeUpdate();
+            System.out.println("Editar categoria");
+            return filasAfectadas > 0;
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 
 	//metodo eliminar catego
 	public boolean eliminarCategorias(int idCategoria) {

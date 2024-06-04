@@ -34,7 +34,8 @@ public class ControladorCategorias implements ActionListener{
         //modelo.mostrarCategorias(1);
         //modelo.aniadirCategorias("nueva categoria");
         //modelo.eliminarCategorias(3);
-        modelo.eliminarCategorias(11);
+       // modelo.eliminarCategorias(11);
+        modelo.editarCategorias(13, "carrillos");
         	
         panelCategorias.asignarListenersCartas(ControladorCategorias.this);
         GlassPanePopup.install(panelCategorias.getFrame());
