@@ -296,27 +296,44 @@ public class Modelo {
 	
 	
 	
-	public Rentas mostrarRentas() {
+	public Rentas mostrarRentas(int idRenta) {
+		Rentas renta = null;
+		String sql = "SELECT * FROM rentas WHERE id =  ?";
+		//boolean rentaEncontrada;
 		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			Connection con = DriverManager.getConnection("jdbc:mysql://monorail.proxy.rlwy.net:28289/railway?useSSL=false","root","AZsyCwUGzmURenQkgkEOksyBwsWuQBFI");
-			String query = "SELECT * FROM usuarios WHERE correo_electronico = ? AND contraseña = ?";
-            PreparedStatement pst = con.prepareStatement(query);
-            ResultSet rs = pst.executeQuery();
+	        Class.forName("com.mysql.cj.jdbc.Driver");
+	    } catch (ClassNotFoundException e) {
+	        e.printStackTrace();
+	    }
+
+		
+		try (Connection con = DriverManager.getConnection("jdbc:mysql://monorail.proxy.rlwy.net:28289/railway?useSSL=false","root","AZsyCwUGzmURenQkgkEOksyBwsWuQBFI");){
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setInt(1, idRenta);
+            ResultSet rs = stmt.executeQuery();
 			
-			while (rs.next() ) {
+			if (rs.next() ) {
+				renta= new Rentas();
+				renta.setId(rs.getInt("id"));
+				renta.setVehiculo_id(rs.getInt("vehiculo_id"));
+				renta.setUsuario_id(rs.getInt("usuario_id"));
+				renta.setFecha_inicial(rs.getString("fecha_inicial"));
+				renta.setFecha_final(rs.getString("fecha_final"));
+				renta.setCosto(rs.getDouble("Costo"));
+				System.out.println(renta.getId() + " | " + renta.getVehiculo_id() + " | " +renta.getFecha_inicial() + " | " + renta.getFecha_final() + " | " + renta.getCosto());
 				
+				
+				 
 			}
 			con.close();
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		return null;
+		System.out.println("Holaaa");
+		return renta;
 	}
 	
 	
