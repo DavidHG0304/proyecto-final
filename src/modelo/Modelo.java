@@ -378,6 +378,33 @@ public class Modelo {
 	}
 	
 	
+	public boolean editarRenta(Rentas renta) {
+        String sql = "UPDATE rentas SET fecha_inicial = ?, fecha_final = ?, fecha_nacimiento = ?, costo = ?, usuario_id = ?, vehiculo_id = ? WHERE id = ?";
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        try (Connection con = DriverManager.getConnection("jdbc:mysql://monorail.proxy.rlwy.net:28289/railway?useSSL=false", "root", "AZsyCwUGzmURenQkgkEOksyBwsWuQBFI");
+             PreparedStatement stmt = con.prepareStatement(sql)) {
+
+            stmt.setString(1, renta.getFecha_inicial());
+            stmt.setString(2, renta.getFecha_final());
+            stmt.setString(3, renta.getFecha_nacimiento());
+            stmt.setDouble(4, renta.getCosto());
+            stmt.setInt(5, renta.getUsuario_id());
+            stmt.setInt(6, renta.getVehiculo_id());
+            stmt.setInt(7, renta.getId());
+            System.out.println("Editado");
+            int filasAfectadas = stmt.executeUpdate();
+            return filasAfectadas > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+	
 	
 	public boolean eliminarRenta(int idRenta) {
 		
@@ -400,6 +427,11 @@ public class Modelo {
 	        e.printStackTrace();
 	        return false;
 	    }
+	}
+
+	public void editarRenta(int i) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	
