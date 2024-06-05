@@ -25,6 +25,9 @@ public class ControladorVehiculos implements ActionListener{
 	private VistaPanelVehiculoAccion pVAccion;
 	private Modelo modelo;
 	private Controlador controlador;
+	
+	private Vehiculos vehiculoMostrar;
+	DialogoInfoCarro dialogoInfoCarro;
 
 	public ControladorVehiculos(VistaPanelVehiculos pVehiculos, Modelo modelo, Controlador controlador) {
 		this.pVehiculos = pVehiculos;
@@ -64,6 +67,13 @@ public class ControladorVehiculos implements ActionListener{
         cargadprVehiculos.execute();
     }
 	
+	public void prepararVehiculoDetalles(Vehiculos vehiculo) {
+		vehiculoMostrar = vehiculo;
+		dialogoInfoCarro = new DialogoInfoCarro(vehiculo);
+		
+		GlassPanePopup.showPopup(dialogoInfoCarro);
+	}
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
@@ -96,9 +106,14 @@ public class ControladorVehiculos implements ActionListener{
 			
 			
 		case "Info pVehiculo":
-			Vehiculos vehiculo = new Vehiculos();
-			System.out.println("Info");
-			GlassPanePopup.showPopup(new DialogoInfoCarro(vehiculo));
+//			Vehiculos vehiculo = new Vehiculos();
+//			
+//			System.out.println("Info");
+//			GlassPanePopup.showPopup(new DialogoInfoCarro(vehiculo));
+			Vehiculos vehiculoSeleccionado = pVehiculos.getVehiculoSeleccionado();
+			vehiculoSeleccionado = pVehiculos.getVehiculoSeleccionado();
+			prepararVehiculoDetalles(vehiculoSeleccionado);
+				
 			break;
 		case "Borrar Vehiculo":
 			System.out.println("Borrar");

@@ -28,7 +28,7 @@ import vista.recursos.componentesPersonalizados.PanelRedondeado;
 public class CartasCarros extends PanelRedondeado{
 	private Vehiculos vehiculo;
 	private JLabel lblImgCarro;
-	
+	private boolean seleccionado;
 	private JButton bntInfoIcono;
 	private JButton lbleditarIcono;
     private JButton btnRentar;
@@ -46,56 +46,7 @@ public class CartasCarros extends PanelRedondeado{
         componentes(vehiculo);
     }
 	
-	public BtnBordeado getBtnDetalles() {
-		return btnDetalles;
-	}
-	
-	public void setBtnDetalles(BtnBordeado btnDetalles) {
-		this.btnDetalles = btnDetalles;
-	}
-
-	public JButton getBntInfoIcono() {
-		return bntInfoIcono;
-	}
-
-	public void setBntInfoIcono(JButton bntInfoIcono) {
-		this.bntInfoIcono = bntInfoIcono;
-	}
-
-	public JButton getLbleditarIcono() {
-		return lbleditarIcono;
-	}
-
-	public void setLbleditarIcono(JButton lbleditarIcono) {
-		this.lbleditarIcono = lbleditarIcono;
-	}
-
-	public JButton getBtnRentar() {
-		return btnRentar;
-	}
-
-	public void setBtnRentar(JButton btnRentar) {
-		this.btnRentar = btnRentar;
-	}
-
-	public JButton getLblBorrarIcono() {
-		return lblBorrarIcono;
-	}
-
-	public void setLblBorrarIcono(JButton lblBorrarIcono) {
-		this.lblBorrarIcono = lblBorrarIcono;
-	}
-
 	public void componentes(Vehiculos vehiculo) {
-//		RoundedPanel cartasCarros = new RoundedPanel(30, false, true, new Color(0,0,0,61), 6);
-//		cartasCarros.setBackground(new Color(255, 255, 255));
-//		cartasCarros.setBounds(10, 187, 208, 317);
-//		cartasCarros.setPreferredSize(new Dimension(208, 317)); // Tamaño preferido fijo
-//	    cartasCarros.setMaximumSize(new Dimension(208, 317)); // Tamaño máximo fijo
-//	    cartasCarros.setMinimumSize(new Dimension(208, 317)); // Tamaño mínimo fijo
-//		panelCartas.add(cartasCarros);
-//		cartasCarros.setLayout(null);
-		
 		JPanel panelImgCarro = new JPanel();
 		panelImgCarro.setBounds(8, 22, 188, 140);
 		add(panelImgCarro);
@@ -272,7 +223,6 @@ public class CartasCarros extends PanelRedondeado{
 		lblPuertas.setBounds(125, 69, 59, 14);
 		panel.add(lblPuertas);
 		
-		
 		btnDetalles = new BtnBordeado(20, false, true, new Color(0,0,0,100));
 		btnDetalles.setText("Detalles");
 		btnDetalles.setFont(new Font("Inter", Font.BOLD, 10));
@@ -282,8 +232,52 @@ public class CartasCarros extends PanelRedondeado{
 	}
 	
 	public Vehiculos getVehiculo() {
-        return vehiculo; // Obtener el vehiculo
+        return vehiculo;
     }
+	
+	public boolean isSeleccionado() {
+        return seleccionado;
+    }
+	
+	public BtnBordeado getBtnDetalles() {
+		return btnDetalles;
+	}
+	
+	public void setBtnDetalles(BtnBordeado btnDetalles) {
+		this.btnDetalles = btnDetalles;
+	}
+
+	public JButton getBntInfoIcono() {
+		return bntInfoIcono;
+	}
+
+	public void setBntInfoIcono(JButton bntInfoIcono) {
+		this.bntInfoIcono = bntInfoIcono;
+	}
+
+	public JButton getLbleditarIcono() {
+		return lbleditarIcono;
+	}
+
+	public void setLbleditarIcono(JButton lbleditarIcono) {
+		this.lbleditarIcono = lbleditarIcono;
+	}
+
+	public JButton getBtnRentar() {
+		return btnRentar;
+	}
+
+	public void setBtnRentar(JButton btnRentar) {
+		this.btnRentar = btnRentar;
+	}
+
+	public JButton getLblBorrarIcono() {
+		return lblBorrarIcono;
+	}
+
+	public void setLblBorrarIcono(JButton lblBorrarIcono) {
+		this.lblBorrarIcono = lblBorrarIcono;
+	}
 	
 	
 }

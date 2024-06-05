@@ -74,14 +74,6 @@ public class VistaPanelClientes {
 		panelAux = new JPanel();
 		panelAux.setLayout(new BoxLayout(panelAux, BoxLayout.Y_AXIS));
 		panelAux.setBackground(Color.WHITE);
-		
-//		int tamanio = 25;
-//		for (int i = 0; i < tamanio; i++) {
-//			CartaClientes cartaClientes = new CartaClientes();
-//			panelAux.add(cartaClientes);
-//			panelAux.add(Box.createVerticalStrut(10));
-//			panelCartasClientes.add(panelAux);
-//		}
 
 		JScrollPane scrollPane = new JScrollPane(panelCartasClientes);
 		scrollPane.setBounds(10, 220, 894, 360);
@@ -96,27 +88,7 @@ public class VistaPanelClientes {
 		
 		cartaClientes = new ArrayList<>();
 	}
-	
-//	public void mostrarClientes(ArrayList<Usuarios> usuarios) {
-//		cartaClientes.clear();
-//		panelCartasClientes.removeAll();
-//		panelAux.removeAll();
-//        panel.getPanelCentral().remove(panel.getLblCargandoGif());
-//        for (Usuarios usuario : usuarios) {
-//        	CartaClientes carta = new CartaClientes(usuario);
-//            panelAux.add(carta);
-//            panelAux.add(Box.createVerticalStrut(10));
-//            panelCartasClientes.add(panelAux);
-//            cartaClientes.add(carta);
-//        }
-//        
-//        panelAux.revalidate();
-//        panelAux.repaint();
-//        panelCartasClientes.revalidate();
-//        panelCartasClientes.repaint();
-//        panel.getPanelCentral().repaint();
-//    }
-	
+
 	public void mostrarClientes(ArrayList<Usuarios> usuarios) {
         cartaClientes.clear();
         panelCartasClientes.removeAll();

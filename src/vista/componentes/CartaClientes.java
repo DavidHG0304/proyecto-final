@@ -49,7 +49,6 @@ public class CartaClientes extends PanelRedondeado {
 	
 	
 	public void cartas(Usuarios usuario) {
-		
 		PanelRedondeado panelPrincipalCartas = new PanelRedondeado(35, false, Color.WHITE);
 		panelPrincipalCartas.setBackground(new Color(255, 255, 255));
 		panelPrincipalCartas.setBounds(5, 5, 765, 134);
@@ -129,30 +128,13 @@ public class CartaClientes extends PanelRedondeado {
 				editarUsuario(usuario);
 			}
 		});
-//        btnbrdEliminar.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                eliminarUsuario(usuario);
-//            }
-//        });
 	}
 	
 	
 	private void editarUsuario(Usuarios usuario) {
-//		GlassPanePopup.showPopup(new DialogoCrearCliente("Editar Cliente", "Editar", usuario));
-//        getUsuario();
 		controlador.prepararEdicionCliente(usuario);
     }
 	
-	
-//	private void eliminarUsuario(Usuarios usuario) {
-//		 if (controlador != null) {
-//	            controlador.eliminarCliente(usuario);
-//	        }
-//    }
-	
-	
-
 	public Usuarios getUsuario() {
         return usuario;
     }

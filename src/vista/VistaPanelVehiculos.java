@@ -4,7 +4,10 @@ import java.awt.event.*;
 import java.util.ArrayList;
 
 import javax.swing.*;
+
+import modelo.entidades.Usuarios;
 import modelo.entidades.Vehiculos;
+import vista.componentes.CartaClientes;
 import vista.componentes.CartasCarros;
 import vista.componentes.PanelesNavegacion;
 import vista.recursos.componentesPersonalizados.*;
@@ -13,6 +16,7 @@ public class VistaPanelVehiculos {
 	JFrame frame = new JFrame();
 //	private JPanel panelPrincipal;
 	private JPanel panelCartasVehiculos;
+	private ArrayList<CartasCarros> cartaCarros;
 	
 	
 	private PanelesNavegacion panel;
@@ -25,14 +29,13 @@ public class VistaPanelVehiculos {
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setBackground(Color.gray);
-		panelVehiculos();
 		
+		panelVehiculos();
 	}
 	
 	public void panelVehiculos() {
 		panel = new PanelesNavegacion();
 		frame.add(panel);
-
 		
 		panel.getBtnVehiculos().setForeground(new Color(33,147,246));
 		panel.getBtnVehiculos().setBounds(492, 25, 114, 23);
@@ -66,14 +69,19 @@ public class VistaPanelVehiculos {
 		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 		panel.getPanelCentral().add(scrollPane);
 		
+		
+		
+		cartaCarros= new ArrayList<>();
 	}
 	
 	public void mostrarVehiculos(ArrayList<Vehiculos> vehiculos) {
+		cartaCarros.clear();
         panelCartasVehiculos.removeAll();
         panel.getPanelCentral().remove(panel.getLblCargandoGif());
         for (Vehiculos vehiculo : vehiculos) {
             CartasCarros carta = new CartasCarros(vehiculo);
             panelCartasVehiculos.add(carta);
+            cartaCarros.add(carta);
         }
         
         panelCartasVehiculos.revalidate();
@@ -104,6 +112,18 @@ public class VistaPanelVehiculos {
             }
         }
     }
+	
+	
+	public Vehiculos getVehiculoSeleccionado() {
+		for (CartasCarros carta : cartaCarros) {
+	        if (carta.isSeleccionado()) {
+	            Vehiculos vehiculo = carta.getVehiculo();
+	            return carta.getVehiculo();
+	        }
+	    }
+
+		return null;
+	}
 	
 	
 	// Getters
