@@ -199,15 +199,15 @@ public class ControladorVehiculos implements ActionListener{
 		    float combustible = Float.parseFloat(dialogoAniadir.getTxtSeguroCombustible().getText());
 		    float tarifaPorDia = Float.parseFloat(dialogoAniadir.getTxtSeguroTarifa().getText());
 		    
-//		    boolean resultado = modelo.aniadirVehiculo(nombre, anio, cantidadPuertas, 3000, transmision, aireAcondicionado, modeloCarro, nombreMarca, nombreCategoria, "https://firebasestorage.googleapis.com/v0/b/fotinhoscarros.appspot.com/o/bugatata.png?alt=media&token=41feddc5-379f-429e-9040-16d7cd4bb739", seguroDanios, seguroVida, seguroKilometraje, combustible, tarifaPorDia);
-//			if (resultado) {
-//				GlassPanePopup.closePopupLast();
-//				GlassPanePopup.showPopup(new DialogoAvisos("Vehiculo Creado", "El vehiculo ha sido credo con exito"));
-//		        cargarVehiculos();
-//		    } else {
-//		    	GlassPanePopup.closePopupLast();
-//		    	GlassPanePopup.showPopup(new DialogoAvisos("Error", "No se ha podido crear el vehiculo"));
-//		    }
+		    boolean resultado = modelo.aniadirVehiculo(nombre, anio, cantidadPuertas, 3000, transmision, aireAcondicionado, modeloCarro, nombreMarca, nombreCategoria, "https://firebasestorage.googleapis.com/v0/b/fotinhoscarros.appspot.com/o/bugatata.png?alt=media&token=41feddc5-379f-429e-9040-16d7cd4bb739", seguroDanios, seguroVida, seguroKilometraje, combustible, tarifaPorDia);
+			if (resultado) {
+				GlassPanePopup.closePopupLast();
+				GlassPanePopup.showPopup(new DialogoAvisos("Vehiculo Creado", "El vehiculo ha sido credo con exito"));
+		        cargarVehiculos();
+		    } else {
+		    	GlassPanePopup.closePopupLast();
+		    	GlassPanePopup.showPopup(new DialogoAvisos("Error", "No se ha podido crear el vehiculo"));
+		    }
 			break;
 		case "EditarUnVehiculo":
 			System.out.println("Va a Editar");
@@ -236,15 +236,15 @@ public class ControladorVehiculos implements ActionListener{
 		    combustible = Float.parseFloat(dialogoAniadir.getTxtSeguroCombustible().getText());
 		    tarifaPorDia = Float.parseFloat(dialogoAniadir.getTxtSeguroTarifa().getText());
 		    
-//		    resultado = modelo.editarVehiculos(vehiculoSeleccionado.getIdVehiculo(), nombre, anio, cantidadPuertas, transmision, aireAcondicionado, modeloCarro, nombreCategoria, nombreMarca, seguroDanios, seguroVida, seguroKilometraje, combustible, tarifaPorDia);
-//			if (resultado) {
-//				GlassPanePopup.closePopupLast();
-//				GlassPanePopup.showPopup(new DialogoAvisos("Actualizado", "El vehiculo ha sido \nactualizado correctamente."));
-//		        cargarVehiculos();
-//		    } else {
-//		    	GlassPanePopup.closePopupLast();
-//		    	GlassPanePopup.showPopup(new DialogoAvisos("Error", "No se pudo actualizar el vehiculo."));
-//		    }
+		    resultado = modelo.editarVehiculos(vehiculoSeleccionado.getIdVehiculo(), nombre, anio, cantidadPuertas, transmision, aireAcondicionado, modeloCarro, nombreCategoria, nombreMarca, seguroDanios, seguroVida, seguroKilometraje, combustible, tarifaPorDia);
+			if (resultado) {
+				GlassPanePopup.closePopupLast();
+				GlassPanePopup.showPopup(new DialogoAvisos("Actualizado", "El vehiculo ha sido \nactualizado correctamente."));
+		        cargarVehiculos();
+		    } else {
+		    	GlassPanePopup.closePopupLast();
+		    	GlassPanePopup.showPopup(new DialogoAvisos("Error", "No se pudo actualizar el vehiculo."));
+		    }
 			break;
 		}
 	}
