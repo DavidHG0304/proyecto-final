@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import javax.swing.SwingWorker;
 
 import modelo.Modelo;
+import modelo.entidades.Categorias;
+import modelo.entidades.Marcas;
 import modelo.entidades.Vehiculos;
 import raven.glasspanepopup.GlassPanePopup;
 import vista.VistaPanelVehiculoAccion;
@@ -44,7 +46,6 @@ public class ControladorVehiculos implements ActionListener{
 
 	}
 	
-	
 	// Implementación de swingworker para poder optimizar la actualización, ejecuta primero la consulta a la base de datos para después de eso llamar al metodo done()
 	// una vez haya terminado la consulta para poder mostrar bien la interfaz y todo
 	public void cargarVehiculos() {
@@ -68,18 +69,43 @@ public class ControladorVehiculos implements ActionListener{
         cargadprVehiculos.execute();
     }
 	
+//	public ArrayList<String> obtenerNombresCategorias() {
+//		ArrayList<Categorias> categorias = modelo.mostrarCategorias();
+//		ArrayList<String> nombresCategorias = new ArrayList<>();
+//		for (Categorias categoria : categorias) {
+//			nombresCategorias.add(categoria.getNombre());
+//		}
+//
+//		return nombresCategorias;
+//	}
+//
+//	public ArrayList<String> obtenerNombresMarcas() {
+//		ArrayList<Marcas> marcas = modelo.mostrarMarcas();
+//		ArrayList<String> nombresCategorias = new ArrayList<>();
+//		for (Marcas marca : marcas) {
+//			nombresCategorias.add(marca.getNombre());
+//		}
+//
+//		return nombresCategorias;
+//	}
+	
+	
 	public void prepararVehiculoDetalles(Vehiculos vehiculo) {
 		vehiculoMostrar = vehiculo;
 		dialogoInfoCarro = new DialogoInfoCarro(vehiculo);
-		
 		GlassPanePopup.showPopup(dialogoInfoCarro);
 	}
 	
-	public void prepararVehiculoEditar(Vehiculos vehiculo) {
-		vehiculoMostrar = vehiculo;
-		dialogoAniadir = new DialogoAniadir("Editar vehiculo", vehiculo);
-		GlassPanePopup.showPopup(dialogoAniadir);
-	}
+//	public void prepararVehiculoEditar(Vehiculos vehiculo) {
+//		vehiculoMostrar = vehiculo;
+//		ArrayList<String> categorias = obtenerNombresCategorias();
+//		ArrayList<String> marcas = obtenerNombresMarcas();
+//		
+//		dialogoAniadir = new DialogoAniadir("Editar vehiculo", vehiculo, marcas, categorias);
+//		GlassPanePopup.showPopup(dialogoAniadir);
+//	}
+	
+	
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -130,12 +156,14 @@ public class ControladorVehiculos implements ActionListener{
 //			GlassPanePopup.showPopup(new DialogoAniadir("Editar vehiculo", vehiculoSeleccionado));
 			
 			vehiculoSeleccionado = pVehiculos.getVehiculoSeleccionado();
-			prepararVehiculoEditar(vehiculoSeleccionado);
+//			prepararVehiculoEditar(vehiculoSeleccionado);
 			
 			break;
 		case "AgregarVehiculo":
 			Vehiculos nVehiculo = new Vehiculos();
-			GlassPanePopup.showPopup(new DialogoAniadir("Crear vehiculo", nVehiculo));
+//			ArrayList<String> categorias = obtenerNombresCategorias();
+//			ArrayList<String> marcas = obtenerNombresMarcas();
+//			GlassPanePopup.showPopup(new DialogoAniadir("Crear vehiculo", nVehiculo, marcas, categorias));
 			break;
 		case "Detalles":
 			GlassPanePopup.showPopup(new DialogoDetalles("Test"));

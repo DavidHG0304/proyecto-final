@@ -10,6 +10,7 @@ import java.awt.RenderingHints;
 import java.awt.geom.RoundRectangle2D;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
@@ -43,7 +44,7 @@ public class DialogoAniadir extends JPanel {
 	 * Create the panel.
 	 * @param url 
 	 */
-	public DialogoAniadir(String titulo, Vehiculos vehiculo) {
+	public DialogoAniadir(String titulo, Vehiculos vehiculo, ArrayList<String> categorias, ArrayList<String> marcas) {
 		setBackground(new Color(255, 255, 255));
 		setLayout(null);
 		setPreferredSize(new Dimension(500, 550));
@@ -201,7 +202,8 @@ public class DialogoAniadir extends JPanel {
         comboBoxMarcas.setFont(new Font("Inter", Font.PLAIN, 11));
         comboBoxMarcas.setBackground(new Color(0, 0, 0, 5));
         comboBoxMarcas.setBounds(24, 257, 214, 25);
-        comboBoxMarcas.setModel(new DefaultComboBoxModel<>(new String[] {"Automatico", "Manual"}));
+//      comboBoxMarcas.setModel(new DefaultComboBoxModel<>(new String[] {"Automatico", "Manual"}));
+        comboBoxMarcas.setModel(new DefaultComboBoxModel<>(marcas.toArray(new String[0])));
         
         add(comboBoxMarcas);
         ComboBoxRedondeado<String> comboBoxCategorias = new ComboBoxRedondeado<String>(20, new Color(0, 0, 0, 60));
@@ -211,8 +213,9 @@ public class DialogoAniadir extends JPanel {
         comboBoxCategorias.setBackground(new Color(0, 0, 0, 5));
         comboBoxCategorias.setBounds(24, 318, 214, 25);
         comboBox.setLightWeightPopupEnabled(false);
+//      comboBoxCategorias.setModel(new DefaultComboBoxModel<>(new String[] {"Automatico", "Manual"}));
+        comboBoxCategorias.setModel(new DefaultComboBoxModel<>(categorias.toArray(new String[0])));
         add(comboBoxCategorias);
-        comboBoxCategorias.setModel(new DefaultComboBoxModel<>(new String[] {"Automatico", "Manual"}));
         
         JTextFieldRedondeado txtModelo = new JTextFieldRedondeado(20, 20, new Color(0, 0, 0, 60));
         txtModelo.setFont(new Font("Inter", Font.PLAIN, 11));
