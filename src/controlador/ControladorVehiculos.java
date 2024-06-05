@@ -69,25 +69,25 @@ public class ControladorVehiculos implements ActionListener{
         cargadprVehiculos.execute();
     }
 	
-//	public ArrayList<String> obtenerNombresCategorias() {
-//		ArrayList<Categorias> categorias = modelo.mostrarCategorias();
-//		ArrayList<String> nombresCategorias = new ArrayList<>();
-//		for (Categorias categoria : categorias) {
-//			nombresCategorias.add(categoria.getNombre());
-//		}
-//
-//		return nombresCategorias;
-//	}
-//
-//	public ArrayList<String> obtenerNombresMarcas() {
-//		ArrayList<Marcas> marcas = modelo.mostrarMarcas();
-//		ArrayList<String> nombresCategorias = new ArrayList<>();
-//		for (Marcas marca : marcas) {
-//			nombresCategorias.add(marca.getNombre());
-//		}
-//
-//		return nombresCategorias;
-//	}
+	public ArrayList<String> obtenerNombresCategorias() {
+		ArrayList<Categorias> categorias = modelo.mostrarCategorias();
+		ArrayList<String> nombresCategorias = new ArrayList<>();
+		for (Categorias categoria : categorias) {
+			nombresCategorias.add(categoria.getNombre());
+		}
+
+		return nombresCategorias;
+	}
+
+	public ArrayList<String> obtenerNombresMarcas() {
+		ArrayList<Marcas> marcas = modelo.mostrarMarcas();
+		ArrayList<String> nombresMarcas = new ArrayList<>();
+		for (Marcas marca : marcas) {
+			nombresMarcas.add(marca.getNombre());
+		}
+
+		return nombresMarcas;
+	}
 	
 	
 	public void prepararVehiculoDetalles(Vehiculos vehiculo) {
@@ -96,14 +96,14 @@ public class ControladorVehiculos implements ActionListener{
 		GlassPanePopup.showPopup(dialogoInfoCarro);
 	}
 	
-//	public void prepararVehiculoEditar(Vehiculos vehiculo) {
-//		vehiculoMostrar = vehiculo;
-//		ArrayList<String> categorias = obtenerNombresCategorias();
-//		ArrayList<String> marcas = obtenerNombresMarcas();
-//		
-//		dialogoAniadir = new DialogoAniadir("Editar vehiculo", vehiculo, marcas, categorias);
-//		GlassPanePopup.showPopup(dialogoAniadir);
-//	}
+	public void prepararVehiculoEditar(Vehiculos vehiculo) {
+		vehiculoMostrar = vehiculo;
+		ArrayList<String> categorias = obtenerNombresCategorias();
+		ArrayList<String> marcas = obtenerNombresMarcas();
+		
+		dialogoAniadir = new DialogoAniadir("Editar vehiculo", vehiculo, marcas, categorias);
+		GlassPanePopup.showPopup(dialogoAniadir);
+	}
 	
 	
 	
@@ -156,14 +156,14 @@ public class ControladorVehiculos implements ActionListener{
 //			GlassPanePopup.showPopup(new DialogoAniadir("Editar vehiculo", vehiculoSeleccionado));
 			
 			vehiculoSeleccionado = pVehiculos.getVehiculoSeleccionado();
-//			prepararVehiculoEditar(vehiculoSeleccionado);
+			prepararVehiculoEditar(vehiculoSeleccionado);
 			
 			break;
 		case "AgregarVehiculo":
 			Vehiculos nVehiculo = new Vehiculos();
-//			ArrayList<String> categorias = obtenerNombresCategorias();
-//			ArrayList<String> marcas = obtenerNombresMarcas();
-//			GlassPanePopup.showPopup(new DialogoAniadir("Crear vehiculo", nVehiculo, marcas, categorias));
+			ArrayList<String> categorias = obtenerNombresCategorias();
+			ArrayList<String> marcas = obtenerNombresMarcas();
+			GlassPanePopup.showPopup(new DialogoAniadir("Crear vehiculo", nVehiculo, marcas, categorias));
 			break;
 		case "Detalles":
 			GlassPanePopup.showPopup(new DialogoDetalles("Test"));

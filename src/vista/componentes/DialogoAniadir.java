@@ -67,14 +67,6 @@ public class DialogoAniadir extends JPanel {
 		panel.setBackground(new Color(240, 240, 240));
 		panel.setBounds(24, 56, 453, 140);
 		add(panel);
-		
-//		JLabel lblImgCarro = new JLabel();
-//		ImageIcon cargandoCarro = new ImageIcon(getClass().getResource("/vista/recursos/imagenes/carroPrueba.png"));
-//        Image imagen = cargandoCarro.getImage();
-//        Image imagenReescalada = imagen.getScaledInstance(200, 130, Image.SCALE_SMOOTH);
-//        ImageIcon iconoReescalado = new ImageIcon(imagenReescalada);
-//        lblImgCarro.setIcon(iconoReescalado);
-//        panel.add(lblImgCarro);
         
         BtnBordeado btnAgregar = new BtnBordeado(30, false);
         btnAgregar.addActionListener(new ActionListener() {
@@ -126,21 +118,6 @@ public class DialogoAniadir extends JPanel {
         ButtonGroup grupoPuertas = new ButtonGroup();
         grupoPuertas.add(rdbtnNumPuertas1);
         grupoPuertas.add(rdbtnNumPuertas2);
-        
-        
-//        JRadioButton rdbtnNumPuertas1 = new JRadioButton("2");
-//        rdbtnNumPuertas1.setFont(new Font("Inter", Font.PLAIN, 11));
-//        rdbtnNumPuertas1.setBounds(263, 414, 53, 23);
-//        add(rdbtnNumPuertas1);
-//        
-//        JRadioButton rdbtnNumPuertas2 = new JRadioButton("4");
-//        rdbtnNumPuertas2.setFont(new Font("Inter", Font.PLAIN, 11));
-//        rdbtnNumPuertas2.setBounds(318, 414, 53, 23);
-//        add(rdbtnNumPuertas2);
-//        
-//        ButtonGroup grupoPuertas2 = new ButtonGroup();
-//        grupoPuertas.add(rdbtnNumPuertas1);
-//        grupoPuertas.add(rdbtnNumPuertas2);
         
         JLabel lblNewLabel = new JLabel(titulo);
         lblNewLabel.setHorizontalAlignment(SwingConstants.LEFT);
@@ -203,9 +180,8 @@ public class DialogoAniadir extends JPanel {
         comboBoxMarcas.setBackground(new Color(0, 0, 0, 5));
         comboBoxMarcas.setBounds(24, 257, 214, 25);
 //      comboBoxMarcas.setModel(new DefaultComboBoxModel<>(new String[] {"Automatico", "Manual"}));
-        comboBoxMarcas.setModel(new DefaultComboBoxModel<>(marcas.toArray(new String[0])));
-        
         add(comboBoxMarcas);
+        
         ComboBoxRedondeado<String> comboBoxCategorias = new ComboBoxRedondeado<String>(20, new Color(0, 0, 0, 60));
         comboBoxCategorias.setOpaque(false);
         comboBoxCategorias.setLightWeightPopupEnabled(false);
@@ -214,8 +190,10 @@ public class DialogoAniadir extends JPanel {
         comboBoxCategorias.setBounds(24, 318, 214, 25);
         comboBox.setLightWeightPopupEnabled(false);
 //      comboBoxCategorias.setModel(new DefaultComboBoxModel<>(new String[] {"Automatico", "Manual"}));
-        comboBoxCategorias.setModel(new DefaultComboBoxModel<>(categorias.toArray(new String[0])));
         add(comboBoxCategorias);
+        
+        comboBoxMarcas.setModel(new DefaultComboBoxModel<>(categorias.toArray(new String[0])));
+        comboBoxCategorias.setModel(new DefaultComboBoxModel<>(marcas.toArray(new String[0])));
         
         JTextFieldRedondeado txtModelo = new JTextFieldRedondeado(20, 20, new Color(0, 0, 0, 60));
         txtModelo.setFont(new Font("Inter", Font.PLAIN, 11));
@@ -298,10 +276,6 @@ public class DialogoAniadir extends JPanel {
         	}else {
         		rdbtnTieneAire2.setSelected(true);
         	}
-        	
-//        	comboBoxMarcas.removeAll();
-//        	comboBoxMarcas.setModel(new DefaultComboBoxModel<>(new String[] {));
-//        	comboBoxMarcas.setModel(new DefaultComboBoxModel<>(new String[] {"Automatico", "Manual"}));
         }
         
         panel.revalidate();
