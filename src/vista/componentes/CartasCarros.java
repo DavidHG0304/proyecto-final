@@ -240,6 +240,8 @@ public class CartasCarros extends PanelRedondeado{
         return seleccionado;
     }
 	
+	
+	
 	public void setSeleccionado(boolean seleccionado) {
 		this.seleccionado = seleccionado;
 	}

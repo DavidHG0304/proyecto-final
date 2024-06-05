@@ -164,6 +164,8 @@ public class DialogoCrearCliente extends JPanel {
 		// Si se presiona el boton de editar en vez de el de agregar, añadir a los JTextFields
 		// Los datos del usuario que se presionó		
 		if (usuario != null && textoBtn.equals("Editar")) {
+			
+			
 			txtNombre.setText(usuario.getNombreUsuario());
 			txtApellidos.setText(usuario.getApellido());
 			txtCorreo.setText(usuario.getCorreo());

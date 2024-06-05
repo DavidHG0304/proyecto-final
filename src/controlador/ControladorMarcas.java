@@ -87,8 +87,10 @@ public class ControladorMarcas implements ActionListener {
     			GlassPanePopup.showPopup(new DialogoRentar("Test", "Crear Renta", null));
     			break;
     		case "Editar Vehiculo":
+    			// TO - DO
     			System.out.println("Editar");
-    			GlassPanePopup.showPopup(new DialogoAniadir("Editar vehiculo"));
+    			Vehiculos eVehiculo = new Vehiculos();
+//    			GlassPanePopup.showPopup(new DialogoAniadir("Editar vehiculo", eVehiculo));
     			break;
     		case "Agregar Marca pMarcas":
     			GlassPanePopup.showPopup(new DialogoAniadirC_M("Nombre de la nueva marca"));

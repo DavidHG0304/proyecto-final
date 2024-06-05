@@ -27,7 +27,8 @@ public class ControladorVehiculos implements ActionListener{
 	private Controlador controlador;
 	
 	private Vehiculos vehiculoMostrar;
-	DialogoInfoCarro dialogoInfoCarro;
+	private DialogoInfoCarro dialogoInfoCarro;
+	private DialogoAniadir dialogoAniadir;
 
 	public ControladorVehiculos(VistaPanelVehiculos pVehiculos, Modelo modelo, Controlador controlador) {
 		this.pVehiculos = pVehiculos;
@@ -74,6 +75,12 @@ public class ControladorVehiculos implements ActionListener{
 		GlassPanePopup.showPopup(dialogoInfoCarro);
 	}
 	
+	public void prepararVehiculoEditar(Vehiculos vehiculo) {
+		vehiculoMostrar = vehiculo;
+		dialogoAniadir = new DialogoAniadir("Editar vehiculo", vehiculo);
+		GlassPanePopup.showPopup(dialogoAniadir);
+	}
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
@@ -118,11 +125,17 @@ public class ControladorVehiculos implements ActionListener{
 			GlassPanePopup.showPopup(new DialogoRentar("Test", "Crear Renta", null));
 			break;
 		case "Editar Vehiculo":
-			System.out.println("Editar");
-			GlassPanePopup.showPopup(new DialogoAniadir("Editar vehiculo"));
+//			System.out.println("Editar");
+//			vehiculoSeleccionado = pVehiculos.getVehiculoSeleccionado();
+//			GlassPanePopup.showPopup(new DialogoAniadir("Editar vehiculo", vehiculoSeleccionado));
+			
+			vehiculoSeleccionado = pVehiculos.getVehiculoSeleccionado();
+			prepararVehiculoEditar(vehiculoSeleccionado);
+			
 			break;
 		case "AgregarVehiculo":
-			GlassPanePopup.showPopup(new DialogoAniadir("Crear vehiculo"));
+			Vehiculos nVehiculo = new Vehiculos();
+			GlassPanePopup.showPopup(new DialogoAniadir("Crear vehiculo", nVehiculo));
 			break;
 		case "Detalles":
 			GlassPanePopup.showPopup(new DialogoDetalles("Test"));

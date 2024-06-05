@@ -39,8 +39,6 @@ public class DialogoInfoCarro extends JPanel {
 	private JLabel lblImgCarro;
 	
 	
-	
-	
 	/**
 	 * Create the panel.
 	 * @param url 
@@ -51,7 +49,6 @@ public class DialogoInfoCarro extends JPanel {
 		setPreferredSize(new Dimension(500, 300));
 		setOpaque(false);
 		
-//		JLabel lblNewLabel = new JLabel(vehiculo.getNombreVehiculo());
 		lblNombreVehiculo = new JLabel("ASD");
 		lblNombreVehiculo.setHorizontalAlignment(SwingConstants.LEFT);
 		lblNombreVehiculo.setFont(new Font("Inter", Font.BOLD, 14));
@@ -61,7 +58,6 @@ public class DialogoInfoCarro extends JPanel {
 		
 		tPersonas = new JEditorPane();
 		tPersonas.setFont(new Font("Inter", Font.PLAIN, 10));
-//		tPersonas.setText(""+vehiculo.getPuertasVehiculo());
 		tPersonas.setText("ASD");
 		tPersonas.setFocusable(false);
 		tPersonas.setBounds(55, 204, 124, 19);
@@ -87,7 +83,6 @@ public class DialogoInfoCarro extends JPanel {
 		add(panel);
 		
 		anioV = new JEditorPane();
-//		anioV.setText(vehiculo.getAñoVehiculo());
 		anioV.setText("ASD");
 		anioV.setOpaque(false);
 		anioV.setFont(new Font("Inter", Font.PLAIN, 10));
@@ -96,7 +91,6 @@ public class DialogoInfoCarro extends JPanel {
 		add(anioV);
 		
 		nPuertas = new JEditorPane();
-//		nPuertas.setText(""+vehiculo.getPuertasVehiculo());
 		nPuertas.setText("ASD");
 		nPuertas.setOpaque(false);
 		nPuertas.setFont(new Font("Inter", Font.PLAIN, 10));
@@ -113,7 +107,6 @@ public class DialogoInfoCarro extends JPanel {
 		add(kilometraje);
 		
 		tTransmision = new JEditorPane();
-//		tTransmision.setText(vehiculo.getTransmision());
 		tTransmision.setText("ASD");
 		tTransmision.setOpaque(false);
 		tTransmision.setFont(new Font("Inter", Font.PLAIN, 10));
@@ -121,13 +114,7 @@ public class DialogoInfoCarro extends JPanel {
 		tTransmision.setBounds(353, 204, 124, 19);
 		add(tTransmision);
 		
-		
 		aireAcondicionado = new JEditorPane();
-//		if(vehiculo.isAireAcondicionado()) {
-//			aireAcondicionado.setText("Si");
-//		}else {
-//			aireAcondicionado.setText("No");
-//		}
 		aireAcondicionado.setText(" ");
 		aireAcondicionado.setOpaque(false);
 		aireAcondicionado.setFont(new Font("Inter", Font.PLAIN, 10));
@@ -165,16 +152,6 @@ public class DialogoInfoCarro extends JPanel {
 		JLabel lblAC = new JLabel(acIcono);
 		lblAC.setBounds(329, 239, 14, 14);
 		add(lblAC);
-		
-		
-//		JLabel lblImgCarro = new JLabel();
-////		ImageIcon cargandoCarro = new ImageIcon(getClass().getResource("/vista/recursos/imagenes/carroPrueba.png"));
-//		ImageIcon cargandoCarro = new ImageIcon(vehiculo.getImagenUrl());
-//        Image imagen = cargandoCarro.getImage();
-//        Image imagenReescalada = imagen.getScaledInstance(200, 130, Image.SCALE_SMOOTH);
-//        ImageIcon iconoReescalado = new ImageIcon(imagenReescalada);
-//        lblImgCarro.setIcon(iconoReescalado);
-//        panel.add(lblImgCarro);
 		
 		lblImgCarro = new JLabel();
 		Thread loadImageThread = new Thread(() -> {

@@ -8,6 +8,9 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.geom.RoundRectangle2D;
+import java.net.MalformedURLException;
+import java.net.URL;
+
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
 import javax.swing.JEditorPane;
@@ -16,6 +19,7 @@ import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
+import modelo.entidades.Vehiculos;
 import raven.glasspanepopup.GlassPanePopup;
 import vista.recursos.componentesPersonalizados.BtnBordeado;
 import vista.recursos.componentesPersonalizados.ComboBoxRedondeado;
@@ -33,12 +37,13 @@ import javax.swing.DefaultComboBoxModel;
 @SuppressWarnings("serial")
 public class DialogoAniadir extends JPanel {
 
-
+	private JLabel lblImgCarro;
+	
 	/**
 	 * Create the panel.
 	 * @param url 
 	 */
-	public DialogoAniadir(String titulo) {
+	public DialogoAniadir(String titulo, Vehiculos vehiculo) {
 		setBackground(new Color(255, 255, 255));
 		setLayout(null);
 		setPreferredSize(new Dimension(500, 550));
@@ -62,13 +67,13 @@ public class DialogoAniadir extends JPanel {
 		panel.setBounds(24, 56, 453, 140);
 		add(panel);
 		
-		JLabel lblImgCarro = new JLabel();
-		ImageIcon cargandoCarro = new ImageIcon(getClass().getResource("/vista/recursos/imagenes/carroPrueba.png"));
-        Image imagen = cargandoCarro.getImage();
-        Image imagenReescalada = imagen.getScaledInstance(200, 130, Image.SCALE_SMOOTH);
-        ImageIcon iconoReescalado = new ImageIcon(imagenReescalada);
-        lblImgCarro.setIcon(iconoReescalado);
-        panel.add(lblImgCarro);
+//		JLabel lblImgCarro = new JLabel();
+//		ImageIcon cargandoCarro = new ImageIcon(getClass().getResource("/vista/recursos/imagenes/carroPrueba.png"));
+//        Image imagen = cargandoCarro.getImage();
+//        Image imagenReescalada = imagen.getScaledInstance(200, 130, Image.SCALE_SMOOTH);
+//        ImageIcon iconoReescalado = new ImageIcon(imagenReescalada);
+//        lblImgCarro.setIcon(iconoReescalado);
+//        panel.add(lblImgCarro);
         
         BtnBordeado btnAgregar = new BtnBordeado(30, false);
         btnAgregar.addActionListener(new ActionListener() {
@@ -224,7 +229,7 @@ public class DialogoAniadir extends JPanel {
         add(dtrpnModelo);
         
         JEditorPane dtrpnTieneAire = new JEditorPane();
-        dtrpnTieneAire.setText("Puertas del auto");
+        dtrpnTieneAire.setText("Tiene A/C");
         dtrpnTieneAire.setOpaque(false);
         dtrpnTieneAire.setFont(new Font("Inter", Font.PLAIN, 11));
         dtrpnTieneAire.setFocusable(false);
@@ -244,6 +249,57 @@ public class DialogoAniadir extends JPanel {
         ButtonGroup grupoAireRadioButton = new ButtonGroup();
         grupoAireRadioButton.add(rdbtnTieneAire1);
         grupoAireRadioButton.add(rdbtnTieneAire2);
+        
+        if(vehiculo != null && titulo.equals("Editar vehiculo")) {
+        	System.out.println("HOLa");
+        	lblImgCarro = new JLabel();
+        	Thread loadImageThread = new Thread(() -> {
+        		try {
+        			URL imageUrl = new URL(vehiculo.getImagenUrl());
+        			ImageIcon imagenCarro = new ImageIcon(imageUrl);
+        			Image imagen = imagenCarro.getImage();
+        			Image imagenReescalada = imagen.getScaledInstance(187, 140, Image.SCALE_SMOOTH);
+        			ImageIcon iconoReescalado = new ImageIcon(imagenReescalada);
+        			SwingUtilities.invokeLater(() -> {
+        				lblImgCarro.setIcon(iconoReescalado);
+        				panel.revalidate();
+        				panel.repaint();
+        			});
+        		} catch (MalformedURLException e) {
+        			ImageIcon cargandoCarro = new ImageIcon(getClass().getResource("/vista/recursos/imagenes/carroPrueba.png"));
+        			Image imagen = cargandoCarro.getImage();
+        			Image imagenReescalada = imagen.getScaledInstance(187, 140, Image.SCALE_SMOOTH);
+        			ImageIcon iconoReescalado = new ImageIcon(imagenReescalada);
+        			SwingUtilities.invokeLater(() -> {
+        				lblImgCarro.setIcon(iconoReescalado);
+        				panel.revalidate();
+        				panel.repaint();
+        			});
+        		}
+        	});
+        	loadImageThread.start();	
+        	panel.add(lblImgCarro);
+        	
+        	txtNombre.setText(vehiculo.getNombreVehiculo());
+        	txtModelo.setText(vehiculo.getModelo());
+        	txtAnio.setText(vehiculo.getAñoVehiculo());
+        	
+        	if(vehiculo.getPuertasVehiculo() == 2) {
+        		rdbtnNumPuertas1.setSelected(true);
+        	}else if (vehiculo.getPuertasVehiculo() == 4) {
+        		rdbtnNumPuertas2.setSelected(true);
+        	}
+        	
+        	if(vehiculo.isAireAcondicionado()) {
+        		rdbtnTieneAire1.setSelected(true);
+        	}else {
+        		rdbtnTieneAire2.setSelected(true);
+        	}
+        	
+//        	comboBoxMarcas.removeAll();
+//        	comboBoxMarcas.setModel(new DefaultComboBoxModel<>(new String[] {));
+//        	comboBoxMarcas.setModel(new DefaultComboBoxModel<>(new String[] {"Automatico", "Manual"}));
+        }
         
         panel.revalidate();
         panel.repaint();

@@ -118,6 +118,16 @@ public class VistaPanelVehiculos {
                     }
                 });
                 
+                carta.getLbleditarIcono().addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        for (CartasCarros c : cartaCarros) {
+                            c.setSeleccionado(false);
+                        }
+                        carta.setSeleccionado(true);
+                    }
+                });
+                
             }
         }
     }

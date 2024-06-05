@@ -93,8 +93,10 @@ public class ControladorCategorias implements ActionListener{
 			GlassPanePopup.showPopup(new DialogoRentar("Test", "Crear Renta", null));
 			break;
 		case "Editar Vehiculo":
+			// TO - DO
 			System.out.println("Editar");
-			GlassPanePopup.showPopup(new DialogoAniadir("Editar vehiculo"));
+			vehiculo = new Vehiculos();
+//			GlassPanePopup.showPopup(new DialogoAniadir("Editar vehiculo", vehiculo));
 			break;
 		case "Agregar Categoria pCategorias":
 			GlassPanePopup.showPopup(new DialogoAniadirC_M("Nombre de la nueva categoria"));
