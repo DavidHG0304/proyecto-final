@@ -106,23 +106,8 @@ public class ControladorVehiculos implements ActionListener{
 			
 			
 		case "Info pVehiculo":
-//			Vehiculos vehiculo = new Vehiculos();
-//			
-//			System.out.println("Info");
-//			GlassPanePopup.showPopup(new DialogoInfoCarro(vehiculo));
-			
-			
 			Vehiculos vehiculoSeleccionado = pVehiculos.getVehiculoSeleccionado();
-//			vehiculoSeleccionado = pVehiculos.getVehiculoSeleccionado();
 			prepararVehiculoDetalles(vehiculoSeleccionado);
-
-//			Vehiculos vehiculoSeleccionado = pVehiculos.getVehiculoSeleccionado();
-//	        if (vehiculoSeleccionado != null) {
-//	            prepararVehiculoDetalles(vehiculoSeleccionado);
-//	        } else {
-//	            System.out.println("No se seleccionó ningún vehículo.");
-//	        }
-			
 			break;
 		case "Borrar Vehiculo":
 			System.out.println("Borrar");

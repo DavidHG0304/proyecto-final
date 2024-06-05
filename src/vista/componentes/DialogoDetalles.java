@@ -77,25 +77,26 @@ public class DialogoDetalles extends JPanel {
         
 
 		String[] columnas = { "Usuario", "Fecha Inicial", "Fecha Final", "Auto", "Pago" };
-		String[][] datos = new String[50][5];
-		for (int i = 0; i < 50; i++) {
-            datos[i][0] = "@Usuario" + (i + 1);
-            datos[i][1] = "12/12/2024";
-            datos[i][2] = "13/12/2024";        
-            datos[i][3] = "AutoEjemplo";     
-            datos[i][4] = "$" + (1800 + i);
-        }
+		
+//		String[][] datos = new String[50][5];
+//		for (int i = 0; i < 50; i++) {
+//            datos[i][0] = "@Usuario" + (i + 1);
+//            datos[i][1] = "12/12/2024";
+//            datos[i][2] = "13/12/2024";        
+//            datos[i][3] = "AutoEjemplo";     
+//            datos[i][4] = "$" + (1800 + i);
+//            JTable table = new JTable(datos, columnas);
+//            table.setCellSelectionEnabled(false);
+//            JScrollPane scrollPane = new JScrollPane(table);
+//            scrollPane.setBounds(23, 301, 657, 175);
+//            scrollPane.setBorder(null);
+//            scrollPane.getVerticalScrollBar().setUI(new ScrollBarPersonalizado());
+//            scrollPane.getHorizontalScrollBar().setUI(new ScrollBarPersonalizado());
+//            scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+//            scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+//            panel.add(scrollPane);
+//        }
 
-		JTable table = new JTable(datos, columnas);
-		table.setCellSelectionEnabled(false);
-		JScrollPane scrollPane = new JScrollPane(table);
-		scrollPane.setBounds(23, 301, 657, 175);
-		scrollPane.setBorder(null);
-		scrollPane.getVerticalScrollBar().setUI(new ScrollBarPersonalizado());
-		scrollPane.getHorizontalScrollBar().setUI(new ScrollBarPersonalizado());
-		scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-		panel.add(scrollPane);
 		
 		JLabel lblNewLabel_1 = new JLabel("");
 		lblNewLabel_1.setBounds(0, 250, 705, 3);

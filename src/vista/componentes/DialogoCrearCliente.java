@@ -170,6 +170,8 @@ public class DialogoCrearCliente extends JPanel {
 //			txtContrasenia.setText(usuario.getContrasenia());
 //			txtConfirmarContrasenia.setText(usuario.getContrasenia());
 		}
+		
+		
 	}
 	
 	@Override

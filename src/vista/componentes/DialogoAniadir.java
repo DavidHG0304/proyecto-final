@@ -14,16 +14,21 @@ import javax.swing.JEditorPane;
 import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
 
 import raven.glasspanepopup.GlassPanePopup;
 import vista.recursos.componentesPersonalizados.BtnBordeado;
+import vista.recursos.componentesPersonalizados.ComboBoxRedondeado;
 import vista.recursos.componentesPersonalizados.JTextFieldRedondeado;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+
+import javax.swing.ButtonGroup;
 import javax.swing.Icon;
 import javax.swing.JComboBox;
 import javax.swing.JRadioButton;
+import javax.swing.DefaultComboBoxModel;
 
 @SuppressWarnings("serial")
 public class DialogoAniadir extends JPanel {
@@ -103,11 +108,15 @@ public class DialogoAniadir extends JPanel {
         txtMarca_2_1.setBounds(263, 317, 214, 25);
         add(txtMarca_2_1);
         
-        JComboBox comboBox = new JComboBox();
+        ComboBoxRedondeado<String> comboBox = new ComboBoxRedondeado<String>(20, new Color(0,0,0,60));
+        UIManager.put("Component.innerFocusWidth", comboBox);
+        comboBox.setModel(new DefaultComboBoxModel<>(new String[] {"Automatico", "Manual"}));
         comboBox.setFont(new Font("Inter", Font.PLAIN, 11));
         comboBox.setOpaque(false);
-        
+        comboBox.setBackground(new Color(0, 0, 0, 5));
         comboBox.setBounds(24, 413, 214, 25);
+        // IMPORTANTE 
+        comboBox.setLightWeightPopupEnabled(false);
         add(comboBox);
         
         JRadioButton rdBtnNpuertas = new JRadioButton("2");
@@ -119,6 +128,10 @@ public class DialogoAniadir extends JPanel {
         rdbtnNewRadioButton_1.setFont(new Font("Inter", Font.PLAIN, 11));
         rdbtnNewRadioButton_1.setBounds(318, 414, 53, 23);
         add(rdbtnNewRadioButton_1);
+        
+        ButtonGroup grupoPuertas = new ButtonGroup();
+        grupoPuertas.add(rdBtnNpuertas);
+        grupoPuertas.add(rdbtnNewRadioButton_1);
         
         JLabel lblNewLabel = new JLabel(titulo);
         lblNewLabel.setHorizontalAlignment(SwingConstants.LEFT);

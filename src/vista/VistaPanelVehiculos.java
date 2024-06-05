@@ -69,8 +69,6 @@ public class VistaPanelVehiculos {
 		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 		panel.getPanelCentral().add(scrollPane);
 		
-		
-		
 		cartaCarros= new ArrayList<>();
 	}
 	
