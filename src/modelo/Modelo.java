@@ -243,6 +243,7 @@ public class Modelo {
 		    }
 		}
 	
+
 //	Añadir vehiculos
 	public boolean aniadirVehiculo(String nombre, String año, int cantidadPuertas, int kilometraje, String transmision,
 	        boolean aireAcondicionado, String modelo, String nombreCategoria, String nombreMarca, String urlImagen,
@@ -362,6 +363,7 @@ public class Modelo {
 	        return false;
 	    }
 	}
+	
 
 	// Obtener la inormación de los usuarios para imprimirla en pantalla
 	public ArrayList<Usuarios> obtenerUsuarios() {

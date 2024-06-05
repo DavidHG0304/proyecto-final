@@ -148,8 +148,8 @@ public class ControladorClientes implements ActionListener{
 			break;
 		case "ConfirmarEliminar":
 			System.out.println("Eliminado");
-                eliminarCliente(usuarioSeleccionadoParaEliminar);
-                GlassPanePopup.closePopupLast();
+			eliminarCliente(usuarioSeleccionadoParaEliminar);
+			GlassPanePopup.closePopupLast();
 			break;
 		case "EditarCliente":
 			Usuarios usuarioSeleccionado = panelClientes.getUsuarioSeleccionado();

@@ -66,7 +66,7 @@ public class Controlador implements ActionListener{
 	}
 	
 	public void vehiculos() {
-		VistaPanelVehiculos panelVehiculos = new VistaPanelVehiculos();
+		VistaPanelVehiculos panelVehiculos = new VistaPanelVehiculos(controladorVehiculos);
 		this.controladorVehiculos = new ControladorVehiculos(panelVehiculos, nuevoModelo, this);
 	}
 	

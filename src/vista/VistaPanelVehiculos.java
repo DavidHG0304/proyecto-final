@@ -5,6 +5,8 @@ import java.util.ArrayList;
 
 import javax.swing.*;
 
+import controlador.ControladorClientes;
+import controlador.ControladorVehiculos;
 import modelo.entidades.Usuarios;
 import modelo.entidades.Vehiculos;
 import vista.componentes.CartaClientes;
@@ -17,11 +19,12 @@ public class VistaPanelVehiculos {
 //	private JPanel panelPrincipal;
 	private JPanel panelCartasVehiculos;
 	private ArrayList<CartasCarros> cartaCarros;
-	
+	private ControladorVehiculos controlador;
 	
 	private PanelesNavegacion panel;
 	
-	public VistaPanelVehiculos() {
+	public VistaPanelVehiculos(ControladorVehiculos controlador) {
+		this.controlador = controlador;
 		frame = new JFrame();
 		frame.setSize(950, 700);
 		frame.setVisible(true);
@@ -78,6 +81,14 @@ public class VistaPanelVehiculos {
         panel.getPanelCentral().remove(panel.getLblCargandoGif());
         for (Vehiculos vehiculo : vehiculos) {
             CartasCarros carta = new CartasCarros(vehiculo);
+            carta.getLblBorrarIcono().addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					 controlador.prepararEliminar(vehiculo);
+				}
+			});
+            
             panelCartasVehiculos.add(carta);
             cartaCarros.add(carta);
         }
@@ -144,6 +155,15 @@ public class VistaPanelVehiculos {
 	}
 	
 	
+	
+	public ControladorVehiculos getControlador() {
+		return controlador;
+	}
+
+	public void setControlador(ControladorVehiculos controlador) {
+		this.controlador = controlador;
+	}
+
 	// Getters
 	public JFrame getFrame() {
 		return frame;

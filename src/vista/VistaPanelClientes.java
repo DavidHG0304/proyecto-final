@@ -142,7 +142,6 @@ public class VistaPanelClientes {
         }
     }
 	
-	// Devuelve el usuario que fue seleccionado para mostrar los datos del usuario y poder modificarlos
 	public Usuarios getUsuarioSeleccionado() {
 		for (CartaClientes carta : cartaClientes) {
 	        if (carta.isSeleccionado()) {
@@ -153,27 +152,6 @@ public class VistaPanelClientes {
 
 		return null;
 	}
-	
-
-	
-	public void eliminarCartaCliente(Usuarios usuario) {
-        CartaClientes cartaEliminar = null;
-        for (CartaClientes carta : cartaClientes) {
-            if (carta.getUsuario().equals(usuario)) {
-                cartaEliminar = carta;
-                break;
-            }
-        }
-
-        if (cartaEliminar != null) {
-            cartaClientes.remove(cartaEliminar);
-            panelAux.remove(cartaEliminar);
-            panelCartasClientes.revalidate();
-            panelCartasClientes.repaint();
-            panel.getPanelCentral().repaint();
-        }
-    }
-	
 	
 	public JFrame getFrame() {
 		return frame;

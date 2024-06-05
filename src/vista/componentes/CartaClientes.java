@@ -38,7 +38,7 @@ public class CartaClientes extends PanelRedondeado {
 		super(30, false, true, new Color(0, 0, 0, 10), 5);
 		this.usuario = usuario;
 		this.seleccionado = false;
-		 this.controlador = controlador;
+		this.controlador = controlador;
         setBackground(new Color(255, 255, 255));
         setPreferredSize(new Dimension(780, 150));
         setMaximumSize(new Dimension(800, 150));

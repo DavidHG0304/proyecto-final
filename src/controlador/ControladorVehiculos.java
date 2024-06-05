@@ -31,18 +31,22 @@ public class ControladorVehiculos implements ActionListener{
 	private Vehiculos vehiculoMostrar;
 	private DialogoInfoCarro dialogoInfoCarro;
 	private DialogoAniadir dialogoAniadir;
+	private DialogoConfirmacion dialogoConfirmacion;
+	
+	private Vehiculos vehiculoSeleccionadoParaEliminar;
 
 	public ControladorVehiculos(VistaPanelVehiculos pVehiculos, Modelo modelo, Controlador controlador) {
 		this.pVehiculos = pVehiculos;
         this.modelo = modelo;
         this.controlador = controlador;
+        pVehiculos.setControlador(this);
         pVehiculos.panelVehiculos();
 		pVehiculos.asignarActListner(this);
 		
 //		modelo.editarVehiculos(13, "Nuevo", "2020",4, "Manual", true, "Modelo Prueba", "Deportivo", "Toyota");
 		
 //		modelo.aniadirVehiculo("Toyota Corolla", "2020", 4, 30000, "Automático", true, "Corolla", "Deportivo", "Toyota", "", 1000, 500, 0, 500, 150);
-		
+//		modelo.eliminarVehiculo(24);
 		
 		cargarVehiculos();
 		GlassPanePopup.install(pVehiculos.getFrame());
@@ -111,7 +115,13 @@ public class ControladorVehiculos implements ActionListener{
 		GlassPanePopup.showPopup(dialogoAniadir);
 	}
 	
-	
+	public void prepararEliminar(Vehiculos vehiculo) {
+		vehiculoSeleccionadoParaEliminar = vehiculo;
+		dialogoConfirmacion = new DialogoConfirmacion("¿Estas seguro de querer \neliminar el auto?", "");
+		dialogoConfirmacion.getBoton().setActionCommand("ConfirmarEliminar");
+		dialogoConfirmacion.getBoton().addActionListener(this);
+		GlassPanePopup.showPopup(dialogoConfirmacion);
+	}
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -148,10 +158,10 @@ public class ControladorVehiculos implements ActionListener{
 			Vehiculos vehiculoSeleccionado = pVehiculos.getVehiculoSeleccionado();
 			prepararVehiculoDetalles(vehiculoSeleccionado);
 			break;
-		case "Borrar Vehiculo":
-			System.out.println("Borrar");
-			GlassPanePopup.showPopup(new DialogoConfirmacion("¿Estas seguro de querer \neliminar el auto?", ""));
-			break;
+//		case "Borrar Vehiculo":
+//			vehiculoSeleccionadoParaEliminar = pVehiculos.getVehiculoSeleccionado();
+//            prepararEliminar(vehiculoSeleccionadoParaEliminar);
+//			break;
 		case "Rentar":
 			// To - do
 			GlassPanePopup.showPopup(new DialogoRentar("Test", "Crear Renta", null));
@@ -245,6 +255,13 @@ public class ControladorVehiculos implements ActionListener{
 		    	GlassPanePopup.closePopupLast();
 		    	GlassPanePopup.showPopup(new DialogoAvisos("Error", "No se pudo actualizar el vehiculo."));
 		    }
+			break;
+			
+		case "ConfirmarEliminar":
+			System.out.println("Eliminado");
+//			modelo.eliminarVehiculo(vehiculoSeleccionadoParaEliminar.getIdVehiculo());
+			GlassPanePopup.closePopupLast();
+			cargarVehiculos();
 			break;
 		}
 	}
