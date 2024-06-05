@@ -46,7 +46,11 @@ public class DialogoAniadir extends JPanel {
 	private ComboBoxRedondeado<String> comboBoxMarcas;
 	private ComboBoxRedondeado<String> comboBoxCategorias;
 	private JTextFieldRedondeado txtModelo;
-	
+	private JTextFieldRedondeado txtSeguroDanios;
+	private JTextFieldRedondeado txtSeguroTarifa;
+	private JTextFieldRedondeado txtSeguroVida;
+	private JTextFieldRedondeado txtSeguroCombustible;
+	private JTextFieldRedondeado txtSeguroKilometraje;
 	private ButtonGroup grupoPuertas;
 	
 	private JRadioButton rdbtnNumPuertas1;
@@ -99,13 +103,13 @@ public class DialogoAniadir extends JPanel {
         txtNombre = new JTextFieldRedondeado(20, 20, new Color(0, 0, 0, 60));
         txtNombre.setFont(new Font("Inter", Font.PLAIN, 11));
         txtNombre.setBackground(new Color(0, 0, 0, 5));
-        txtNombre.setBounds(263, 256, 214, 25);
+        txtNombre.setBounds(263, 242, 214, 25);
         add(txtNombre);
         
         txtAnio = new JTextFieldRedondeado(20, 20, new Color(0, 0, 0, 60));
         txtAnio.setFont(new Font("Inter", Font.PLAIN, 11));
         txtAnio.setBackground(new Color(0, 0, 0, 5));
-        txtAnio.setBounds(263, 377, 214, 25);
+        txtAnio.setBounds(263, 363, 214, 25);
         add(txtAnio);
         
         comboBox = new ComboBoxRedondeado<String>(20, new Color(0,0,0,60));
@@ -114,19 +118,19 @@ public class DialogoAniadir extends JPanel {
         comboBox.setFont(new Font("Inter", Font.PLAIN, 11));
         comboBox.setOpaque(false);
         comboBox.setBackground(new Color(0, 0, 0, 5));
-        comboBox.setBounds(24, 377, 214, 25);
+        comboBox.setBounds(24, 363, 214, 25);
         // IMPORTANTE 
         comboBox.setLightWeightPopupEnabled(false);
         add(comboBox);
         
         rdbtnNumPuertas1 = new JRadioButton("2");
         rdbtnNumPuertas1.setFont(new Font("Inter", Font.PLAIN, 11));
-        rdbtnNumPuertas1.setBounds(263, 430, 53, 23);
+        rdbtnNumPuertas1.setBounds(263, 416, 53, 23);
         add(rdbtnNumPuertas1);
         
         rdbtnNumPuertas2 = new JRadioButton("4");
         rdbtnNumPuertas2.setFont(new Font("Inter", Font.PLAIN, 11));
-        rdbtnNumPuertas2.setBounds(318, 430, 53, 23);
+        rdbtnNumPuertas2.setBounds(318, 416, 53, 23);
         add(rdbtnNumPuertas2);
         
         grupoPuertas = new ButtonGroup();
@@ -145,7 +149,7 @@ public class DialogoAniadir extends JPanel {
         dtrpnTipoDelAuto.setOpaque(false);
         dtrpnTipoDelAuto.setFont(new Font("Inter", Font.PLAIN, 11));
         dtrpnTipoDelAuto.setFocusable(false);
-        dtrpnTipoDelAuto.setBounds(24, 297, 124, 19);
+        dtrpnTipoDelAuto.setBounds(24, 283, 124, 19);
         add(dtrpnTipoDelAuto);
         
         JEditorPane maracaAuto = new JEditorPane();
@@ -153,7 +157,7 @@ public class DialogoAniadir extends JPanel {
         maracaAuto.setOpaque(false);
         maracaAuto.setFont(new Font("Inter", Font.PLAIN, 11));
         maracaAuto.setFocusable(false);
-        maracaAuto.setBounds(24, 236, 124, 19);
+        maracaAuto.setBounds(24, 222, 124, 19);
         add(maracaAuto);
         
         JEditorPane dtrpnAoDelAuto = new JEditorPane();
@@ -161,7 +165,7 @@ public class DialogoAniadir extends JPanel {
         dtrpnAoDelAuto.setOpaque(false);
         dtrpnAoDelAuto.setFont(new Font("Inter", Font.PLAIN, 11));
         dtrpnAoDelAuto.setFocusable(false);
-        dtrpnAoDelAuto.setBounds(263, 358, 124, 19);
+        dtrpnAoDelAuto.setBounds(263, 344, 124, 19);
         add(dtrpnAoDelAuto);
         
         JEditorPane dtrpnNombre = new JEditorPane();
@@ -169,7 +173,7 @@ public class DialogoAniadir extends JPanel {
         dtrpnNombre.setOpaque(false);
         dtrpnNombre.setFont(new Font("Inter", Font.PLAIN, 11));
         dtrpnNombre.setFocusable(false);
-        dtrpnNombre.setBounds(263, 236, 124, 19);
+        dtrpnNombre.setBounds(263, 222, 124, 19);
         add(dtrpnNombre);
         
         JEditorPane dtrpnTransmision = new JEditorPane();
@@ -177,7 +181,7 @@ public class DialogoAniadir extends JPanel {
         dtrpnTransmision.setOpaque(false);
         dtrpnTransmision.setFont(new Font("Inter", Font.PLAIN, 11));
         dtrpnTransmision.setFocusable(false);
-        dtrpnTransmision.setBounds(24, 358, 124, 19);
+        dtrpnTransmision.setBounds(24, 344, 124, 19);
         add(dtrpnTransmision);
         
         JEditorPane dtrpnPuertasDelAuto = new JEditorPane();
@@ -185,7 +189,7 @@ public class DialogoAniadir extends JPanel {
         dtrpnPuertasDelAuto.setOpaque(false);
         dtrpnPuertasDelAuto.setFont(new Font("Inter", Font.PLAIN, 11));
         dtrpnPuertasDelAuto.setFocusable(false);
-        dtrpnPuertasDelAuto.setBounds(263, 409, 124, 19);
+        dtrpnPuertasDelAuto.setBounds(263, 395, 124, 19);
         add(dtrpnPuertasDelAuto);
         
         comboBoxMarcas = new ComboBoxRedondeado<String>(20, new Color(0, 0, 0, 60));
@@ -193,7 +197,7 @@ public class DialogoAniadir extends JPanel {
         comboBoxMarcas.setLightWeightPopupEnabled(false);
         comboBoxMarcas.setFont(new Font("Inter", Font.PLAIN, 11));
         comboBoxMarcas.setBackground(new Color(0, 0, 0, 5));
-        comboBoxMarcas.setBounds(24, 257, 214, 25);
+        comboBoxMarcas.setBounds(24, 243, 214, 25);
 //      comboBoxMarcas.setModel(new DefaultComboBoxModel<>(new String[] {"Automatico", "Manual"}));
         add(comboBoxMarcas);
         
@@ -202,7 +206,7 @@ public class DialogoAniadir extends JPanel {
         comboBoxCategorias.setLightWeightPopupEnabled(false);
         comboBoxCategorias.setFont(new Font("Inter", Font.PLAIN, 11));
         comboBoxCategorias.setBackground(new Color(0, 0, 0, 5));
-        comboBoxCategorias.setBounds(24, 318, 214, 25);
+        comboBoxCategorias.setBounds(24, 304, 214, 25);
         comboBox.setLightWeightPopupEnabled(false);
 //      comboBoxCategorias.setModel(new DefaultComboBoxModel<>(new String[] {"Automatico", "Manual"}));
         add(comboBoxCategorias);
@@ -213,7 +217,7 @@ public class DialogoAniadir extends JPanel {
         txtModelo = new JTextFieldRedondeado(20, 20, new Color(0, 0, 0, 60));
         txtModelo.setFont(new Font("Inter", Font.PLAIN, 11));
         txtModelo.setBackground(new Color(0, 0, 0, 5));
-        txtModelo.setBounds(263, 318, 214, 25);
+        txtModelo.setBounds(263, 304, 214, 25);
         add(txtModelo);
         
         JEditorPane dtrpnModelo = new JEditorPane();
@@ -221,7 +225,7 @@ public class DialogoAniadir extends JPanel {
         dtrpnModelo.setOpaque(false);
         dtrpnModelo.setFont(new Font("Inter", Font.PLAIN, 11));
         dtrpnModelo.setFocusable(false);
-        dtrpnModelo.setBounds(263, 298, 124, 19);
+        dtrpnModelo.setBounds(263, 284, 124, 19);
         add(dtrpnModelo);
         
         JEditorPane dtrpnTieneAire = new JEditorPane();
@@ -229,17 +233,17 @@ public class DialogoAniadir extends JPanel {
         dtrpnTieneAire.setOpaque(false);
         dtrpnTieneAire.setFont(new Font("Inter", Font.PLAIN, 11));
         dtrpnTieneAire.setFocusable(false);
-        dtrpnTieneAire.setBounds(24, 409, 124, 19);
+        dtrpnTieneAire.setBounds(24, 395, 124, 19);
         add(dtrpnTieneAire);
         
         rdbtnTieneAire1 = new JRadioButton("Si");
         rdbtnTieneAire1.setFont(new Font("Inter", Font.PLAIN, 11));
-        rdbtnTieneAire1.setBounds(24, 430, 53, 23);
+        rdbtnTieneAire1.setBounds(24, 416, 53, 23);
         add(rdbtnTieneAire1);
         
         rdbtnTieneAire2 = new JRadioButton("No");
         rdbtnTieneAire2.setFont(new Font("Inter", Font.PLAIN, 11));
-        rdbtnTieneAire2.setBounds(79, 430, 53, 23);
+        rdbtnTieneAire2.setBounds(79, 416, 53, 23);
         add(rdbtnTieneAire2);
         
         grupoAireRadioButton = new ButtonGroup();
@@ -250,6 +254,76 @@ public class DialogoAniadir extends JPanel {
         rdbtnNumPuertas1.setActionCommand("2");
         rdbtnNumPuertas2.setActionCommand("4");
         rdbtnTieneAire2.setActionCommand("No");
+        
+        JEditorPane dtrpnSeguroDanios = new JEditorPane();
+        dtrpnSeguroDanios.setText("Seguro Daños");
+        dtrpnSeguroDanios.setOpaque(false);
+        dtrpnSeguroDanios.setFont(new Font("Inter", Font.PLAIN, 11));
+        dtrpnSeguroDanios.setFocusable(false);
+        dtrpnSeguroDanios.setBounds(24, 444, 81, 19);
+        add(dtrpnSeguroDanios);
+        
+        txtSeguroDanios = new JTextFieldRedondeado(20, 20, new Color(0, 0, 0, 60));
+        txtSeguroDanios.setFont(new Font("Inter", Font.PLAIN, 11));
+        txtSeguroDanios.setBackground(new Color(0, 0, 0, 5));
+        txtSeguroDanios.setBounds(24, 464, 81, 25);
+        add(txtSeguroDanios);
+        
+        txtSeguroTarifa = new JTextFieldRedondeado(20, 20, new Color(0, 0, 0, 60));
+        txtSeguroTarifa.setFont(new Font("Inter", Font.PLAIN, 11));
+        txtSeguroTarifa.setBackground(new Color(0, 0, 0, 5));
+        txtSeguroTarifa.setBounds(396, 464, 81, 25);
+        add(txtSeguroTarifa);
+        
+        JEditorPane dtrpnTarifaDia = new JEditorPane();
+        dtrpnTarifaDia.setText("Tarifa p/dia");
+        dtrpnTarifaDia.setOpaque(false);
+        dtrpnTarifaDia.setFont(new Font("Inter", Font.PLAIN, 11));
+        dtrpnTarifaDia.setFocusable(false);
+        dtrpnTarifaDia.setBounds(396, 444, 81, 19);
+        add(dtrpnTarifaDia);
+        
+        txtSeguroCombustible = new JTextFieldRedondeado(20, 20, new Color(0, 0, 0, 60));
+        txtSeguroCombustible.setFont(new Font("Inter", Font.PLAIN, 11));
+        txtSeguroCombustible.setBackground(new Color(0, 0, 0, 5));
+        txtSeguroCombustible.setBounds(210, 466, 81, 25);
+        add(txtSeguroCombustible);
+        
+        JEditorPane dtrpnSeguroCombustible = new JEditorPane();
+        dtrpnSeguroCombustible.setText("Combustible $");
+        dtrpnSeguroCombustible.setOpaque(false);
+        dtrpnSeguroCombustible.setFont(new Font("Inter", Font.PLAIN, 11));
+        dtrpnSeguroCombustible.setFocusable(false);
+        dtrpnSeguroCombustible.setBounds(210, 446, 86, 19);
+        add(dtrpnSeguroCombustible);
+        
+        txtSeguroVida = new JTextFieldRedondeado(20, 20, new Color(0, 0, 0, 60));
+        txtSeguroVida.setFont(new Font("Inter", Font.PLAIN, 11));
+        txtSeguroVida.setBackground(new Color(0, 0, 0, 5));
+        txtSeguroVida.setBounds(115, 466, 81, 25);
+        add(txtSeguroVida);
+        
+        JEditorPane dtrpnSeguroVida = new JEditorPane();
+        dtrpnSeguroVida.setText("Seguro Vida");
+        dtrpnSeguroVida.setOpaque(false);
+        dtrpnSeguroVida.setFont(new Font("Inter", Font.PLAIN, 11));
+        dtrpnSeguroVida.setFocusable(false);
+        dtrpnSeguroVida.setBounds(115, 446, 81, 19);
+        add(dtrpnSeguroVida);
+        
+        txtSeguroKilometraje = new JTextFieldRedondeado(20, 20, new Color(0, 0, 0, 60));
+        txtSeguroKilometraje.setFont(new Font("Inter", Font.PLAIN, 11));
+        txtSeguroKilometraje.setBackground(new Color(0, 0, 0, 5));
+        txtSeguroKilometraje.setBounds(306, 466, 81, 25);
+        add(txtSeguroKilometraje);
+        
+        JEditorPane dtrpnSeguroKilometraje = new JEditorPane();
+        dtrpnSeguroKilometraje.setText("Seguro          Kilometraje");
+        dtrpnSeguroKilometraje.setOpaque(false);
+        dtrpnSeguroKilometraje.setFont(new Font("Inter", Font.PLAIN, 11));
+        dtrpnSeguroKilometraje.setFocusable(false);
+        dtrpnSeguroKilometraje.setBounds(306, 436, 81, 40);
+        add(dtrpnSeguroKilometraje);
         
         if(vehiculo != null && titulo.equals("Editar vehiculo")) {
         	btnAgregar.setActionCommand("EditarUnVehiculo");
@@ -288,6 +362,12 @@ public class DialogoAniadir extends JPanel {
         	txtAnio.setText(vehiculo.getAñoVehiculo());
         	comboBoxCategorias.setSelectedItem(nombreCategoria);
         	comboBoxMarcas.setSelectedItem(nombreMarca);
+        	
+//        	txtSeguroDanios.setText(String.valueOf(vehiculo.getSeguroDanios()));
+//            txtSeguroVida.setText(String.valueOf(vehiculo.getSeguroVida()));
+//            txtSeguroKilometraje.setText(String.valueOf(vehiculo.getSeguroKilometraje()));
+//            txtSeguroCombustible.setText(String.valueOf(vehiculo.getCombustible()));
+//            txtSeguroTarifa.setText(String.valueOf(vehiculo.getTarifaPorDia()));
         	
         	
         	if(vehiculo.getPuertasVehiculo() == 2) {
@@ -440,7 +520,46 @@ public class DialogoAniadir extends JPanel {
 	public void setGrupoAireRadioButton(ButtonGroup grupoAireRadioButton) {
 		this.grupoAireRadioButton = grupoAireRadioButton;
 	}
-	
+
+	public JTextFieldRedondeado getTxtSeguroDanios() {
+		return txtSeguroDanios;
+	}
+
+	public void setTxtSeguroDanios(JTextFieldRedondeado txtSeguroDanios) {
+		this.txtSeguroDanios = txtSeguroDanios;
+	}
+
+	public JTextFieldRedondeado getTxtSeguroTarifa() {
+		return txtSeguroTarifa;
+	}
+
+	public void setTxtSeguroTarifa(JTextFieldRedondeado txtSeguroTarifa) {
+		this.txtSeguroTarifa = txtSeguroTarifa;
+	}
+
+	public JTextFieldRedondeado getTxtSeguroVida() {
+		return txtSeguroVida;
+	}
+
+	public void setTxtSeguroVida(JTextFieldRedondeado txtSeguroVida) {
+		this.txtSeguroVida = txtSeguroVida;
+	}
+
+	public JTextFieldRedondeado getTxtSeguroCombustible() {
+		return txtSeguroCombustible;
+	}
+
+	public void setTxtSeguroCombustible(JTextFieldRedondeado txtSeguroCombustible) {
+		this.txtSeguroCombustible = txtSeguroCombustible;
+	}
+
+	public JTextFieldRedondeado getTxtSeguroKilometraje() {
+		return txtSeguroKilometraje;
+	}
+
+	public void setTxtSeguroKilometraje(JTextFieldRedondeado txtSeguroKilometraje) {
+		this.txtSeguroKilometraje = txtSeguroKilometraje;
+	}
 	
 	
 }

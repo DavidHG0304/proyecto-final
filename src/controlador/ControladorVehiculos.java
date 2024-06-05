@@ -41,6 +41,9 @@ public class ControladorVehiculos implements ActionListener{
 		
 //		modelo.editarVehiculos(13, "Nuevo", "2020",4, "Manual", true, "Modelo Prueba", "Deportivo", "Toyota");
 		
+//		modelo.aniadirVehiculo("Toyota Corolla", "2020", 4, 30000, "Automático", true, "Corolla", "Deportivo", "Toyota", "", 1000, 500, 0, 500, 150);
+		
+		
 		cargarVehiculos();
 		GlassPanePopup.install(pVehiculos.getFrame());
 
@@ -154,9 +157,6 @@ public class ControladorVehiculos implements ActionListener{
 			GlassPanePopup.showPopup(new DialogoRentar("Test", "Crear Renta", null));
 			break;
 		case "Editar Vehiculo":
-//			System.out.println("Editar");
-//			vehiculoSeleccionado = pVehiculos.getVehiculoSeleccionado();
-//			GlassPanePopup.showPopup(new DialogoAniadir("Editar vehiculo", vehiculoSeleccionado));
 			vehiculoSeleccionado = pVehiculos.getVehiculoSeleccionado();
 			prepararVehiculoEditar(vehiculoSeleccionado);
 			
@@ -176,12 +176,6 @@ public class ControladorVehiculos implements ActionListener{
 			break;
 		case "CrearUnVehiculo":
 			System.out.println("Va a crear");
-			break;
-			
-			
-		case "EditarUnVehiculo":
-			System.out.println("Va a Editar");
-			vehiculoSeleccionado = pVehiculos.getVehiculoSeleccionado();
 			
 			String nombre = dialogoAniadir.getTxtNombre().getText();
 		    String anio = dialogoAniadir.getTxtAnio().getText();
@@ -199,13 +193,58 @@ public class ControladorVehiculos implements ActionListener{
 		    String nombreCategoria = (String) dialogoAniadir.getComboBoxCategorias().getSelectedItem();
 		    String nombreMarca = (String) dialogoAniadir.getComboBoxMarcas().getSelectedItem();
             
-            boolean resultado = modelo.editarVehiculos(vehiculoSeleccionado.getIdVehiculo(), nombre, anio, cantidadPuertas, transmision, aireAcondicionado, modeloCarro, nombreCategoria, nombreMarca);
-			if (resultado) {
-		        System.out.println("Vehículo actualizado correctamente");
-		        cargarVehiculos();
+		    float seguroDanios = Float.parseFloat(dialogoAniadir.getTxtSeguroDanios().getText());
+		    float seguroVida = Float.parseFloat(dialogoAniadir.getTxtSeguroVida().getText());
+		    float seguroKilometraje = Float.parseFloat(dialogoAniadir.getTxtSeguroKilometraje().getText());
+		    float combustible = Float.parseFloat(dialogoAniadir.getTxtSeguroCombustible().getText());
+		    float tarifaPorDia = Float.parseFloat(dialogoAniadir.getTxtSeguroTarifa().getText());
+		    
+//		    boolean resultado = modelo.aniadirVehiculo(nombre, anio, cantidadPuertas, 3000, transmision, aireAcondicionado, modeloCarro, nombreMarca, nombreCategoria, "https://firebasestorage.googleapis.com/v0/b/fotinhoscarros.appspot.com/o/bugatata.png?alt=media&token=41feddc5-379f-429e-9040-16d7cd4bb739", seguroDanios, seguroVida, seguroKilometraje, combustible, tarifaPorDia);
+//			if (resultado) {
+//				GlassPanePopup.closePopupLast();
+//				GlassPanePopup.showPopup(new DialogoAvisos("Vehiculo Creado", "El vehiculo ha sido credo con exito"));
+//		        cargarVehiculos();
+//		    } else {
+//		    	GlassPanePopup.closePopupLast();
+//		    	GlassPanePopup.showPopup(new DialogoAvisos("Error", "No se ha podido crear el vehiculo"));
+//		    }
+			break;
+		case "EditarUnVehiculo":
+			System.out.println("Va a Editar");
+			vehiculoSeleccionado = pVehiculos.getVehiculoSeleccionado();
+			
+			nombre = dialogoAniadir.getTxtNombre().getText();
+		    anio = dialogoAniadir.getTxtAnio().getText();
+		    puertasString = dialogoAniadir.getGrupoPuertas().getSelection() != null ? dialogoAniadir.getGrupoPuertas().getSelection().getActionCommand() : "0";
+		    cantidadPuertas = 0;
+		    if (!puertasString.equals("0")) {
+		        cantidadPuertas = Integer.parseInt(puertasString);
 		    } else {
-		        System.out.println("Error al actualizar el vehículo");
+		    	GlassPanePopup.closePopupLast();
+		    	GlassPanePopup.showPopup(new DialogoAvisos("Error", "Faltan campos por rellenar"));
+		        return;
 		    }
+		    transmision = (String) dialogoAniadir.getComboBox().getSelectedItem();
+		    aireAcondicionado = dialogoAniadir.getGrupoAireRadioButton().getSelection().getActionCommand().equals("Si");
+		    modeloCarro = dialogoAniadir.getTxtModelo().getText();
+		    nombreCategoria = (String) dialogoAniadir.getComboBoxCategorias().getSelectedItem();
+		    nombreMarca = (String) dialogoAniadir.getComboBoxMarcas().getSelectedItem();
+            
+		    seguroDanios = Float.parseFloat(dialogoAniadir.getTxtSeguroDanios().getText());
+		    seguroVida = Float.parseFloat(dialogoAniadir.getTxtSeguroVida().getText());
+		    seguroKilometraje = Float.parseFloat(dialogoAniadir.getTxtSeguroKilometraje().getText());
+		    combustible = Float.parseFloat(dialogoAniadir.getTxtSeguroCombustible().getText());
+		    tarifaPorDia = Float.parseFloat(dialogoAniadir.getTxtSeguroTarifa().getText());
+		    
+//		    resultado = modelo.editarVehiculos(vehiculoSeleccionado.getIdVehiculo(), nombre, anio, cantidadPuertas, transmision, aireAcondicionado, modeloCarro, nombreCategoria, nombreMarca, seguroDanios, seguroVida, seguroKilometraje, combustible, tarifaPorDia);
+//			if (resultado) {
+//				GlassPanePopup.closePopupLast();
+//				GlassPanePopup.showPopup(new DialogoAvisos("Actualizado", "El vehiculo ha sido \nactualizado correctamente."));
+//		        cargarVehiculos();
+//		    } else {
+//		    	GlassPanePopup.closePopupLast();
+//		    	GlassPanePopup.showPopup(new DialogoAvisos("Error", "No se pudo actualizar el vehiculo."));
+//		    }
 			break;
 		}
 	}
