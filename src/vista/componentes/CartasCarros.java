@@ -160,7 +160,7 @@ public class CartasCarros extends PanelRedondeado{
 		lblestrellaIcono.setBounds(5, 5, 14, 14);
 		panel.add(lblestrellaIcono);
 		
-		JLabel lblNombre = new JLabel(vehiculo.getNombreVehiculo()+" "+vehiculo.getModelo()+" - "+vehiculo.getCategoria());
+		JLabel lblNombre = new JLabel(vehiculo.getMarcas()+" "+vehiculo.getModelo()+" - "+vehiculo.getCategoria());
 		lblNombre.setFont(new Font("Inter", Font.BOLD, 10));
 		lblNombre.setBounds(7, 28, 179, 14);
 //		lblNombre.setOpaque(true);

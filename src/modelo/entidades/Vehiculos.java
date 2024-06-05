@@ -22,6 +22,10 @@ public class Vehiculos {
 	private String imagenUrl;
 	private double costoTotal;
 	
+	// Cambio
+	private int categoriaId;
+	private int marcaId;
+	
 	public Vehiculos() {
 		
 	}
@@ -118,6 +122,18 @@ public class Vehiculos {
 	}
 	public void setCostoTotal(double costoTotal) {
 		this.costoTotal = costoTotal;
+	}
+	public int getCategoriaId() {
+		return categoriaId;
+	}
+	public void setCategoriaId(int categoriaId) {
+		this.categoriaId = categoriaId;
+	}
+	public int getMarcaId() {
+		return marcaId;
+	}
+	public void setMarcaId(int marcaId) {
+		this.marcaId = marcaId;
 	}
 	
 	

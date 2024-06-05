@@ -39,12 +39,26 @@ import javax.swing.DefaultComboBoxModel;
 public class DialogoAniadir extends JPanel {
 
 	private JLabel lblImgCarro;
+	private BtnBordeado btnAgregar;
+	private JTextFieldRedondeado txtNombre;
+	private JTextFieldRedondeado txtAnio;
+	private ComboBoxRedondeado<String> comboBox;
+	private ComboBoxRedondeado<String> comboBoxMarcas;
+	private ComboBoxRedondeado<String> comboBoxCategorias;
+	private JTextFieldRedondeado txtModelo;
 	
+	private ButtonGroup grupoPuertas;
+	
+	private JRadioButton rdbtnNumPuertas1;
+	private JRadioButton rdbtnNumPuertas2;
+	private JRadioButton rdbtnTieneAire1;
+	private JRadioButton rdbtnTieneAire2;
+	private ButtonGroup grupoAireRadioButton;
 	/**
 	 * Create the panel.
 	 * @param url 
 	 */
-	public DialogoAniadir(String titulo, Vehiculos vehiculo, ArrayList<String> categorias, ArrayList<String> marcas) {
+	public DialogoAniadir(String titulo, Vehiculos vehiculo, ArrayList<String> categorias, ArrayList<String> marcas,  String nombreCategoria, String nombreMarca) {
 		setBackground(new Color(255, 255, 255));
 		setLayout(null);
 		setPreferredSize(new Dimension(500, 550));
@@ -68,7 +82,7 @@ public class DialogoAniadir extends JPanel {
 		panel.setBounds(24, 56, 453, 140);
 		add(panel);
         
-        BtnBordeado btnAgregar = new BtnBordeado(30, false);
+        btnAgregar = new BtnBordeado(30, false);
         btnAgregar.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		GlassPanePopup.closePopupLast();
@@ -82,21 +96,21 @@ public class DialogoAniadir extends JPanel {
         btnAgregar.setBounds(362, 514, 115, 25);
         add(btnAgregar);
         
-        JTextFieldRedondeado txtNombre = new JTextFieldRedondeado(20, 20, new Color(0, 0, 0, 60));
+        txtNombre = new JTextFieldRedondeado(20, 20, new Color(0, 0, 0, 60));
         txtNombre.setFont(new Font("Inter", Font.PLAIN, 11));
         txtNombre.setBackground(new Color(0, 0, 0, 5));
         txtNombre.setBounds(263, 256, 214, 25);
         add(txtNombre);
         
-        JTextFieldRedondeado txtAnio = new JTextFieldRedondeado(20, 20, new Color(0, 0, 0, 60));
+        txtAnio = new JTextFieldRedondeado(20, 20, new Color(0, 0, 0, 60));
         txtAnio.setFont(new Font("Inter", Font.PLAIN, 11));
         txtAnio.setBackground(new Color(0, 0, 0, 5));
         txtAnio.setBounds(263, 377, 214, 25);
         add(txtAnio);
         
-        ComboBoxRedondeado<String> comboBox = new ComboBoxRedondeado<String>(20, new Color(0,0,0,60));
+        comboBox = new ComboBoxRedondeado<String>(20, new Color(0,0,0,60));
         UIManager.put("Component.innerFocusWidth", comboBox);
-        comboBox.setModel(new DefaultComboBoxModel<>(new String[] {"Automatico", "Manual"}));
+        comboBox.setModel(new DefaultComboBoxModel<>(new String[] {"Automático", "Manual"}));
         comboBox.setFont(new Font("Inter", Font.PLAIN, 11));
         comboBox.setOpaque(false);
         comboBox.setBackground(new Color(0, 0, 0, 5));
@@ -105,19 +119,20 @@ public class DialogoAniadir extends JPanel {
         comboBox.setLightWeightPopupEnabled(false);
         add(comboBox);
         
-        JRadioButton rdbtnNumPuertas1 = new JRadioButton("2");
+        rdbtnNumPuertas1 = new JRadioButton("2");
         rdbtnNumPuertas1.setFont(new Font("Inter", Font.PLAIN, 11));
         rdbtnNumPuertas1.setBounds(263, 430, 53, 23);
         add(rdbtnNumPuertas1);
         
-        JRadioButton rdbtnNumPuertas2 = new JRadioButton("4");
+        rdbtnNumPuertas2 = new JRadioButton("4");
         rdbtnNumPuertas2.setFont(new Font("Inter", Font.PLAIN, 11));
         rdbtnNumPuertas2.setBounds(318, 430, 53, 23);
         add(rdbtnNumPuertas2);
         
-        ButtonGroup grupoPuertas = new ButtonGroup();
+        grupoPuertas = new ButtonGroup();
         grupoPuertas.add(rdbtnNumPuertas1);
         grupoPuertas.add(rdbtnNumPuertas2);
+        
         
         JLabel lblNewLabel = new JLabel(titulo);
         lblNewLabel.setHorizontalAlignment(SwingConstants.LEFT);
@@ -173,7 +188,7 @@ public class DialogoAniadir extends JPanel {
         dtrpnPuertasDelAuto.setBounds(263, 409, 124, 19);
         add(dtrpnPuertasDelAuto);
         
-        ComboBoxRedondeado<String> comboBoxMarcas = new ComboBoxRedondeado<String>(20, new Color(0, 0, 0, 60));
+        comboBoxMarcas = new ComboBoxRedondeado<String>(20, new Color(0, 0, 0, 60));
         comboBoxMarcas.setOpaque(false);
         comboBoxMarcas.setLightWeightPopupEnabled(false);
         comboBoxMarcas.setFont(new Font("Inter", Font.PLAIN, 11));
@@ -182,7 +197,7 @@ public class DialogoAniadir extends JPanel {
 //      comboBoxMarcas.setModel(new DefaultComboBoxModel<>(new String[] {"Automatico", "Manual"}));
         add(comboBoxMarcas);
         
-        ComboBoxRedondeado<String> comboBoxCategorias = new ComboBoxRedondeado<String>(20, new Color(0, 0, 0, 60));
+        comboBoxCategorias = new ComboBoxRedondeado<String>(20, new Color(0, 0, 0, 60));
         comboBoxCategorias.setOpaque(false);
         comboBoxCategorias.setLightWeightPopupEnabled(false);
         comboBoxCategorias.setFont(new Font("Inter", Font.PLAIN, 11));
@@ -192,10 +207,10 @@ public class DialogoAniadir extends JPanel {
 //      comboBoxCategorias.setModel(new DefaultComboBoxModel<>(new String[] {"Automatico", "Manual"}));
         add(comboBoxCategorias);
         
-        comboBoxMarcas.setModel(new DefaultComboBoxModel<>(categorias.toArray(new String[0])));
-        comboBoxCategorias.setModel(new DefaultComboBoxModel<>(marcas.toArray(new String[0])));
+        comboBoxMarcas.setModel(new DefaultComboBoxModel<>(marcas.toArray(new String[0])));
+        comboBoxCategorias.setModel(new DefaultComboBoxModel<>(categorias.toArray(new String[0])));
         
-        JTextFieldRedondeado txtModelo = new JTextFieldRedondeado(20, 20, new Color(0, 0, 0, 60));
+        txtModelo = new JTextFieldRedondeado(20, 20, new Color(0, 0, 0, 60));
         txtModelo.setFont(new Font("Inter", Font.PLAIN, 11));
         txtModelo.setBackground(new Color(0, 0, 0, 5));
         txtModelo.setBounds(263, 318, 214, 25);
@@ -217,21 +232,31 @@ public class DialogoAniadir extends JPanel {
         dtrpnTieneAire.setBounds(24, 409, 124, 19);
         add(dtrpnTieneAire);
         
-        JRadioButton rdbtnTieneAire1 = new JRadioButton("Si");
+        rdbtnTieneAire1 = new JRadioButton("Si");
         rdbtnTieneAire1.setFont(new Font("Inter", Font.PLAIN, 11));
         rdbtnTieneAire1.setBounds(24, 430, 53, 23);
         add(rdbtnTieneAire1);
         
-        JRadioButton rdbtnTieneAire2 = new JRadioButton("No");
+        rdbtnTieneAire2 = new JRadioButton("No");
         rdbtnTieneAire2.setFont(new Font("Inter", Font.PLAIN, 11));
         rdbtnTieneAire2.setBounds(79, 430, 53, 23);
         add(rdbtnTieneAire2);
         
-        ButtonGroup grupoAireRadioButton = new ButtonGroup();
+        grupoAireRadioButton = new ButtonGroup();
         grupoAireRadioButton.add(rdbtnTieneAire1);
         grupoAireRadioButton.add(rdbtnTieneAire2);
         
+        rdbtnTieneAire1.setActionCommand("Si");
+        rdbtnNumPuertas1.setActionCommand("2");
+        rdbtnNumPuertas2.setActionCommand("4");
+        rdbtnTieneAire2.setActionCommand("No");
+        
         if(vehiculo != null && titulo.equals("Editar vehiculo")) {
+        	btnAgregar.setActionCommand("EditarUnVehiculo");
+        	btnAgregar.setText("Editar");
+        	comboBoxCategorias.setSelectedItem(nombreCategoria);
+        	comboBoxMarcas.setSelectedItem(nombreMarca);
+        	
         	System.out.println("HOLa");
         	lblImgCarro = new JLabel();
         	Thread loadImageThread = new Thread(() -> {
@@ -267,6 +292,7 @@ public class DialogoAniadir extends JPanel {
         	
         	if(vehiculo.getPuertasVehiculo() == 2) {
         		rdbtnNumPuertas1.setSelected(true);
+
         	}else if (vehiculo.getPuertasVehiculo() == 4) {
         		rdbtnNumPuertas2.setSelected(true);
         	}
@@ -276,12 +302,22 @@ public class DialogoAniadir extends JPanel {
         	}else {
         		rdbtnTieneAire2.setSelected(true);
         	}
-        }
-        
+        }else if (titulo.equals("Crear vehiculo")) {
+        	comboBoxCategorias.setSelectedIndex(0);
+            comboBoxMarcas.setSelectedIndex(0);
+        	btnAgregar.setActionCommand("CrearUnVehiculo");
+    		JLabel lblImgCarro = new JLabel();
+    		ImageIcon cargandoCarro = new ImageIcon(getClass().getResource("/vista/recursos/imagenes/carroPrueba.png"));
+            Image imagen = cargandoCarro.getImage();
+            Image imagenReescalada = imagen.getScaledInstance(200, 130, Image.SCALE_SMOOTH);
+            ImageIcon iconoReescalado = new ImageIcon(imagenReescalada);
+            lblImgCarro.setIcon(iconoReescalado);
+            panel.add(lblImgCarro);
+		}
         panel.revalidate();
         panel.repaint();
-	}
 	
+	}
 	
 	@Override
 	protected void paintComponent (Graphics g) {
@@ -292,4 +328,119 @@ public class DialogoAniadir extends JPanel {
 		g2.dispose();
 		super.paintComponent(g);
 	}
+
+	public BtnBordeado getBtnAgregar() {
+		return btnAgregar;
+	}
+
+	public void setBtnAgregar(BtnBordeado btnAgregar) {
+		this.btnAgregar = btnAgregar;
+	}
+
+	public JLabel getLblImgCarro() {
+		return lblImgCarro;
+	}
+
+	public void setLblImgCarro(JLabel lblImgCarro) {
+		this.lblImgCarro = lblImgCarro;
+	}
+
+	public JTextFieldRedondeado getTxtNombre() {
+		return txtNombre;
+	}
+
+	public void setTxtNombre(JTextFieldRedondeado txtNombre) {
+		this.txtNombre = txtNombre;
+	}
+
+	public JTextFieldRedondeado getTxtAnio() {
+		return txtAnio;
+	}
+
+	public void setTxtAnio(JTextFieldRedondeado txtAnio) {
+		this.txtAnio = txtAnio;
+	}
+
+	public ComboBoxRedondeado<String> getComboBox() {
+		return comboBox;
+	}
+
+	public void setComboBox(ComboBoxRedondeado<String> comboBox) {
+		this.comboBox = comboBox;
+	}
+
+	public ComboBoxRedondeado<String> getComboBoxMarcas() {
+		return comboBoxMarcas;
+	}
+
+	public void setComboBoxMarcas(ComboBoxRedondeado<String> comboBoxMarcas) {
+		this.comboBoxMarcas = comboBoxMarcas;
+	}
+
+	public ComboBoxRedondeado<String> getComboBoxCategorias() {
+		return comboBoxCategorias;
+	}
+
+	public void setComboBoxCategorias(ComboBoxRedondeado<String> comboBoxCategorias) {
+		this.comboBoxCategorias = comboBoxCategorias;
+	}
+
+	public JTextFieldRedondeado getTxtModelo() {
+		return txtModelo;
+	}
+
+	public void setTxtModelo(JTextFieldRedondeado txtModelo) {
+		this.txtModelo = txtModelo;
+	}
+
+	public ButtonGroup getGrupoPuertas() {
+		return grupoPuertas;
+	}
+
+	public void setGrupoPuertas(ButtonGroup grupoPuertas) {
+		this.grupoPuertas = grupoPuertas;
+	}
+
+	public JRadioButton getRdbtnNumPuertas1() {
+		return rdbtnNumPuertas1;
+	}
+
+	public void setRdbtnNumPuertas1(JRadioButton rdbtnNumPuertas1) {
+		this.rdbtnNumPuertas1 = rdbtnNumPuertas1;
+	}
+
+	public JRadioButton getRdbtnNumPuertas2() {
+		return rdbtnNumPuertas2;
+	}
+
+	public void setRdbtnNumPuertas2(JRadioButton rdbtnNumPuertas2) {
+		this.rdbtnNumPuertas2 = rdbtnNumPuertas2;
+	}
+
+	public JRadioButton getRdbtnTieneAire1() {
+		return rdbtnTieneAire1;
+	}
+
+	public void setRdbtnTieneAire1(JRadioButton rdbtnTieneAire1) {
+		this.rdbtnTieneAire1 = rdbtnTieneAire1;
+	}
+
+	public JRadioButton getRdbtnTieneAire2() {
+		return rdbtnTieneAire2;
+	}
+
+	public void setRdbtnTieneAire2(JRadioButton rdbtnTieneAire2) {
+		this.rdbtnTieneAire2 = rdbtnTieneAire2;
+	}
+
+	public ButtonGroup getGrupoAireRadioButton() {
+		return grupoAireRadioButton;
+	}
+
+	public void setGrupoAireRadioButton(ButtonGroup grupoAireRadioButton) {
+		this.grupoAireRadioButton = grupoAireRadioButton;
+	}
+	
+	
+	
 }

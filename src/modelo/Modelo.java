@@ -165,6 +165,7 @@ public class Modelo {
 		return vehiculos;
 	}
 
+	
 	// Obtener la inormación de los usuarios para imprimirla en pantalla
 	public ArrayList<Usuarios> obtenerUsuarios() {
 		ArrayList<Usuarios> usuarios = new ArrayList<>();
@@ -271,6 +272,36 @@ public class Modelo {
 		}
 		return null;
 	}
+	
+	public boolean editarRenta(Rentas renta, int idRenta, String fechaFinal, String fechaInicial,
+			String fechaNacimiento, Double costo, int usuarioId, int vehiculoId) {
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+
+		String sql = "UPDATE rentas SET fecha_inicial = ?, fecha_final = ?, fecha_nacimiento = ?, costo = ?, usuario_id = ?, vehiculo_id = ? WHERE id = ?";
+		try (Connection con = DriverManager.getConnection(
+				"jdbc:mysql://monorail.proxy.rlwy.net:28289/railway?useSSL=false", "root",
+				"AZsyCwUGzmURenQkgkEOksyBwsWuQBFI"); PreparedStatement stmt = con.prepareStatement(sql)) {
+
+			stmt.setString(1, fechaInicial);
+			stmt.setString(2, fechaFinal);
+			stmt.setString(3, fechaNacimiento);
+			stmt.setDouble(4, costo);
+			stmt.setInt(5, usuarioId);
+			stmt.setInt(6, vehiculoId);
+			stmt.setInt(7, idRenta);
+
+			int filasAfectadas = stmt.executeUpdate();
+			return filasAfectadas > 0;
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
 
 	public Rentas mostrarRentas(int idRenta) {
 		Rentas renta = null;
@@ -349,35 +380,6 @@ public class Modelo {
 		return false;
 	}
 
-	public boolean editarRenta(Rentas renta, int idRenta, String fechaFinal, String fechaInicial,
-			String fechaNacimiento, Double costo, int usuarioId, int vehiculoId) {
-		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
-
-		String sql = "UPDATE rentas SET fecha_inicial = ?, fecha_final = ?, fecha_nacimiento = ?, costo = ?, usuario_id = ?, vehiculo_id = ? WHERE id = ?";
-		try (Connection con = DriverManager.getConnection(
-				"jdbc:mysql://monorail.proxy.rlwy.net:28289/railway?useSSL=false", "root",
-				"AZsyCwUGzmURenQkgkEOksyBwsWuQBFI"); PreparedStatement stmt = con.prepareStatement(sql)) {
-
-			stmt.setString(1, fechaInicial);
-			stmt.setString(2, fechaFinal);
-			stmt.setString(3, fechaNacimiento);
-			stmt.setDouble(4, costo);
-			stmt.setInt(5, usuarioId);
-			stmt.setInt(6, vehiculoId);
-			stmt.setInt(7, idRenta);
-
-			int filasAfectadas = stmt.executeUpdate();
-			return filasAfectadas > 0;
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return false;
-		}
-	}
 
 	public boolean eliminarRenta(int idRenta) {
 

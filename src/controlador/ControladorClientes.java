@@ -159,7 +159,7 @@ public class ControladorClientes implements ActionListener{
             }
             break;
 		case "EditarUnCliente":
-			System.out.println("HOLAWEDITAR");
+//			System.out.println("HOLAWDITAR");
 			if (metodos.registroValido(new String(dialogoCrearCliente.getTxtContrasenia().getPassword()), new String(dialogoCrearCliente.getTxtConfirmarContrasenia().getPassword()), dialogoCrearCliente.getTxtNombre(), dialogoCrearCliente.getTxtApellidos(), dialogoCrearCliente.getTxtCorreo(), dialogoCrearCliente.getTxtContrasenia(), dialogoCrearCliente.getTxtConfirmarContrasenia())) {
                 boolean actualizado = modelo.actualizarUsuario(usuarioSeleccionadoParaEditar.getIdUsuario(), dialogoCrearCliente.getTxtNombre().getText(), dialogoCrearCliente.getTxtApellidos().getText(), dialogoCrearCliente.getTxtCorreo().getText(), new String(dialogoCrearCliente.getTxtContrasenia().getPassword()));
                 if (actualizado) {
@@ -179,11 +179,11 @@ public class ControladorClientes implements ActionListener{
             GlassPanePopup.showPopup(dialogoCrearCliente);
             break;
 		case "CrearUnCliente":
-			System.out.println("Hola");
+//			System.out.println("Hola");
 			accionRegistro();
 			break;
 		case "DetallesCliente":
-			System.out.println("Detalles");
+//			System.out.println("Detalles");
 			nuevoUsuario = new Usuarios();
 			GlassPanePopup.showPopup(new DialogoDetallesCliente("", nuevoUsuario));
 			break;

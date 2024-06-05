@@ -39,7 +39,7 @@ public class ControladorVehiculos implements ActionListener{
         pVehiculos.panelVehiculos();
 		pVehiculos.asignarActListner(this);
 		
-		
+//		modelo.editarVehiculos(13, "Nuevo", "2020",4, "Manual", true, "Modelo Prueba", "Deportivo", "Toyota");
 		
 		cargarVehiculos();
 		GlassPanePopup.install(pVehiculos.getFrame());
@@ -101,7 +101,10 @@ public class ControladorVehiculos implements ActionListener{
 		ArrayList<String> categorias = obtenerNombresCategorias();
 		ArrayList<String> marcas = obtenerNombresMarcas();
 		
-		dialogoAniadir = new DialogoAniadir("Editar vehiculo", vehiculo, marcas, categorias);
+		String nombreCategoria = vehiculo.getCategoria();
+	    String nombreMarca = vehiculo.getNombreVehiculo();
+		dialogoAniadir = new DialogoAniadir("Editar vehiculo", vehiculo, categorias, marcas, nombreCategoria, nombreMarca);
+		dialogoAniadir.getBtnAgregar().addActionListener(this);
 		GlassPanePopup.showPopup(dialogoAniadir);
 	}
 	
@@ -154,7 +157,6 @@ public class ControladorVehiculos implements ActionListener{
 //			System.out.println("Editar");
 //			vehiculoSeleccionado = pVehiculos.getVehiculoSeleccionado();
 //			GlassPanePopup.showPopup(new DialogoAniadir("Editar vehiculo", vehiculoSeleccionado));
-			
 			vehiculoSeleccionado = pVehiculos.getVehiculoSeleccionado();
 			prepararVehiculoEditar(vehiculoSeleccionado);
 			
@@ -163,11 +165,48 @@ public class ControladorVehiculos implements ActionListener{
 			Vehiculos nVehiculo = new Vehiculos();
 			ArrayList<String> categorias = obtenerNombresCategorias();
 			ArrayList<String> marcas = obtenerNombresMarcas();
-			GlassPanePopup.showPopup(new DialogoAniadir("Crear vehiculo", nVehiculo, marcas, categorias));
+			
+			
+			dialogoAniadir = new DialogoAniadir("Crear vehiculo", nVehiculo, marcas, categorias, null, null);
+			dialogoAniadir.getBtnAgregar().addActionListener(this);
+			GlassPanePopup.showPopup(dialogoAniadir);
 			break;
 		case "Detalles":
 			GlassPanePopup.showPopup(new DialogoDetalles("Test"));
 			break;
-		}	
+		case "CrearUnVehiculo":
+			System.out.println("Va a crear");
+			break;
+			
+			
+		case "EditarUnVehiculo":
+			System.out.println("Va a Editar");
+			vehiculoSeleccionado = pVehiculos.getVehiculoSeleccionado();
+			
+			String nombre = dialogoAniadir.getTxtNombre().getText();
+		    String anio = dialogoAniadir.getTxtAnio().getText();
+		    String puertasString = dialogoAniadir.getGrupoPuertas().getSelection() != null ? dialogoAniadir.getGrupoPuertas().getSelection().getActionCommand() : "0";
+		    int cantidadPuertas = 0;
+		    if (!puertasString.equals("0")) {
+		        cantidadPuertas = Integer.parseInt(puertasString);
+		    } else {
+		        System.out.println("Seleccione la cantidad de puertas");
+		        return;
+		    }
+		    String transmision = (String) dialogoAniadir.getComboBox().getSelectedItem();
+		    boolean aireAcondicionado = dialogoAniadir.getGrupoAireRadioButton().getSelection().getActionCommand().equals("Si");
+		    String modeloCarro = dialogoAniadir.getTxtModelo().getText();
+		    String nombreCategoria = (String) dialogoAniadir.getComboBoxCategorias().getSelectedItem();
+		    String nombreMarca = (String) dialogoAniadir.getComboBoxMarcas().getSelectedItem();
+            
+//            boolean resultado = modelo.editarVehiculos(vehiculoSeleccionado.getIdVehiculo(), nombre, anio, cantidadPuertas, transmision, aireAcondicionado, modeloCarro, nombreCategoria, nombreMarca);
+//			if (resultado) {
+//		        System.out.println("Vehículo actualizado correctamente");
+//		        cargarVehiculos(); // Refrescar la lista de vehículos
+//		    } else {
+//		        System.out.println("Error al actualizar el vehículo");
+//		    }
+			break;
+		}
 	}
 }
