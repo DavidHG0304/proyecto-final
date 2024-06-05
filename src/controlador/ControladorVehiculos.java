@@ -259,7 +259,7 @@ public class ControladorVehiculos implements ActionListener{
 			
 		case "ConfirmarEliminar":
 			System.out.println("Eliminado");
-//			modelo.eliminarVehiculo(vehiculoSeleccionadoParaEliminar.getIdVehiculo());
+			modelo.eliminarVehiculo(vehiculoSeleccionadoParaEliminar.getIdVehiculo());
 			GlassPanePopup.closePopupLast();
 			cargarVehiculos();
 			break;

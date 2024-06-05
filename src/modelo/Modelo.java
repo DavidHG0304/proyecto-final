@@ -243,6 +243,41 @@ public class Modelo {
 		    }
 		}
 	
+	
+// 	Eliminar Vehiculo
+    public boolean eliminarVehiculo(int idVehiculo) {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+            return false;
+        }
+
+        String eliminarVehiculoSql = "DELETE FROM vehiculos WHERE id = ?";
+
+        try (Connection con = DriverManager.getConnection(
+                "jdbc:mysql://monorail.proxy.rlwy.net:28289/railway?useSSL=false", "root",
+                "AZsyCwUGzmURenQkgkEOksyBwsWuQBFI")) {
+
+            con.setAutoCommit(false);
+
+            try (PreparedStatement eliminarVehiculoStmt = con.prepareStatement(eliminarVehiculoSql)) {
+                eliminarVehiculoStmt.setInt(1, idVehiculo);
+                int filasAfectadas = eliminarVehiculoStmt.executeUpdate();
+                con.commit();
+                return filasAfectadas > 0;
+            } catch (SQLException e) {
+                con.rollback();
+                e.printStackTrace();
+                return false;
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+	
 
 //	Añadir vehiculos
 	public boolean aniadirVehiculo(String nombre, String año, int cantidadPuertas, int kilometraje, String transmision,
