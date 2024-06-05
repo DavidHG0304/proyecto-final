@@ -146,7 +146,8 @@ public class Modelo {
 			while (rs.next()) {
 				Vehiculos vehiculo = new Vehiculos();
 				vehiculo.setIdVehiculo(rs.getInt("id"));
-				vehiculo.setNombreVehiculo(rs.getString("nombre_marca"));
+				vehiculo.setNombreVehiculo(rs.getString("nombre_vehiculo"));
+				vehiculo.setMarcas(rs.getString("nombre_marca"));
 				vehiculo.setAñoVehiculo(rs.getString("año"));
 				vehiculo.setPuertasVehiculo(rs.getInt("cantidad_puertas"));
 				vehiculo.setTransmision(rs.getString("transmision"));
@@ -165,7 +166,40 @@ public class Modelo {
 		return vehiculos;
 	}
 
-	
+	// Editar Vehiculos
+	public boolean editarVehiculos(int idVehiculo, String nombre, String año, int cantidadPuertas, String transmision,
+			boolean aireAcondicionado, String modelo, String nombreCategoria, String nombreMarca) {
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+			return false;
+		}
+
+		String sql = "UPDATE vehiculos SET nombre = ?, año = ?, cantidad_puertas = ?, transmision = ?, aire_acondicionado = ?, modelo = ?, categoria_id = (SELECT id FROM categoria WHERE nombre = ?), marca_id = (SELECT id FROM marca WHERE nombre = ?) WHERE id = ?";
+		try (Connection con = DriverManager.getConnection(
+				"jdbc:mysql://monorail.proxy.rlwy.net:28289/railway?useSSL=false", "root",
+				"AZsyCwUGzmURenQkgkEOksyBwsWuQBFI"); PreparedStatement stmt = con.prepareStatement(sql)) {
+
+			stmt.setString(1, nombre);
+			stmt.setString(2, año);
+			stmt.setInt(3, cantidadPuertas);
+			stmt.setString(4, transmision);
+			stmt.setBoolean(5, aireAcondicionado);
+			stmt.setString(6, modelo);
+			stmt.setString(7, nombreCategoria);
+			stmt.setString(8, nombreMarca);
+			stmt.setInt(9, idVehiculo);
+
+			int filasAfectadas = stmt.executeUpdate();
+			return filasAfectadas > 0;
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+
 	// Obtener la inormación de los usuarios para imprimirla en pantalla
 	public ArrayList<Usuarios> obtenerUsuarios() {
 		ArrayList<Usuarios> usuarios = new ArrayList<>();
@@ -272,7 +306,7 @@ public class Modelo {
 		}
 		return null;
 	}
-	
+
 	public boolean editarRenta(Rentas renta, int idRenta, String fechaFinal, String fechaInicial,
 			String fechaNacimiento, Double costo, int usuarioId, int vehiculoId) {
 		try {
@@ -379,7 +413,6 @@ public class Modelo {
 
 		return false;
 	}
-
 
 	public boolean eliminarRenta(int idRenta) {
 
