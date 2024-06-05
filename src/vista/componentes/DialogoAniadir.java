@@ -254,10 +254,7 @@ public class DialogoAniadir extends JPanel {
         if(vehiculo != null && titulo.equals("Editar vehiculo")) {
         	btnAgregar.setActionCommand("EditarUnVehiculo");
         	btnAgregar.setText("Editar");
-        	comboBoxCategorias.setSelectedItem(nombreCategoria);
-        	comboBoxMarcas.setSelectedItem(nombreMarca);
         	
-        	System.out.println("HOLa");
         	lblImgCarro = new JLabel();
         	Thread loadImageThread = new Thread(() -> {
         		try {
@@ -289,6 +286,9 @@ public class DialogoAniadir extends JPanel {
         	txtNombre.setText(vehiculo.getNombreVehiculo());
         	txtModelo.setText(vehiculo.getModelo());
         	txtAnio.setText(vehiculo.getAñoVehiculo());
+        	comboBoxCategorias.setSelectedItem(nombreCategoria);
+        	comboBoxMarcas.setSelectedItem(nombreMarca);
+        	
         	
         	if(vehiculo.getPuertasVehiculo() == 2) {
         		rdbtnNumPuertas1.setSelected(true);

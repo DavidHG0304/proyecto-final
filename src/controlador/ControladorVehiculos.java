@@ -102,7 +102,7 @@ public class ControladorVehiculos implements ActionListener{
 		ArrayList<String> marcas = obtenerNombresMarcas();
 		
 		String nombreCategoria = vehiculo.getCategoria();
-	    String nombreMarca = vehiculo.getNombreVehiculo();
+	    String nombreMarca = vehiculo.getMarcas();
 		dialogoAniadir = new DialogoAniadir("Editar vehiculo", vehiculo, categorias, marcas, nombreCategoria, nombreMarca);
 		dialogoAniadir.getBtnAgregar().addActionListener(this);
 		GlassPanePopup.showPopup(dialogoAniadir);
@@ -199,13 +199,13 @@ public class ControladorVehiculos implements ActionListener{
 		    String nombreCategoria = (String) dialogoAniadir.getComboBoxCategorias().getSelectedItem();
 		    String nombreMarca = (String) dialogoAniadir.getComboBoxMarcas().getSelectedItem();
             
-//            boolean resultado = modelo.editarVehiculos(vehiculoSeleccionado.getIdVehiculo(), nombre, anio, cantidadPuertas, transmision, aireAcondicionado, modeloCarro, nombreCategoria, nombreMarca);
-//			if (resultado) {
-//		        System.out.println("Vehículo actualizado correctamente");
-//		        cargarVehiculos(); // Refrescar la lista de vehículos
-//		    } else {
-//		        System.out.println("Error al actualizar el vehículo");
-//		    }
+            boolean resultado = modelo.editarVehiculos(vehiculoSeleccionado.getIdVehiculo(), nombre, anio, cantidadPuertas, transmision, aireAcondicionado, modeloCarro, nombreCategoria, nombreMarca);
+			if (resultado) {
+		        System.out.println("Vehículo actualizado correctamente");
+		        cargarVehiculos();
+		    } else {
+		        System.out.println("Error al actualizar el vehículo");
+		    }
 			break;
 		}
 	}
