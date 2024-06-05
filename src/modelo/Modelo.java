@@ -122,82 +122,245 @@ public class Modelo {
 	}
 
 	public ArrayList<Vehiculos> obtenerVehiculos() {
-		ArrayList<Vehiculos> vehiculos = new ArrayList<>();
+	    ArrayList<Vehiculos> vehiculos = new ArrayList<>();
 
-		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	    try {
+	        Class.forName("com.mysql.cj.jdbc.Driver");
+	    } catch (ClassNotFoundException e) {
+	        e.printStackTrace();
+	    }
+	    
+	    String sql = "SELECT v.id, v.nombre AS nombre_vehiculo, v.año, v.cantidad_puertas, v.transmision, v.modelo, v.kilometraje, v.aire_acondicionado, "
+	               + "m.nombre AS nombre_marca, c.nombre AS categoria, t.tarifa_por_dia AS costo_por_dia, i.url AS imagen_url, "
+	               + "t.seguro_danios, t.seguro_vida, t.seguro_kilometraje, t.combustible "
+	               + "FROM vehiculos v "
+	               + "INNER JOIN marca m ON v.marca_id = m.id "
+	               + "INNER JOIN categoria c ON v.categoria_id = c.id "
+	               + "INNER JOIN tarifas t ON v.tarifas_id = t.id "
+	               + "INNER JOIN imagenes i ON v.imagenes_id = i.id";
 
-		String sql = "SELECT v.id, v.nombre AS nombre_vehiculo, v.año, v.cantidad_puertas, v.transmision, v.modelo,  v.kilometraje, v.aire_acondicionado, "
-				+ "m.nombre AS nombre_marca, c.nombre AS categoria, t.tarifa_por_dia AS costo_por_dia, i.url AS imagen_url "
-				+ "FROM vehiculos v " + "INNER JOIN marca m ON v.marca_id = m.id "
-				+ "INNER JOIN categoria c ON v.categoria_id = c.id " + "INNER JOIN tarifas t ON v.tarifas_id = t.id "
-				+ "INNER JOIN imagenes i ON v.imagenes_id = i.id";
-
-//		try (Connection con = DriverManager.getConnection("jdbc:mysql://sql.freedb.tech:3306/freedb_registros?useSSL=false","freedb_prueba","#ZKP5mSgzS6Ps&!");
-		try (Connection con = DriverManager.getConnection(
-				"jdbc:mysql://monorail.proxy.rlwy.net:28289/railway?useSSL=false", "root",
-				"AZsyCwUGzmURenQkgkEOksyBwsWuQBFI");
-				PreparedStatement stmt = con.prepareStatement(sql);
-				ResultSet rs = stmt.executeQuery()) {
-			while (rs.next()) {
-				Vehiculos vehiculo = new Vehiculos();
-				vehiculo.setIdVehiculo(rs.getInt("id"));
-				vehiculo.setNombreVehiculo(rs.getString("nombre_vehiculo"));
-				vehiculo.setMarcas(rs.getString("nombre_marca"));
-				vehiculo.setAñoVehiculo(rs.getString("año"));
-				vehiculo.setPuertasVehiculo(rs.getInt("cantidad_puertas"));
-				vehiculo.setTransmision(rs.getString("transmision"));
-				vehiculo.setModelo(rs.getString("modelo"));
-				vehiculo.setCategoria(rs.getString("categoria"));
-				vehiculo.setCostoTotal(rs.getFloat("costo_por_dia"));
-				vehiculo.setImagenUrl(rs.getString("imagen_url"));
-				vehiculo.setKilometrajeVehiculo(rs.getInt("kilometraje"));
-				vehiculo.setAireAcondicionado(rs.getBoolean("aire_acondicionado"));
-				vehiculos.add(vehiculo);
-			}
-			con.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return vehiculos;
+	    try (Connection con = DriverManager.getConnection(
+	            "jdbc:mysql://monorail.proxy.rlwy.net:28289/railway?useSSL=false", "root",
+	            "AZsyCwUGzmURenQkgkEOksyBwsWuQBFI");
+	         PreparedStatement stmt = con.prepareStatement(sql);
+	         ResultSet rs = stmt.executeQuery()) {
+	        while (rs.next()) {
+	            Vehiculos vehiculo = new Vehiculos();
+	            vehiculo.setIdVehiculo(rs.getInt("id"));
+	            vehiculo.setNombreVehiculo(rs.getString("nombre_vehiculo"));
+	            vehiculo.setMarcas(rs.getString("nombre_marca"));
+	            vehiculo.setAñoVehiculo(rs.getString("año"));
+	            vehiculo.setPuertasVehiculo(rs.getInt("cantidad_puertas"));
+	            vehiculo.setTransmision(rs.getString("transmision"));
+	            vehiculo.setModelo(rs.getString("modelo"));
+	            vehiculo.setCategoria(rs.getString("categoria"));
+	            vehiculo.setCostoTotal(rs.getFloat("costo_por_dia"));
+	            vehiculo.setImagenUrl(rs.getString("imagen_url"));
+	            vehiculo.setKilometrajeVehiculo(rs.getInt("kilometraje"));
+	            vehiculo.setAireAcondicionado(rs.getBoolean("aire_acondicionado"));
+	            vehiculo.setSeguroDanios(rs.getFloat("seguro_danios"));
+	            vehiculo.setSeguroVida(rs.getFloat("seguro_vida"));
+	            vehiculo.setSeguroKilometraje(rs.getFloat("seguro_kilometraje"));
+	            vehiculo.setCombustible(rs.getFloat("combustible"));
+	            vehiculo.setTarifaPorDia(rs.getFloat("costo_por_dia"));
+	            vehiculos.add(vehiculo);
+	        }
+	        con.close();
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    return vehiculos;
 	}
 
 	// Editar Vehiculos
 	public boolean editarVehiculos(int idVehiculo, String nombre, String año, int cantidadPuertas, String transmision,
-			boolean aireAcondicionado, String modelo, String nombreCategoria, String nombreMarca) {
-		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-			return false;
+		    boolean aireAcondicionado, String modelo, String nombreCategoria, String nombreMarca,
+		    float seguroDanios, float seguroVida, float seguroKilometraje, float combustible, float tarifaPorDia) {
+		    try {
+		        Class.forName("com.mysql.cj.jdbc.Driver");
+		    } catch (ClassNotFoundException e) {
+		        e.printStackTrace();
+		        return false;
+		    }
+
+		    String actualizarTarifaSql = "UPDATE tarifas SET seguro_danios = ?, seguro_vida = ?, seguro_kilometraje = ?, combustible = ?, tarifa_por_dia = ? WHERE id = (SELECT tarifas_id FROM vehiculos WHERE id = ?)";
+		    String obtenerTarifaIdSql = "SELECT tarifas_id FROM vehiculos WHERE id = ?";
+		    String actualizarVehiculoSql = "UPDATE vehiculos SET nombre = ?, año = ?, cantidad_puertas = ?, transmision = ?, aire_acondicionado = ?, modelo = ?, categoria_id = (SELECT id FROM categoria WHERE nombre = ?), marca_id = (SELECT id FROM marca WHERE nombre = ?) WHERE id = ?";
+
+		    try (Connection con = DriverManager.getConnection(
+		            "jdbc:mysql://monorail.proxy.rlwy.net:28289/railway?useSSL=false", "root",
+		            "AZsyCwUGzmURenQkgkEOksyBwsWuQBFI")) {
+
+		        con.setAutoCommit(false);
+
+
+		        try (PreparedStatement actualizarTarifaStmt = con.prepareStatement(actualizarTarifaSql)) {
+		            actualizarTarifaStmt.setFloat(1, seguroDanios);
+		            actualizarTarifaStmt.setFloat(2, seguroVida);
+		            actualizarTarifaStmt.setFloat(3, seguroKilometraje);
+		            actualizarTarifaStmt.setFloat(4, combustible);
+		            actualizarTarifaStmt.setFloat(5, tarifaPorDia);
+		            actualizarTarifaStmt.setInt(6, idVehiculo);
+		            actualizarTarifaStmt.executeUpdate();
+		        }
+
+		        int tarifaId;
+		        try (PreparedStatement obtenerTarifaIdStmt = con.prepareStatement(obtenerTarifaIdSql)) {
+		            obtenerTarifaIdStmt.setInt(1, idVehiculo);
+		            try (ResultSet rs = obtenerTarifaIdStmt.executeQuery()) {
+		                if (rs.next()) {
+		                    tarifaId = rs.getInt("tarifas_id");
+		                } else {
+		                    throw new SQLException("No se pudo obtener el ID de la tarifa");
+		                }
+		            }
+		        }
+
+		        try (PreparedStatement stmt = con.prepareStatement(actualizarVehiculoSql)) {
+		            stmt.setString(1, nombre);
+		            stmt.setString(2, año);
+		            stmt.setInt(3, cantidadPuertas);
+		            stmt.setString(4, transmision);
+		            stmt.setBoolean(5, aireAcondicionado);
+		            stmt.setString(6, modelo);
+		            stmt.setString(7, nombreCategoria);
+		            stmt.setString(8, nombreMarca);
+		            stmt.setInt(9, idVehiculo);
+
+		            int filasAfectadas = stmt.executeUpdate();
+		            con.commit();
+		            return filasAfectadas > 0;
+
+		        } catch (SQLException e) {
+		            con.rollback();
+		            e.printStackTrace();
+		            return false;
+		        }
+
+		    } catch (SQLException e) {
+		        e.printStackTrace();
+		        return false;
+		    }
 		}
+	
+//	Añadir vehiculos
+	public boolean aniadirVehiculo(String nombre, String año, int cantidadPuertas, int kilometraje, String transmision,
+	        boolean aireAcondicionado, String modelo, String nombreCategoria, String nombreMarca, String urlImagen,
+	        float seguroDanios, float seguroVida, float seguroKilometraje, float combustible, float tarifaPorDia) {
+	    try {
+	        Class.forName("com.mysql.cj.jdbc.Driver");
+	    } catch (ClassNotFoundException e) {
+	        e.printStackTrace();
+	        return false;
+	    }
 
-		String sql = "UPDATE vehiculos SET nombre = ?, año = ?, cantidad_puertas = ?, transmision = ?, aire_acondicionado = ?, modelo = ?, categoria_id = (SELECT id FROM categoria WHERE nombre = ?), marca_id = (SELECT id FROM marca WHERE nombre = ?) WHERE id = ?";
-		try (Connection con = DriverManager.getConnection(
-				"jdbc:mysql://monorail.proxy.rlwy.net:28289/railway?useSSL=false", "root",
-				"AZsyCwUGzmURenQkgkEOksyBwsWuQBFI"); PreparedStatement stmt = con.prepareStatement(sql)) {
+	    if (urlImagen == null || urlImagen.isEmpty()) {
+	        urlImagen = "https://firebasestorage.googleapis.com/v0/b/fotinhoscarros.appspot.com/o/bugatata.png?alt=media&token=41feddc5-379f-429e-9040-16d7cd4bb739";
+	    }
 
-			stmt.setString(1, nombre);
-			stmt.setString(2, año);
-			stmt.setInt(3, cantidadPuertas);
-			stmt.setString(4, transmision);
-			stmt.setBoolean(5, aireAcondicionado);
-			stmt.setString(6, modelo);
-			stmt.setString(7, nombreCategoria);
-			stmt.setString(8, nombreMarca);
-			stmt.setInt(9, idVehiculo);
+	    String verificarImagenSql = "INSERT INTO imagenes (url) SELECT ? WHERE NOT EXISTS (SELECT 1 FROM imagenes WHERE url = ?)";
+	    String obtenerImagenIdSql = "SELECT id FROM imagenes WHERE url = ?";
+	    String insertarTarifaSql = "INSERT INTO tarifas (seguro_danios, seguro_vida, seguro_kilometraje, combustible, tarifa_por_dia) VALUES (?, ?, ?, ?, ?)";
+	    String obtenerTarifaIdSql = "SELECT id FROM tarifas WHERE seguro_danios = ? AND seguro_vida = ? AND seguro_kilometraje = ? AND combustible = ? AND tarifa_por_dia = ?";
+	    String obtenerCategoriaIdSql = "SELECT id FROM categoria WHERE nombre = ?";
+	    String obtenerMarcaIdSql = "SELECT id FROM marca WHERE nombre = ?";
+	    String insertarVehiculoSql = "INSERT INTO vehiculos (nombre, año, cantidad_puertas, kilometraje, transmision, aire_acondicionado, modelo, categoria_id, marca_id, tarifas_id, imagenes_id) " +
+	            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-			int filasAfectadas = stmt.executeUpdate();
-			return filasAfectadas > 0;
+	    try (Connection con = DriverManager.getConnection(
+	            "jdbc:mysql://monorail.proxy.rlwy.net:28289/railway?useSSL=false", "root",
+	            "AZsyCwUGzmURenQkgkEOksyBwsWuQBFI")) {
 
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return false;
-		}
+	        con.setAutoCommit(false);
+
+	        int imagenId;
+	        try (PreparedStatement verificarImagenStmt = con.prepareStatement(verificarImagenSql)) {
+	            verificarImagenStmt.setString(1, urlImagen);
+	            verificarImagenStmt.setString(2, urlImagen);
+	            verificarImagenStmt.executeUpdate();
+	        }
+
+	        try (PreparedStatement obtenerImagenIdStmt = con.prepareStatement(obtenerImagenIdSql)) {
+	            obtenerImagenIdStmt.setString(1, urlImagen);
+	            try (ResultSet rs = obtenerImagenIdStmt.executeQuery()) {
+	                if (rs.next()) {
+	                    imagenId = rs.getInt("id");
+	                } else {
+	                    throw new SQLException("No se pudo obtener el ID de la imagen");
+	                }
+	            }
+	        }
+
+	        int tarifaId;
+	        try (PreparedStatement insertarTarifaStmt = con.prepareStatement(insertarTarifaSql, Statement.RETURN_GENERATED_KEYS)) {
+	            insertarTarifaStmt.setFloat(1, seguroDanios);
+	            insertarTarifaStmt.setFloat(2, seguroVida);
+	            insertarTarifaStmt.setFloat(3, seguroKilometraje);
+	            insertarTarifaStmt.setFloat(4, combustible);
+	            insertarTarifaStmt.setFloat(5, tarifaPorDia);
+	            insertarTarifaStmt.executeUpdate();
+
+	            try (ResultSet rs = insertarTarifaStmt.getGeneratedKeys()) {
+	                if (rs.next()) {
+	                    tarifaId = rs.getInt(1);
+	                } else {
+	                    throw new SQLException("No se pudo obtener el ID de la tarifa");
+	                }
+	            }
+	        }
+
+
+	        int categoriaId;
+	        try (PreparedStatement obtenerCategoriaIdStmt = con.prepareStatement(obtenerCategoriaIdSql)) {
+	            obtenerCategoriaIdStmt.setString(1, nombreCategoria);
+	            try (ResultSet rs = obtenerCategoriaIdStmt.executeQuery()) {
+	                if (rs.next()) {
+	                    categoriaId = rs.getInt("id");
+	                } else {
+	                    throw new SQLException("No se pudo obtener el ID de la categoría");
+	                }
+	            }
+	        }
+
+	        int marcaId;
+	        try (PreparedStatement obtenerMarcaIdStmt = con.prepareStatement(obtenerMarcaIdSql)) {
+	            obtenerMarcaIdStmt.setString(1, nombreMarca);
+	            try (ResultSet rs = obtenerMarcaIdStmt.executeQuery()) {
+	                if (rs.next()) {
+	                    marcaId = rs.getInt("id");
+	                } else {
+	                    throw new SQLException("No se pudo obtener el ID de la marca");
+	                }
+	            }
+	        }
+
+	        try (PreparedStatement stmt = con.prepareStatement(insertarVehiculoSql)) {
+	            stmt.setString(1, nombre);
+	            stmt.setString(2, año);
+	            stmt.setInt(3, cantidadPuertas);
+	            stmt.setInt(4, kilometraje);
+	            stmt.setString(5, transmision);
+	            stmt.setBoolean(6, aireAcondicionado);
+	            stmt.setString(7, modelo);
+	            stmt.setInt(8, categoriaId);
+	            stmt.setInt(9, marcaId);
+	            stmt.setInt(10, tarifaId);
+	            stmt.setInt(11, imagenId);
+
+	            int filasAfectadas = stmt.executeUpdate();
+	            con.commit();
+	            return filasAfectadas > 0;
+
+	        } catch (SQLException e) {
+	            con.rollback();
+	            e.printStackTrace();
+	            return false;
+	        }
+
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        return false;
+	    }
 	}
 
 	// Obtener la inormación de los usuarios para imprimirla en pantalla
