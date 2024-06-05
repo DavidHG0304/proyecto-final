@@ -30,7 +30,7 @@ public class ControladorMarcas implements ActionListener {
 //        modelo.mostrarMarcas(9);
 //         modelo.aniadirMarcas("Nueva Marca");
 //        modelo.eliminarMarcas(11);
-        modelo.editarMarcas(12, "Carrirour do fortnite");
+//        modelo.editarMarcas(12, "Carrirour do fortnite");
         
         // Asignar Listener y agregar el componente Popup al frame
         panelMarcas.asignarListenersCartas(ControladorMarcas.this);

@@ -37,6 +37,7 @@ public class CartasCarros extends PanelRedondeado{
 	
 	public CartasCarros(Vehiculos vehiculo) {
         super(30, false, true, new Color(0, 0, 0, 61), 6);
+        this.vehiculo = vehiculo;
         setBackground(new Color(255, 255, 255));
         setPreferredSize(new Dimension(208, 317));
         setMaximumSize(new Dimension(208, 317));
@@ -239,6 +240,10 @@ public class CartasCarros extends PanelRedondeado{
         return seleccionado;
     }
 	
+	public void setSeleccionado(boolean seleccionado) {
+		this.seleccionado = seleccionado;
+	}
+
 	public BtnBordeado getBtnDetalles() {
 		return btnDetalles;
 	}

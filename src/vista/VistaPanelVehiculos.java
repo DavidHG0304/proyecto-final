@@ -109,6 +109,17 @@ public class VistaPanelVehiculos {
                 carta.getLbleditarIcono().addActionListener(listener);
                 carta.getBtnRentar().addActionListener(listener);
                 carta.getBtnDetalles().addActionListener(listener);
+                
+                carta.getBntInfoIcono().addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        for (CartasCarros c : cartaCarros) {
+                            c.setSeleccionado(false);
+                        }
+                        carta.setSeleccionado(true);
+                    }
+                });
+                
             }
         }
     }
@@ -117,7 +128,6 @@ public class VistaPanelVehiculos {
 	public Vehiculos getVehiculoSeleccionado() {
 		for (CartasCarros carta : cartaCarros) {
 	        if (carta.isSeleccionado()) {
-	            Vehiculos vehiculo = carta.getVehiculo();
 	            return carta.getVehiculo();
 	        }
 	    }

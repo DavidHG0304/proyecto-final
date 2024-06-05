@@ -160,7 +160,7 @@ public class Modelo {
 			e.printStackTrace();
 		}
 		
-		String sql = "SELECT v.id, v.nombre AS nombre_vehiculo, v.año, v.cantidad_puertas, v.transmision, v.modelo, " + "m.nombre AS nombre_marca, c.nombre AS categoria, t.tarifa_por_dia AS costo_por_dia, i.url AS imagen_url " +
+		String sql = "SELECT v.id, v.nombre AS nombre_vehiculo, v.año, v.cantidad_puertas, v.transmision, v.modelo,  v.kilometraje, v.aire_acondicionado, " + "m.nombre AS nombre_marca, c.nombre AS categoria, t.tarifa_por_dia AS costo_por_dia, i.url AS imagen_url " +
 	             "FROM vehiculos v " +
 	             "INNER JOIN marca m ON v.marca_id = m.id " +
 	             "INNER JOIN categoria c ON v.categoria_id = c.id " +
@@ -184,6 +184,8 @@ public class Modelo {
 			        vehiculo.setCategoria(rs.getString("categoria"));
 			        vehiculo.setCostoTotal(rs.getFloat("costo_por_dia"));
 			        vehiculo.setImagenUrl(rs.getString("imagen_url"));
+			        vehiculo.setKilometrajeVehiculo(rs.getInt("kilometraje"));
+			        vehiculo.setAireAcondicionado(rs.getBoolean("aire_acondicionado"));
 			        vehiculos.add(vehiculo);
 				}
 				con.close();

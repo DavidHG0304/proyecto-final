@@ -8,6 +8,9 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.geom.RoundRectangle2D;
+import java.net.MalformedURLException;
+import java.net.URL;
+
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
 import javax.swing.JEditorPane;
@@ -32,6 +35,9 @@ public class DialogoInfoCarro extends JPanel {
 	private JEditorPane nPuertas;
 	private JEditorPane tTransmision;
 	private JEditorPane aireAcondicionado;
+	private JEditorPane kilometraje;
+	private JLabel lblImgCarro;
+	
 	
 	
 	
@@ -98,7 +104,7 @@ public class DialogoInfoCarro extends JPanel {
 		nPuertas.setBounds(203, 204, 124, 19);
 		add(nPuertas);
 		
-		JEditorPane kilometraje = new JEditorPane();
+		kilometraje = new JEditorPane();
 		kilometraje.setText(""+1500);
 		kilometraje.setOpaque(false);
 		kilometraje.setFont(new Font("Inter", Font.PLAIN, 10));
@@ -122,7 +128,7 @@ public class DialogoInfoCarro extends JPanel {
 //		}else {
 //			aireAcondicionado.setText("No");
 //		}
-		aireAcondicionado.setText("Si");
+		aireAcondicionado.setText(" ");
 		aireAcondicionado.setOpaque(false);
 		aireAcondicionado.setFont(new Font("Inter", Font.PLAIN, 10));
 		aireAcondicionado.setFocusable(false);
@@ -161,22 +167,54 @@ public class DialogoInfoCarro extends JPanel {
 		add(lblAC);
 		
 		
-		JLabel lblImgCarro = new JLabel();
-		ImageIcon cargandoCarro = new ImageIcon(getClass().getResource("/vista/recursos/imagenes/carroPrueba.png"));
-        Image imagen = cargandoCarro.getImage();
-        Image imagenReescalada = imagen.getScaledInstance(200, 130, Image.SCALE_SMOOTH);
-        ImageIcon iconoReescalado = new ImageIcon(imagenReescalada);
-        lblImgCarro.setIcon(iconoReescalado);
-        panel.add(lblImgCarro);
+//		JLabel lblImgCarro = new JLabel();
+////		ImageIcon cargandoCarro = new ImageIcon(getClass().getResource("/vista/recursos/imagenes/carroPrueba.png"));
+//		ImageIcon cargandoCarro = new ImageIcon(vehiculo.getImagenUrl());
+//        Image imagen = cargandoCarro.getImage();
+//        Image imagenReescalada = imagen.getScaledInstance(200, 130, Image.SCALE_SMOOTH);
+//        ImageIcon iconoReescalado = new ImageIcon(imagenReescalada);
+//        lblImgCarro.setIcon(iconoReescalado);
+//        panel.add(lblImgCarro);
+		
+		lblImgCarro = new JLabel();
+		Thread loadImageThread = new Thread(() -> {
+		    try {
+		        URL imageUrl = new URL(vehiculo.getImagenUrl());
+		        ImageIcon imagenCarro = new ImageIcon(imageUrl);
+		        Image imagen = imagenCarro.getImage();
+		        Image imagenReescalada = imagen.getScaledInstance(187, 140, Image.SCALE_SMOOTH);
+		        ImageIcon iconoReescalado = new ImageIcon(imagenReescalada);
+		        SwingUtilities.invokeLater(() -> {
+		            lblImgCarro.setIcon(iconoReescalado);
+		            panel.revalidate();
+		            panel.repaint();
+		        });
+		    } catch (MalformedURLException e) {
+		        ImageIcon cargandoCarro = new ImageIcon(getClass().getResource("/vista/recursos/imagenes/carroPrueba.png"));
+		        Image imagen = cargandoCarro.getImage();
+		        Image imagenReescalada = imagen.getScaledInstance(187, 140, Image.SCALE_SMOOTH);
+		        ImageIcon iconoReescalado = new ImageIcon(imagenReescalada);
+		        SwingUtilities.invokeLater(() -> {
+		            lblImgCarro.setIcon(iconoReescalado);
+		            panel.revalidate();
+		            panel.repaint();
+		        });
+		    }
+		});
+		loadImageThread.start();
         
+		lblImgCarro.setHorizontalAlignment(SwingConstants.CENTER);
+		lblImgCarro.setBounds(0, 0, 187, 140);
+		panel.add(lblImgCarro);
         
 		if (vehiculo != null) {
-			lblNombreVehiculo.setText(vehiculo.getNombreVehiculo());
+			lblNombreVehiculo.setText(vehiculo.getNombreVehiculo()+" "+vehiculo.getModelo()+" - "+vehiculo.getCategoria());
 			tPersonas.setText(""+vehiculo.getPuertasVehiculo());
 			anioV.setText(vehiculo.getAñoVehiculo());
 			nPuertas.setText(""+vehiculo.getPuertasVehiculo());
 			tTransmision.setText(""+vehiculo.getTransmision());
-
+			kilometraje.setText(""+vehiculo.getKilometrajeVehiculo());
+			
 			if (vehiculo.isAireAcondicionado()) {
 				aireAcondicionado.setText("Si");
 			} else {
