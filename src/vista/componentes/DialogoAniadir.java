@@ -62,12 +62,6 @@ public class DialogoAniadir extends JPanel {
 		panel.setBounds(24, 56, 453, 140);
 		add(panel);
 		
-		JTextFieldRedondeado txtMarca = new JTextFieldRedondeado(20,20, new Color(0,0,0,60));
-		txtMarca.setFont(new Font("Inter", Font.PLAIN, 11));
-		txtMarca.setBounds(24, 256, 214, 25);
-		txtMarca.setBackground(new Color(0,0,0,5));
-		add(txtMarca);
-		
 		JLabel lblImgCarro = new JLabel();
 		ImageIcon cargandoCarro = new ImageIcon(getClass().getResource("/vista/recursos/imagenes/carroPrueba.png"));
         Image imagen = cargandoCarro.getImage();
@@ -90,23 +84,17 @@ public class DialogoAniadir extends JPanel {
         btnAgregar.setBounds(362, 514, 115, 25);
         add(btnAgregar);
         
-        JTextFieldRedondeado txtMarca_1 = new JTextFieldRedondeado(20, 20, new Color(0, 0, 0, 60));
-        txtMarca_1.setFont(new Font("Inter", Font.PLAIN, 11));
-        txtMarca_1.setBackground(new Color(0, 0, 0, 5));
-        txtMarca_1.setBounds(263, 256, 214, 25);
-        add(txtMarca_1);
+        JTextFieldRedondeado txtNombre = new JTextFieldRedondeado(20, 20, new Color(0, 0, 0, 60));
+        txtNombre.setFont(new Font("Inter", Font.PLAIN, 11));
+        txtNombre.setBackground(new Color(0, 0, 0, 5));
+        txtNombre.setBounds(263, 256, 214, 25);
+        add(txtNombre);
         
-        JTextFieldRedondeado txtMarca_2 = new JTextFieldRedondeado(20, 20, new Color(0, 0, 0, 60));
-        txtMarca_2.setFont(new Font("Inter", Font.PLAIN, 11));
-        txtMarca_2.setBackground(new Color(0, 0, 0, 5));
-        txtMarca_2.setBounds(24, 317, 214, 25);
-        add(txtMarca_2);
-        
-        JTextFieldRedondeado txtMarca_2_1 = new JTextFieldRedondeado(20, 20, new Color(0, 0, 0, 60));
-        txtMarca_2_1.setFont(new Font("Inter", Font.PLAIN, 11));
-        txtMarca_2_1.setBackground(new Color(0, 0, 0, 5));
-        txtMarca_2_1.setBounds(263, 317, 214, 25);
-        add(txtMarca_2_1);
+        JTextFieldRedondeado txtAnio = new JTextFieldRedondeado(20, 20, new Color(0, 0, 0, 60));
+        txtAnio.setFont(new Font("Inter", Font.PLAIN, 11));
+        txtAnio.setBackground(new Color(0, 0, 0, 5));
+        txtAnio.setBounds(263, 377, 214, 25);
+        add(txtAnio);
         
         ComboBoxRedondeado<String> comboBox = new ComboBoxRedondeado<String>(20, new Color(0,0,0,60));
         UIManager.put("Component.innerFocusWidth", comboBox);
@@ -114,24 +102,39 @@ public class DialogoAniadir extends JPanel {
         comboBox.setFont(new Font("Inter", Font.PLAIN, 11));
         comboBox.setOpaque(false);
         comboBox.setBackground(new Color(0, 0, 0, 5));
-        comboBox.setBounds(24, 413, 214, 25);
+        comboBox.setBounds(24, 377, 214, 25);
         // IMPORTANTE 
         comboBox.setLightWeightPopupEnabled(false);
         add(comboBox);
         
-        JRadioButton rdBtnNpuertas = new JRadioButton("2");
-        rdBtnNpuertas.setFont(new Font("Inter", Font.PLAIN, 11));
-        rdBtnNpuertas.setBounds(263, 414, 53, 23);
-        add(rdBtnNpuertas);
+        JRadioButton rdbtnNumPuertas1 = new JRadioButton("2");
+        rdbtnNumPuertas1.setFont(new Font("Inter", Font.PLAIN, 11));
+        rdbtnNumPuertas1.setBounds(263, 430, 53, 23);
+        add(rdbtnNumPuertas1);
         
-        JRadioButton rdbtnNewRadioButton_1 = new JRadioButton("4");
-        rdbtnNewRadioButton_1.setFont(new Font("Inter", Font.PLAIN, 11));
-        rdbtnNewRadioButton_1.setBounds(318, 414, 53, 23);
-        add(rdbtnNewRadioButton_1);
+        JRadioButton rdbtnNumPuertas2 = new JRadioButton("4");
+        rdbtnNumPuertas2.setFont(new Font("Inter", Font.PLAIN, 11));
+        rdbtnNumPuertas2.setBounds(318, 430, 53, 23);
+        add(rdbtnNumPuertas2);
         
         ButtonGroup grupoPuertas = new ButtonGroup();
-        grupoPuertas.add(rdBtnNpuertas);
-        grupoPuertas.add(rdbtnNewRadioButton_1);
+        grupoPuertas.add(rdbtnNumPuertas1);
+        grupoPuertas.add(rdbtnNumPuertas2);
+        
+        
+//        JRadioButton rdbtnNumPuertas1 = new JRadioButton("2");
+//        rdbtnNumPuertas1.setFont(new Font("Inter", Font.PLAIN, 11));
+//        rdbtnNumPuertas1.setBounds(263, 414, 53, 23);
+//        add(rdbtnNumPuertas1);
+//        
+//        JRadioButton rdbtnNumPuertas2 = new JRadioButton("4");
+//        rdbtnNumPuertas2.setFont(new Font("Inter", Font.PLAIN, 11));
+//        rdbtnNumPuertas2.setBounds(318, 414, 53, 23);
+//        add(rdbtnNumPuertas2);
+//        
+//        ButtonGroup grupoPuertas2 = new ButtonGroup();
+//        grupoPuertas.add(rdbtnNumPuertas1);
+//        grupoPuertas.add(rdbtnNumPuertas2);
         
         JLabel lblNewLabel = new JLabel(titulo);
         lblNewLabel.setHorizontalAlignment(SwingConstants.LEFT);
@@ -160,23 +163,23 @@ public class DialogoAniadir extends JPanel {
         dtrpnAoDelAuto.setOpaque(false);
         dtrpnAoDelAuto.setFont(new Font("Inter", Font.PLAIN, 11));
         dtrpnAoDelAuto.setFocusable(false);
-        dtrpnAoDelAuto.setBounds(263, 297, 124, 19);
+        dtrpnAoDelAuto.setBounds(263, 358, 124, 19);
         add(dtrpnAoDelAuto);
         
-        JEditorPane dtrpnModeloDeL = new JEditorPane();
-        dtrpnModeloDeL.setText("Modelo del auto");
-        dtrpnModeloDeL.setOpaque(false);
-        dtrpnModeloDeL.setFont(new Font("Inter", Font.PLAIN, 11));
-        dtrpnModeloDeL.setFocusable(false);
-        dtrpnModeloDeL.setBounds(263, 236, 124, 19);
-        add(dtrpnModeloDeL);
+        JEditorPane dtrpnNombre = new JEditorPane();
+        dtrpnNombre.setText("Nombre del auto");
+        dtrpnNombre.setOpaque(false);
+        dtrpnNombre.setFont(new Font("Inter", Font.PLAIN, 11));
+        dtrpnNombre.setFocusable(false);
+        dtrpnNombre.setBounds(263, 236, 124, 19);
+        add(dtrpnNombre);
         
         JEditorPane dtrpnTransmision = new JEditorPane();
         dtrpnTransmision.setText("Transmision");
         dtrpnTransmision.setOpaque(false);
         dtrpnTransmision.setFont(new Font("Inter", Font.PLAIN, 11));
         dtrpnTransmision.setFocusable(false);
-        dtrpnTransmision.setBounds(24, 393, 124, 19);
+        dtrpnTransmision.setBounds(24, 358, 124, 19);
         add(dtrpnTransmision);
         
         JEditorPane dtrpnPuertasDelAuto = new JEditorPane();
@@ -184,8 +187,63 @@ public class DialogoAniadir extends JPanel {
         dtrpnPuertasDelAuto.setOpaque(false);
         dtrpnPuertasDelAuto.setFont(new Font("Inter", Font.PLAIN, 11));
         dtrpnPuertasDelAuto.setFocusable(false);
-        dtrpnPuertasDelAuto.setBounds(263, 393, 124, 19);
+        dtrpnPuertasDelAuto.setBounds(263, 409, 124, 19);
         add(dtrpnPuertasDelAuto);
+        
+        ComboBoxRedondeado<String> comboBoxMarcas = new ComboBoxRedondeado<String>(20, new Color(0, 0, 0, 60));
+        comboBoxMarcas.setOpaque(false);
+        comboBoxMarcas.setLightWeightPopupEnabled(false);
+        comboBoxMarcas.setFont(new Font("Inter", Font.PLAIN, 11));
+        comboBoxMarcas.setBackground(new Color(0, 0, 0, 5));
+        comboBoxMarcas.setBounds(24, 257, 214, 25);
+        comboBoxMarcas.setModel(new DefaultComboBoxModel<>(new String[] {"Automatico", "Manual"}));
+        
+        add(comboBoxMarcas);
+        ComboBoxRedondeado<String> comboBoxCategorias = new ComboBoxRedondeado<String>(20, new Color(0, 0, 0, 60));
+        comboBoxCategorias.setOpaque(false);
+        comboBoxCategorias.setLightWeightPopupEnabled(false);
+        comboBoxCategorias.setFont(new Font("Inter", Font.PLAIN, 11));
+        comboBoxCategorias.setBackground(new Color(0, 0, 0, 5));
+        comboBoxCategorias.setBounds(24, 318, 214, 25);
+        comboBox.setLightWeightPopupEnabled(false);
+        add(comboBoxCategorias);
+        comboBoxCategorias.setModel(new DefaultComboBoxModel<>(new String[] {"Automatico", "Manual"}));
+        
+        JTextFieldRedondeado txtModelo = new JTextFieldRedondeado(20, 20, new Color(0, 0, 0, 60));
+        txtModelo.setFont(new Font("Inter", Font.PLAIN, 11));
+        txtModelo.setBackground(new Color(0, 0, 0, 5));
+        txtModelo.setBounds(263, 318, 214, 25);
+        add(txtModelo);
+        
+        JEditorPane dtrpnModelo = new JEditorPane();
+        dtrpnModelo.setText("Modelo del auto");
+        dtrpnModelo.setOpaque(false);
+        dtrpnModelo.setFont(new Font("Inter", Font.PLAIN, 11));
+        dtrpnModelo.setFocusable(false);
+        dtrpnModelo.setBounds(263, 298, 124, 19);
+        add(dtrpnModelo);
+        
+        JEditorPane dtrpnTieneAire = new JEditorPane();
+        dtrpnTieneAire.setText("Puertas del auto");
+        dtrpnTieneAire.setOpaque(false);
+        dtrpnTieneAire.setFont(new Font("Inter", Font.PLAIN, 11));
+        dtrpnTieneAire.setFocusable(false);
+        dtrpnTieneAire.setBounds(24, 409, 124, 19);
+        add(dtrpnTieneAire);
+        
+        JRadioButton rdbtnTieneAire1 = new JRadioButton("Si");
+        rdbtnTieneAire1.setFont(new Font("Inter", Font.PLAIN, 11));
+        rdbtnTieneAire1.setBounds(24, 430, 53, 23);
+        add(rdbtnTieneAire1);
+        
+        JRadioButton rdbtnTieneAire2 = new JRadioButton("No");
+        rdbtnTieneAire2.setFont(new Font("Inter", Font.PLAIN, 11));
+        rdbtnTieneAire2.setBounds(79, 430, 53, 23);
+        add(rdbtnTieneAire2);
+        
+        ButtonGroup grupoAireRadioButton = new ButtonGroup();
+        grupoAireRadioButton.add(rdbtnTieneAire1);
+        grupoAireRadioButton.add(rdbtnTieneAire2);
         
         panel.revalidate();
         panel.repaint();

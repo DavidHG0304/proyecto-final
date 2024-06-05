@@ -298,7 +298,41 @@ public class Modelo {
 	    return null;
 	}
 	
-	
+//public boolean aniadirVehiculos(Vehiculos vehiculo, String Modelo, String fechaInicial, String fechaNacimiento, Double costo, int usuarioId, int vehiculoId) {
+//		
+//		String sql = "INSERT INTO rentas(fecha_inicial, fecha_final, fecha_nacimiento, costo, usuario_id, vehiculo_id) VALUES (?, ?, ?, ?, ?, ?)";
+//				
+//		//boolean rentaEncontrada;
+//		try {
+//	        Class.forName("com.mysql.cj.jdbc.Driver");
+//	    } catch (ClassNotFoundException e) {
+//	        e.printStackTrace();
+//	    }
+//
+//		
+//		try (Connection con = DriverManager.getConnection("jdbc:mysql://monorail.proxy.rlwy.net:28289/railway?useSSL=false","root","AZsyCwUGzmURenQkgkEOksyBwsWuQBFI");){
+//            PreparedStatement stmt = con.prepareStatement(sql);
+//           
+//            stmt.setString(1, fechaInicial);
+//            stmt.setString(2, fechaFinal);
+//            stmt.setString(3, fechaNacimiento);
+//            stmt.setDouble(4, costo);
+//            stmt.setInt(5, usuarioId);
+//            stmt.setInt(6, vehiculoId);
+//			
+//			
+//			
+//			int filasAfectadas = stmt.executeUpdate();
+//			con.close();
+//	        return filasAfectadas > 0;
+//	        
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		
+//		return false;
+//	}
 	
 	public Rentas mostrarRentas(int idRenta) {
 		Rentas renta = null;
