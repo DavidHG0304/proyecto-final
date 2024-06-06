@@ -363,11 +363,11 @@ public class DialogoAniadir extends JPanel {
         	comboBoxCategorias.setSelectedItem(nombreCategoria);
         	comboBoxMarcas.setSelectedItem(nombreMarca);
         	
-        	txtSeguroDanios.setText(String.valueOf(vehiculo.getSeguroDanios()));
-            txtSeguroVida.setText(String.valueOf(vehiculo.getSeguroVida()));
-            txtSeguroKilometraje.setText(String.valueOf(vehiculo.getSeguroKilometraje()));
-            txtSeguroCombustible.setText(String.valueOf(vehiculo.getCombustible()));
-            txtSeguroTarifa.setText(String.valueOf(vehiculo.getTarifaPorDia()));
+        	txtSeguroDanios.setText(String.valueOf(vehiculo.getTarifa().getSeguro_danios()));
+            txtSeguroVida.setText(String.valueOf(vehiculo.getTarifa().getSeguro_vida()));
+            txtSeguroKilometraje.setText(String.valueOf(vehiculo.getTarifa().getSeguro_kilometraje()));
+            txtSeguroCombustible.setText(String.valueOf(vehiculo.getTarifa().getSeguro_combustible()));
+            txtSeguroTarifa.setText(String.valueOf(vehiculo.getTarifa().getSeguro_tarifa_por_dia()));
         	
         	
         	if(vehiculo.getPuertasVehiculo() == 2) {

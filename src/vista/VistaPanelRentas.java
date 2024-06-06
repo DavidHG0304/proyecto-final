@@ -5,6 +5,8 @@ import java.util.ArrayList;
 
 import javax.swing.*;
 
+import controlador.ControladorClientes;
+import controlador.ControladorRentas;
 import modelo.entidades.Rentas;
 import modelo.entidades.Usuarios;
 import modelo.entidades.Vehiculos;
@@ -22,9 +24,11 @@ public class VistaPanelRentas {
 	private JPanel panelCartasRentas;
 	private JPanel panelAux;
 	private ArrayList<CartasRentas> cartaRentas;
+	private ControladorRentas controlador;
+	private Vehiculos vehiculo;
 	
-	
-	public VistaPanelRentas(){
+	public VistaPanelRentas(ControladorRentas controlador){
+		this.controlador = controlador;
 		frame = new JFrame();
 		frame.setSize(950, 700);
 		frame.setVisible(true);
@@ -74,14 +78,6 @@ public class VistaPanelRentas {
 		panelAux.setLayout(new BoxLayout(panelAux, BoxLayout.Y_AXIS));
 		panelAux.setBackground(Color.WHITE);
 		
-//		int tamanio = 25;
-//		for (int i = 0; i < tamanio; i++) {
-//			CartasRentas cartasRentas = new CartasRentas();
-//			panelAux.add(cartasRentas);
-//			panelAux.add(Box.createVerticalStrut(10));
-//			panelCartasRentas.add(panelAux);
-//		}
-
 		JScrollPane scrollPane = new JScrollPane(panelCartasRentas);
 		scrollPane.setBounds(10, 220, 894, 360);
 		scrollPane.setBorder(null);
@@ -91,10 +87,6 @@ public class VistaPanelRentas {
 		scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 		panel.getPanelCentral().add(scrollPane);
-		
-		// QUItar gif
-//		panel.getPanelCentral().remove(panel.getLblCargandoGif());
-//		panel.getPanelCentral().repaint();
 		
 		cartaRentas = new ArrayList<>();
 		
@@ -109,14 +101,12 @@ public class VistaPanelRentas {
 		for(Rentas renta : rentas) {
 			Usuarios usuario = renta.getUsuario();
 			Vehiculos vehiculo = renta.getVehiculo();
-			CartasRentas cartasRentas = new CartasRentas(renta, usuario, vehiculo);
-			panelAux.add(cartasRentas);
+			CartasRentas carta = new CartasRentas(renta, usuario, vehiculo, controlador);
+			panelAux.add(carta);
 			panelAux.add(Box.createVerticalStrut(10));
 			panelCartasRentas.add(panelAux);
+			cartaRentas.add(carta);
 		}
-		
-		
-		
 		panelAux.revalidate();
 		panelAux.repaint();
 		panelCartasRentas.revalidate();
@@ -143,17 +133,51 @@ public class VistaPanelRentas {
                         CartasRentas carta = (CartasRentas) innerComp;
                         carta.getBtnbrdEditar().addActionListener(listener);
                         carta.getBtnbrdEliminar().addActionListener(listener);
+                        carta.getBtnbrdEliminar().addActionListener(new ActionListener() {
+							@Override
+							public void actionPerformed(ActionEvent e) {
+								for (CartasRentas c : cartaRentas) {
+		                            c.setSeleccionado(false);
+		                        }
+		                        carta.setSeleccionado(true);
+							}
+						});
+                        carta.getBtnbrdEditar().addActionListener(new ActionListener() {
+							@Override
+							public void actionPerformed(ActionEvent e) {
+								for (CartasRentas c : cartaRentas) {
+		                            c.setSeleccionado(false);
+		                        }
+		                        carta.setSeleccionado(true);
+							}
+						});
                     }
                 }
             }
         }
     }
 
+	public Rentas getRentaSeleccionada() {
+	    for (CartasRentas carta : cartaRentas) {
+	        if (carta.isSeleccionado()) {
+	            return carta.getRenta();
+	        }
+	    }
+
+	    return null;
+	}
+	
 	public JFrame getFrame() {
 		return frame;
 	}
 	public void setFrame(JFrame frame) {
 		this.frame = frame;
+	}
+	public ControladorRentas getControlador() {
+		return controlador;
+	}
+	public void setControlador(ControladorRentas controlador) {
+		this.controlador = controlador;
 	}
 }
 	

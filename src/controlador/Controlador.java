@@ -61,7 +61,7 @@ public class Controlador implements ActionListener{
 	}
 	
 	public void rentas() {
-		VistaPanelRentas panelRentas = new VistaPanelRentas();
+		VistaPanelRentas panelRentas = new VistaPanelRentas(controladorRentas);
 		this.controladorRentas = new ControladorRentas(panelRentas, nuevoModelo, this);
 	}
 	

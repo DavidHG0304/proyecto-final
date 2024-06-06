@@ -21,42 +21,7 @@ public class Vehiculos {
 	private String categoria;
 	private String imagenUrl;
 	private double costoTotal;
-	private float seguroDanios;
-    private float seguroVida;
-    private float seguroKilometraje;
-    private float combustible;
-    private float tarifaPorDia;
     
-	public float getSeguroDanios() {
-		return seguroDanios;
-	}
-	public void setSeguroDanios(float seguroDanios) {
-		this.seguroDanios = seguroDanios;
-	}
-	public float getSeguroVida() {
-		return seguroVida;
-	}
-	public void setSeguroVida(float seguroVida) {
-		this.seguroVida = seguroVida;
-	}
-	public float getSeguroKilometraje() {
-		return seguroKilometraje;
-	}
-	public void setSeguroKilometraje(float seguroKilometraje) {
-		this.seguroKilometraje = seguroKilometraje;
-	}
-	public float getCombustible() {
-		return combustible;
-	}
-	public void setCombustible(float combustible) {
-		this.combustible = combustible;
-	}
-	public float getTarifaPorDia() {
-		return tarifaPorDia;
-	}
-	public void setTarifaPorDia(float tarifaPorDia) {
-		this.tarifaPorDia = tarifaPorDia;
-	}
 	// Cambio
 	private int categoriaId;
 	private int marcaId;

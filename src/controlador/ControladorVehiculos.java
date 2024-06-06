@@ -180,7 +180,7 @@ public class ControladorVehiculos implements ActionListener{
 			// To - do
 			ArrayList<String> usuarios = obtenerNombresUsuarios();
 			vehiculoSeleccionado = pVehiculos.getVehiculoSeleccionado();
-			dialogoRenta = new DialogoRentar("Test", "Crear Renta", vehiculoSeleccionado, usuarios);
+			dialogoRenta = new DialogoRentar("Test", "Crear Renta", vehiculoSeleccionado, usuarios, null);
 			dialogoRenta.getBtnCrear().addActionListener(this);
 			GlassPanePopup.showPopup(dialogoRenta);
 			break;
@@ -276,6 +276,7 @@ public class ControladorVehiculos implements ActionListener{
 				return;
 		    }
 			break;
+			
 			
 		case "ConfirmarEliminar":
 			boolean eliminado = false;

@@ -16,8 +16,6 @@ public class Rentas {
 		return vehiculo;
 	}
 
-
-
 	public void setVehiculo(Vehiculos vehiculo) {
 		this.vehiculo = vehiculo;
 	}

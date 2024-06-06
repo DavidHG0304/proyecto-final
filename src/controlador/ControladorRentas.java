@@ -4,16 +4,21 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
 
 import modelo.Modelo;
+import modelo.entidades.Categorias;
+import modelo.entidades.Marcas;
 import modelo.entidades.Rentas;
+import modelo.entidades.Tarifas;
 import modelo.entidades.Usuarios;
 import modelo.entidades.Vehiculos;
 import raven.glasspanepopup.GlassPanePopup;
 import vista.VistaPanelRentas;
 import vista.componentes.DialogoAniadir;
 import vista.componentes.DialogoAniadirC_M;
+import vista.componentes.DialogoAvisos;
 import vista.componentes.DialogoConfirmacion;
 import vista.componentes.DialogoDetalles;
 import vista.componentes.DialogoInfoCarro;
@@ -21,27 +26,28 @@ import vista.componentes.DialogoRentar;
 
 public class ControladorRentas implements ActionListener{
 	
+	private Vehiculos vehiculoMostrar;
 	private VistaPanelRentas panelRentas;
 	private Modelo modelo;
 	private Controlador controlador;
+	private Rentas rentaSeleccionadaParaEliminar;
+	private Rentas rentaSeleccionadaParaEditar;
+	private DialogoConfirmacion dialogoConfirmacion;
+	private DialogoRentar dialogoRenta;
 
 	public ControladorRentas(VistaPanelRentas panelRentas, Modelo modelo, Controlador controlador) {
 		this.panelRentas = panelRentas;
         this.modelo = modelo;
         this.controlador = controlador;
         panelRentas.rentas();
+        panelRentas.setControlador(this);
         panelRentas.asignarActListner(this);
         cargarRentas();
         
-		panelRentas.asignarListenersCartas(ControladorRentas.this);
+		panelRentas.asignarListenersCartas(this);
 		GlassPanePopup.install(panelRentas.getFrame());
 	}
 
-	private void inicializar() {
-		ArrayList<Rentas> rentas = modelo.mostrarRentas();
-		panelRentas.mostrarRentas(rentas);
-		
-	}
 	
 	public void cargarRentas() {
 		SwingWorker<ArrayList<Rentas>, Void> cargadorRentas = new SwingWorker<ArrayList<Rentas>, Void>() {
@@ -53,7 +59,9 @@ public class ControladorRentas implements ActionListener{
 			@Override
 			protected void done() {
 				try {
-					inicializar();
+					ArrayList<Rentas> rentas = get();
+					panelRentas.mostrarRentas(rentas);
+					panelRentas.asignarListenersCartas(ControladorRentas.this);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -62,6 +70,62 @@ public class ControladorRentas implements ActionListener{
 		cargadorRentas.execute();
 	}
 	
+	public ArrayList<String> obtenerNombresCategorias() {
+		ArrayList<Categorias> categorias = modelo.mostrarCategorias();
+		ArrayList<String> nombresCategorias = new ArrayList<>();
+		for (Categorias categoria : categorias) {
+			nombresCategorias.add(categoria.getNombre());
+		}
+
+		return nombresCategorias;
+	}
+
+	public ArrayList<String> obtenerNombresMarcas() {
+		ArrayList<Marcas> marcas = modelo.mostrarMarcas();
+		ArrayList<String> nombresMarcas = new ArrayList<>();
+		for (Marcas marca : marcas) {
+			nombresMarcas.add(marca.getNombre());
+		}
+
+		return nombresMarcas;
+	}
+	
+	public ArrayList<String> obtenerNombresUsuarios() {
+		ArrayList<Usuarios> usuarios = modelo.obtenerUsuarios();
+		ArrayList<String> nombresUsuarios = new ArrayList<>();
+		for (Usuarios usuario : usuarios) {
+			nombresUsuarios.add(usuario.getNombreUsuario());
+		}
+
+		return nombresUsuarios;
+	}
+	
+	public ArrayList<Vehiculos> obtenerVehiculosConTarifas() {
+        ArrayList<Vehiculos> vehiculos = modelo.obtenerVehiculos();
+        for (Vehiculos vehiculo : vehiculos) {
+            if (vehiculo.getTarifa() == null) {
+                vehiculo.setTarifa(new Tarifas());
+            }
+        }
+        return vehiculos;
+    }
+	
+	public void prepararEliminacionRenta(Rentas renta) {
+		rentaSeleccionadaParaEliminar = renta;
+		dialogoConfirmacion = new DialogoConfirmacion("¿Estás seguro de querer eliminar la renta?", "");
+		dialogoConfirmacion.getBoton().setActionCommand("ConfirmarEliminar");
+		dialogoConfirmacion.getBoton().addActionListener(this);
+		GlassPanePopup.showPopup(dialogoConfirmacion);
+	}
+	
+	public void prepararRentaEdicion(Rentas renta) {
+		rentaSeleccionadaParaEditar = renta;
+	    ArrayList<String> usuarios = obtenerNombresUsuarios();
+	    String nombreUsuario = renta.getUsuario().getNombreUsuario();
+	    dialogoRenta = new DialogoRentar("EditarRenta", "Editar Renta", renta.getVehiculo(), usuarios, nombreUsuario);
+	    dialogoRenta.getBtnCrear().addActionListener(this);
+		GlassPanePopup.showPopup(dialogoRenta);
+	}
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -93,18 +157,55 @@ public class ControladorRentas implements ActionListener{
 			controlador.nuevoModelo.setRegistroEncontrado(false);
 			break;
 		case "EliminarRenta":
-			System.out.println("Eliminar");
-			GlassPanePopup.showPopup(new DialogoConfirmacion("¿Estas seguro de querer \neliminar la renta?", ""));
+			prepararEliminacionRenta(panelRentas.getRentaSeleccionada());
 			break;
 		case "EditarRenta":
-			// To - do
-			System.out.println("Editar");
-//			GlassPanePopup.showPopup(new DialogoRentar("Editar nombre de la categoria", "Editar Renta", null));
+//			ArrayList<String> usuarios = obtenerNombresUsuarios();
+//			rentaSeleccionadaParaEditar = panelRentas.getRentaSeleccionada();
+//			dialogoRenta = new DialogoRentar("Test", "Editar Renta", rentaSeleccionadaParaEditar.getVehiculo(), usuarios);
+//			dialogoRenta.getBtnCrear().addActionListener(this);
+//			GlassPanePopup.showPopup(dialogoRenta);
+			
+			
 			break;
 		case "Agregar Renta pRentas":
 			System.out.println("AgregarRenta");
 //			GlassPanePopup.showPopup(new DialogoRentar("Editar nombre de la categoria", "Crear Renta", null));
 			break;
+		case "ConfirmarEliminar":
+            if (modelo.eliminarRenta(rentaSeleccionadaParaEliminar.getId())) {
+                cargarRentas();
+                SwingUtilities.invokeLater(() -> {
+                    GlassPanePopup.closePopupLast();
+                    GlassPanePopup.showPopup(new DialogoAvisos("Eliminada", "La renta ha sido eliminada."));
+                });
+            }else {
+            	SwingUtilities.invokeLater(() -> {
+                    GlassPanePopup.closePopupLast();
+                    GlassPanePopup.showPopup(new DialogoAvisos("Error", "No se pudo eliminar la renta."));
+                });
+            }
+            break;
+		case "EditarLaRenta":
+			System.out.println("EDITADA");
+			System.out.println("HOLA");
+			rentaSeleccionadaParaEditar = panelRentas.getRentaSeleccionada();
+			String fechaFinal = dialogoRenta.getTxtFechaFinal().getText();
+			String fechaInicial = dialogoRenta.getTxtFechaInicio().getText();
+			Double costo = Double.parseDouble(dialogoRenta.getTxtTotal().getText());
+			String nombreUsuario = (String) dialogoRenta.getComboBoxUsuarios().getSelectedItem();
+			
+			boolean resultado2 = modelo.editarRenta(rentaSeleccionadaParaEditar.getId(), fechaFinal, fechaInicial, costo, nombreUsuario, rentaSeleccionadaParaEditar.getVehiculo().getIdVehiculo());
+			if (resultado2) {
+				cargarRentas();
+		        GlassPanePopup.closePopupLast();
+		        GlassPanePopup.showPopup(new DialogoAvisos("Renta Actualizada", "La renta se ha actualizado con éxito"));
+		    } else {
+		        GlassPanePopup.closePopupLast();
+		        GlassPanePopup.showPopup(new DialogoAvisos("Error", "No se ha podido actualizar la renta"));
+		    }
+			break;
 		}
+		
 	}
 }

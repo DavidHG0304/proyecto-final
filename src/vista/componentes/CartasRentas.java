@@ -10,6 +10,8 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 
+import controlador.ControladorClientes;
+import controlador.ControladorRentas;
 import modelo.entidades.Rentas;
 import modelo.entidades.Usuarios;
 import modelo.entidades.Vehiculos;
@@ -28,24 +30,26 @@ public class CartasRentas extends PanelRedondeado {
 	private Usuarios usuario;
 	private Vehiculos vehiculo;
 	private BtnBordeado btnbrdEditar;
+	private boolean seleccionado;
 	private BtnBordeado btnbrdEliminar;
+	private ControladorRentas controlador;
 	
-	
-	public CartasRentas(Rentas renta, Usuarios usuario, Vehiculos vehiculo) {
+	public CartasRentas(Rentas renta, Usuarios usuario, Vehiculos vehiculo, ControladorRentas controlador) {
 		super(30, false, true, new Color(0, 0, 0, 10), 5);
 		this.renta = renta;
 		this.usuario = usuario;
 		this.vehiculo = vehiculo;
+		this.controlador = controlador;
         setBackground(new Color(255, 255, 255));
         setPreferredSize(new Dimension(780, 150));
         setMaximumSize(new Dimension(800, 150));
 //      setLayout(null);
         
-        cartas();
+        cartas(renta);
 	}
 	
 	
-	public void cartas() {
+	public void cartas(Rentas renta) {
 		
 		PanelRedondeado panelPrincipalCartas = new PanelRedondeado(35, false, Color.WHITE);
 		panelPrincipalCartas.setBackground(new Color(255, 255, 255));
@@ -129,38 +133,93 @@ public class CartasRentas extends PanelRedondeado {
         
         JLabel lblFechaFinal = new JLabel("Fecha inicio");
         lblFechaFinal.setFont(new Font("Inter", Font.BOLD, 10));
-        lblFechaFinal.setBounds(119, 91, 99, 14);
+        lblFechaFinal.setBounds(87, 91, 99, 14);
         panelInfoCliente.add(lblFechaFinal);
         
         JLabel lblFechaFinal_1 = new JLabel(renta.getFecha_final());
         lblFechaFinal_1.setFont(new Font("Inter", Font.PLAIN, 10));
-        lblFechaFinal_1.setBounds(119, 106, 99, 14);
+        lblFechaFinal_1.setBounds(87, 106, 99, 14);
         panelInfoCliente.add(lblFechaFinal_1);
         
         JLabel lblPago = new JLabel("Pago");
         lblPago.setFont(new Font("Inter", Font.BOLD, 13));
-        lblPago.setBounds(217, 11, 57, 14);
+        lblPago.setBounds(210, 11, 57, 14);
         panelInfoCliente.add(lblPago);
         
-        JLabel lblSeguroVida = new JLabel("Seguro de vida");
+        JLabel lblSeguroVida = new JLabel("Seguro de vida:");
         lblSeguroVida.setFont(new Font("Inter", Font.PLAIN, 10));
-        lblSeguroVida.setBounds(217, 32, 84, 14);
+        lblSeguroVida.setBounds(210, 48, 84, 14);
         panelInfoCliente.add(lblSeguroVida);
         
-        JLabel lblSeguroAuto = new JLabel("Seguro de auto");
+        JLabel lblSeguroAuto = new JLabel("Seguro de auto:");
         lblSeguroAuto.setFont(new Font("Inter", Font.PLAIN, 10));
-        lblSeguroAuto.setBounds(217, 57, 84, 14);
+        lblSeguroAuto.setBounds(210, 68, 84, 14);
         panelInfoCliente.add(lblSeguroAuto);
         
-        JLabel lblCombustible = new JLabel("Combustible");
+        JLabel lblCombustible = new JLabel("Combustible:");
         lblCombustible.setFont(new Font("Inter", Font.PLAIN, 10));
-        lblCombustible.setBounds(217, 81, 84, 14);
+        lblCombustible.setBounds(210, 87, 84, 14);
         panelInfoCliente.add(lblCombustible);
         
-        JLabel lblTarifaPorDia = new JLabel("Tarifa por dia");
+        JLabel lblTarifaPorDia = new JLabel("Tarifa por dia:");
         lblTarifaPorDia.setFont(new Font("Inter", Font.PLAIN, 10));
-        lblTarifaPorDia.setBounds(217, 106, 84, 14);
+        lblTarifaPorDia.setBounds(210, 106, 84, 14);
         panelInfoCliente.add(lblTarifaPorDia);
+        
+        JLabel lblSeguroDanios = new JLabel("Seguro Daños:");
+        lblSeguroDanios.setFont(new Font("Inter", Font.PLAIN, 10));
+        lblSeguroDanios.setBounds(210, 30, 84, 14);
+        panelInfoCliente.add(lblSeguroDanios);
+        
+        JLabel lblSDanios = new JLabel(""+vehiculo.getTarifa().getSeguro_danios());
+        lblSDanios.setFont(new Font("Inter", Font.PLAIN, 10));
+        lblSDanios.setBounds(304, 30, 84, 14);
+        panelInfoCliente.add(lblSDanios);
+        
+        JLabel lblTarifaPorDia_1_1 = new JLabel("$");
+        lblTarifaPorDia_1_1.setFont(new Font("Inter", Font.PLAIN, 10));
+        lblTarifaPorDia_1_1.setBounds(293, 30, 12, 14);
+        panelInfoCliente.add(lblTarifaPorDia_1_1);
+        
+        JLabel lblTarifaPorDia_1_1_1 = new JLabel("$");
+        lblTarifaPorDia_1_1_1.setFont(new Font("Inter", Font.PLAIN, 10));
+        lblTarifaPorDia_1_1_1.setBounds(293, 48, 12, 14);
+        panelInfoCliente.add(lblTarifaPorDia_1_1_1);
+        
+        JLabel lblTarifaPorDia_1_1_2 = new JLabel("$");
+        lblTarifaPorDia_1_1_2.setFont(new Font("Inter", Font.PLAIN, 10));
+        lblTarifaPorDia_1_1_2.setBounds(293, 68, 12, 14);
+        panelInfoCliente.add(lblTarifaPorDia_1_1_2);
+        
+        JLabel lblTarifaPorDia_1_1_3 = new JLabel("$");
+        lblTarifaPorDia_1_1_3.setFont(new Font("Inter", Font.PLAIN, 10));
+        lblTarifaPorDia_1_1_3.setBounds(293, 106, 12, 14);
+        panelInfoCliente.add(lblTarifaPorDia_1_1_3);
+        
+        JLabel lblTarifaPorDia_1_1_4 = new JLabel("$");
+        lblTarifaPorDia_1_1_4.setFont(new Font("Inter", Font.PLAIN, 10));
+        lblTarifaPorDia_1_1_4.setBounds(293, 87, 12, 14);
+        panelInfoCliente.add(lblTarifaPorDia_1_1_4);
+        
+        JLabel lblSVida = new JLabel(""+vehiculo.getTarifa().getSeguro_vida());
+        lblSVida.setFont(new Font("Inter", Font.PLAIN, 10));
+        lblSVida.setBounds(304, 48, 84, 14);
+        panelInfoCliente.add(lblSVida);
+        
+        JLabel lblSKilometraje = new JLabel(""+vehiculo.getTarifa().getSeguro_kilometraje());
+        lblSKilometraje.setFont(new Font("Inter", Font.PLAIN, 10));
+        lblSKilometraje.setBounds(304, 68, 84, 14);
+        panelInfoCliente.add(lblSKilometraje);
+        
+        JLabel lblSCombustible = new JLabel(""+vehiculo.getTarifa().getSeguro_combustible());
+        lblSCombustible.setFont(new Font("Inter", Font.PLAIN, 10));
+        lblSCombustible.setBounds(304, 87, 84, 14);
+        panelInfoCliente.add(lblSCombustible);
+        
+        JLabel lblTDia = new JLabel(""+vehiculo.getTarifa().getSeguro_tarifa_por_dia());
+        lblTDia.setFont(new Font("Inter", Font.PLAIN, 10));
+        lblTDia.setBounds(304, 106, 84, 14);
+        panelInfoCliente.add(lblTDia);
         
         btnbrdEliminar = new BtnBordeado(30, false, true, new Color(250, 0, 0));
         btnbrdEliminar.setText("Eliminar");
@@ -179,8 +238,40 @@ public class CartasRentas extends PanelRedondeado {
         btnbrdEditar.setBackground(Color.WHITE);
         btnbrdEditar.setBounds(638, 70, 115, 25);
         panelPrincipalCartas.add(btnbrdEditar);
+        
+        btnbrdEliminar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+			}
+		});      
+        
+        
+        btnbrdEditar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				prepararEdicion(renta);
+			}
+		});
+        
+	}
+	
+	public void prepararEliminar(Rentas renta) {
+		controlador.prepararEliminacionRenta(renta);
+	}
+	
+	public void prepararEdicion(Rentas renta) {
+		controlador.prepararRentaEdicion(renta);
 	}
 
+	public Rentas getRenta() {
+		return renta;
+	}
+	
+	public void setRenta(Rentas renta) {
+		this.renta = renta;
+	}
 	public BtnBordeado getBtnbrdEditar() {
 		return btnbrdEditar;
 	}
@@ -193,10 +284,10 @@ public class CartasRentas extends PanelRedondeado {
 	public void setBtnbrdEliminar(BtnBordeado btnbrdEliminar) {
 		this.btnbrdEliminar = btnbrdEliminar;
 	}
-	
-	
-	
-	
-	
-	
+	public boolean isSeleccionado() {
+		return seleccionado;
+	}
+	public void setSeleccionado(boolean seleccionado) {
+		this.seleccionado = seleccionado;
+	}
 }

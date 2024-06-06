@@ -70,7 +70,7 @@ public class DialogoRentar extends JPanel {
 	 * Create the panel.
 	 * @param url 
 	 */
-	public DialogoRentar(String titulo, String textoBtn, Vehiculos vehiculo, ArrayList<String> usuarios) {
+	public DialogoRentar(String titulo, String textoBtn, Vehiculos vehiculo, ArrayList<String> usuarios, String nombreUsuario) {
 		this.dialogoFecha = dialogoFecha;
 		setBackground(new Color(255, 255, 255));
 		setLayout(null);
@@ -454,7 +454,6 @@ public class DialogoRentar extends JPanel {
 		
 		if (vehiculo != null && textoBtn.equals("Crear Renta")) {
 			btnCrear.setActionCommand("ConfirmarRenta");
-			System.out.println("CrearRentaDeUnCarro");
 			lblNombre.setText(vehiculo.getNombreVehiculo());
 			tPersonas.setText("" + vehiculo.getPuertasVehiculo());
 			anioV.setText(vehiculo.getAñoVehiculo());
@@ -467,7 +466,6 @@ public class DialogoRentar extends JPanel {
 			precioK.setText(""+vehiculo.getTarifa().getSeguro_kilometraje());
 			precioC.setText(""+vehiculo.getTarifa().getSeguro_combustible());
 			precioT.setText(""+vehiculo.getTarifa().getSeguro_tarifa_por_dia());
-			
 			sumaTotal = vehiculo.getTarifa().getSeguro_danios()+vehiculo.getTarifa().getSeguro_vida()+vehiculo.getTarifa().getSeguro_kilometraje()+vehiculo.getTarifa().getSeguro_combustible();;
 			txtTotal.setText(""+vehiculo.getCostoTotalTarifa());
 //			actualizarCostoTotal();
@@ -500,6 +498,60 @@ public class DialogoRentar extends JPanel {
         	loadImageThread.start();	
         	panel.add(lblImgCarro);
 
+			if (vehiculo.isAireAcondicionado()) {
+				aireAcondicionado.setText("Si");
+			} else {
+				aireAcondicionado.setText("No");
+			}
+		}else if(vehiculo != null && textoBtn.equals("Editar Renta")) {
+			btnCrear.setActionCommand("EditarLaRenta");
+			lblNombre.setText(vehiculo.getNombreVehiculo());
+			tPersonas.setText("" + vehiculo.getPuertasVehiculo());
+			anioV.setText(vehiculo.getAñoVehiculo());
+			nPuertas.setText("" + vehiculo.getPuertasVehiculo());
+			kilometraje.setText("" + vehiculo.getKilometrajeVehiculo());
+			tTransmision.setText(vehiculo.getTransmision());
+			
+			precioD.setText(""+vehiculo.getTarifa().getSeguro_danios());
+			precioSVida.setText(""+vehiculo.getTarifa().getSeguro_vida());
+			precioK.setText(""+vehiculo.getTarifa().getSeguro_kilometraje());
+			precioC.setText(""+vehiculo.getTarifa().getSeguro_combustible());
+			precioT.setText(""+vehiculo.getTarifa().getSeguro_tarifa_por_dia());
+			sumaTotal = vehiculo.getTarifa().getSeguro_danios()+vehiculo.getTarifa().getSeguro_vida()+vehiculo.getTarifa().getSeguro_kilometraje()+vehiculo.getTarifa().getSeguro_combustible();;
+			txtTotal.setText(""+vehiculo.getCostoTotalTarifa());
+			
+			txtFechaRenta.setText("");
+			
+			comboBoxUsuarios.setSelectedItem(nombreUsuario);
+			
+			lblImgCarro = new JLabel();
+			Thread loadImageThread = new Thread(() -> {
+				try {
+					URL imageUrl = new URL(vehiculo.getImagenUrl());
+					ImageIcon imagenCarro = new ImageIcon(imageUrl);
+					Image imagen = imagenCarro.getImage();
+					Image imagenReescalada = imagen.getScaledInstance(187, 140, Image.SCALE_SMOOTH);
+					ImageIcon iconoReescalado = new ImageIcon(imagenReescalada);
+					SwingUtilities.invokeLater(() -> {
+						lblImgCarro.setIcon(iconoReescalado);
+						panel.revalidate();
+						panel.repaint();
+					});
+				} catch (MalformedURLException e) {
+					ImageIcon cargandoCarro = new ImageIcon(
+							getClass().getResource("/vista/recursos/imagenes/carroPrueba.png"));
+					Image imagen = cargandoCarro.getImage();
+					Image imagenReescalada = imagen.getScaledInstance(187, 140, Image.SCALE_SMOOTH);
+					ImageIcon iconoReescalado = new ImageIcon(imagenReescalada);
+					SwingUtilities.invokeLater(() -> {
+						lblImgCarro.setIcon(iconoReescalado);
+						panel.revalidate();
+						panel.repaint();
+					});
+				}
+			});
+			loadImageThread.start();
+			panel.add(lblImgCarro);
 			if (vehiculo.isAireAcondicionado()) {
 				aireAcondicionado.setText("Si");
 			} else {
