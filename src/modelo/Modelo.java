@@ -1131,7 +1131,34 @@ public class Modelo {
 	        if (rs.next()) {
 	            return rs.getInt("id");
 	        } else {
-	            return -1; // O algún valor que indique que no se encontró la categoría
+	            return -1; 
+	        }
+
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        return -1;
+	    }
+	}
+	
+	public int obtenerIdMarcaPorNombre(String nombreMarca) {
+	    try {
+	        Class.forName("com.mysql.cj.jdbc.Driver");
+	    } catch (ClassNotFoundException e) {
+	        e.printStackTrace();
+	    }
+
+	    String sql = "SELECT id FROM marca WHERE nombre = ?";
+	    try (Connection con = DriverManager.getConnection(
+	            "jdbc:mysql://monorail.proxy.rlwy.net:28289/railway?useSSL=false", "root",
+	            "AZsyCwUGzmURenQkgkEOksyBwsWuQBFI");
+	         PreparedStatement stmt = con.prepareStatement(sql)) {
+
+	        stmt.setString(1, nombreMarca);
+	        ResultSet rs = stmt.executeQuery();
+	        if (rs.next()) {
+	            return rs.getInt("id");
+	        } else {
+	            return -1; 
 	        }
 
 	    } catch (SQLException e) {
@@ -1154,7 +1181,7 @@ public class Modelo {
 				PreparedStatement stmtCategoria = con.prepareStatement(sqlCategoria)) {
 			stmtCategoria.setString(1, nombreCategoria);
 			int filasAfectadas = stmtCategoria.executeUpdate();
-			System.out.println("Eliminado Cat");
+//			System.out.println("Eliminado Cat");
 			return filasAfectadas > 0;
 
 		} catch (SQLException e) {
@@ -1230,20 +1257,20 @@ public class Modelo {
 	}
 
 	// Metodo para eliminar marcas
-	public boolean eliminarMarcas(int idMarcas) {
+	public boolean eliminarMarcas(String nombreMarca) {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
-		String sqlCategoria = "DELETE FROM marca WHERE id = ?";
+		String sqlCategoria = "DELETE FROM marca WHERE nombre = ?";
 		try (Connection con = DriverManager.getConnection(
 				"jdbc:mysql://monorail.proxy.rlwy.net:28289/railway?useSSL=false", "root",
 				"AZsyCwUGzmURenQkgkEOksyBwsWuQBFI");
 				PreparedStatement stmtCategoria = con.prepareStatement(sqlCategoria)) {
-			stmtCategoria.setInt(1, idMarcas);
+			stmtCategoria.setString(1, nombreMarca);
 			int filasAfectadas = stmtCategoria.executeUpdate();
-			System.out.println("Marca Eliminada");
+//			System.out.println("Marca Eliminada");
 			return filasAfectadas > 0;
 
 		} catch (SQLException e) {
@@ -1270,7 +1297,7 @@ public class Modelo {
 			stmt.setInt(2, idMarcas);
 
 			int filasAfectadas = stmt.executeUpdate();
-			System.out.println("Editar categoria");
+			System.out.println("Editar marca");
 			return filasAfectadas > 0;
 
 		} catch (SQLException e) {

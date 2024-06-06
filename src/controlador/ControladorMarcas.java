@@ -172,6 +172,10 @@ public class ControladorMarcas implements ActionListener {
 	
     @Override
     public void actionPerformed(ActionEvent e) {
+    	if (e.getSource() == panelMarcas.getComboBoxMarcas()) {
+            String marcaSeleccionada = (String) panelMarcas.getComboBoxMarcas().getSelectedItem();
+            cargarVehiculosPorMarca(marcaSeleccionada);
+        }
         switch (e.getActionCommand()) {
             case "Inicio pMarcas":
                 panelMarcas.getFrame().dispose();
@@ -222,6 +226,7 @@ public class ControladorMarcas implements ActionListener {
 //    			GlassPanePopup.showPopup(new DialogoConfirmacion("¿Estas seguro de querer \neliminar el auto?", ""));
 //    			break;
     		case "Rentar":
+    			System.out.println("HOASLDK");
     			ArrayList<String> usuarios = obtenerNombresUsuarios();
     			vehiculoSeleccionado = panelMarcas.getVehiculoSeleccionado();
     			ArrayList<String> vehiculos = obtenerNombresCarros();
@@ -235,6 +240,8 @@ public class ControladorMarcas implements ActionListener {
     		        }
     		    });
     			dialogoRenta.getBtnCrear().addActionListener(this);
+    			GlassPanePopup.showPopup(dialogoRenta);
+    			break;
     		case "Editar Vehiculo":
     			// TO - DO
     			vehiculoSeleccionado = panelMarcas.getVehiculoSeleccionado();
@@ -367,7 +374,7 @@ public class ControladorMarcas implements ActionListener {
     		    }
     			break;
     		case "ConfirmarAniadir":
-    			if(modelo.aniadirCategorias(dialogoAniadirC_M.getTxtMarca_2().getText())) {
+    			if(modelo.aniadirMarcas(dialogoAniadirC_M.getTxtMarca_2().getText())) {
     				actualizarMarcas();
     				SwingUtilities.invokeLater(() -> {
     					GlassPanePopup.closePopupLast();
@@ -381,7 +388,7 @@ public class ControladorMarcas implements ActionListener {
     			}
     			break;
     		case "ConfirmarEliminarMarca":
-    			if(modelo.eliminarCategorias((String)panelMarcas.getComboBoxMarcas().getSelectedItem())) {
+    			if(modelo.eliminarMarcas((String)panelMarcas.getComboBoxMarcas().getSelectedItem())) {
     				actualizarMarcas();
     				cargarVehiculosPorMarca((String)panelMarcas.getComboBoxMarcas().getSelectedItem());
     				SwingUtilities.invokeLater(() -> {
@@ -397,12 +404,12 @@ public class ControladorMarcas implements ActionListener {
     			}
     			break;
     		case "ConfirmarEditarMarca":
-    			String nombreCategoriaActual = (String) panelMarcas.getComboBoxMarcas().getSelectedItem();
-    			String nuevoNombreCategoria = dialogoAniadirC_M.getTxtMarca_2().getText();
-    			int idCategoria = modelo.obtenerIdCategoriaPorNombre(nombreCategoriaActual);
-    			if(modelo.editarCategorias(idCategoria, nuevoNombreCategoria)) {
+    			String nombreMarcaActual = (String) panelMarcas.getComboBoxMarcas().getSelectedItem();
+    			String nuevoNombreMarca = dialogoAniadirC_M.getTxtMarca_2().getText();
+    			int idMarca = modelo.obtenerIdMarcaPorNombre(nombreMarcaActual);
+    			if(modelo.editarMarcas(idMarca, nuevoNombreMarca)) {
     				actualizarMarcas();
-    				cargarVehiculosPorMarca(nombreCategoriaActual);
+    				cargarVehiculosPorMarca(nombreMarcaActual);
     				SwingUtilities.invokeLater(() -> {
     					GlassPanePopup.closePopupLast();
     					GlassPanePopup.showPopup(new DialogoAvisos("Actualizado", "La categoria ha sido \neditada correctamente."));
