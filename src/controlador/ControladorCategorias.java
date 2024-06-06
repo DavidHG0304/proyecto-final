@@ -24,6 +24,8 @@ public class ControladorCategorias implements ActionListener{
 	private Modelo modelo;
 	private Controlador controlador;
 
+	
+	
 	public ControladorCategorias(VistaPanelCategorias panelCategorias, Modelo modelo, Controlador controlador) {
 		this.panelCategorias = panelCategorias;
         this.modelo = modelo;
@@ -90,7 +92,7 @@ public class ControladorCategorias implements ActionListener{
 			break;
 		case "Rentar":
 			// To - do
-			GlassPanePopup.showPopup(new DialogoRentar("Test", "Crear Renta", null));
+//			GlassPanePopup.showPopup(new DialogoRentar("Test", "Crear Renta", null));
 			break;
 		case "Editar Vehiculo":
 			// TO - DO

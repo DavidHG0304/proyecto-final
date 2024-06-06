@@ -13,6 +13,7 @@ import modelo.Modelo.RentasAsociadasException;
 import modelo.entidades.Categorias;
 import modelo.entidades.Marcas;
 import modelo.entidades.Rentas;
+import modelo.entidades.Usuarios;
 import modelo.entidades.Vehiculos;
 import raven.glasspanepopup.GlassPanePopup;
 import vista.VistaPanelVehiculoAccion;
@@ -36,7 +37,6 @@ public class ControladorVehiculos implements ActionListener{
 	private DialogoInfoCarro dialogoInfoCarro;
 	private DialogoAniadir dialogoAniadir;
 	private DialogoConfirmacion dialogoConfirmacion;
-	
 	private Vehiculos vehiculoSeleccionadoParaEliminar;
 
 	public ControladorVehiculos(VistaPanelVehiculos pVehiculos, Modelo modelo, Controlador controlador) {
@@ -98,6 +98,16 @@ public class ControladorVehiculos implements ActionListener{
 		}
 
 		return nombresMarcas;
+	}
+	
+	public ArrayList<String> obtenerNombresUsuarios() {
+		ArrayList<Usuarios> usuarios = modelo.obtenerUsuarios();
+		ArrayList<String> nombresUsuarios = new ArrayList<>();
+		for (Usuarios usuario : usuarios) {
+			nombresUsuarios.add(usuario.getNombreUsuario());
+		}
+
+		return nombresUsuarios;
 	}
 	
 	public void prepararVehiculoDetalles(Vehiculos vehiculo) {
@@ -167,7 +177,9 @@ public class ControladorVehiculos implements ActionListener{
 //			break;
 		case "Rentar":
 			// To - do
-			GlassPanePopup.showPopup(new DialogoRentar("Test", "Crear Renta", null));
+			ArrayList<String> usuarios = obtenerNombresUsuarios();
+			vehiculoSeleccionado = pVehiculos.getVehiculoSeleccionado();
+			GlassPanePopup.showPopup(new DialogoRentar("Test", "Crear Renta", vehiculoSeleccionado, usuarios));
 			break;
 		case "Editar Vehiculo":
 			vehiculoSeleccionado = pVehiculos.getVehiculoSeleccionado();

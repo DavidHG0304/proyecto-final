@@ -61,6 +61,8 @@ public class DialogoFecha extends JPanel{
 						fechasArreglo[1] = formato.format(fechas[1]);
 						
 						dialogoR.getTxtFechaRenta().setText(formato.format(fechas[0])+ "  --  " + formato.format(fechas[1]));
+						dialogoR.getTxtFechaInicio().setText(formato.format(fechas[0]));
+						dialogoR.getTxtFechaFinal().setText(formato.format(fechas[1]));
 					}
 				}
 			});

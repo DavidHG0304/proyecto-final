@@ -99,11 +99,11 @@ public class ControladorRentas implements ActionListener{
 		case "EditarRenta":
 			// To - do
 			System.out.println("Editar");
-			GlassPanePopup.showPopup(new DialogoRentar("Editar nombre de la categoria", "Editar Renta", null));
+//			GlassPanePopup.showPopup(new DialogoRentar("Editar nombre de la categoria", "Editar Renta", null));
 			break;
 		case "Agregar Renta pRentas":
 			System.out.println("AgregarRenta");
-			GlassPanePopup.showPopup(new DialogoRentar("Editar nombre de la categoria", "Crear Renta", null));
+//			GlassPanePopup.showPopup(new DialogoRentar("Editar nombre de la categoria", "Crear Renta", null));
 			break;
 		}
 	}

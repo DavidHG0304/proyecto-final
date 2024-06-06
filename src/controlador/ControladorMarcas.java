@@ -84,7 +84,7 @@ public class ControladorMarcas implements ActionListener {
     			break;
     		case "Rentar":
     			//To - do
-    			GlassPanePopup.showPopup(new DialogoRentar("Test", "Crear Renta", null));
+//    			GlassPanePopup.showPopup(new DialogoRentar("Test", "Crear Renta", null));
     			break;
     		case "Editar Vehiculo":
     			// TO - DO

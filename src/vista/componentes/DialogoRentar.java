@@ -11,6 +11,7 @@ import java.awt.geom.RoundRectangle2D;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
@@ -24,11 +25,14 @@ import modelo.entidades.Usuarios;
 import modelo.entidades.Vehiculos;
 import raven.glasspanepopup.GlassPanePopup;
 import vista.recursos.componentesPersonalizados.BtnBordeado;
+import vista.recursos.componentesPersonalizados.ComboBoxRedondeado;
 import vista.recursos.componentesPersonalizados.JTextFieldRedondeado;
 import vista.recursos.componentesPersonalizados.PanelRedondeado;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.Icon;
 import javax.swing.JComboBox;
 import javax.swing.JRadioButton;
@@ -39,12 +43,33 @@ public class DialogoRentar extends JPanel {
 	private BtnBordeado btnCrear;
 	private JTextFieldRedondeado txtFechaRenta;
 	private JTextFieldRedondeado txtFechaN;
+	
+	private JLabel lblNombre;
+	private JLabel tPersonas;
+	private JLabel anioV;
+	private JLabel nPuertas;
+	private JLabel kilometraje;
+	private JLabel tTransmision;
+	private JLabel aireAcondicionado;
+	private JLabel lblImgCarro;
+	private JLabel precioSVida;
+	private JLabel precioK;
+	private JLabel precioC;
+	private JLabel precioD;
+	private JLabel precioT;
+	private JLabel txtTotal;
+	private ComboBoxRedondeado<String> comboBoxUsuarios;
+	private JLabel txtFechaInicio;
+	private JLabel txtFechaFinal;
+	
+	private DialogoFecha dialogoFecha;
 
 	/**
 	 * Create the panel.
 	 * @param url 
 	 */
-	public DialogoRentar(String titulo, String textoBtn, Vehiculos vehiculo) {
+	public DialogoRentar(String titulo, String textoBtn, Vehiculos vehiculo, ArrayList<String> usuarios) {
+		this.dialogoFecha = dialogoFecha;
 		setBackground(new Color(255, 255, 255));
 		setLayout(null);
 		setPreferredSize(new Dimension(871, 587));
@@ -61,8 +86,8 @@ public class DialogoRentar extends JPanel {
 		BtnBordeado lblFecha_1 = new  BtnBordeado(15, false, true, new Color(0,0,0,70));
 		lblFecha_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				DialogoFecha dialogo = new DialogoFecha(true, DialogoRentar.this);
-				GlassPanePopup.showPopup(dialogo);
+				dialogoFecha = new DialogoFecha(true, DialogoRentar.this);
+				GlassPanePopup.showPopup(dialogoFecha);
 			}
 		});
 		lblFecha_1.setIcon(fechaIcono2);		
@@ -82,11 +107,6 @@ public class DialogoRentar extends JPanel {
 		txtFechaRenta.setBackground(new Color(0,0,0,5));
 		add(txtFechaRenta);
         
-        JTextFieldRedondeado txtMarca_2 = new JTextFieldRedondeado(20, 20, new Color(0, 0, 0, 60));
-        txtMarca_2.setFont(new Font("Inter", Font.PLAIN, 11));
-        txtMarca_2.setBackground(new Color(0, 0, 0, 5));
-        txtMarca_2.setBounds(263, 405, 214, 25);
-        add(txtMarca_2);
         
 //        txtFechaN = new JTextFieldRedondeado(20, 20, new Color(0, 0, 0, 60));
 //        txtFechaN.setEditable(false);
@@ -94,6 +114,22 @@ public class DialogoRentar extends JPanel {
 //        txtFechaN.setBackground(new Color(0, 0, 0, 5));
 //        txtFechaN.setBounds(263, 458, 214, 25);
 //        add(txtFechaN);
+		
+//        JEditorPane lblFechaNacimiento = new JEditorPane();
+//        lblFechaNacimiento.setText("Fecha de nacimiento");
+//        lblFechaNacimiento.setOpaque(false);
+//        lblFechaNacimiento.setFont(new Font("Inter", Font.PLAIN, 11));
+//        lblFechaNacimiento.setFocusable(false);
+//        lblFechaNacimiento.setBounds(263, 439, 214, 19);
+//        add(lblFechaNacimiento);
+		
+//      RoundedPanel cartasCarros = new RoundedPanel(30, false, true, new Color(0, 0, 0, 61), 6);
+//      cartasCarros.setBackground(new Color(255, 255, 255));
+//      cartasCarros.setPreferredSize(new Dimension(208, 317));
+//      cartasCarros.setMaximumSize(new Dimension(208, 317));
+//      cartasCarros.setMinimumSize(new Dimension(208, 317));
+//      cartasCarros.setLayout(null);
+//      add(cartasCarros);
         
         JEditorPane lblNombrePersona = new JEditorPane();
         lblNombrePersona.setText("Nombre persona a rentar");
@@ -112,38 +148,28 @@ public class DialogoRentar extends JPanel {
         add(maracaAuto);
         
         JEditorPane lblCobroPorDia = new JEditorPane();
-        lblCobroPorDia.setText("Cobro por X dias");
+        lblCobroPorDia.setText("Tarifa por día:");
         lblCobroPorDia.setOpaque(false);
-        lblCobroPorDia.setFont(new Font("Inter", Font.PLAIN, 11));
+        lblCobroPorDia.setFont(new Font("Inter", Font.BOLD, 11));
         lblCobroPorDia.setFocusable(false);
-        lblCobroPorDia.setBounds(15, 495, 124, 19);
+        lblCobroPorDia.setBounds(24, 486, 110, 19);
         add(lblCobroPorDia);
         
-//        JEditorPane lblFechaNacimiento = new JEditorPane();
-//        lblFechaNacimiento.setText("Fecha de nacimiento");
-//        lblFechaNacimiento.setOpaque(false);
-//        lblFechaNacimiento.setFont(new Font("Inter", Font.PLAIN, 11));
-//        lblFechaNacimiento.setFocusable(false);
-//        lblFechaNacimiento.setBounds(263, 439, 214, 19);
-//        add(lblFechaNacimiento);
-        
         JEditorPane lblSeguroVida = new JEditorPane();
-        lblSeguroVida.setText("Seguro de vida");
+        lblSeguroVida.setText("Seguro de vida:");
         lblSeguroVida.setOpaque(false);
-        lblSeguroVida.setFont(new Font("Inter", Font.PLAIN, 11));
+        lblSeguroVida.setFont(new Font("Inter", Font.BOLD, 11));
         lblSeguroVida.setFocusable(false);
-        lblSeguroVida.setBounds(24, 384, 124, 19);
+        lblSeguroVida.setBounds(24, 407, 110, 19);
         add(lblSeguroVida);
         
-        JEditorPane lblSeguroAuto = new JEditorPane();
-        lblSeguroAuto.setText("Seguro de auto");
-        lblSeguroAuto.setOpaque(false);
-        lblSeguroAuto.setFont(new Font("Inter", Font.PLAIN, 11));
-        lblSeguroAuto.setFocusable(false);
-        lblSeguroAuto.setBounds(24, 439, 124, 19);
-        add(lblSeguroAuto);
-        
-        ///////////////////////////////
+        JEditorPane lblSeguroKilometraje = new JEditorPane();
+        lblSeguroKilometraje.setText("Seguro Kilometraje:");
+        lblSeguroKilometraje.setOpaque(false);
+        lblSeguroKilometraje.setFont(new Font("Inter", Font.BOLD, 11));
+        lblSeguroKilometraje.setFocusable(false);
+        lblSeguroKilometraje.setBounds(24, 431, 110, 19);
+        add(lblSeguroKilometraje);
 
 		PanelRedondeado panelCartas = new PanelRedondeado(30, false, true, new Color(0, 0, 0, 61), 6);
 		panelCartas.setBackground(new Color(255, 255, 255));
@@ -153,24 +179,14 @@ public class DialogoRentar extends JPanel {
 		panelCartas.setLayout(null);
 		panelCartas.setBounds(24, 54, 818, 319);
 		add(panelCartas);
-
-        
-//        RoundedPanel cartasCarros = new RoundedPanel(30, false, true, new Color(0, 0, 0, 61), 6);
-//        cartasCarros.setBackground(new Color(255, 255, 255));
-//        cartasCarros.setPreferredSize(new Dimension(208, 317));
-//        cartasCarros.setMaximumSize(new Dimension(208, 317));
-//        cartasCarros.setMinimumSize(new Dimension(208, 317));
-//        cartasCarros.setLayout(null);
-//        add(cartasCarros);
 		
-		JLabel lblNombre = new JLabel("NombreCarro");
+		lblNombre = new JLabel("NombreCarro");
 		lblNombre.setHorizontalAlignment(SwingConstants.LEFT);
 		lblNombre.setFont(new Font("Inter", Font.BOLD, 14));
 		lblNombre.setBounds(24, 22, 453, 32);
 		panelCartas.add(lblNombre);
 		
-		
-		JEditorPane tPersonas = new JEditorPane();
+		tPersonas = new JLabel();
 		tPersonas.setFont(new Font("Inter", Font.PLAIN, 10));
 		tPersonas.setText("2 personas");
 		tPersonas.setFocusable(false);
@@ -183,7 +199,7 @@ public class DialogoRentar extends JPanel {
 		panel.setBounds(24, 71, 762, 140);
 		panelCartas.add(panel);
 		
-		JEditorPane anioV = new JEditorPane();
+		anioV = new JLabel();
 		anioV.setText("2022");
 		anioV.setOpaque(false);
 		anioV.setFont(new Font("Inter", Font.PLAIN, 10));
@@ -191,7 +207,7 @@ public class DialogoRentar extends JPanel {
 		anioV.setBounds(94, 264, 124, 19);
 		panelCartas.add(anioV);
 		
-		JEditorPane nPuertas = new JEditorPane();
+		nPuertas = new JLabel();
 		nPuertas.setText("2 puertas");
 		nPuertas.setOpaque(false);
 		nPuertas.setFont(new Font("Inter", Font.PLAIN, 10));
@@ -199,7 +215,7 @@ public class DialogoRentar extends JPanel {
 		nPuertas.setBounds(310, 234, 124, 19);
 		panelCartas.add(nPuertas);
 		
-		JEditorPane kilometraje = new JEditorPane();
+		kilometraje = new JLabel();
 		kilometraje.setText("80000 km");
 		kilometraje.setOpaque(false);
 		kilometraje.setFont(new Font("Inter", Font.PLAIN, 10));
@@ -207,7 +223,7 @@ public class DialogoRentar extends JPanel {
 		kilometraje.setBounds(310, 264, 124, 19);
 		panelCartas.add(kilometraje);
 		
-		JEditorPane tTransmision = new JEditorPane();
+		tTransmision = new JLabel();
 		tTransmision.setText("Transmision" + " automatico");
 		tTransmision.setOpaque(false);
 		tTransmision.setFont(new Font("Inter", Font.PLAIN, 10));
@@ -215,7 +231,7 @@ public class DialogoRentar extends JPanel {
 		tTransmision.setBounds(596, 234, 124, 19);
 		panelCartas.add(tTransmision);
 		
-		JEditorPane aireAcondicionado = new JEditorPane();
+		aireAcondicionado = new JLabel();
 		aireAcondicionado.setText("Aire Acondicionado Si");
 		aireAcondicionado.setOpaque(false);
 		aireAcondicionado.setFont(new Font("Inter", Font.PLAIN, 10));
@@ -254,14 +270,6 @@ public class DialogoRentar extends JPanel {
 		lblAC.setBounds(572, 269, 14, 14);
 		panelCartas.add(lblAC);
 		
-		
-		JLabel lblImgCarro = new JLabel();
-		ImageIcon cargandoCarro = new ImageIcon(getClass().getResource("/vista/recursos/imagenes/carroPrueba.png"));
-        Image imagen = cargandoCarro.getImage();
-        Image imagenReescalada = imagen.getScaledInstance(200, 130, Image.SCALE_SMOOTH);
-        ImageIcon iconoReescalado = new ImageIcon(imagenReescalada);
-        lblImgCarro.setIcon(iconoReescalado);
-        panel.add(lblImgCarro);
         
         PanelRedondeado panelResumen = new PanelRedondeado(30, false, true, new Color(0, 0, 0, 61), 6);
         panelResumen.setBackground(new Color(255, 255, 255));
@@ -292,37 +300,164 @@ public class DialogoRentar extends JPanel {
 		lblResumen.setBounds(10, 11, 208, 32);
 		panelResumen.add(lblResumen);
 		
-		JLabel lblFechaInicio = new JLabel("Fecha Inicio");
+		JLabel lblFechaInicio = new JLabel("Fecha Inicio: ");
 		lblFechaInicio.setHorizontalAlignment(SwingConstants.LEFT);
-		lblFechaInicio.setFont(new Font("Inter", Font.PLAIN, 11));
-		lblFechaInicio.setBounds(21, 50, 184, 32);
+		lblFechaInicio.setFont(new Font("Inter", Font.BOLD, 11));
+		lblFechaInicio.setBounds(21, 48, 78, 25);
 		panelResumen.add(lblFechaInicio);
 		
-		JLabel lblFechaInicio_1 = new JLabel("Fecha Inicio");
-		lblFechaInicio_1.setHorizontalAlignment(SwingConstants.LEFT);
-		lblFechaInicio_1.setFont(new Font("Inter", Font.PLAIN, 11));
-		lblFechaInicio_1.setBounds(21, 84, 184, 32);
-		panelResumen.add(lblFechaInicio_1);
+		JLabel lblFechaFinal = new JLabel("Fecha Final: ");
+		lblFechaFinal.setHorizontalAlignment(SwingConstants.LEFT);
+		lblFechaFinal.setFont(new Font("Inter", Font.BOLD, 11));
+		lblFechaFinal.setBounds(21, 81, 78, 25);
+		panelResumen.add(lblFechaFinal);
 		
-		JLabel lblFechaInicio_1_1 = new JLabel("Fecha Inicio");
-		lblFechaInicio_1_1.setHorizontalAlignment(SwingConstants.LEFT);
-		lblFechaInicio_1_1.setFont(new Font("Inter", Font.PLAIN, 11));
-		lblFechaInicio_1_1.setBounds(21, 116, 184, 32);
-		panelResumen.add(lblFechaInicio_1_1);
+		JLabel lblCostoTotal = new JLabel("Total: ");
+		lblCostoTotal.setHorizontalAlignment(SwingConstants.LEFT);
+		lblCostoTotal.setFont(new Font("Inter", Font.BOLD, 11));
+		lblCostoTotal.setBounds(21, 115, 68, 25);
+		panelResumen.add(lblCostoTotal);
 		
-//		ImageIcon fechaIcono3 = new ImageIcon(getClass().getResource("/vista/recursos/imagenes/fecha.png"));
-//		BtnBordeado lblFecha_1_1 = new BtnBordeado(15, false, true, new Color(0, 0, 0, 70));
-//		lblFecha_1_1.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				DialogoFecha dialogo = new DialogoFecha(false, DialogoRentar.this);
-//				GlassPanePopup.showPopup(dialogo);
-//			}
-//		});
-//		lblFecha_1_1.setIcon(fechaIcono3);
-//		lblFecha_1_1.setBounds(487, 458, 39, 25);
-//		add(lblFecha_1_1);
-//        
+		txtFechaInicio = new JLabel();
+		txtFechaInicio.setOpaque(false);
+		txtFechaInicio.setFont(new Font("Inter", Font.PLAIN, 11));
+		txtFechaInicio.setFocusable(false);
+		txtFechaInicio.setBounds(99, 48, 106, 25);
+		panelResumen.add(txtFechaInicio);
+		
+		txtFechaFinal = new JLabel();
+		txtFechaFinal.setOpaque(false);
+		txtFechaFinal.setFont(new Font("Inter", Font.PLAIN, 11));
+		txtFechaFinal.setFocusable(false);
+		txtFechaFinal.setBounds(99, 81, 106, 25);
+		panelResumen.add(txtFechaFinal);
+		
+		txtTotal = new JLabel();
+		txtTotal.setText("$");
+		txtTotal.setOpaque(false);
+		txtTotal.setFont(new Font("Inter", Font.PLAIN, 11));
+		txtTotal.setFocusable(false);
+		txtTotal.setBounds(99, 115, 106, 25);
+		panelResumen.add(txtTotal);
+		
+		JEditorPane dtrpnSeguroDeDanios = new JEditorPane();
+		dtrpnSeguroDeDanios.setText("Seguro de Daños:");
+		dtrpnSeguroDeDanios.setOpaque(false);
+		dtrpnSeguroDeDanios.setFont(new Font("Inter", Font.BOLD, 11));
+		dtrpnSeguroDeDanios.setFocusable(false);
+		dtrpnSeguroDeDanios.setBounds(24, 384, 110, 19);
+		add(dtrpnSeguroDeDanios);
+		
+		JEditorPane lblCombustible = new JEditorPane();
+		lblCombustible.setText("Combustible:");
+		lblCombustible.setOpaque(false);
+		lblCombustible.setFont(new Font("Inter", Font.BOLD, 11));
+		lblCombustible.setFocusable(false);
+		lblCombustible.setBounds(24, 459, 110, 19);
+		add(lblCombustible);
+		
+		comboBoxUsuarios = new ComboBoxRedondeado<String>(20, new Color(0, 0, 0, 60));
+		comboBoxUsuarios.setOpaque(false);
+		comboBoxUsuarios.setLightWeightPopupEnabled(false);
+		comboBoxUsuarios.setFont(new Font("Inter", Font.PLAIN, 11));
+		comboBoxUsuarios.setBackground(new Color(0, 0, 0, 5));
+		comboBoxUsuarios.setBounds(263, 405, 214, 25);
+		comboBoxUsuarios.setModel(new DefaultComboBoxModel<>(usuarios.toArray(new String[0])));
+//		comboBoxUsuarios.setModel(new DefaultComboBoxModel<>(new String[] {"Usuario1", "Usuario2", "Usuario3", "Usuario4", "Usuario5", "Usuario6"}));
+        add(comboBoxUsuarios);
         
+        precioT = new JLabel();
+        precioT.setText("$");
+        precioT.setOpaque(false);
+        precioT.setFont(new Font("Inter", Font.PLAIN, 11));
+        precioT.setFocusable(false);
+        precioT.setBounds(144, 486, 93, 19);
+        add(precioT);
+        
+        precioC = new JLabel();
+        precioC.setText("$");
+        precioC.setOpaque(false);
+        precioC.setFont(new Font("Inter", Font.PLAIN, 11));
+        precioC.setFocusable(false);
+        precioC.setBounds(144, 460, 93, 19);
+        add(precioC);
+        
+        precioK = new JLabel();
+        precioK.setText("$");
+        precioK.setOpaque(false);
+        precioK.setFont(new Font("Inter", Font.PLAIN, 11));
+        precioK.setFocusable(false);
+        precioK.setBounds(144, 431, 93, 19);
+        add(precioK);
+        
+        precioSVida = new JLabel();
+        precioSVida.setText("$");
+        precioSVida.setOpaque(false);
+        precioSVida.setFont(new Font("Inter", Font.PLAIN, 11));
+        precioSVida.setFocusable(false);
+        precioSVida.setBounds(144, 407, 93, 19);
+        add(precioSVida);
+        
+        precioD = new JLabel();
+        precioD.setText("$");
+        precioD.setOpaque(false);
+        precioD.setFont(new Font("Inter", Font.PLAIN, 11));
+        precioD.setFocusable(false);
+        precioD.setBounds(144, 384, 93, 19);
+        add(precioD);
+		
+		
+		if (vehiculo != null && textoBtn.equals("Crear Renta")) {
+			System.out.println("CrearRentaDeUnCarro");
+			lblNombre.setText(vehiculo.getNombreVehiculo());
+			tPersonas.setText("" + vehiculo.getPuertasVehiculo());
+			anioV.setText(vehiculo.getAñoVehiculo());
+			nPuertas.setText("" + vehiculo.getPuertasVehiculo());
+			kilometraje.setText("" + vehiculo.getKilometrajeVehiculo());
+			tTransmision.setText(vehiculo.getTransmision());
+			
+			precioD.setText("$ "+vehiculo.getTarifa().getSeguro_danios());
+			precioSVida.setText("$ "+vehiculo.getTarifa().getSeguro_vida());
+			precioK.setText("$ "+vehiculo.getTarifa().getSeguro_kilometraje());
+			precioC.setText("$ "+vehiculo.getTarifa().getSeguro_combustible());
+			precioT.setText("$ "+vehiculo.getTarifa().getSeguro_tarifa_por_dia());
+			txtTotal.setText("$ "+vehiculo.getCostoTotalTarifa());
+			
+			
+			lblImgCarro = new JLabel();
+        	Thread loadImageThread = new Thread(() -> {
+        		try {
+        			URL imageUrl = new URL(vehiculo.getImagenUrl());
+        			ImageIcon imagenCarro = new ImageIcon(imageUrl);
+        			Image imagen = imagenCarro.getImage();
+        			Image imagenReescalada = imagen.getScaledInstance(187, 140, Image.SCALE_SMOOTH);
+        			ImageIcon iconoReescalado = new ImageIcon(imagenReescalada);
+        			SwingUtilities.invokeLater(() -> {
+        				lblImgCarro.setIcon(iconoReescalado);
+        				panel.revalidate();
+        				panel.repaint();
+        			});
+        		} catch (MalformedURLException e) {
+        			ImageIcon cargandoCarro = new ImageIcon(getClass().getResource("/vista/recursos/imagenes/carroPrueba.png"));
+        			Image imagen = cargandoCarro.getImage();
+        			Image imagenReescalada = imagen.getScaledInstance(187, 140, Image.SCALE_SMOOTH);
+        			ImageIcon iconoReescalado = new ImageIcon(imagenReescalada);
+        			SwingUtilities.invokeLater(() -> {
+        				lblImgCarro.setIcon(iconoReescalado);
+        				panel.revalidate();
+        				panel.repaint();
+        			});
+        		}
+        	});
+        	loadImageThread.start();	
+        	panel.add(lblImgCarro);
+
+			if (vehiculo.isAireAcondicionado()) {
+				aireAcondicionado.setText("Si");
+			} else {
+				aireAcondicionado.setText("No");
+			}
+		}
         
         panel.revalidate();
         panel.repaint();
@@ -361,6 +496,150 @@ public class DialogoRentar extends JPanel {
 
 	public void setTxtFechaN(JTextFieldRedondeado txtFechaN) {
 		this.txtFechaN = txtFechaN;
+	}
+
+	public JLabel getLblNombre() {
+		return lblNombre;
+	}
+
+	public void setLblNombre(JLabel lblNombre) {
+		this.lblNombre = lblNombre;
+	}
+
+	public JLabel gettPersonas() {
+		return tPersonas;
+	}
+
+	public void settPersonas(JLabel tPersonas) {
+		this.tPersonas = tPersonas;
+	}
+
+	public JLabel getAnioV() {
+		return anioV;
+	}
+
+	public void setAnioV(JLabel anioV) {
+		this.anioV = anioV;
+	}
+
+	public JLabel getnPuertas() {
+		return nPuertas;
+	}
+
+	public void setnPuertas(JLabel nPuertas) {
+		this.nPuertas = nPuertas;
+	}
+
+	public JLabel getKilometraje() {
+		return kilometraje;
+	}
+
+	public void setKilometraje(JLabel kilometraje) {
+		this.kilometraje = kilometraje;
+	}
+
+	public JLabel gettTransmision() {
+		return tTransmision;
+	}
+
+	public void settTransmision(JLabel tTransmision) {
+		this.tTransmision = tTransmision;
+	}
+
+	public JLabel getAireAcondicionado() {
+		return aireAcondicionado;
+	}
+
+	public void setAireAcondicionado(JLabel aireAcondicionado) {
+		this.aireAcondicionado = aireAcondicionado;
+	}
+
+	public JLabel getLblImgCarro() {
+		return lblImgCarro;
+	}
+
+	public void setLblImgCarro(JLabel lblImgCarro) {
+		this.lblImgCarro = lblImgCarro;
+	}
+
+	public JLabel getPrecioSVida() {
+		return precioSVida;
+	}
+
+	public void setPrecioSVida(JLabel precioSVida) {
+		this.precioSVida = precioSVida;
+	}
+
+	public JLabel getPrecioK() {
+		return precioK;
+	}
+
+	public void setPrecioK(JLabel precioK) {
+		this.precioK = precioK;
+	}
+
+	public JLabel getPrecioC() {
+		return precioC;
+	}
+
+	public void setPrecioC(JLabel precioC) {
+		this.precioC = precioC;
+	}
+
+	public JLabel getPrecioD() {
+		return precioD;
+	}
+
+	public void setPrecioD(JLabel precioD) {
+		this.precioD = precioD;
+	}
+
+	public JLabel getPrecioT() {
+		return precioT;
+	}
+
+	public void setPrecioT(JLabel precioT) {
+		this.precioT = precioT;
+	}
+
+	public JLabel getTxtTotal() {
+		return txtTotal;
+	}
+
+	public void setTxtTotal(JLabel txtTotal) {
+		this.txtTotal = txtTotal;
+	}
+
+	public ComboBoxRedondeado<String> getComboBoxUsuarios() {
+		return comboBoxUsuarios;
+	}
+
+	public void setComboBoxUsuarios(ComboBoxRedondeado<String> comboBoxUsuarios) {
+		this.comboBoxUsuarios = comboBoxUsuarios;
+	}
+
+	public JLabel getTxtFechaInicio() {
+		return txtFechaInicio;
+	}
+
+	public void setTxtFechaInicio(JLabel txtFechaInicio) {
+		this.txtFechaInicio = txtFechaInicio;
+	}
+
+	public JLabel getTxtFechaFinal() {
+		return txtFechaFinal;
+	}
+
+	public void setTxtFechaFinal(JLabel txtFechaFinal) {
+		this.txtFechaFinal = txtFechaFinal;
+	}
+
+	public DialogoFecha getDialogoFecha() {
+		return dialogoFecha;
+	}
+
+	public void setDialogoFecha(DialogoFecha dialogoFecha) {
+		this.dialogoFecha = dialogoFecha;
 	}
 	
 	
