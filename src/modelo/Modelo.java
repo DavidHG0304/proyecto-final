@@ -537,46 +537,7 @@ public class Modelo {
 		}
 	}
 
-	public Rentas mostrarRentas(int idRenta) {
-		Rentas renta = null;
-		String sql = "SELECT * FROM rentas WHERE id =  ?";
-		// boolean rentaEncontrada;
-		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
-
-		try (Connection con = DriverManager.getConnection(
-				"jdbc:mysql://monorail.proxy.rlwy.net:28289/railway?useSSL=false", "root",
-				"AZsyCwUGzmURenQkgkEOksyBwsWuQBFI");) {
-			PreparedStatement stmt = con.prepareStatement(sql);
-			stmt.setInt(1, idRenta);
-			ResultSet rs = stmt.executeQuery();
-
-			if (rs.next()) {
-				renta = new Rentas();
-				renta.setId(rs.getInt("id"));
-				renta.setFecha_nacimiento(rs.getString("fecha_nacimiento"));
-				renta.setVehiculo_id(rs.getInt("vehiculo_id"));
-				renta.setUsuario_id(rs.getInt("usuario_id"));
-				renta.setFecha_inicial(rs.getString("fecha_inicial"));
-				renta.setFecha_final(rs.getString("fecha_final"));
-				renta.setCosto(rs.getDouble("Costo"));
-				System.out.println(renta.getId() + " | " + renta.getVehiculo_id() + " | " + renta.getFecha_inicial()
-						+ " | " + renta.getFecha_final() + " | " + renta.getCosto() + " | " + renta.getUsuario_id());
-
-			}
-			con.close();
-
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		return renta;
-	}
-
+	
 	// Metódo añadir rentas
 	public boolean aniadirRentas(Rentas renta, String fechaFinal, String fechaInicial, String fechaNacimiento,
 			Double costo, int usuarioId, int vehiculoId) {

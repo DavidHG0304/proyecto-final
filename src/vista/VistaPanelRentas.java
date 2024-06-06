@@ -1,9 +1,14 @@
 package vista;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
+
 import javax.swing.*;
 
+import modelo.entidades.Rentas;
+import modelo.entidades.Usuarios;
 import modelo.entidades.Vehiculos;
+import vista.componentes.CartaClientes;
 import vista.componentes.CartasCarros;
 import vista.componentes.CartasRentas;
 import vista.componentes.PanelesNavegacion;
@@ -16,6 +21,8 @@ public class VistaPanelRentas {
 	private PanelesNavegacion panel;
 	private JPanel panelCartasRentas;
 	private JPanel panelAux;
+	private ArrayList<CartasRentas> cartaRentas;
+	
 	
 	public VistaPanelRentas(){
 		frame = new JFrame();
@@ -67,13 +74,13 @@ public class VistaPanelRentas {
 		panelAux.setLayout(new BoxLayout(panelAux, BoxLayout.Y_AXIS));
 		panelAux.setBackground(Color.WHITE);
 		
-		int tamanio = 25;
-		for (int i = 0; i < tamanio; i++) {
-			CartasRentas cartasRentas = new CartasRentas();
-			panelAux.add(cartasRentas);
-			panelAux.add(Box.createVerticalStrut(10));
-			panelCartasRentas.add(panelAux);
-		}
+//		int tamanio = 25;
+//		for (int i = 0; i < tamanio; i++) {
+//			CartasRentas cartasRentas = new CartasRentas();
+//			panelAux.add(cartasRentas);
+//			panelAux.add(Box.createVerticalStrut(10));
+//			panelCartasRentas.add(panelAux);
+//		}
 
 		JScrollPane scrollPane = new JScrollPane(panelCartasRentas);
 		scrollPane.setBounds(10, 220, 894, 360);
@@ -86,9 +93,35 @@ public class VistaPanelRentas {
 		panel.getPanelCentral().add(scrollPane);
 		
 		// QUItar gif
-		panel.getPanelCentral().remove(panel.getLblCargandoGif());
-		panel.getPanelCentral().repaint();
+//		panel.getPanelCentral().remove(panel.getLblCargandoGif());
+//		panel.getPanelCentral().repaint();
 		
+		cartaRentas = new ArrayList<>();
+		
+	}
+	
+	public void mostrarRentas(ArrayList<Rentas> rentas) {
+		cartaRentas.clear();
+		panelCartasRentas.removeAll();
+		panelAux.removeAll();
+		panel.getPanelCentral().remove(panel.getLblCargandoGif());
+		
+		for(Rentas renta : rentas) {
+			Usuarios usuario = renta.getUsuario();
+			Vehiculos vehiculo = renta.getVehiculo();
+			CartasRentas cartasRentas = new CartasRentas(renta, usuario, vehiculo);
+			panelAux.add(cartasRentas);
+			panelAux.add(Box.createVerticalStrut(10));
+			panelCartasRentas.add(panelAux);
+		}
+		
+		
+		
+		panelAux.revalidate();
+		panelAux.repaint();
+		panelCartasRentas.revalidate();
+		panelCartasRentas.repaint();
+		panel.getPanelCentral().repaint();
 	}
 	
 	public void asignarActListner(ActionListener listener) {

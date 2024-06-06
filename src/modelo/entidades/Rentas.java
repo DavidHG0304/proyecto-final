@@ -8,14 +8,31 @@ public class Rentas {
 	private String fecha_final;
 	private String fecha_nacimiento;
 	private Double costo;
+	private Usuarios usuario;
+    private Vehiculos vehiculo;
 	
+
+	public Vehiculos getVehiculo() {
+		return vehiculo;
+	}
+
+
+
+	public void setVehiculo(Vehiculos vehiculo) {
+		this.vehiculo = vehiculo;
+	}
 	
+	public Usuarios getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuarios usuario) {
+		this.usuario = usuario;
+	}
 
 	public Rentas() {
 
 	}
-
-	
 	
 	public int getUsuario_id() {
 		return usuario_id;
@@ -65,23 +82,13 @@ public class Rentas {
 		this.fecha_final = fecha_final;
 	}
 
-
-
 	public int getId() {
 		return id;
 	}
 
-
-
 	public void setId(int id) {
 		this.id = id;
 	}
-
-	
-	
-	
-	
-	
 	
 }
                                                              

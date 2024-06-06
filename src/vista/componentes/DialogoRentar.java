@@ -36,7 +36,9 @@ import javax.swing.JRadioButton;
 @SuppressWarnings("serial")
 public class DialogoRentar extends JPanel {
 
-	private BtnBordeado btnCrear; 
+	private BtnBordeado btnCrear;
+	private JTextFieldRedondeado txtFechaRenta;
+	private JTextFieldRedondeado txtFechaN;
 
 	/**
 	 * Create the panel.
@@ -54,6 +56,18 @@ public class DialogoRentar extends JPanel {
 				GlassPanePopup.closePopupLast();
 			}
 		});
+		
+		ImageIcon fechaIcono2 = new ImageIcon(getClass().getResource("/vista/recursos/imagenes/fecha.png"));
+		BtnBordeado lblFecha_1 = new  BtnBordeado(15, false, true, new Color(0,0,0,70));
+		lblFecha_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				DialogoFecha dialogo = new DialogoFecha(true, DialogoRentar.this);
+				GlassPanePopup.showPopup(dialogo);
+			}
+		});
+		lblFecha_1.setIcon(fechaIcono2);		
+		lblFecha_1.setBounds(487, 514, 39, 25);
+		add(lblFecha_1);
 		Cerrar.setFont(new Font("Inter", Font.PLAIN, 14));
 		Cerrar.setForeground(new Color(33, 147, 246));
 		Cerrar.setBackground(new Color(255, 255, 255));
@@ -61,11 +75,12 @@ public class DialogoRentar extends JPanel {
 		Cerrar.setBounds(24, 551, 115, 25);
 		add(Cerrar);
 		
-		JTextFieldRedondeado txtMarca = new JTextFieldRedondeado(20,20, new Color(0,0,0,60));
-		txtMarca.setFont(new Font("Inter", Font.PLAIN, 11));
-		txtMarca.setBounds(263, 514, 214, 25);
-		txtMarca.setBackground(new Color(0,0,0,5));
-		add(txtMarca);
+		txtFechaRenta = new JTextFieldRedondeado(20,20, new Color(0,0,0,60));
+		txtFechaRenta.setEditable(false);
+		txtFechaRenta.setFont(new Font("Inter", Font.PLAIN, 11));
+		txtFechaRenta.setBounds(263, 514, 214, 25);
+		txtFechaRenta.setBackground(new Color(0,0,0,5));
+		add(txtFechaRenta);
         
         JTextFieldRedondeado txtMarca_2 = new JTextFieldRedondeado(20, 20, new Color(0, 0, 0, 60));
         txtMarca_2.setFont(new Font("Inter", Font.PLAIN, 11));
@@ -73,11 +88,12 @@ public class DialogoRentar extends JPanel {
         txtMarca_2.setBounds(263, 405, 214, 25);
         add(txtMarca_2);
         
-        JTextFieldRedondeado txtMarca_2_1 = new JTextFieldRedondeado(20, 20, new Color(0, 0, 0, 60));
-        txtMarca_2_1.setFont(new Font("Inter", Font.PLAIN, 11));
-        txtMarca_2_1.setBackground(new Color(0, 0, 0, 5));
-        txtMarca_2_1.setBounds(263, 458, 214, 25);
-        add(txtMarca_2_1);
+        txtFechaN = new JTextFieldRedondeado(20, 20, new Color(0, 0, 0, 60));
+        txtFechaN.setEditable(false);
+        txtFechaN.setFont(new Font("Inter", Font.PLAIN, 11));
+        txtFechaN.setBackground(new Color(0, 0, 0, 5));
+        txtFechaN.setBounds(263, 458, 214, 25);
+        add(txtFechaN);
         
         JEditorPane lblNombrePersona = new JEditorPane();
         lblNombrePersona.setText("Nombre persona a rentar");
@@ -293,6 +309,18 @@ public class DialogoRentar extends JPanel {
 		lblFechaInicio_1_1.setFont(new Font("Inter", Font.PLAIN, 11));
 		lblFechaInicio_1_1.setBounds(21, 116, 184, 32);
 		panelResumen.add(lblFechaInicio_1_1);
+		
+		ImageIcon fechaIcono3 = new ImageIcon(getClass().getResource("/vista/recursos/imagenes/fecha.png"));
+		BtnBordeado lblFecha_1_1 = new BtnBordeado(15, false, true, new Color(0, 0, 0, 70));
+		lblFecha_1_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				DialogoFecha dialogo = new DialogoFecha(false, DialogoRentar.this);
+				GlassPanePopup.showPopup(dialogo);
+			}
+		});
+		lblFecha_1_1.setIcon(fechaIcono3);
+		lblFecha_1_1.setBounds(487, 458, 39, 25);
+		add(lblFecha_1_1);
         
         
         
@@ -317,6 +345,22 @@ public class DialogoRentar extends JPanel {
 
 	public void setBtnCrear(BtnBordeado btnCrear) {
 		this.btnCrear = btnCrear;
+	}
+
+	public JTextFieldRedondeado getTxtFechaRenta() {
+		return txtFechaRenta;
+	}
+
+	public void setTxtFechaRenta(JTextFieldRedondeado txtFechaRenta) {
+		this.txtFechaRenta = txtFechaRenta;
+	}
+
+	public JTextFieldRedondeado getTxtFechaN() {
+		return txtFechaN;
+	}
+
+	public void setTxtFechaN(JTextFieldRedondeado txtFechaN) {
+		this.txtFechaN = txtFechaN;
 	}
 	
 	
