@@ -574,6 +574,70 @@ public class Modelo {
 
 		return false;
 	}
+	
+	public ArrayList<Rentas> mostrarRentas() {
+	    ArrayList<Rentas> rentas = new ArrayList<>();
+
+	    String sql = "SELECT r.id, r.fecha_inicial, r.fecha_final, r.fecha_nacimiento, r.costo, " +
+	                 "u.id AS usuario_id, u.nombre AS usuario_nombre, u.prim_apellido AS usuario_apellido, u.correo_electronico AS usuario_correo, " +
+	                 "v.id AS vehiculo_id, v.nombre AS vehiculo_nombre, v.año, v.cantidad_puertas, v.transmision, v.modelo, v.kilometraje, v.aire_acondicionado, i.url AS imagen_url " +
+	                 "FROM rentas r " +
+	                 "JOIN usuarios u ON r.usuario_id = u.id " +
+	                 "JOIN vehiculos v ON r.vehiculo_id = v.id " +
+	                 "JOIN imagenes i ON v.imagenes_id = i.id";
+
+	    try {
+	        Class.forName("com.mysql.cj.jdbc.Driver");
+	    } catch (ClassNotFoundException e) {
+	        e.printStackTrace();
+	    }
+
+	    try (Connection con = DriverManager.getConnection(
+	            "jdbc:mysql://monorail.proxy.rlwy.net:28289/railway?useSSL=false", "root",
+	            "AZsyCwUGzmURenQkgkEOksyBwsWuQBFI");
+	         PreparedStatement stmt = con.prepareStatement(sql);
+	         ResultSet rs = stmt.executeQuery()) {
+
+	        while (rs.next()) {
+	            Rentas renta = new Rentas();
+	            renta.setId(rs.getInt("id"));
+	            renta.setFecha_nacimiento(rs.getString("fecha_nacimiento"));
+	            renta.setFecha_inicial(rs.getString("fecha_inicial"));
+	            renta.setFecha_final(rs.getString("fecha_final"));
+	            renta.setCosto(rs.getDouble("costo"));
+
+	            // Crear objeto Usuario
+	            Usuarios usuario = new Usuarios();
+	            usuario.setIdUsuario(rs.getInt("usuario_id"));
+	            usuario.setNombreUsuario(rs.getString("usuario_nombre"));
+	            usuario.setApellido(rs.getString("usuario_apellido"));
+	            usuario.setCorreo(rs.getString("usuario_correo"));
+	            renta.setUsuario(usuario);
+
+	            // Crear objeto Vehiculo
+	            Vehiculos vehiculo = new Vehiculos();
+	            vehiculo.setIdVehiculo(rs.getInt("vehiculo_id"));
+	            vehiculo.setNombreVehiculo(rs.getString("vehiculo_nombre"));
+	            vehiculo.setAñoVehiculo(rs.getString("año"));
+	            vehiculo.setPuertasVehiculo(rs.getInt("cantidad_puertas"));
+	            vehiculo.setTransmision(rs.getString("transmision"));
+	            vehiculo.setModelo(rs.getString("modelo"));
+	            vehiculo.setKilometrajeVehiculo(rs.getInt("kilometraje"));
+	            vehiculo.setAireAcondicionado(rs.getBoolean("aire_acondicionado"));
+	            vehiculo.setImagenUrl(rs.getString("imagen_url"));
+	            renta.setVehiculo(vehiculo);
+
+	            rentas.add(renta);
+	        }
+	        con.close();
+
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+
+	    return rentas;
+	}
+	
 
 	public boolean eliminarRenta(int idRenta) {
 

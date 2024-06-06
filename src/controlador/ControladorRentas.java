@@ -31,36 +31,36 @@ public class ControladorRentas implements ActionListener{
         this.controlador = controlador;
         panelRentas.rentas();
         panelRentas.asignarActListner(this);
-//        cargarRentas();
+        cargarRentas();
         
 		panelRentas.asignarListenersCartas(ControladorRentas.this);
 		GlassPanePopup.install(panelRentas.getFrame());
 	}
 
-//	private void inicializar() {
-//		ArrayList<Rentas> rentas = modelo.mostrarRentas();
-//		panelRentas.mostrarRentas(rentas);
-//		
-//	}
-//	
-//	public void cargarRentas() {
-//		SwingWorker<ArrayList<Rentas>, Void> cargadorRentas = new SwingWorker<ArrayList<Rentas>, Void>() {
-//			@Override
-//			protected ArrayList<Rentas> doInBackground() throws Exception {
-//				return modelo.mostrarRentas();
-//			}
-//
-//			@Override
-//			protected void done() {
-//				try {
-//					inicializar();
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		};
-//		cargadorRentas.execute();
-//	}
+	private void inicializar() {
+		ArrayList<Rentas> rentas = modelo.mostrarRentas();
+		panelRentas.mostrarRentas(rentas);
+		
+	}
+	
+	public void cargarRentas() {
+		SwingWorker<ArrayList<Rentas>, Void> cargadorRentas = new SwingWorker<ArrayList<Rentas>, Void>() {
+			@Override
+			protected ArrayList<Rentas> doInBackground() throws Exception {
+				return modelo.mostrarRentas();
+			}
+
+			@Override
+			protected void done() {
+				try {
+					inicializar();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		};
+		cargadorRentas.execute();
+	}
 	
 	
 	@Override
