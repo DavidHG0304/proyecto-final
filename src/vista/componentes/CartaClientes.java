@@ -141,6 +141,12 @@ public class CartaClientes extends PanelRedondeado {
     public boolean isSeleccionado() {
         return seleccionado;
     }
+        
+	public void setSeleccionado(boolean seleccionado) {
+		this.seleccionado = seleccionado;
+	}
+
+
 	public BtnBordeado getBtnbrdEditar() {
 		return btnbrdEditar;
 	}

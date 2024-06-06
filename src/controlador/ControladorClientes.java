@@ -9,6 +9,7 @@ import javax.swing.SwingWorker;
 
 import modelo.Modelo;
 import modelo.Modelo.RentasAsociadasException;
+import modelo.entidades.Rentas;
 import modelo.entidades.Usuarios;
 import raven.glasspanepopup.GlassPanePopup;
 import vista.VistaPanelClientes;
@@ -107,6 +108,12 @@ public class ControladorClientes implements ActionListener{
 		GlassPanePopup.showPopup(dialogoConfirmacion);
 	}
 	
+	public void prepararDetallesCliente(Usuarios usuario) {
+        ArrayList<Rentas> rentas = modelo.obtenerRentasPorVehiculo(usuario.getIdUsuario());
+        DialogoDetallesCliente dialogoDetallesCliente = new DialogoDetallesCliente("Detalles del Cliente", usuario, rentas);
+        GlassPanePopup.showPopup(dialogoDetallesCliente);
+    }
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
@@ -193,10 +200,10 @@ public class ControladorClientes implements ActionListener{
 			accionRegistro();
 			break;
 		case "DetallesCliente":
-//			System.out.println("Detalles");
-			nuevoUsuario = new Usuarios();
-			GlassPanePopup.showPopup(new DialogoDetallesCliente("", nuevoUsuario));
-			break;
+			System.out.println("Detalles");
+			Usuarios clienteSeleccionado = panelClientes.getUsuarioSeleccionado();
+            prepararDetallesCliente(clienteSeleccionado);
+            break;
 		}
 	}
 }

@@ -13,6 +13,7 @@ import javax.swing.JOptionPane;
 import modelo.entidades.Categorias;
 import modelo.entidades.Marcas;
 import modelo.entidades.Rentas;
+import modelo.entidades.Tarifas;
 import modelo.entidades.Usuarios;
 import modelo.entidades.Vehiculos;
 
@@ -124,15 +125,9 @@ public class Modelo {
 	public ArrayList<Vehiculos> obtenerVehiculos() {
 	    ArrayList<Vehiculos> vehiculos = new ArrayList<>();
 
-	    try {
-	        Class.forName("com.mysql.cj.jdbc.Driver");
-	    } catch (ClassNotFoundException e) {
-	        e.printStackTrace();
-	    }
-	    
 	    String sql = "SELECT v.id, v.nombre AS nombre_vehiculo, v.año, v.cantidad_puertas, v.transmision, v.modelo, v.kilometraje, v.aire_acondicionado, "
 	               + "m.nombre AS nombre_marca, c.nombre AS categoria, t.tarifa_por_dia AS costo_por_dia, i.url AS imagen_url, "
-	               + "t.seguro_danios, t.seguro_vida, t.seguro_kilometraje, t.combustible "
+	               + "t.seguro_danios, t.seguro_vida, t.seguro_kilometraje, t.combustible, t.tarifa_por_dia "
 	               + "FROM vehiculos v "
 	               + "INNER JOIN marca m ON v.marca_id = m.id "
 	               + "INNER JOIN categoria c ON v.categoria_id = c.id "
@@ -162,10 +157,19 @@ public class Modelo {
 	            vehiculo.setSeguroVida(rs.getFloat("seguro_vida"));
 	            vehiculo.setSeguroKilometraje(rs.getFloat("seguro_kilometraje"));
 	            vehiculo.setCombustible(rs.getFloat("combustible"));
-	            vehiculo.setTarifaPorDia(rs.getFloat("costo_por_dia"));
+	            vehiculo.setTarifaPorDia(rs.getFloat("tarifa_por_dia"));
+
+	            // Establecer tarifas
+	            Tarifas tarifas = new Tarifas();
+	            tarifas.setSeguro_danios(rs.getFloat("seguro_danios"));
+	            tarifas.setSeguro_vida(rs.getFloat("seguro_vida"));
+	            tarifas.setSeguro_kilometraje(rs.getFloat("seguro_kilometraje"));
+	            tarifas.setSeguro_combustible(rs.getFloat("combustible"));
+	            tarifas.setSeguro_tarifa_por_dia(rs.getFloat("tarifa_por_dia"));
+	            vehiculo.setTarifa(tarifas);
+
 	            vehiculos.add(vehiculo);
 	        }
-	        con.close();
 	    } catch (SQLException e) {
 	        e.printStackTrace();
 	    }
@@ -632,6 +636,60 @@ public class Modelo {
 		return false;
 	}
 	
+	public ArrayList<Rentas> obtenerRentasPorUsuario(int usuarioId) {
+	    ArrayList<Rentas> rentas = new ArrayList<>();
+
+	    String sql = "SELECT r.*, v.*, u.* FROM rentas r "
+	               + "JOIN vehiculos v ON r.vehiculo_id = v.id "
+	               + "JOIN usuarios u ON r.usuario_id = u.id "
+	               + "WHERE r.usuario_id = ?";
+
+	    try (Connection con = DriverManager.getConnection(
+	            "jdbc:mysql://monorail.proxy.rlwy.net:28289/railway?useSSL=false", "root",
+	            "AZsyCwUGzmURenQkgkEOksyBwsWuQBFI");
+	         PreparedStatement stmt = con.prepareStatement(sql)) {
+
+	        stmt.setInt(1, usuarioId);
+	        ResultSet rs = stmt.executeQuery();
+
+	        while (rs.next()) {
+	            Rentas renta = new Rentas();
+	            Usuarios usuario = new Usuarios();
+	            Vehiculos vehiculo = new Vehiculos();
+
+	            // Llenar datos de la renta
+	            renta.setId(rs.getInt("r.id"));
+	            renta.setFecha_inicial(rs.getString("r.fecha_inicial"));
+	            renta.setFecha_final(rs.getString("r.fecha_final"));
+	            renta.setCosto(rs.getDouble("r.costo"));
+
+	            // Llenar datos del usuario
+	            usuario.setIdUsuario(rs.getInt("u.id"));
+	            usuario.setNombreUsuario(rs.getString("u.nombre"));
+	            usuario.setApellido(rs.getString("u.prim_apellido"));
+	            usuario.setCorreo(rs.getString("u.correo_electronico"));
+	            renta.setUsuario(usuario);
+
+	            // Llenar datos del vehículo
+	            vehiculo.setIdVehiculo(rs.getInt("v.id"));
+	            vehiculo.setNombreVehiculo(rs.getString("v.nombre"));
+	            vehiculo.setAñoVehiculo(rs.getString("v.año"));
+	            vehiculo.setPuertasVehiculo(rs.getInt("v.cantidad_puertas"));
+	            vehiculo.setTransmision(rs.getString("v.transmision"));
+	            vehiculo.setModelo(rs.getString("v.modelo"));
+	            vehiculo.setKilometrajeVehiculo(rs.getInt("v.kilometraje"));
+	            vehiculo.setAireAcondicionado(rs.getBoolean("v.aire_acondicionado"));
+	            renta.setVehiculo(vehiculo);
+
+	            rentas.add(renta);
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+
+	    return rentas;
+	}
+	
 	public ArrayList<Rentas> mostrarRentas() {
 	    ArrayList<Rentas> rentas = new ArrayList<>();
 
@@ -718,7 +776,65 @@ public class Modelo {
 			return false;
 		}
 	}
+	
+	public ArrayList<Rentas> obtenerRentasPorVehiculo(int idVehiculo) {
+	    ArrayList<Rentas> rentas = new ArrayList<>();
 
+	    String sql = "SELECT r.*, u.id AS usuario_id, u.nombre AS usuario_nombre, u.prim_apellido AS usuario_apellido, u.correo_electronico AS usuario_correo, "
+	               + "v.id AS vehiculo_id, v.nombre AS vehiculo_nombre, v.año, v.cantidad_puertas, v.transmision, v.modelo, v.kilometraje, v.aire_acondicionado, i.url AS imagen_url "
+	               + "FROM rentas r "
+	               + "JOIN usuarios u ON r.usuario_id = u.id "
+	               + "JOIN vehiculos v ON r.vehiculo_id = v.id "
+	               + "JOIN imagenes i ON v.imagenes_id = i.id "
+	               + "WHERE v.id = ?";
+
+	    try (Connection con = DriverManager.getConnection(
+	            "jdbc:mysql://monorail.proxy.rlwy.net:28289/railway?useSSL=false", "root",
+	            "AZsyCwUGzmURenQkgkEOksyBwsWuQBFI"); 
+	         PreparedStatement stmt = con.prepareStatement(sql)) {
+
+	        stmt.setInt(1, idVehiculo);
+	        ResultSet rs = stmt.executeQuery();
+
+	        while (rs.next()) {
+	            Rentas renta = new Rentas();
+
+	            // Llenar datos de la renta
+	            renta.setId(rs.getInt("r.id"));
+	            renta.setFecha_inicial(rs.getString("r.fecha_inicial"));
+	            renta.setFecha_final(rs.getString("r.fecha_final"));
+	            renta.setCosto(rs.getDouble("r.costo"));
+
+	            // Llenar datos del usuario
+	            Usuarios usuario = new Usuarios();
+	            usuario.setIdUsuario(rs.getInt("usuario_id"));
+	            usuario.setNombreUsuario(rs.getString("usuario_nombre"));
+	            usuario.setApellido(rs.getString("usuario_apellido"));
+	            usuario.setCorreo(rs.getString("usuario_correo"));
+	            renta.setUsuario(usuario);
+
+	            // Llenar datos del vehículo
+	            Vehiculos vehiculo = new Vehiculos();
+	            vehiculo.setIdVehiculo(rs.getInt("vehiculo_id"));
+	            vehiculo.setNombreVehiculo(rs.getString("vehiculo_nombre"));
+	            vehiculo.setAñoVehiculo(rs.getString("v.año"));
+	            vehiculo.setPuertasVehiculo(rs.getInt("v.cantidad_puertas"));
+	            vehiculo.setTransmision(rs.getString("v.transmision"));
+	            vehiculo.setModelo(rs.getString("v.modelo"));
+	            vehiculo.setKilometrajeVehiculo(rs.getInt("v.kilometraje"));
+	            vehiculo.setAireAcondicionado(rs.getBoolean("v.aire_acondicionado"));
+	            vehiculo.setImagenUrl(rs.getString("imagen_url"));
+	            renta.setVehiculo(vehiculo);
+
+	            rentas.add(renta);
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+
+	    return rentas;
+	}
+	
 	public void editarRenta(int i) {
 		// TODO Auto-generated method stub
 
@@ -820,18 +936,6 @@ public class Modelo {
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
-//			String sqlVehiculos = "DELETE FROM vehiculos WHERE categoria_id = ?";
-//			try (Connection con = DriverManager.getConnection(
-//					"jdbc:mysql://monorail.proxy.rlwy.net:28289/railway?useSSL=false", "root",
-//					"AZsyCwUGzmURenQkgkEOksyBwsWuQBFI");
-//					PreparedStatement stmtVehiculos = con.prepareStatement(sqlVehiculos)) {
-//				stmtVehiculos.setInt(1, idCategoria);
-//				stmtVehiculos.executeUpdate();
-//
-//			} catch (SQLException e) {
-//				e.printStackTrace();
-//				return false;
-//			}
 		String sqlCategoria = "DELETE FROM categoria WHERE id = ?";
 		try (Connection con = DriverManager.getConnection(
 				"jdbc:mysql://monorail.proxy.rlwy.net:28289/railway?useSSL=false", "root",

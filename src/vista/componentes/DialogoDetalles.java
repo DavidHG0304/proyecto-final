@@ -9,12 +9,18 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.geom.RoundRectangle2D;
+import java.util.ArrayList;
+
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JEditorPane;
 import java.awt.Font;
 import javax.swing.SwingConstants;
+
+import modelo.entidades.Rentas;
+import modelo.entidades.Tarifas;
+import modelo.entidades.Vehiculos;
 import raven.glasspanepopup.GlassPanePopup;
 import vista.recursos.componentesPersonalizados.BtnBordeado;
 import vista.recursos.componentesPersonalizados.JTextFieldRedondeado;
@@ -32,12 +38,18 @@ import java.awt.FlowLayout;
 @SuppressWarnings("serial")
 public class DialogoDetalles extends JPanel {
 
-
+		private ArrayList<Rentas> rentas;
+		private Tarifas tarifa;
+		private Vehiculos vehiculo;
+		
 	/**
 	 * Create the panel.
 	 * @param url 
 	 */
-	public DialogoDetalles(String titulo) {
+	public DialogoDetalles(String titulo, ArrayList<Rentas> rentas, Vehiculos vehiculo ) {
+		this.rentas = rentas;
+		this.tarifa = tarifa;
+		this.vehiculo = vehiculo;
 		setBackground(new Color(240, 240, 240));
 		setLayout(null);
 		setPreferredSize(new Dimension(750, 600));
@@ -78,24 +90,49 @@ public class DialogoDetalles extends JPanel {
 
 		String[] columnas = { "Usuario", "Fecha Inicial", "Fecha Final", "Auto", "Pago" };
 		
-//		String[][] datos = new String[50][5];
-//		for (int i = 0; i < 50; i++) {
-//            datos[i][0] = "@Usuario" + (i + 1);
-//            datos[i][1] = "12/12/2024";
-//            datos[i][2] = "13/12/2024";        
-//            datos[i][3] = "AutoEjemplo";     
-//            datos[i][4] = "$" + (1800 + i);
-//            JTable table = new JTable(datos, columnas);
-//            table.setCellSelectionEnabled(false);
-//            JScrollPane scrollPane = new JScrollPane(table);
-//            scrollPane.setBounds(23, 301, 657, 175);
-//            scrollPane.setBorder(null);
-//            scrollPane.getVerticalScrollBar().setUI(new ScrollBarPersonalizado());
-//            scrollPane.getHorizontalScrollBar().setUI(new ScrollBarPersonalizado());
-//            scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-//            scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-//            panel.add(scrollPane);
-//        }
+		String[][] datos = new String[rentas.size()][5];
+		for (int i = 0; i < rentas.size(); i++) {
+			Rentas renta = rentas.get(i);
+			datos[i][0] = renta.getUsuario().getNombreUsuario() + " " + renta.getUsuario().getApellido();
+            datos[i][1] = renta.getFecha_inicial();
+            datos[i][2] = renta.getFecha_final();        
+            datos[i][3] = renta.getVehiculo().getNombreVehiculo();
+            datos[i][4] = ""+renta.getCosto();
+            JTable table = new JTable(datos, columnas);
+            table.setCellSelectionEnabled(false);
+            JScrollPane scrollPane = new JScrollPane(table);
+            scrollPane.setBounds(23, 301, 657, 175);
+            scrollPane.setBorder(null);
+            scrollPane.getVerticalScrollBar().setUI(new ScrollBarPersonalizado());
+            scrollPane.getHorizontalScrollBar().setUI(new ScrollBarPersonalizado());
+            scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+            scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+            panel.add(scrollPane);
+        }
+		
+		
+		String[] columnas2 = { "Seguro Daños", "Seguro Vida", "Seguro Kilometraje", "Combustible", "Tarifa" };
+
+		String[][] datos2 = new String[rentas.size()][5];
+		for (int i = 0; i < rentas.size(); i++) {
+			Rentas renta = rentas.get(i);
+			datos2[0][0] = String.valueOf(vehiculo.getTarifa().getSeguro_danios());
+	        datos2[0][1] = String.valueOf(vehiculo.getTarifa().getSeguro_vida());
+	        datos2[0][2] = String.valueOf(vehiculo.getTarifa().getSeguro_kilometraje());
+	        datos2[0][3] = String.valueOf(vehiculo.getTarifa().getSeguro_combustible());
+	        datos2[0][4] = String.valueOf(vehiculo.getTarifa().getSeguro_tarifa_por_dia());
+	        
+			JTable table = new JTable(datos2, columnas2);
+			table.setCellSelectionEnabled(false);
+			JScrollPane scrollPane = new JScrollPane(table);
+			scrollPane.setBounds(23, 100, 657, 50);
+			scrollPane.setBorder(null);
+			scrollPane.getVerticalScrollBar().setUI(new ScrollBarPersonalizado());
+			scrollPane.getHorizontalScrollBar().setUI(new ScrollBarPersonalizado());
+			scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+			scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+			panel.add(scrollPane);
+		}
 
 		
 		JLabel lblNewLabel_1 = new JLabel("");

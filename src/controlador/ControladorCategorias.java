@@ -102,7 +102,7 @@ public class ControladorCategorias implements ActionListener{
 			GlassPanePopup.showPopup(new DialogoAniadirC_M("Nombre de la nueva categoria"));
 			break;
 		case "Detalles":
-			GlassPanePopup.showPopup(new DialogoDetalles("Test"));
+//			GlassPanePopup.showPopup(new DialogoDetalles("Test"));
 			break;
 		}	
 	}

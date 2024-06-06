@@ -9,6 +9,8 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.geom.RoundRectangle2D;
+import java.util.ArrayList;
+
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -16,6 +18,7 @@ import javax.swing.JEditorPane;
 import java.awt.Font;
 import javax.swing.SwingConstants;
 
+import modelo.entidades.Rentas;
 import modelo.entidades.Usuarios;
 import raven.glasspanepopup.GlassPanePopup;
 import vista.recursos.componentesPersonalizados.BtnBordeado;
@@ -33,13 +36,16 @@ import java.awt.FlowLayout;
 
 @SuppressWarnings("serial")
 public class DialogoDetallesCliente extends JPanel {
-
+	private ArrayList<Rentas> rentas;
+	private Usuarios usuario;
 
 	/**
 	 * Create the panel.
 	 * @param url 
 	 */
-	public DialogoDetallesCliente(String titulo, Usuarios usuario) {
+	public DialogoDetallesCliente(String titulo, Usuarios usuario, ArrayList<Rentas> rentas) {
+		this.rentas = rentas;
+		this.usuario = usuario;
 		setBackground(new Color(240, 240, 240));
 		setLayout(null);
 		setPreferredSize(new Dimension(750, 600));
@@ -67,14 +73,15 @@ public class DialogoDetallesCliente extends JPanel {
         
 		String[] columnas = { "Usuario", "Fecha Inicial", "Fecha Final", "Auto", "Pago" };
 		
-		if(usuario == null) {
-			String[][] datos = new String[50][5];
-			for (int i = 0; i < 50; i++) {
-				datos[i][0] = "@Usuario" + (i + 1);
-				datos[i][1] = "12/12/2024";
-				datos[i][2] = "13/12/2024";        
-				datos[i][3] = "AutoEjemplo";     
-				datos[i][4] = "$" + (1800 + i);
+		if(usuario != null) {
+			String[][] datos = new String[rentas.size()][5];
+			for (int i = 0; i < rentas.size(); i++) {
+				Rentas renta = rentas.get(i);
+				datos[i][0] = usuario.getNombreUsuario() + " " + usuario.getApellido();
+	            datos[i][1] = renta.getFecha_inicial();
+	            datos[i][2] = renta.getFecha_final();
+	            datos[i][3] = renta.getVehiculo().getNombreVehiculo();
+	            datos[i][4] = String.valueOf(renta.getCosto());
 				JTable table = new JTable(datos, columnas);
 				table.setCellSelectionEnabled(false);
 				JScrollPane scrollPane = new JScrollPane(table);

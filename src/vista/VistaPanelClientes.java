@@ -135,7 +135,19 @@ public class VistaPanelClientes {
                         CartaClientes carta = (CartaClientes) innerComp;
                         carta.getBtnbrdEditar().addActionListener(listener);
                         carta.getBtnbrdDetalles().addActionListener(listener);
+                        carta.getBtnbrdDetalles().addActionListener(new ActionListener() {
+							
+							@Override
+							public void actionPerformed(ActionEvent e) {
+								for (CartaClientes c : cartaClientes) {
+		                            c.setSeleccionado(false);
+		                        }
+		                        carta.setSeleccionado(true);
+							}
+						});
                         carta.getBtnbrdEliminar().addActionListener(listener);
+                        
+                        
                     }
                 }
             }

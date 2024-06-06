@@ -12,6 +12,7 @@ import modelo.Modelo;
 import modelo.Modelo.RentasAsociadasException;
 import modelo.entidades.Categorias;
 import modelo.entidades.Marcas;
+import modelo.entidades.Rentas;
 import modelo.entidades.Vehiculos;
 import raven.glasspanepopup.GlassPanePopup;
 import vista.VistaPanelVehiculoAccion;
@@ -99,7 +100,6 @@ public class ControladorVehiculos implements ActionListener{
 		return nombresMarcas;
 	}
 	
-	
 	public void prepararVehiculoDetalles(Vehiculos vehiculo) {
 		vehiculoMostrar = vehiculo;
 		dialogoInfoCarro = new DialogoInfoCarro(vehiculo);
@@ -185,7 +185,8 @@ public class ControladorVehiculos implements ActionListener{
 			GlassPanePopup.showPopup(dialogoAniadir);
 			break;
 		case "Detalles":
-			GlassPanePopup.showPopup(new DialogoDetalles("Test"));
+			vehiculoSeleccionado = pVehiculos.getVehiculoSeleccionado();
+			GlassPanePopup.showPopup(new DialogoDetalles("Test", modelo.obtenerRentasPorVehiculo(vehiculoSeleccionado.getIdVehiculo()), vehiculoSeleccionado));
 			break;
 		case "CrearUnVehiculo":
 			System.out.println("Va a crear");
