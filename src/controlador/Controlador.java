@@ -56,7 +56,7 @@ public class Controlador implements ActionListener{
 	}
 	
 	public void categorias() {
-		VistaPanelCategorias panelCategorias = new VistaPanelCategorias();
+		VistaPanelCategorias panelCategorias = new VistaPanelCategorias(controladorCategorias);
 		this.controladorCategorias = new ControladorCategorias(panelCategorias, nuevoModelo, this);
 	}
 	

@@ -40,7 +40,6 @@ public class DialogoConfirmacion extends JPanel {
 		boton = new BtnBordeado(30, true);
 		boton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				GlassPanePopup.closePopupLast();
 				setConfirmar(true);
 				
 			}

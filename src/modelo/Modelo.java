@@ -171,6 +171,106 @@ public class Modelo {
 	    return vehiculos;
 	}
 	
+	public ArrayList<Vehiculos> obtenerVehiculosPorCategoria(String categoria) {
+        ArrayList<Vehiculos> vehiculos = new ArrayList<>();
+        String sql = "SELECT v.id, v.nombre AS nombre_vehiculo, v.año, v.cantidad_puertas, v.transmision, v.modelo, v.kilometraje, v.aire_acondicionado, "
+                   + "m.nombre AS nombre_marca, c.nombre AS categoria_nombre, i.url AS imagen_url, "
+                   + "t.seguro_danios, t.seguro_vida, t.seguro_kilometraje, t.combustible, t.tarifa_por_dia "
+                   + "FROM vehiculos v "
+                   + "INNER JOIN marca m ON v.marca_id = m.id "
+                   + "INNER JOIN categoria c ON v.categoria_id = c.id "
+                   + "INNER JOIN tarifas t ON v.tarifas_id = t.id "
+                   + "INNER JOIN imagenes i ON v.imagenes_id = i.id "
+                   + "WHERE c.nombre = ?";
+        try (Connection con = DriverManager.getConnection(
+	            "jdbc:mysql://monorail.proxy.rlwy.net:28289/railway?useSSL=false", "root",
+	            "AZsyCwUGzmURenQkgkEOksyBwsWuQBFI");
+             PreparedStatement stmt = con.prepareStatement(sql)) {
+
+            stmt.setString(1, categoria);
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    Vehiculos vehiculo = new Vehiculos();
+                    vehiculo.setIdVehiculo(rs.getInt("id"));
+                    vehiculo.setNombreVehiculo(rs.getString("nombre_vehiculo"));
+                    vehiculo.setAñoVehiculo(rs.getString("año"));
+                    vehiculo.setPuertasVehiculo(rs.getInt("cantidad_puertas"));
+                    vehiculo.setTransmision(rs.getString("transmision"));
+                    vehiculo.setModelo(rs.getString("modelo"));
+                    vehiculo.setKilometrajeVehiculo(rs.getInt("kilometraje"));
+                    vehiculo.setAireAcondicionado(rs.getBoolean("aire_acondicionado"));
+                    vehiculo.setImagenUrl(rs.getString("imagen_url"));
+                    vehiculo.setCategoria(rs.getString("categoria_nombre"));
+                    vehiculo.setMarcas(rs.getString("nombre_marca"));
+
+                    // Establecer tarifas
+                    Tarifas tarifas = new Tarifas();
+                    tarifas.setSeguro_danios(rs.getFloat("seguro_danios"));
+                    tarifas.setSeguro_vida(rs.getFloat("seguro_vida"));
+                    tarifas.setSeguro_kilometraje(rs.getFloat("seguro_kilometraje"));
+                    tarifas.setSeguro_combustible(rs.getFloat("combustible"));
+                    tarifas.setSeguro_tarifa_por_dia(rs.getFloat("tarifa_por_dia"));
+                    vehiculo.setTarifa(tarifas);
+
+                    vehiculos.add(vehiculo);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return vehiculos;
+    }
+	
+	public ArrayList<Vehiculos> obtenerVehiculosPorMarca(String marca) {
+        ArrayList<Vehiculos> vehiculos = new ArrayList<>();
+        String sql = "SELECT v.id, v.nombre AS nombre_vehiculo, v.año, v.cantidad_puertas, v.transmision, v.modelo, v.kilometraje, v.aire_acondicionado, "
+                   + "m.nombre AS nombre_marca, c.nombre AS categoria_nombre, i.url AS imagen_url, "
+                   + "t.seguro_danios, t.seguro_vida, t.seguro_kilometraje, t.combustible, t.tarifa_por_dia "
+                   + "FROM vehiculos v "
+                   + "INNER JOIN marca m ON v.marca_id = m.id "
+                   + "INNER JOIN categoria c ON v.categoria_id = c.id "
+                   + "INNER JOIN tarifas t ON v.tarifas_id = t.id "
+                   + "INNER JOIN imagenes i ON v.imagenes_id = i.id "
+                   + "WHERE m.nombre = ?";
+        try (Connection con = DriverManager.getConnection(
+	            "jdbc:mysql://monorail.proxy.rlwy.net:28289/railway?useSSL=false", "root",
+	            "AZsyCwUGzmURenQkgkEOksyBwsWuQBFI");
+             PreparedStatement stmt = con.prepareStatement(sql)) {
+
+            stmt.setString(1, marca);
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    Vehiculos vehiculo = new Vehiculos();
+                    vehiculo.setIdVehiculo(rs.getInt("id"));
+                    vehiculo.setNombreVehiculo(rs.getString("nombre_vehiculo"));
+                    vehiculo.setAñoVehiculo(rs.getString("año"));
+                    vehiculo.setPuertasVehiculo(rs.getInt("cantidad_puertas"));
+                    vehiculo.setTransmision(rs.getString("transmision"));
+                    vehiculo.setModelo(rs.getString("modelo"));
+                    vehiculo.setKilometrajeVehiculo(rs.getInt("kilometraje"));
+                    vehiculo.setAireAcondicionado(rs.getBoolean("aire_acondicionado"));
+                    vehiculo.setImagenUrl(rs.getString("imagen_url"));
+                    vehiculo.setCategoria(rs.getString("categoria_nombre"));
+                    vehiculo.setMarcas(rs.getString("nombre_marca"));
+
+                    // Establecer tarifas
+                    Tarifas tarifas = new Tarifas();
+                    tarifas.setSeguro_danios(rs.getFloat("seguro_danios"));
+                    tarifas.setSeguro_vida(rs.getFloat("seguro_vida"));
+                    tarifas.setSeguro_kilometraje(rs.getFloat("seguro_kilometraje"));
+                    tarifas.setSeguro_combustible(rs.getFloat("combustible"));
+                    tarifas.setSeguro_tarifa_por_dia(rs.getFloat("tarifa_por_dia"));
+                    vehiculo.setTarifa(tarifas);
+
+                    vehiculos.add(vehiculo);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return vehiculos;
+    }
+	
 	public Vehiculos obtenerVehiculoPorNombre(String nombreVehiculo) {
 	    for (Vehiculos vehiculo : obtenerVehiculos()) {
 	        if (vehiculo.getNombreVehiculo().equals(nombreVehiculo)) {
@@ -1013,18 +1113,18 @@ public class Modelo {
 	}
 
 	// metodo eliminar catego
-	public boolean eliminarCategorias(int idCategoria) {
+	public boolean eliminarCategorias(String nombreCategoria) {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
-		String sqlCategoria = "DELETE FROM categoria WHERE id = ?";
+		String sqlCategoria = "DELETE FROM categoria Where nombre = ?";
 		try (Connection con = DriverManager.getConnection(
 				"jdbc:mysql://monorail.proxy.rlwy.net:28289/railway?useSSL=false", "root",
 				"AZsyCwUGzmURenQkgkEOksyBwsWuQBFI");
 				PreparedStatement stmtCategoria = con.prepareStatement(sqlCategoria)) {
-			stmtCategoria.setInt(1, idCategoria);
+			stmtCategoria.setString(1, nombreCategoria);
 			int filasAfectadas = stmtCategoria.executeUpdate();
 			System.out.println("Eliminado Cat");
 			return filasAfectadas > 0;

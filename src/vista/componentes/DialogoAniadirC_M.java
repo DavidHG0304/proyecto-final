@@ -20,6 +20,8 @@ import vista.recursos.componentesPersonalizados.JTextFieldRedondeado;
 @SuppressWarnings("serial")
 public class DialogoAniadirC_M extends JPanel {
 
+	private JTextFieldRedondeado txtMarca_2;
+	private BtnBordeado boton;
 
 	/**
 	 * Create the panel.
@@ -36,16 +38,17 @@ public class DialogoAniadirC_M extends JPanel {
 		lblMensaje.setBounds(10, 11, 533, 43);
 		add(lblMensaje);
 		
-		BtnBordeado boton = new BtnBordeado(30, true);
+		boton = new BtnBordeado(30, true);
 		boton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				GlassPanePopup.closePopupLast();
+//				GlassPanePopup.closePopupLast();
 			}
 		});
 		boton.setFont(new Font("Inter", Font.PLAIN, 15));
 		boton.setForeground(new Color(255, 255, 255));
 		boton.setBackground(new Color(33,147,246));
 		boton.setText("Aceptar");
+		boton.setActionCommand("Confirmar");
 		boton.setBounds(382, 138, 133, 31);
 		add(boton);
 		
@@ -62,7 +65,7 @@ public class DialogoAniadirC_M extends JPanel {
 		});
 		add(cancelar);
 		
-		JTextFieldRedondeado txtMarca_2 = new JTextFieldRedondeado(20, 20, new Color(0, 0, 0, 60));
+		txtMarca_2 = new JTextFieldRedondeado(20, 20, new Color(0, 0, 0, 60));
 		txtMarca_2.setFont(new Font("Inter", Font.PLAIN, 11));
 		txtMarca_2.setBackground(new Color(0, 0, 0, 5));
 		txtMarca_2.setBounds(39, 81, 476, 31);
@@ -79,4 +82,22 @@ public class DialogoAniadirC_M extends JPanel {
 		g2.dispose();
 		super.paintComponent(g);
 	}
+
+
+	public JTextFieldRedondeado getTxtMarca_2() {
+		return txtMarca_2;
+	}
+
+	public void setTxtMarca_2(JTextFieldRedondeado txtMarca_2) {
+		this.txtMarca_2 = txtMarca_2;
+	}
+
+	public BtnBordeado getBoton() {
+		return boton;
+	}
+
+	public void setBoton(BtnBordeado boton) {
+		this.boton = boton;
+	}
+	
 }

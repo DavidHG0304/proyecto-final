@@ -5,10 +5,12 @@ import java.util.ArrayList;
 
 import javax.swing.*;
 
+import controlador.ControladorCategorias;
 import modelo.entidades.Vehiculos;
 import vista.componentes.CartasCarros;
 import vista.componentes.PanelesNavegacion;
 import vista.recursos.componentesPersonalizados.BtnBordeado;
+import vista.recursos.componentesPersonalizados.ComboBoxRedondeado;
 import vista.recursos.componentesPersonalizados.ScrollBarPersonalizado;
 
 
@@ -18,8 +20,13 @@ public class VistaPanelCategorias {
 	private BtnBordeado botonEliminarC;
 	private BtnBordeado botonEditarC;
 	private JPanel panelCartasVehiculos;
+	private ComboBoxRedondeado<String> comboBoxCategorias;
+	private ArrayList<CartasCarros> cartaCarros;
+	private ArrayList<String> categorias;
+	private ControladorCategorias controlador;
 	
-	public VistaPanelCategorias(){
+	public VistaPanelCategorias(ControladorCategorias controlador){
+		this.controlador = controlador;
 		frame = new JFrame();
 		frame.setSize(950, 700);
 		frame.setVisible(true);
@@ -28,10 +35,10 @@ public class VistaPanelCategorias {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setBackground(Color.gray);
 		
-		categorias();
 	}
 	
-	public void categorias() {
+	public void categorias(ArrayList<String> categorias) {
+		this.categorias = categorias;
 		panel = new PanelesNavegacion();
 		
 		frame.getContentPane().add(panel);
@@ -84,12 +91,12 @@ public class VistaPanelCategorias {
 		panelCartasVehiculos.setLayout(new FlowLayout(FlowLayout.LEFT, 15, 10));
 		panel.getPanelCentral().add(panelCartasVehiculos);
 		
-		int tamanio = 25;
-		Vehiculos vehiculos = new Vehiculos();
-		for(int i = 0; i < tamanio; i++) {
-			 CartasCarros carta = new CartasCarros(vehiculos);
-			 panelCartasVehiculos.add(carta);
-		}
+//		int tamanio = 25;
+//		Vehiculos vehiculos = new Vehiculos();
+//		for(int i = 0; i < tamanio; i++) {
+//			 CartasCarros carta = new CartasCarros(vehiculos);
+//			 panelCartasVehiculos.add(carta);
+//		}
 
 		JScrollPane scrollPane= new JScrollPane(panelCartasVehiculos);
 		scrollPane.setBounds(10, 220, 894, 410);
@@ -101,12 +108,43 @@ public class VistaPanelCategorias {
 		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 		panel.getPanelCentral().add(scrollPane);
 		
+		comboBoxCategorias = new ComboBoxRedondeado<String>(20, new Color(0, 0, 0, 60));
+        comboBoxCategorias.setOpaque(false);
+        comboBoxCategorias.setLightWeightPopupEnabled(false);
+        comboBoxCategorias.setFont(new Font("Inter", Font.PLAIN, 11));
+        comboBoxCategorias.setBackground(new Color(0, 0, 0, 5));
+        comboBoxCategorias.setBounds(24, 150, 214, 25);
+        comboBoxCategorias.setLightWeightPopupEnabled(false);
+        comboBoxCategorias.setModel(new DefaultComboBoxModel<>(categorias.toArray(new String[0])));
+        comboBoxCategorias.addActionListener(controlador);
+		panel.getPanelCentral().add(comboBoxCategorias);
 		
-		// QUItar gif
-		panel.getPanelCentral().remove(panel.getLblCargandoGif());
-        panel.getPanelCentral().repaint();
 		
+		cartaCarros= new ArrayList<>();
 	}
+	
+	public void mostrarVehiculos(ArrayList<Vehiculos> vehiculos) {
+		cartaCarros.clear();
+        panelCartasVehiculos.removeAll();
+        panel.getPanelCentral().remove(panel.getLblCargandoGif());
+        for (Vehiculos vehiculo : vehiculos) {
+            CartasCarros carta = new CartasCarros(vehiculo);
+            carta.getLblBorrarIcono().addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					 controlador.prepararEliminar(vehiculo);
+				}
+			});
+            
+            panelCartasVehiculos.add(carta);
+            cartaCarros.add(carta);
+        }
+        
+        panelCartasVehiculos.revalidate();
+        panelCartasVehiculos.repaint();
+        panel.getPanelCentral().repaint();
+    }
 	
 	public void asignarActListner(ActionListener listener) {
 		panel.getBtnInicio().addActionListener(listener);
@@ -130,15 +168,85 @@ public class VistaPanelCategorias {
                 carta.getLbleditarIcono().addActionListener(listener);
                 carta.getBtnRentar().addActionListener(listener);
                 carta.getBtnDetalles().addActionListener(listener);
+                
+                carta.getBntInfoIcono().addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        for (CartasCarros c : cartaCarros) {
+                            c.setSeleccionado(false);
+                        }
+                        carta.setSeleccionado(true);
+                    }
+                });
+                
+                carta.getLbleditarIcono().addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        for (CartasCarros c : cartaCarros) {
+                            c.setSeleccionado(false);
+                        }
+                        carta.setSeleccionado(true);
+                    }
+                });
+                
+                carta.getBtnDetalles().addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        for (CartasCarros c : cartaCarros) {
+                            c.setSeleccionado(false);
+                        }
+                        carta.setSeleccionado(true);
+                    }
+                });
+                
+                carta.getBtnRentar().addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        for (CartasCarros c : cartaCarros) {
+                            c.setSeleccionado(false);
+                        }
+                        carta.setSeleccionado(true);
+                    }
+                });
+                
             }
         }
     }
+	
+	public Vehiculos getVehiculoSeleccionado() {
+		for (CartasCarros carta : cartaCarros) {
+	        if (carta.isSeleccionado()) {
+	            return carta.getVehiculo();
+	        }
+	    }
 
+		return null;
+	}
+	
+	public void actualizarComboBoxCategorias(ArrayList<String> categorias) {
+        comboBoxCategorias.setModel(new DefaultComboBoxModel<>(categorias.toArray(new String[0])));
+    }
+
+	public ControladorCategorias getControlador() {
+		return controlador;
+	}
+
+	public void setControlador(ControladorCategorias controlador) {
+		this.controlador = controlador;
+	}
+	
 	public JFrame getFrame() {
 		return frame;
 	}
 	public void setFrame(JFrame frame) {
 		this.frame = frame;
+	}
+
+	public ComboBoxRedondeado<String> getComboBoxCategorias() {
+		return comboBoxCategorias;
+	}
+	public void setComboBoxCategorias(ComboBoxRedondeado<String> comboBoxCategorias) {
+		this.comboBoxCategorias = comboBoxCategorias;
 	}
 }
 	

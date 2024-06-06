@@ -218,7 +218,7 @@ public class ControladorVehiculos implements ActionListener{
 			ArrayList<String> marcas = obtenerNombresMarcas();
 			
 			
-			dialogoAniadir = new DialogoAniadir("Crear vehiculo", nVehiculo, marcas, categorias, null, null);
+			dialogoAniadir = new DialogoAniadir("Crear vehiculo", nVehiculo, categorias, marcas, null, null);
 			dialogoAniadir.getBtnAgregar().addActionListener(this);
 			GlassPanePopup.showPopup(dialogoAniadir);
 			break;
@@ -326,7 +326,6 @@ public class ControladorVehiculos implements ActionListener{
 			}
 			break;
 		case "ConfirmarRenta":
-			System.out.println("HOLA");
 			vehiculoSeleccionado = pVehiculos.getVehiculoSeleccionado();
 			String fechaFinal = dialogoRenta.getTxtFechaFinal().getText();
 			String fechaInicial = dialogoRenta.getTxtFechaInicio().getText();

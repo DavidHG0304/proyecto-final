@@ -67,19 +67,22 @@ public class DialogoRentar extends JPanel {
 	private float sumaTotal;
 	private DialogoFecha dialogoFecha;
 	private JPanel panel;
+	private String textoDelBoton;
 	
+	private Vehiculos vehiculo;
 
 	/**
 	 * Create the panel.
 	 * @param url 
 	 */
 	public DialogoRentar(String titulo, String textoBtn, Vehiculos vehiculo, ArrayList<String> usuarios, String nombreUsuario, ArrayList<String> carros) {
-		this.dialogoFecha = dialogoFecha;
+		this.vehiculo = vehiculo;
 		setBackground(new Color(255, 255, 255));
 		setLayout(null);
 		setPreferredSize(new Dimension(871, 587));
 		setOpaque(false);
 		
+		textoDelBoton = textoBtn;
 		BtnBordeado Cerrar = new BtnBordeado(30, false, true, new Color(33, 147, 246));
 		Cerrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -607,10 +610,15 @@ public class DialogoRentar extends JPanel {
 	}
 	
 	public void actualizarInformacionVehiculo(Vehiculos vehiculo) {
+		this.vehiculo = vehiculo;
 		panel.remove(lblImgCarro);
 		
         lblNombre.setText(vehiculo.getNombreVehiculo());
-        btnCrear.setActionCommand("EditarLaRenta");
+        if(textoDelBoton.equals("Crear Renta")) {
+        	btnCrear.setActionCommand("ConfirmarRenta");
+        }else {
+        	btnCrear.setActionCommand("EditarLaRenta");
+        }
 		lblNombre.setText(vehiculo.getNombreVehiculo());
 		tPersonas.setText("" + vehiculo.getPuertasVehiculo());
 		anioV.setText(vehiculo.getAñoVehiculo());
@@ -678,6 +686,8 @@ public class DialogoRentar extends JPanel {
 		super.paintComponent(g);
 	}
 
+	
+	
 	public BtnBordeado getBtnCrear() {
 		return btnCrear;
 	}
@@ -852,6 +862,14 @@ public class DialogoRentar extends JPanel {
 
 	public void setComboBoxVehiculos(ComboBoxRedondeado<String> comboBoxVehiculos) {
 		this.comboBoxVehiculos = comboBoxVehiculos;
+	}
+
+	public Vehiculos getVehiculo() {
+		return vehiculo;
+	}
+
+	public void setVehiculo(Vehiculos vehiculo) {
+		this.vehiculo = vehiculo;
 	}
 	
 	

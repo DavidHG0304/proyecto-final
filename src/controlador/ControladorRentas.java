@@ -32,6 +32,7 @@ public class ControladorRentas implements ActionListener{
 	private Controlador controlador;
 	private Rentas rentaSeleccionadaParaEliminar;
 	private Rentas rentaSeleccionadaParaEditar;
+	private Rentas rentaAniadir;
 	private DialogoConfirmacion dialogoConfirmacion;
 	private DialogoRentar dialogoRenta;
 
@@ -150,6 +151,12 @@ public class ControladorRentas implements ActionListener{
 		GlassPanePopup.showPopup(dialogoRenta);
 	}
 	
+//	public void prepararAniadirRenta(Rentas renta) {
+//		rentaSeleccionadaParaEditar = renta;
+//		rentaSeleccionadaParaEditar.getVehiculo().getNombreVehiculo();
+//		
+//	}
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
@@ -193,19 +200,21 @@ public class ControladorRentas implements ActionListener{
 			break;
 		case "Agregar Renta pRentas":
 			System.out.println("AgregarRenta");
-//			ArrayList<String> usuarios = obtenerNombresUsuarios();
-//			Rentas rentaSeleccionada = panelRentas.getRentaSeleccionada();
-//			ArrayList<String> vehiculos = obtenerNombresCarros();
-//			dialogoRenta = new DialogoRentar("Test", "Crear Renta", rentaSeleccionada.getVehiculo(), usuarios, null, vehiculos);
-//			dialogoRenta.getComboBoxVehiculos().addActionListener(new ActionListener() {
-//		        @Override
-//		        public void actionPerformed(ActionEvent e) {
-//		            String nombreVehiculoSeleccionado = (String) dialogoRenta.getComboBoxVehiculos().getSelectedItem();
-//		            Vehiculos vehiculoSeleccionado = modelo.obtenerVehiculoPorNombre(nombreVehiculoSeleccionado);
-//		            actualizarInformacionVehiculo(vehiculoSeleccionado);
-//		        }
-//		    });
-			
+			ArrayList<String> usuarios = obtenerNombresUsuarios();
+			ArrayList<String> vehiculos = obtenerNombresCarros();
+			ArrayList<Rentas> rentas = modelo.mostrarRentas();
+			Vehiculos vehiculoInicial = modelo.obtenerVehiculos().get(0);
+			dialogoRenta = new DialogoRentar("Test", "Crear Renta", vehiculoInicial, usuarios, null, vehiculos);
+			dialogoRenta.getComboBoxVehiculos().addActionListener(new ActionListener() {
+		        @Override
+		        public void actionPerformed(ActionEvent e) {
+		            String nombreVehiculoSeleccionado = (String) dialogoRenta.getComboBoxVehiculos().getSelectedItem();
+		            Vehiculos vehiculoSeleccionado = modelo.obtenerVehiculoPorNombre(nombreVehiculoSeleccionado);
+		            actualizarInformacionVehiculo(vehiculoSeleccionado);
+		        }
+		    });
+			dialogoRenta.getBtnCrear().addActionListener(this);
+			GlassPanePopup.showPopup(dialogoRenta);
 			break;
 		case "ConfirmarEliminar":
             if (modelo.eliminarRenta(rentaSeleccionadaParaEliminar.getId())) {
@@ -222,7 +231,6 @@ public class ControladorRentas implements ActionListener{
             }
             break;
 		case "EditarLaRenta":
-			System.out.println("EDITADA");
 			System.out.println("HOLA");
 			rentaSeleccionadaParaEditar = panelRentas.getRentaSeleccionada();
 			String fechaFinal = dialogoRenta.getTxtFechaFinal().getText();
@@ -241,7 +249,24 @@ public class ControladorRentas implements ActionListener{
 		        GlassPanePopup.showPopup(new DialogoAvisos("Error", "No se ha podido actualizar la renta"));
 		    }
 			break;
+			
+		case "ConfirmarRenta":
+			Vehiculos vehiculoRenta = dialogoRenta.getVehiculo();
+			fechaFinal = dialogoRenta.getTxtFechaFinal().getText();
+			fechaInicial = dialogoRenta.getTxtFechaInicio().getText();
+			costo = Double.parseDouble(dialogoRenta.getTxtTotal().getText());
+			nombreUsuario = (String) dialogoRenta.getComboBoxUsuarios().getSelectedItem();
+			
+			boolean resultado = modelo.aniadirRentas(fechaFinal, fechaInicial, costo, nombreUsuario, vehiculoRenta.getIdVehiculo());
+			if (resultado) {
+				cargarRentas();
+		        GlassPanePopup.closePopupLast();
+		        GlassPanePopup.showPopup(new DialogoAvisos("Renta Creada", "La renta ha sido creada con éxito"));
+		    } else {
+		        GlassPanePopup.closePopupLast();
+		        GlassPanePopup.showPopup(new DialogoAvisos("Error", "No se ha podido crear la renta"));
+		    }
+			break;
 		}
-		
 	}
 }

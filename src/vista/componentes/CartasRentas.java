@@ -40,6 +40,7 @@ public class CartasRentas extends PanelRedondeado {
 		this.usuario = usuario;
 		this.vehiculo = vehiculo;
 		this.controlador = controlador;
+		this.seleccionado = false;
         setBackground(new Color(255, 255, 255));
         setPreferredSize(new Dimension(780, 150));
         setMaximumSize(new Dimension(800, 150));
