@@ -219,6 +219,7 @@ public class ControladorVehiculos implements ActionListener{
 			
 			
 			dialogoAniadir = new DialogoAniadir("Crear vehiculo", nVehiculo, categorias, marcas, null, null);
+//			dialogoAniadir = new DialogoAniadir("Crear vehiculo", nVehiculo, marcas, categorias, null, null);
 			dialogoAniadir.getBtnAgregar().addActionListener(this);
 			GlassPanePopup.showPopup(dialogoAniadir);
 			break;
@@ -251,7 +252,8 @@ public class ControladorVehiculos implements ActionListener{
 		    float combustible = Float.parseFloat(dialogoAniadir.getTxtSeguroCombustible().getText());
 		    float tarifaPorDia = Float.parseFloat(dialogoAniadir.getTxtSeguroTarifa().getText());
 		    
-		    boolean resultado = modelo.aniadirVehiculo(nombre, anio, cantidadPuertas, 3000, transmision, aireAcondicionado, modeloCarro, nombreMarca, nombreCategoria, "https://firebasestorage.googleapis.com/v0/b/fotinhoscarros.appspot.com/o/bugatata.png?alt=media&token=41feddc5-379f-429e-9040-16d7cd4bb739", seguroDanios, seguroVida, seguroKilometraje, combustible, tarifaPorDia);
+//		    boolean resultado = modelo.aniadirVehiculo(nombre, anio, cantidadPuertas, 3000, transmision, aireAcondicionado, modeloCarro, nombreMarca, nombreCategoria, "https://firebasestorage.googleapis.com/v0/b/fotinhoscarros.appspot.com/o/bugatata.png?alt=media&token=41feddc5-379f-429e-9040-16d7cd4bb739", seguroDanios, seguroVida, seguroKilometraje, combustible, tarifaPorDia);
+		    boolean resultado = modelo.aniadirVehiculo(nombre, anio, cantidadPuertas, 3000, transmision, aireAcondicionado, modeloCarro, nombreCategoria, nombreMarca, "https://firebasestorage.googleapis.com/v0/b/fotinhoscarros.appspot.com/o/bugatata.png?alt=media&token=41feddc5-379f-429e-9040-16d7cd4bb739", seguroDanios, seguroVida, seguroKilometraje, combustible, tarifaPorDia);
 			if (resultado) {
 				GlassPanePopup.closePopupLast();
 				GlassPanePopup.showPopup(new DialogoAvisos("Vehiculo Creado", "El vehiculo ha sido credo con exito"));

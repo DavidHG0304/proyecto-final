@@ -51,7 +51,7 @@ public class Controlador implements ActionListener{
 	}
 	
 	public void marcas() {
-		VistaPanelMarcas panelMarcas = new VistaPanelMarcas();
+		VistaPanelMarcas panelMarcas = new VistaPanelMarcas(controladorMarcas);
         this.controladorMarcas = new ControladorMarcas(panelMarcas, nuevoModelo, this);
 	}
 	
