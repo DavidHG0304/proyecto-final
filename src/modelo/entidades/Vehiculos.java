@@ -113,8 +113,13 @@ public class Vehiculos {
 	public String getImagenUrl() {
 		return imagenUrl;
 	}
-	public double getCostoTotal() {
-		return costoTotal;
+	public double getCostoTotalTarifa() {
+	    float totalTarifa = this.getTarifa().getSeguro_danios() +
+	                        this.getTarifa().getSeguro_vida() +
+	                        this.getTarifa().getSeguro_kilometraje() +
+	                        this.getTarifa().getSeguro_combustible() +
+	                        this.getTarifa().getSeguro_tarifa_por_dia();
+	    return totalTarifa;
 	}
 	
 	

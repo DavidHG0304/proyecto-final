@@ -111,28 +111,25 @@ public class DialogoDetalles extends JPanel {
         }
 		
 		
-		String[] columnas2 = { "Seguro Daños", "Seguro Vida", "Seguro Kilometraje", "Combustible", "Tarifa" };
+		String[] columnas2 = { "Seguro Daños", "Seguro Vida", "Seguro Kilometraje", "Combustible", "Tarifa por día" };
 
-		String[][] datos2 = new String[rentas.size()][5];
-		for (int i = 0; i < rentas.size(); i++) {
-			Rentas renta = rentas.get(i);
-			datos2[0][0] = String.valueOf(vehiculo.getTarifa().getSeguro_danios());
-	        datos2[0][1] = String.valueOf(vehiculo.getTarifa().getSeguro_vida());
-	        datos2[0][2] = String.valueOf(vehiculo.getTarifa().getSeguro_kilometraje());
-	        datos2[0][3] = String.valueOf(vehiculo.getTarifa().getSeguro_combustible());
-	        datos2[0][4] = String.valueOf(vehiculo.getTarifa().getSeguro_tarifa_por_dia());
-	        
-			JTable table = new JTable(datos2, columnas2);
-			table.setCellSelectionEnabled(false);
-			JScrollPane scrollPane = new JScrollPane(table);
-			scrollPane.setBounds(23, 100, 657, 50);
-			scrollPane.setBorder(null);
-			scrollPane.getVerticalScrollBar().setUI(new ScrollBarPersonalizado());
-			scrollPane.getHorizontalScrollBar().setUI(new ScrollBarPersonalizado());
-			scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-			scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-			panel.add(scrollPane);
-		}
+		String[][] datos2 = new String[1][5];
+		datos2[0][0] = String.valueOf(vehiculo.getTarifa().getSeguro_danios());
+		datos2[0][1] = String.valueOf(vehiculo.getTarifa().getSeguro_vida());
+		datos2[0][2] = String.valueOf(vehiculo.getTarifa().getSeguro_kilometraje());
+		datos2[0][3] = String.valueOf(vehiculo.getTarifa().getSeguro_combustible());
+		datos2[0][4] = String.valueOf(vehiculo.getTarifa().getSeguro_tarifa_por_dia());
+
+		JTable table = new JTable(datos2, columnas2);
+		table.setCellSelectionEnabled(false);
+		JScrollPane scrollPane = new JScrollPane(table);
+		scrollPane.setBounds(23, 100, 657, 50);
+		scrollPane.setBorder(null);
+		scrollPane.getVerticalScrollBar().setUI(new ScrollBarPersonalizado());
+		scrollPane.getHorizontalScrollBar().setUI(new ScrollBarPersonalizado());
+		scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+		panel.add(scrollPane);
 
 		
 		JLabel lblNewLabel_1 = new JLabel("");

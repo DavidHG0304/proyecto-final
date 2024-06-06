@@ -267,6 +267,7 @@ public class ControladorVehiculos implements ActionListener{
 			try {
 				
 				eliminado = modelo.eliminarVehiculo(vehiculoSeleccionadoParaEliminar.getIdVehiculo());
+				cargarVehiculos();
 			} catch (RentasAsociadasException e1) {
 				// TODO Auto-generated catch block
 				SwingUtilities.invokeLater(() -> {
@@ -277,7 +278,6 @@ public class ControladorVehiculos implements ActionListener{
 			}
 			
 			if(eliminado) {
-				cargarVehiculos();
 				GlassPanePopup.closePopupLast();
 				SwingUtilities.invokeLater(() -> {
 					GlassPanePopup.closePopupLast();

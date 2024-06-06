@@ -111,7 +111,9 @@ public class CartasCarros extends PanelRedondeado{
 		lblLinea.setBounds(0, 281, 202, 1);
 		add(lblLinea);
 		
-		JLabel lblCosto = new JLabel("$"+vehiculo.getCostoTotal());
+		Double costoTotal = vehiculo.getCostoTotalTarifa();
+		
+		JLabel lblCosto = new JLabel("$"+costoTotal);
 		lblCosto.setFont(new Font("Inter", Font.BOLD, 11));
 		lblCosto.setBounds(10, 288, 55, 14);
 		add(lblCosto);
