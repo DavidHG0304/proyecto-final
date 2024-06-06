@@ -39,7 +39,6 @@ import java.awt.FlowLayout;
 public class DialogoDetalles extends JPanel {
 
 		private ArrayList<Rentas> rentas;
-		private Tarifas tarifa;
 		private Vehiculos vehiculo;
 		
 	/**
@@ -48,7 +47,6 @@ public class DialogoDetalles extends JPanel {
 	 */
 	public DialogoDetalles(String titulo, ArrayList<Rentas> rentas, Vehiculos vehiculo ) {
 		this.rentas = rentas;
-		this.tarifa = tarifa;
 		this.vehiculo = vehiculo;
 		setBackground(new Color(240, 240, 240));
 		setLayout(null);
@@ -110,9 +108,7 @@ public class DialogoDetalles extends JPanel {
             panel.add(scrollPane);
         }
 		
-		
 		String[] columnas2 = { "Seguro Daños", "Seguro Vida", "Seguro Kilometraje", "Combustible", "Tarifa por día" };
-
 		String[][] datos2 = new String[1][5];
 		datos2[0][0] = String.valueOf(vehiculo.getTarifa().getSeguro_danios());
 		datos2[0][1] = String.valueOf(vehiculo.getTarifa().getSeguro_vida());

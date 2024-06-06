@@ -37,6 +37,7 @@ public class ControladorVehiculos implements ActionListener{
 	private DialogoInfoCarro dialogoInfoCarro;
 	private DialogoAniadir dialogoAniadir;
 	private DialogoConfirmacion dialogoConfirmacion;
+	private DialogoRentar dialogoRenta;
 	private Vehiculos vehiculoSeleccionadoParaEliminar;
 
 	public ControladorVehiculos(VistaPanelVehiculos pVehiculos, Modelo modelo, Controlador controlador) {
@@ -179,7 +180,9 @@ public class ControladorVehiculos implements ActionListener{
 			// To - do
 			ArrayList<String> usuarios = obtenerNombresUsuarios();
 			vehiculoSeleccionado = pVehiculos.getVehiculoSeleccionado();
-			GlassPanePopup.showPopup(new DialogoRentar("Test", "Crear Renta", vehiculoSeleccionado, usuarios));
+			dialogoRenta = new DialogoRentar("Test", "Crear Renta", vehiculoSeleccionado, usuarios);
+			dialogoRenta.getBtnCrear().addActionListener(this);
+			GlassPanePopup.showPopup(dialogoRenta);
 			break;
 		case "Editar Vehiculo":
 			vehiculoSeleccionado = pVehiculos.getVehiculoSeleccionado();
@@ -297,6 +300,23 @@ public class ControladorVehiculos implements ActionListener{
 				});
 				return;
 			}
+			break;
+		case "ConfirmarRenta":
+			System.out.println("HOLA");
+			vehiculoSeleccionado = pVehiculos.getVehiculoSeleccionado();
+			String fechaFinal = dialogoRenta.getTxtFechaFinal().getText();
+			String fechaInicial = dialogoRenta.getTxtFechaInicio().getText();
+			Double costo = Double.parseDouble(dialogoRenta.getTxtTotal().getText());
+			String nombreUsuario = (String) dialogoRenta.getComboBoxUsuarios().getSelectedItem();
+			
+			boolean resultado2 = modelo.aniadirRentas(fechaFinal, fechaInicial, costo, nombreUsuario, vehiculoSeleccionado.getIdVehiculo());
+			if (resultado2) {
+		        GlassPanePopup.closePopupLast();
+		        GlassPanePopup.showPopup(new DialogoAvisos("Renta Creada", "La renta ha sido creada con éxito"));
+		    } else {
+		        GlassPanePopup.closePopupLast();
+		        GlassPanePopup.showPopup(new DialogoAvisos("Error", "No se ha podido crear la renta"));
+		    }
 			break;
 		}
 	}

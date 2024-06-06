@@ -600,40 +600,66 @@ public class Modelo {
 
 	
 	// Metódo añadir rentas
-	public boolean aniadirRentas(Rentas renta, String fechaFinal, String fechaInicial, String fechaNacimiento,
-			Double costo, int usuarioId, int vehiculoId) {
+	public boolean aniadirRentas(String fechaFinal, String fechaInicial, Double costo, String usuarioNombre, int vehiculoId) {
+	    try {
+	        Class.forName("com.mysql.cj.jdbc.Driver");
+	    } catch (ClassNotFoundException e) {
+	        e.printStackTrace();
+	        return false;
+	    }
 
-		String sql = "INSERT INTO rentas(fecha_inicial, fecha_final, fecha_nacimiento, costo, usuario_id, vehiculo_id) VALUES (?, ?, ?, ?, ?, ?)";
+	    int usuarioId = obtenerUsuarioIdPorNombre(usuarioNombre);
 
-		// boolean rentaEncontrada;
-		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
+	    if (usuarioId == -1) {
+	        System.out.println("No se encontró un usuario con el nombre proporcionado.");
+	        return false;
+	    }
 
-		try (Connection con = DriverManager.getConnection(
-				"jdbc:mysql://monorail.proxy.rlwy.net:28289/railway?useSSL=false", "root",
-				"AZsyCwUGzmURenQkgkEOksyBwsWuQBFI");) {
-			PreparedStatement stmt = con.prepareStatement(sql);
+	    String sql = "INSERT INTO rentas(fecha_inicial, fecha_final, costo, usuario_id, vehiculo_id) VALUES (?, ?, ?, ?, ?)";
 
-			stmt.setString(1, fechaInicial);
-			stmt.setString(2, fechaFinal);
-			stmt.setString(3, fechaNacimiento);
-			stmt.setDouble(4, costo);
-			stmt.setInt(5, usuarioId);
-			stmt.setInt(6, vehiculoId);
+	    try (Connection con = DriverManager.getConnection(
+	            "jdbc:mysql://monorail.proxy.rlwy.net:28289/railway?useSSL=false", "root",
+	            "AZsyCwUGzmURenQkgkEOksyBwsWuQBFI");
+	         PreparedStatement stmt = con.prepareStatement(sql)) {
 
-			int filasAfectadas = stmt.executeUpdate();
-			con.close();
-			return filasAfectadas > 0;
+	        con.setAutoCommit(false);
 
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	        stmt.setString(1, fechaInicial);
+	        stmt.setString(2, fechaFinal);
+	        stmt.setDouble(3, costo);
+	        stmt.setInt(4, usuarioId);
+	        stmt.setInt(5, vehiculoId);
 
-		return false;
+	        int filasAfectadas = stmt.executeUpdate();
+	        con.commit();
+	        return filasAfectadas > 0;
+
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        return false;
+	    }
+	}
+	
+	public int obtenerUsuarioIdPorNombre(String nombreUsuario) {
+	    int usuarioId = -1;
+
+	    String sql = "SELECT id FROM usuarios WHERE nombre = ?";
+	    try (Connection con = DriverManager.getConnection(
+	            "jdbc:mysql://monorail.proxy.rlwy.net:28289/railway?useSSL=false", "root",
+	            "AZsyCwUGzmURenQkgkEOksyBwsWuQBFI");
+	         PreparedStatement stmt = con.prepareStatement(sql)) {
+
+	        stmt.setString(1, nombreUsuario);
+	        ResultSet rs = stmt.executeQuery();
+
+	        if (rs.next()) {
+	            usuarioId = rs.getInt("id");
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+
+	    return usuarioId;
 	}
 	
 	public ArrayList<Rentas> obtenerRentasPorUsuario(int usuarioId) {

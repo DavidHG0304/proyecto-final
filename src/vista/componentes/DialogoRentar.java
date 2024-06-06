@@ -11,6 +11,8 @@ import java.awt.geom.RoundRectangle2D;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.DecimalFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import javax.swing.JLabel;
@@ -61,7 +63,7 @@ public class DialogoRentar extends JPanel {
 	private ComboBoxRedondeado<String> comboBoxUsuarios;
 	private JLabel txtFechaInicio;
 	private JLabel txtFechaFinal;
-	
+	private float sumaTotal;
 	private DialogoFecha dialogoFecha;
 
 	/**
@@ -284,11 +286,6 @@ public class DialogoRentar extends JPanel {
 		btnCrear.setBounds(21, 145, 184, 25);
 		btnCrear.setForeground(new Color(33, 147, 246));
 		panelResumen.add(btnCrear);
-		btnCrear.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				GlassPanePopup.closePopupLast();
-			}
-		});
 		
 		btnCrear.setText(textoBtn);
 		btnCrear.setFont(new Font("Inter", Font.PLAIN, 14));
@@ -333,12 +330,20 @@ public class DialogoRentar extends JPanel {
 		panelResumen.add(txtFechaFinal);
 		
 		txtTotal = new JLabel();
-		txtTotal.setText("$");
+		txtTotal.setText("");
 		txtTotal.setOpaque(false);
 		txtTotal.setFont(new Font("Inter", Font.PLAIN, 11));
 		txtTotal.setFocusable(false);
 		txtTotal.setBounds(99, 115, 106, 25);
 		panelResumen.add(txtTotal);
+		
+		JLabel auxD_5 = new JLabel();
+		auxD_5.setText("$");
+		auxD_5.setOpaque(false);
+		auxD_5.setFont(new Font("Inter", Font.PLAIN, 11));
+		auxD_5.setFocusable(false);
+		auxD_5.setBounds(86, 117, 16, 19);
+		panelResumen.add(auxD_5);
 		
 		JEditorPane dtrpnSeguroDeDanios = new JEditorPane();
 		dtrpnSeguroDeDanios.setText("Seguro de Daños:");
@@ -367,7 +372,7 @@ public class DialogoRentar extends JPanel {
         add(comboBoxUsuarios);
         
         precioT = new JLabel();
-        precioT.setText("$");
+        precioT.setText("");
         precioT.setOpaque(false);
         precioT.setFont(new Font("Inter", Font.PLAIN, 11));
         precioT.setFocusable(false);
@@ -375,7 +380,7 @@ public class DialogoRentar extends JPanel {
         add(precioT);
         
         precioC = new JLabel();
-        precioC.setText("$");
+        precioC.setText("");
         precioC.setOpaque(false);
         precioC.setFont(new Font("Inter", Font.PLAIN, 11));
         precioC.setFocusable(false);
@@ -383,7 +388,7 @@ public class DialogoRentar extends JPanel {
         add(precioC);
         
         precioK = new JLabel();
-        precioK.setText("$");
+        precioK.setText("");
         precioK.setOpaque(false);
         precioK.setFont(new Font("Inter", Font.PLAIN, 11));
         precioK.setFocusable(false);
@@ -391,7 +396,7 @@ public class DialogoRentar extends JPanel {
         add(precioK);
         
         precioSVida = new JLabel();
-        precioSVida.setText("$");
+        precioSVida.setText("");
         precioSVida.setOpaque(false);
         precioSVida.setFont(new Font("Inter", Font.PLAIN, 11));
         precioSVida.setFocusable(false);
@@ -399,15 +404,56 @@ public class DialogoRentar extends JPanel {
         add(precioSVida);
         
         precioD = new JLabel();
-        precioD.setText("$");
+        precioD.setText("");
         precioD.setOpaque(false);
         precioD.setFont(new Font("Inter", Font.PLAIN, 11));
         precioD.setFocusable(false);
         precioD.setBounds(144, 384, 93, 19);
         add(precioD);
+        
+        JLabel auxD = new JLabel();
+        auxD.setText("$");
+        auxD.setOpaque(false);
+        auxD.setFont(new Font("Inter", Font.PLAIN, 11));
+        auxD.setFocusable(false);
+        auxD.setBounds(131, 384, 16, 19);
+        add(auxD);
+        
+        JLabel auxD_1 = new JLabel();
+        auxD_1.setText("$");
+        auxD_1.setOpaque(false);
+        auxD_1.setFont(new Font("Inter", Font.PLAIN, 11));
+        auxD_1.setFocusable(false);
+        auxD_1.setBounds(131, 407, 16, 19);
+        add(auxD_1);
+        
+        JLabel auxD_2 = new JLabel();
+        auxD_2.setText("$");
+        auxD_2.setOpaque(false);
+        auxD_2.setFont(new Font("Inter", Font.PLAIN, 11));
+        auxD_2.setFocusable(false);
+        auxD_2.setBounds(131, 431, 16, 19);
+        add(auxD_2);
+        
+        JLabel auxD_3 = new JLabel();
+        auxD_3.setText("$");
+        auxD_3.setOpaque(false);
+        auxD_3.setFont(new Font("Inter", Font.PLAIN, 11));
+        auxD_3.setFocusable(false);
+        auxD_3.setBounds(131, 460, 16, 19);
+        add(auxD_3);
+        
+        JLabel auxD_4 = new JLabel();
+        auxD_4.setText("$");
+        auxD_4.setOpaque(false);
+        auxD_4.setFont(new Font("Inter", Font.PLAIN, 11));
+        auxD_4.setFocusable(false);
+        auxD_4.setBounds(131, 486, 16, 19);
+        add(auxD_4);
 		
 		
 		if (vehiculo != null && textoBtn.equals("Crear Renta")) {
+			btnCrear.setActionCommand("ConfirmarRenta");
 			System.out.println("CrearRentaDeUnCarro");
 			lblNombre.setText(vehiculo.getNombreVehiculo());
 			tPersonas.setText("" + vehiculo.getPuertasVehiculo());
@@ -416,13 +462,15 @@ public class DialogoRentar extends JPanel {
 			kilometraje.setText("" + vehiculo.getKilometrajeVehiculo());
 			tTransmision.setText(vehiculo.getTransmision());
 			
-			precioD.setText("$ "+vehiculo.getTarifa().getSeguro_danios());
-			precioSVida.setText("$ "+vehiculo.getTarifa().getSeguro_vida());
-			precioK.setText("$ "+vehiculo.getTarifa().getSeguro_kilometraje());
-			precioC.setText("$ "+vehiculo.getTarifa().getSeguro_combustible());
-			precioT.setText("$ "+vehiculo.getTarifa().getSeguro_tarifa_por_dia());
-			txtTotal.setText("$ "+vehiculo.getCostoTotalTarifa());
+			precioD.setText(""+vehiculo.getTarifa().getSeguro_danios());
+			precioSVida.setText(""+vehiculo.getTarifa().getSeguro_vida());
+			precioK.setText(""+vehiculo.getTarifa().getSeguro_kilometraje());
+			precioC.setText(""+vehiculo.getTarifa().getSeguro_combustible());
+			precioT.setText(""+vehiculo.getTarifa().getSeguro_tarifa_por_dia());
 			
+			sumaTotal = vehiculo.getTarifa().getSeguro_danios()+vehiculo.getTarifa().getSeguro_vida()+vehiculo.getTarifa().getSeguro_kilometraje()+vehiculo.getTarifa().getSeguro_combustible();;
+			txtTotal.setText(""+vehiculo.getCostoTotalTarifa());
+//			actualizarCostoTotal();
 			
 			lblImgCarro = new JLabel();
         	Thread loadImageThread = new Thread(() -> {
@@ -462,6 +510,28 @@ public class DialogoRentar extends JPanel {
         panel.revalidate();
         panel.repaint();
         
+	}
+	
+	public void actualizarCostoTotal() {
+	    String fechaInicioStr = txtFechaInicio.getText();
+	    String fechaFinalStr = txtFechaFinal.getText();
+	    if (!fechaInicioStr.isEmpty() && !fechaFinalStr.isEmpty()) {
+	        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+	        LocalDate fechaInicio = LocalDate.parse(fechaInicioStr, formatter);
+	        LocalDate fechaFinal = LocalDate.parse(fechaFinalStr, formatter);
+	        long diasDiferencia = java.time.temporal.ChronoUnit.DAYS.between(fechaInicio, fechaFinal);
+	        if (diasDiferencia >= 0) {
+	            float tarifaPorDia = Float.parseFloat(precioT.getText());
+	            float costoTotal;
+	            if (diasDiferencia == 0) {
+	                diasDiferencia = 1;
+	            }
+	            costoTotal = (diasDiferencia * tarifaPorDia) + sumaTotal;
+	            txtTotal.setText(String.format("%.2f", costoTotal));
+	        } else {
+	            txtTotal.setText("0.00");
+	        }
+	    }
 	}
 	
 	@Override
@@ -641,6 +711,4 @@ public class DialogoRentar extends JPanel {
 	public void setDialogoFecha(DialogoFecha dialogoFecha) {
 		this.dialogoFecha = dialogoFecha;
 	}
-	
-	
 }

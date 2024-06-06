@@ -109,10 +109,11 @@ public class ControladorClientes implements ActionListener{
 	}
 	
 	public void prepararDetallesCliente(Usuarios usuario) {
-        ArrayList<Rentas> rentas = modelo.obtenerRentasPorVehiculo(usuario.getIdUsuario());
-        DialogoDetallesCliente dialogoDetallesCliente = new DialogoDetallesCliente("Detalles del Cliente", usuario, rentas);
-        GlassPanePopup.showPopup(dialogoDetallesCliente);
-    }
+	    ArrayList<Rentas> rentas = modelo.obtenerRentasPorUsuario(usuario.getIdUsuario());
+	    DialogoDetallesCliente dialogoDetallesCliente = new DialogoDetallesCliente("Detalles del Cliente", usuario, rentas);
+	    GlassPanePopup.showPopup(dialogoDetallesCliente);
+	}
+
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {

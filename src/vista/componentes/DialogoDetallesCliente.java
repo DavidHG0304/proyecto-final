@@ -73,28 +73,25 @@ public class DialogoDetallesCliente extends JPanel {
         
 		String[] columnas = { "Usuario", "Fecha Inicial", "Fecha Final", "Auto", "Pago" };
 		
-		if(usuario != null) {
-			String[][] datos = new String[rentas.size()][5];
-			for (int i = 0; i < rentas.size(); i++) {
-				Rentas renta = rentas.get(i);
-				datos[i][0] = usuario.getNombreUsuario() + " " + usuario.getApellido();
-	            datos[i][1] = renta.getFecha_inicial();
-	            datos[i][2] = renta.getFecha_final();
-	            datos[i][3] = renta.getVehiculo().getNombreVehiculo();
-	            datos[i][4] = String.valueOf(renta.getCosto());
-				JTable table = new JTable(datos, columnas);
-				table.setCellSelectionEnabled(false);
-				JScrollPane scrollPane = new JScrollPane(table);
-				scrollPane.setBounds(23, 65, 657, 374);
-				scrollPane.setBorder(null);
-				scrollPane.getVerticalScrollBar().setUI(new ScrollBarPersonalizado());
-				scrollPane.getHorizontalScrollBar().setUI(new ScrollBarPersonalizado());
-				scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-				scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-				panel.add(scrollPane);
-			}
+		String[][] datos = new String[rentas.size()][5];
+		for (int i = 0; i < rentas.size(); i++) {
+			Rentas renta = rentas.get(i);
+			datos[i][0] = usuario.getNombreUsuario() + " " + usuario.getApellido();
+			datos[i][1] = renta.getFecha_inicial();
+			datos[i][2] = renta.getFecha_final();
+			datos[i][3] = renta.getVehiculo().getNombreVehiculo();
+			datos[i][4] = String.valueOf(renta.getCosto());
+			JTable table = new JTable(datos, columnas);
+			table.setCellSelectionEnabled(false);
+			JScrollPane scrollPane = new JScrollPane(table);
+			scrollPane.setBounds(23, 65, 657, 374);
+			scrollPane.setBorder(null);
+			scrollPane.getVerticalScrollBar().setUI(new ScrollBarPersonalizado());
+			scrollPane.getHorizontalScrollBar().setUI(new ScrollBarPersonalizado());
+			scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+			scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+			panel.add(scrollPane);
 		}
-
 		
 		JLabel lblHistorialRentas = new JLabel("Historial Rentas");
 		lblHistorialRentas.setPreferredSize(new Dimension(695, 32));

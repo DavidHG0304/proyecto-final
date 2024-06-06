@@ -56,13 +56,17 @@ public class DialogoFecha extends JPanel{
 					LocalDate[] fechas = fechaUsar.getSelectedDateRange();
 					DateTimeFormatter formato = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 					if(fechas!=null) {
-						System.out.println(formato.format(fechas[0])+ "  --  " + formato.format(fechas[1]));
+//						System.out.println(formato.format(fechas[0])+ "  --  " + formato.format(fechas[1]));
 						fechasArreglo[0] = formato.format(fechas[0]);
 						fechasArreglo[1] = formato.format(fechas[1]);
 						
 						dialogoR.getTxtFechaRenta().setText(formato.format(fechas[0])+ "  --  " + formato.format(fechas[1]));
 						dialogoR.getTxtFechaInicio().setText(formato.format(fechas[0]));
 						dialogoR.getTxtFechaFinal().setText(formato.format(fechas[1]));
+						dialogoR.actualizarCostoTotal();
+						
+//						DateTimeFormatter formato2 = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+//						System.out.println(fechaUsar.getSelectedDateAsString());
 					}
 				}
 			});
