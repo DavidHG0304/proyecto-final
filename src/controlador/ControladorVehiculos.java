@@ -111,6 +111,20 @@ public class ControladorVehiculos implements ActionListener{
 		return nombresUsuarios;
 	}
 	
+	public ArrayList<String> obtenerNombresCarros() {
+		ArrayList<Vehiculos> vehiculos = modelo.obtenerVehiculos();
+		ArrayList<String> nombresVehiculos = new ArrayList<>();
+		for (Vehiculos vehiculo : vehiculos) {
+			nombresVehiculos.add(vehiculo.getNombreVehiculo());
+		}
+
+		return nombresVehiculos;
+	}
+	
+	private void actualizarInformacionVehiculo(Vehiculos vehiculo) {
+	    dialogoRenta.actualizarInformacionVehiculo(vehiculo);
+	}
+	
 	public void prepararVehiculoDetalles(Vehiculos vehiculo) {
 		vehiculoMostrar = vehiculo;
 		dialogoInfoCarro = new DialogoInfoCarro(vehiculo);
@@ -180,7 +194,16 @@ public class ControladorVehiculos implements ActionListener{
 			// To - do
 			ArrayList<String> usuarios = obtenerNombresUsuarios();
 			vehiculoSeleccionado = pVehiculos.getVehiculoSeleccionado();
-			dialogoRenta = new DialogoRentar("Test", "Crear Renta", vehiculoSeleccionado, usuarios, null);
+			ArrayList<String> vehiculos = obtenerNombresCarros();
+			dialogoRenta = new DialogoRentar("Test", "Crear Renta", vehiculoSeleccionado, usuarios, null, vehiculos);
+			dialogoRenta.getComboBoxVehiculos().addActionListener(new ActionListener() {
+		        @Override
+		        public void actionPerformed(ActionEvent e) {
+		            String nombreVehiculoSeleccionado = (String) dialogoRenta.getComboBoxVehiculos().getSelectedItem();
+		            Vehiculos vehiculoSeleccionado = modelo.obtenerVehiculoPorNombre(nombreVehiculoSeleccionado);
+		            actualizarInformacionVehiculo(vehiculoSeleccionado);
+		        }
+		    });
 			dialogoRenta.getBtnCrear().addActionListener(this);
 			GlassPanePopup.showPopup(dialogoRenta);
 			break;

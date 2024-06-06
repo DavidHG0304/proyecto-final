@@ -110,6 +110,20 @@ public class ControladorRentas implements ActionListener{
         return vehiculos;
     }
 	
+	public ArrayList<String> obtenerNombresCarros() {
+		ArrayList<Vehiculos> vehiculos = modelo.obtenerVehiculos();
+		ArrayList<String> nombresVehiculos = new ArrayList<>();
+		for (Vehiculos vehiculo : vehiculos) {
+			nombresVehiculos.add(vehiculo.getNombreVehiculo());
+		}
+
+		return nombresVehiculos;
+	}
+	
+	private void actualizarInformacionVehiculo(Vehiculos vehiculo) {
+	    dialogoRenta.actualizarInformacionVehiculo(vehiculo);
+	}
+	
 	public void prepararEliminacionRenta(Rentas renta) {
 		rentaSeleccionadaParaEliminar = renta;
 		dialogoConfirmacion = new DialogoConfirmacion("¿Estás seguro de querer eliminar la renta?", "");
@@ -121,8 +135,17 @@ public class ControladorRentas implements ActionListener{
 	public void prepararRentaEdicion(Rentas renta) {
 		rentaSeleccionadaParaEditar = renta;
 	    ArrayList<String> usuarios = obtenerNombresUsuarios();
+	    ArrayList<String> vehiculos = obtenerNombresCarros();
 	    String nombreUsuario = renta.getUsuario().getNombreUsuario();
-	    dialogoRenta = new DialogoRentar("EditarRenta", "Editar Renta", renta.getVehiculo(), usuarios, nombreUsuario);
+	    dialogoRenta = new DialogoRentar("EditarRenta", "Editar Renta", renta.getVehiculo(), usuarios, nombreUsuario,vehiculos);
+	    dialogoRenta.getComboBoxVehiculos().addActionListener(new ActionListener() {
+	        @Override
+	        public void actionPerformed(ActionEvent e) {
+	            String nombreVehiculoSeleccionado = (String) dialogoRenta.getComboBoxVehiculos().getSelectedItem();
+	            Vehiculos vehiculoSeleccionado = modelo.obtenerVehiculoPorNombre(nombreVehiculoSeleccionado);
+	            actualizarInformacionVehiculo(vehiculoSeleccionado);
+	        }
+	    });
 	    dialogoRenta.getBtnCrear().addActionListener(this);
 		GlassPanePopup.showPopup(dialogoRenta);
 	}
@@ -170,7 +193,19 @@ public class ControladorRentas implements ActionListener{
 			break;
 		case "Agregar Renta pRentas":
 			System.out.println("AgregarRenta");
-//			GlassPanePopup.showPopup(new DialogoRentar("Editar nombre de la categoria", "Crear Renta", null));
+//			ArrayList<String> usuarios = obtenerNombresUsuarios();
+//			Rentas rentaSeleccionada = panelRentas.getRentaSeleccionada();
+//			ArrayList<String> vehiculos = obtenerNombresCarros();
+//			dialogoRenta = new DialogoRentar("Test", "Crear Renta", rentaSeleccionada.getVehiculo(), usuarios, null, vehiculos);
+//			dialogoRenta.getComboBoxVehiculos().addActionListener(new ActionListener() {
+//		        @Override
+//		        public void actionPerformed(ActionEvent e) {
+//		            String nombreVehiculoSeleccionado = (String) dialogoRenta.getComboBoxVehiculos().getSelectedItem();
+//		            Vehiculos vehiculoSeleccionado = modelo.obtenerVehiculoPorNombre(nombreVehiculoSeleccionado);
+//		            actualizarInformacionVehiculo(vehiculoSeleccionado);
+//		        }
+//		    });
+			
 			break;
 		case "ConfirmarEliminar":
             if (modelo.eliminarRenta(rentaSeleccionadaParaEliminar.getId())) {
@@ -194,8 +229,9 @@ public class ControladorRentas implements ActionListener{
 			String fechaInicial = dialogoRenta.getTxtFechaInicio().getText();
 			Double costo = Double.parseDouble(dialogoRenta.getTxtTotal().getText());
 			String nombreUsuario = (String) dialogoRenta.getComboBoxUsuarios().getSelectedItem();
+			String nombreVehiculo = (String) dialogoRenta.getComboBoxVehiculos().getSelectedItem(); 
 			
-			boolean resultado2 = modelo.editarRenta(rentaSeleccionadaParaEditar.getId(), fechaFinal, fechaInicial, costo, nombreUsuario, rentaSeleccionadaParaEditar.getVehiculo().getIdVehiculo());
+			boolean resultado2 = modelo.editarRenta(rentaSeleccionadaParaEditar.getId(), fechaFinal, fechaInicial, costo, nombreUsuario, nombreVehiculo, rentaSeleccionadaParaEditar.getVehiculo().getIdVehiculo());
 			if (resultado2) {
 				cargarRentas();
 		        GlassPanePopup.closePopupLast();

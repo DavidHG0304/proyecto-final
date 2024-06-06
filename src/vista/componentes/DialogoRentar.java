@@ -61,16 +61,19 @@ public class DialogoRentar extends JPanel {
 	private JLabel precioT;
 	private JLabel txtTotal;
 	private ComboBoxRedondeado<String> comboBoxUsuarios;
+	private ComboBoxRedondeado<String> comboBoxVehiculos;
 	private JLabel txtFechaInicio;
 	private JLabel txtFechaFinal;
 	private float sumaTotal;
 	private DialogoFecha dialogoFecha;
+	private JPanel panel;
+	
 
 	/**
 	 * Create the panel.
 	 * @param url 
 	 */
-	public DialogoRentar(String titulo, String textoBtn, Vehiculos vehiculo, ArrayList<String> usuarios, String nombreUsuario) {
+	public DialogoRentar(String titulo, String textoBtn, Vehiculos vehiculo, ArrayList<String> usuarios, String nombreUsuario, ArrayList<String> carros) {
 		this.dialogoFecha = dialogoFecha;
 		setBackground(new Color(255, 255, 255));
 		setLayout(null);
@@ -196,7 +199,7 @@ public class DialogoRentar extends JPanel {
 		tPersonas.setOpaque(false);
 		panelCartas.add(tPersonas);
 		
-		JPanel panel = new JPanel();
+		panel = new JPanel();
 		panel.setBackground(new Color(240, 240, 240));
 		panel.setBounds(24, 71, 762, 140);
 		panelCartas.add(panel);
@@ -271,6 +274,24 @@ public class DialogoRentar extends JPanel {
 		JLabel lblAC = new JLabel(acIcono);
 		lblAC.setBounds(572, 269, 14, 14);
 		panelCartas.add(lblAC);
+		
+		comboBoxVehiculos = new ComboBoxRedondeado<String>(20, new Color(0, 0, 0, 60));
+		comboBoxVehiculos.setOpaque(false);
+		comboBoxVehiculos.setLightWeightPopupEnabled(false);
+		comboBoxVehiculos.setFont(new Font("Inter", Font.PLAIN, 11));
+		comboBoxVehiculos.setBackground(new Color(0, 0, 0, 5));
+		comboBoxVehiculos.setBounds(572, 35, 214, 25);
+		panelCartas.add(comboBoxVehiculos);
+		
+		comboBoxVehiculos.setModel(new DefaultComboBoxModel<>(carros.toArray(new String[0])));
+		
+		JLabel dtrpnAuto = new JLabel();
+		dtrpnAuto.setText("Auto");
+		dtrpnAuto.setOpaque(false);
+		dtrpnAuto.setFont(new Font("Inter", Font.PLAIN, 11));
+		dtrpnAuto.setFocusable(false);
+		dtrpnAuto.setBounds(572, 14, 124, 19);
+		panelCartas.add(dtrpnAuto);
 		
         
         PanelRedondeado panelResumen = new PanelRedondeado(30, false, true, new Color(0, 0, 0, 61), 6);
@@ -558,7 +579,6 @@ public class DialogoRentar extends JPanel {
 				aireAcondicionado.setText("No");
 			}
 		}
-        
         panel.revalidate();
         panel.repaint();
         
@@ -585,6 +605,68 @@ public class DialogoRentar extends JPanel {
 	        }
 	    }
 	}
+	
+	public void actualizarInformacionVehiculo(Vehiculos vehiculo) {
+		panel.remove(lblImgCarro);
+		
+        lblNombre.setText(vehiculo.getNombreVehiculo());
+        btnCrear.setActionCommand("EditarLaRenta");
+		lblNombre.setText(vehiculo.getNombreVehiculo());
+		tPersonas.setText("" + vehiculo.getPuertasVehiculo());
+		anioV.setText(vehiculo.getAñoVehiculo());
+		nPuertas.setText("" + vehiculo.getPuertasVehiculo());
+		kilometraje.setText("" + vehiculo.getKilometrajeVehiculo());
+		tTransmision.setText(vehiculo.getTransmision());
+		
+		precioD.setText(""+vehiculo.getTarifa().getSeguro_danios());
+		precioSVida.setText(""+vehiculo.getTarifa().getSeguro_vida());
+		precioK.setText(""+vehiculo.getTarifa().getSeguro_kilometraje());
+		precioC.setText(""+vehiculo.getTarifa().getSeguro_combustible());
+		precioT.setText(""+vehiculo.getTarifa().getSeguro_tarifa_por_dia());
+		sumaTotal = vehiculo.getTarifa().getSeguro_danios()+vehiculo.getTarifa().getSeguro_vida()+vehiculo.getTarifa().getSeguro_kilometraje()+vehiculo.getTarifa().getSeguro_combustible();;
+		txtTotal.setText(""+vehiculo.getCostoTotalTarifa());
+		
+		txtFechaRenta.setText("");
+		
+//		comboBoxUsuarios.setSelectedItem();
+		
+		lblImgCarro = new JLabel();
+		Thread loadImageThread = new Thread(() -> {
+			try {
+				URL imageUrl = new URL(vehiculo.getImagenUrl());
+				ImageIcon imagenCarro = new ImageIcon(imageUrl);
+				Image imagen = imagenCarro.getImage();
+				Image imagenReescalada = imagen.getScaledInstance(187, 140, Image.SCALE_SMOOTH);
+				ImageIcon iconoReescalado = new ImageIcon(imagenReescalada);
+				SwingUtilities.invokeLater(() -> {
+					lblImgCarro.setIcon(iconoReescalado);
+					panel.revalidate();
+					panel.repaint();
+				});
+			} catch (MalformedURLException e) {
+				ImageIcon cargandoCarro = new ImageIcon(
+						getClass().getResource("/vista/recursos/imagenes/carroPrueba.png"));
+				Image imagen = cargandoCarro.getImage();
+				Image imagenReescalada = imagen.getScaledInstance(187, 140, Image.SCALE_SMOOTH);
+				ImageIcon iconoReescalado = new ImageIcon(imagenReescalada);
+				SwingUtilities.invokeLater(() -> {
+					lblImgCarro.setIcon(iconoReescalado);
+					panel.revalidate();
+					panel.repaint();
+				});
+			}
+		});
+		loadImageThread.start();
+		panel.add(lblImgCarro);
+		if (vehiculo.isAireAcondicionado()) {
+			aireAcondicionado.setText("Si");
+		} else {
+			aireAcondicionado.setText("No");
+		}
+    panel.revalidate();
+    panel.repaint();
+    }
+	
 	
 	@Override
 	protected void paintComponent (Graphics g) {
@@ -763,4 +845,16 @@ public class DialogoRentar extends JPanel {
 	public void setDialogoFecha(DialogoFecha dialogoFecha) {
 		this.dialogoFecha = dialogoFecha;
 	}
+
+	public ComboBoxRedondeado<String> getComboBoxVehiculos() {
+		return comboBoxVehiculos;
+	}
+
+	public void setComboBoxVehiculos(ComboBoxRedondeado<String> comboBoxVehiculos) {
+		this.comboBoxVehiculos = comboBoxVehiculos;
+	}
+	
+	
+	
 }
+
