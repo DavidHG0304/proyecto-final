@@ -4,9 +4,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
 
 import modelo.Modelo;
+import modelo.Modelo.RentasAsociadasException;
 import modelo.entidades.Categorias;
 import modelo.entidades.Marcas;
 import modelo.entidades.Vehiculos;
@@ -248,20 +251,39 @@ public class ControladorVehiculos implements ActionListener{
 		    
 		    resultado = modelo.editarVehiculos(vehiculoSeleccionado.getIdVehiculo(), nombre, anio, cantidadPuertas, transmision, aireAcondicionado, modeloCarro, nombreCategoria, nombreMarca, seguroDanios, seguroVida, seguroKilometraje, combustible, tarifaPorDia);
 			if (resultado) {
+				cargarVehiculos();
 				GlassPanePopup.closePopupLast();
-				GlassPanePopup.showPopup(new DialogoAvisos("Actualizado", "El vehiculo ha sido \nactualizado correctamente."));
-		        cargarVehiculos();
-		    } else {
-		    	GlassPanePopup.closePopupLast();
-		    	GlassPanePopup.showPopup(new DialogoAvisos("Error", "No se pudo actualizar el vehiculo."));
+				SwingUtilities.invokeLater(() -> {
+					GlassPanePopup.closePopupLast();
+					GlassPanePopup.showPopup(new DialogoAvisos("Actualizado", "El vehiculo ha sido \nactualizado correctamente."));
+				});
+				return;
 		    }
 			break;
 			
 		case "ConfirmarEliminar":
-			System.out.println("Eliminado");
-			modelo.eliminarVehiculo(vehiculoSeleccionadoParaEliminar.getIdVehiculo());
-			GlassPanePopup.closePopupLast();
-			cargarVehiculos();
+			boolean eliminado = false;
+			try {
+				
+				eliminado = modelo.eliminarVehiculo(vehiculoSeleccionadoParaEliminar.getIdVehiculo());
+			} catch (RentasAsociadasException e1) {
+				// TODO Auto-generated catch block
+				SwingUtilities.invokeLater(() -> {
+					GlassPanePopup.closePopupLast();
+					GlassPanePopup.showPopup(new DialogoAvisos("Error", e1.getMessage()));
+				});
+				return;
+			}
+			
+			if(eliminado) {
+				cargarVehiculos();
+				GlassPanePopup.closePopupLast();
+				SwingUtilities.invokeLater(() -> {
+					GlassPanePopup.closePopupLast();
+					GlassPanePopup.showPopup(new DialogoAvisos("Eliminado", "Se ha eliminado el vehiculo."));
+				});
+				return;
+			}
 			break;
 		}
 	}

@@ -245,7 +245,11 @@ public class Modelo {
 	
 	
 // 	Eliminar Vehiculo
-    public boolean eliminarVehiculo(int idVehiculo) {
+    public boolean eliminarVehiculo(int idVehiculo) throws RentasAsociadasException{
+		if (tieneRentasAsociadas(idVehiculo)) {
+			throw new RentasAsociadasException("No se puede eliminar el vehículo \nporque tiene rentas asociadas.");
+		}
+    	
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (ClassNotFoundException e) {
@@ -278,7 +282,56 @@ public class Modelo {
         }
     }
 	
+    public boolean tieneRentasAsociadas(int idVehiculo) {
+	    String sql = "SELECT COUNT(*) AS count FROM rentas WHERE vehiculo_id = ?";
+	    try {
+	        Class.forName("com.mysql.cj.jdbc.Driver");
+	    } catch (ClassNotFoundException e) {
+	        e.printStackTrace();
+	        return false;
+	    }
 
+	    try (Connection con = DriverManager.getConnection(
+	            "jdbc:mysql://monorail.proxy.rlwy.net:28289/railway?useSSL=false", "root",
+	            "AZsyCwUGzmURenQkgkEOksyBwsWuQBFI");
+	         PreparedStatement stmt = con.prepareStatement(sql)) {
+
+	        stmt.setInt(1, idVehiculo);
+	        ResultSet rs = stmt.executeQuery();
+	        if (rs.next() && rs.getInt("count") > 0) {
+	            return true;
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    return false;
+	}
+
+    public boolean tieneRentasAsociadasCliente(int idUsuario) {
+        String sql = "SELECT COUNT(*) AS count FROM rentas WHERE usuario_id = ?";
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+            return false;
+        }
+
+        try (Connection con = DriverManager.getConnection(
+                "jdbc:mysql://monorail.proxy.rlwy.net:28289/railway?useSSL=false", "root",
+                "AZsyCwUGzmURenQkgkEOksyBwsWuQBFI");
+             PreparedStatement stmt = con.prepareStatement(sql)) {
+
+            stmt.setInt(1, idUsuario);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next() && rs.getInt("count") > 0) {
+                return true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    
 //	Añadir vehiculos
 	public boolean aniadirVehiculo(String nombre, String año, int cantidadPuertas, int kilometraje, String transmision,
 	        boolean aireAcondicionado, String modelo, String nombreCategoria, String nombreMarca, String urlImagen,
@@ -432,7 +485,11 @@ public class Modelo {
 		return usuarios;
 	}
 
-	public boolean eliminarUsuario(int idUsuario) {
+	public boolean eliminarUsuario(int idUsuario) throws RentasAsociadasException {
+		if (tieneRentasAsociadasCliente(idUsuario)) {
+	        throw new RentasAsociadasException("No se puede eliminar el cliente \nporque tiene rentas asociadas.");
+	    }
+		
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 		} catch (ClassNotFoundException e) {
@@ -578,7 +635,7 @@ public class Modelo {
 	public ArrayList<Rentas> mostrarRentas() {
 	    ArrayList<Rentas> rentas = new ArrayList<>();
 
-	    String sql = "SELECT r.id, r.fecha_inicial, r.fecha_final, r.fecha_nacimiento, r.costo, " +
+	    String sql = "SELECT r.id, r.fecha_inicial, r.fecha_final, r.costo, " +
 	                 "u.id AS usuario_id, u.nombre AS usuario_nombre, u.prim_apellido AS usuario_apellido, u.correo_electronico AS usuario_correo, " +
 	                 "v.id AS vehiculo_id, v.nombre AS vehiculo_nombre, v.año, v.cantidad_puertas, v.transmision, v.modelo, v.kilometraje, v.aire_acondicionado, i.url AS imagen_url " +
 	                 "FROM rentas r " +
@@ -601,7 +658,6 @@ public class Modelo {
 	        while (rs.next()) {
 	            Rentas renta = new Rentas();
 	            renta.setId(rs.getInt("id"));
-	            renta.setFecha_nacimiento(rs.getString("fecha_nacimiento"));
 	            renta.setFecha_inicial(rs.getString("fecha_inicial"));
 	            renta.setFecha_final(rs.getString("fecha_final"));
 	            renta.setCosto(rs.getDouble("costo"));
@@ -907,4 +963,12 @@ public class Modelo {
 			return false;
 		}
 	}
+	
+	
+	public class RentasAsociadasException extends Exception {
+	    public RentasAsociadasException(String message) {
+	        super(message);
+	    }
+	}
+	
 }

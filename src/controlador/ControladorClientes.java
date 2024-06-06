@@ -4,9 +4,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
 
 import modelo.Modelo;
+import modelo.Modelo.RentasAsociadasException;
 import modelo.entidades.Usuarios;
 import raven.glasspanepopup.GlassPanePopup;
 import vista.VistaPanelClientes;
@@ -51,18 +53,6 @@ public class ControladorClientes implements ActionListener{
 		panelClientes.mostrarClientes(usuarios);
 	}
 	
-	public void eliminarCliente(Usuarios usuario) {
-		if (modelo.eliminarUsuario(usuario.getIdUsuario())) {
-			modelo.eliminarUsuario(usuario.getIdUsuario());
-			ArrayList<Usuarios> usuariosActualizados = modelo.obtenerUsuarios();
-			panelClientes.mostrarClientes(usuariosActualizados);
-			panelClientes.asignarListenersCartas(ControladorClientes.this);
-
-		} else {
-			System.out.println("No se pudo");
-		}
-		
-	}
 
 	public void cargarUsuario() {
 		SwingWorker<ArrayList<Usuarios>, Void> cargadorUsuarios = new SwingWorker<ArrayList<Usuarios>, Void>() {
@@ -147,10 +137,30 @@ public class ControladorClientes implements ActionListener{
 			controlador.nuevoModelo.setRegistroEncontrado(false);
 			break;
 		case "ConfirmarEliminar":
-			System.out.println("Eliminado");
-			eliminarCliente(usuarioSeleccionadoParaEliminar);
-			GlassPanePopup.closePopupLast();
-			break;
+			boolean eliminado = false;
+            try {
+                eliminado = modelo.eliminarUsuario(usuarioSeleccionadoParaEliminar.getIdUsuario());
+            } catch (RentasAsociadasException e1) {
+                // Mostrar mensaje de error si hay rentas asociadas
+                SwingUtilities.invokeLater(() -> {
+                    GlassPanePopup.closePopupLast();
+                    GlassPanePopup.showPopup(new DialogoAvisos("Error", e1.getMessage()));
+                });
+                return; // Salir del método después de mostrar el error
+            }
+
+            if (eliminado) {
+                cargarUsuario();
+                SwingUtilities.invokeLater(() -> {
+                    GlassPanePopup.closePopupLast();
+                    GlassPanePopup.showPopup(new DialogoAvisos("Eliminado", "El cliente ha sido eliminado."));
+                });
+            } else {
+                SwingUtilities.invokeLater(() -> {
+                    GlassPanePopup.showPopup(new DialogoAvisos("Error", "No se pudo eliminar el cliente."));
+                });
+            }
+            break;
 		case "EditarCliente":
 			Usuarios usuarioSeleccionado = panelClientes.getUsuarioSeleccionado();
             usuarioSeleccionado = panelClientes.getUsuarioSeleccionado();

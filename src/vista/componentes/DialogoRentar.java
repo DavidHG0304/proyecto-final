@@ -66,7 +66,7 @@ public class DialogoRentar extends JPanel {
 			}
 		});
 		lblFecha_1.setIcon(fechaIcono2);		
-		lblFecha_1.setBounds(487, 514, 39, 25);
+		lblFecha_1.setBounds(487, 460, 39, 25);
 		add(lblFecha_1);
 		Cerrar.setFont(new Font("Inter", Font.PLAIN, 14));
 		Cerrar.setForeground(new Color(33, 147, 246));
@@ -78,7 +78,7 @@ public class DialogoRentar extends JPanel {
 		txtFechaRenta = new JTextFieldRedondeado(20,20, new Color(0,0,0,60));
 		txtFechaRenta.setEditable(false);
 		txtFechaRenta.setFont(new Font("Inter", Font.PLAIN, 11));
-		txtFechaRenta.setBounds(263, 514, 214, 25);
+		txtFechaRenta.setBounds(263, 460, 214, 25);
 		txtFechaRenta.setBackground(new Color(0,0,0,5));
 		add(txtFechaRenta);
         
@@ -88,12 +88,12 @@ public class DialogoRentar extends JPanel {
         txtMarca_2.setBounds(263, 405, 214, 25);
         add(txtMarca_2);
         
-        txtFechaN = new JTextFieldRedondeado(20, 20, new Color(0, 0, 0, 60));
-        txtFechaN.setEditable(false);
-        txtFechaN.setFont(new Font("Inter", Font.PLAIN, 11));
-        txtFechaN.setBackground(new Color(0, 0, 0, 5));
-        txtFechaN.setBounds(263, 458, 214, 25);
-        add(txtFechaN);
+//        txtFechaN = new JTextFieldRedondeado(20, 20, new Color(0, 0, 0, 60));
+//        txtFechaN.setEditable(false);
+//        txtFechaN.setFont(new Font("Inter", Font.PLAIN, 11));
+//        txtFechaN.setBackground(new Color(0, 0, 0, 5));
+//        txtFechaN.setBounds(263, 458, 214, 25);
+//        add(txtFechaN);
         
         JEditorPane lblNombrePersona = new JEditorPane();
         lblNombrePersona.setText("Nombre persona a rentar");
@@ -108,7 +108,7 @@ public class DialogoRentar extends JPanel {
         maracaAuto.setOpaque(false);
         maracaAuto.setFont(new Font("Inter", Font.PLAIN, 11));
         maracaAuto.setFocusable(false);
-        maracaAuto.setBounds(263, 495, 214, 19);
+        maracaAuto.setBounds(263, 441, 214, 19);
         add(maracaAuto);
         
         JEditorPane lblCobroPorDia = new JEditorPane();
@@ -119,13 +119,13 @@ public class DialogoRentar extends JPanel {
         lblCobroPorDia.setBounds(15, 495, 124, 19);
         add(lblCobroPorDia);
         
-        JEditorPane lblFechaNacimiento = new JEditorPane();
-        lblFechaNacimiento.setText("Fecha de nacimiento");
-        lblFechaNacimiento.setOpaque(false);
-        lblFechaNacimiento.setFont(new Font("Inter", Font.PLAIN, 11));
-        lblFechaNacimiento.setFocusable(false);
-        lblFechaNacimiento.setBounds(263, 439, 214, 19);
-        add(lblFechaNacimiento);
+//        JEditorPane lblFechaNacimiento = new JEditorPane();
+//        lblFechaNacimiento.setText("Fecha de nacimiento");
+//        lblFechaNacimiento.setOpaque(false);
+//        lblFechaNacimiento.setFont(new Font("Inter", Font.PLAIN, 11));
+//        lblFechaNacimiento.setFocusable(false);
+//        lblFechaNacimiento.setBounds(263, 439, 214, 19);
+//        add(lblFechaNacimiento);
         
         JEditorPane lblSeguroVida = new JEditorPane();
         lblSeguroVida.setText("Seguro de vida");
@@ -310,18 +310,18 @@ public class DialogoRentar extends JPanel {
 		lblFechaInicio_1_1.setBounds(21, 116, 184, 32);
 		panelResumen.add(lblFechaInicio_1_1);
 		
-		ImageIcon fechaIcono3 = new ImageIcon(getClass().getResource("/vista/recursos/imagenes/fecha.png"));
-		BtnBordeado lblFecha_1_1 = new BtnBordeado(15, false, true, new Color(0, 0, 0, 70));
-		lblFecha_1_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				DialogoFecha dialogo = new DialogoFecha(false, DialogoRentar.this);
-				GlassPanePopup.showPopup(dialogo);
-			}
-		});
-		lblFecha_1_1.setIcon(fechaIcono3);
-		lblFecha_1_1.setBounds(487, 458, 39, 25);
-		add(lblFecha_1_1);
-        
+//		ImageIcon fechaIcono3 = new ImageIcon(getClass().getResource("/vista/recursos/imagenes/fecha.png"));
+//		BtnBordeado lblFecha_1_1 = new BtnBordeado(15, false, true, new Color(0, 0, 0, 70));
+//		lblFecha_1_1.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent e) {
+//				DialogoFecha dialogo = new DialogoFecha(false, DialogoRentar.this);
+//				GlassPanePopup.showPopup(dialogo);
+//			}
+//		});
+//		lblFecha_1_1.setIcon(fechaIcono3);
+//		lblFecha_1_1.setBounds(487, 458, 39, 25);
+//		add(lblFecha_1_1);
+//        
         
         
         panel.revalidate();
