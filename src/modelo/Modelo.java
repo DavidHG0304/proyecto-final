@@ -1087,29 +1087,57 @@ public class Modelo {
 		}
 	}
 
-	public boolean editarCategorias(int idCategoria, String nombreCategoria) {
-		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
+	public boolean editarCategorias(int idCategoria, String nuevoNombreCategoria) {
+	    try {
+	        Class.forName("com.mysql.cj.jdbc.Driver");
+	    } catch (ClassNotFoundException e) {
+	        e.printStackTrace();
+	    }
 
-		String sql = "UPDATE categoria SET nombre = ? WHERE id = ?";
-		try (Connection con = DriverManager.getConnection(
-				"jdbc:mysql://monorail.proxy.rlwy.net:28289/railway?useSSL=false", "root",
-				"AZsyCwUGzmURenQkgkEOksyBwsWuQBFI"); PreparedStatement stmt = con.prepareStatement(sql)) {
+	    String sql = "UPDATE categoria SET nombre = ? WHERE id = ?";
+	    try (Connection con = DriverManager.getConnection(
+	            "jdbc:mysql://monorail.proxy.rlwy.net:28289/railway?useSSL=false", "root",
+	            "AZsyCwUGzmURenQkgkEOksyBwsWuQBFI"); 
+	         PreparedStatement stmt = con.prepareStatement(sql)) {
 
-			stmt.setString(1, nombreCategoria);
-			stmt.setInt(2, idCategoria);
+	        stmt.setString(1, nuevoNombreCategoria);
+	        stmt.setInt(2, idCategoria);
 
-			int filasAfectadas = stmt.executeUpdate();
-			System.out.println("Editar categoria");
-			return filasAfectadas > 0;
+	        int filasAfectadas = stmt.executeUpdate();
+	        System.out.println("Editar categoria");
+	        return filasAfectadas > 0;
 
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return false;
-		}
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        return false;
+	    }
+	}
+	
+	public int obtenerIdCategoriaPorNombre(String nombreCategoria) {
+	    try {
+	        Class.forName("com.mysql.cj.jdbc.Driver");
+	    } catch (ClassNotFoundException e) {
+	        e.printStackTrace();
+	    }
+
+	    String sql = "SELECT id FROM categoria WHERE nombre = ?";
+	    try (Connection con = DriverManager.getConnection(
+	            "jdbc:mysql://monorail.proxy.rlwy.net:28289/railway?useSSL=false", "root",
+	            "AZsyCwUGzmURenQkgkEOksyBwsWuQBFI");
+	         PreparedStatement stmt = con.prepareStatement(sql)) {
+
+	        stmt.setString(1, nombreCategoria);
+	        ResultSet rs = stmt.executeQuery();
+	        if (rs.next()) {
+	            return rs.getInt("id");
+	        } else {
+	            return -1; // O algún valor que indique que no se encontró la categoría
+	        }
+
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        return -1;
+	    }
 	}
 
 	// metodo eliminar catego

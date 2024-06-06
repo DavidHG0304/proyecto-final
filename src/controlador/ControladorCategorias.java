@@ -214,7 +214,10 @@ public class ControladorCategorias implements ActionListener{
 		break;
 		case "EditarCategoria":
 			System.out.println("Editar");
-			GlassPanePopup.showPopup(new DialogoAniadirC_M("Editar nombre de la categoria"));
+			dialogoAniadirC_M = new DialogoAniadirC_M("Editar nombre de la categoria");
+			GlassPanePopup.showPopup(dialogoAniadirC_M);
+			dialogoAniadirC_M.getBoton().addActionListener(this);
+			dialogoAniadirC_M.getBoton().setActionCommand("ConfirmarEditarCategoria");
 		break;
 		case "Info pVehiculo":
 			// TO - DO
@@ -383,7 +386,7 @@ public class ControladorCategorias implements ActionListener{
 			}else {
 				SwingUtilities.invokeLater(() -> {
 					GlassPanePopup.closePopupLast();
-					GlassPanePopup.showPopup(new DialogoAvisos("Error", "Nose pudo añadir\n una nueva categoria."));
+					GlassPanePopup.showPopup(new DialogoAvisos("Error", "No se pudo añadir\n una nueva categoria."));
 				});
 			}
 			break;
@@ -398,10 +401,30 @@ public class ControladorCategorias implements ActionListener{
 			}else {
 				SwingUtilities.invokeLater(() -> {
 					GlassPanePopup.closePopupLast();
-					GlassPanePopup.showPopup(new DialogoAvisos("Error", "Nose pudo eliminar\n la categoria."));
+					GlassPanePopup.showPopup(new DialogoAvisos("Error", "No se pudo eliminar\n la categoria."));
 				});
 				
 			}
+			break;
+		case "ConfirmarEditarCategoria":
+			String nombreCategoriaActual = (String) panelCategorias.getComboBoxCategorias().getSelectedItem();
+			String nuevoNombreCategoria = dialogoAniadirC_M.getTxtMarca_2().getText();
+			int idCategoria = modelo.obtenerIdCategoriaPorNombre(nombreCategoriaActual);
+			if(modelo.editarCategorias(idCategoria, nuevoNombreCategoria)) {
+				actualizarCategorias();
+				cargarVehiculosPorCategoria(nombreCategoriaActual);
+				SwingUtilities.invokeLater(() -> {
+					GlassPanePopup.closePopupLast();
+					GlassPanePopup.showPopup(new DialogoAvisos("Actualizado", "La categoria ha sido \neditada correctamente."));
+				});
+				
+			}else {
+				SwingUtilities.invokeLater(() -> {
+					GlassPanePopup.closePopupLast();
+					GlassPanePopup.showPopup(new DialogoAvisos("Error", "No se pudo editar\n la categoria."));
+				});
+			}
+			
 			
 			break;
 		}
