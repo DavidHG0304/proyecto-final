@@ -88,6 +88,7 @@ public class ControladorCategorias implements ActionListener{
                     ArrayList<Vehiculos> vehiculos = get();
                     panelCategorias.mostrarVehiculos(vehiculos);
                     panelCategorias.asignarListenersCartas(ControladorCategorias.this);
+                    cargarVehiculosPorCategoria((String)panelCategorias.getComboBoxCategorias().getSelectedItem());
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -371,17 +372,25 @@ public class ControladorCategorias implements ActionListener{
 		    }
 			break;
 		case "ConfirmarAniadir":
-			if(modelo.aniadirCategorias(dialogoAniadirC_M.getTxtMarca_2().getText())) {
-				actualizarCategorias();
-				SwingUtilities.invokeLater(() -> {
-					GlassPanePopup.closePopupLast();
-					GlassPanePopup.showPopup(new DialogoAvisos("Añadido", "La categoria ha sido \nañadida correctamente."));
-				});
+			if(!dialogoAniadirC_M.getTxtMarca_2().getText().isEmpty()) {
+
+				if (modelo.aniadirCategorias(dialogoAniadirC_M.getTxtMarca_2().getText())) {
+					actualizarCategorias();
+					SwingUtilities.invokeLater(() -> {
+						GlassPanePopup.closePopupLast();
+						GlassPanePopup.showPopup(
+								new DialogoAvisos("Añadido", "La categoria ha sido \nañadida correctamente."));
+					});
+				} else {
+					SwingUtilities.invokeLater(() -> {
+						GlassPanePopup.closePopupLast();
+						GlassPanePopup
+								.showPopup(new DialogoAvisos("Error", "No se pudo añadir\n una nueva categoria."));
+					});
+				}
 			}else {
-				SwingUtilities.invokeLater(() -> {
-					GlassPanePopup.closePopupLast();
-					GlassPanePopup.showPopup(new DialogoAvisos("Error", "No se pudo añadir\n una nueva categoria."));
-				});
+				GlassPanePopup.closePopupLast();
+				GlassPanePopup.showPopup(new DialogoAvisos("Error", "Ingrese el nombre de la categoria"));
 			}
 			break;
 		case "ConfirmarEliminarCategoria":
@@ -404,21 +413,26 @@ public class ControladorCategorias implements ActionListener{
 			String nombreCategoriaActual = (String) panelCategorias.getComboBoxCategorias().getSelectedItem();
 			String nuevoNombreCategoria = dialogoAniadirC_M.getTxtMarca_2().getText();
 			int idCategoria = modelo.obtenerIdCategoriaPorNombre(nombreCategoriaActual);
-			if(modelo.editarCategorias(idCategoria, nuevoNombreCategoria)) {
-				actualizarCategorias();
-				cargarVehiculosPorCategoria(nombreCategoriaActual);
-				SwingUtilities.invokeLater(() -> {
+			
+			if (!nuevoNombreCategoria.isEmpty()) {
+				if (modelo.editarCategorias(idCategoria, nuevoNombreCategoria)) {
+					actualizarCategorias();
+					cargarVehiculosPorCategoria(nombreCategoriaActual);
+					SwingUtilities.invokeLater(() -> {
 					GlassPanePopup.closePopupLast();
 					GlassPanePopup.showPopup(new DialogoAvisos("Actualizado", "La categoria ha sido \neditada correctamente."));
-				});
-				
-			}else {
-				SwingUtilities.invokeLater(() -> {
+					});
+
+				} else {
+					SwingUtilities.invokeLater(() -> {
 					GlassPanePopup.closePopupLast();
 					GlassPanePopup.showPopup(new DialogoAvisos("Error", "No se pudo editar\n la categoria."));
-				});
+					});
+				}
+			} else {
+				GlassPanePopup.closePopupLast();
+				GlassPanePopup.showPopup(new DialogoAvisos("Error", "Ingrese el nuevo nombre de la \ncategoria"));
 			}
-			
 			
 			break;
 		}

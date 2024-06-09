@@ -88,6 +88,7 @@ public class ControladorMarcas implements ActionListener {
                     ArrayList<Vehiculos> vehiculos = get();
                     panelMarcas.mostrarVehiculos(vehiculos);
                     panelMarcas.asignarListenersCartas(ControladorMarcas.this);
+                    cargarVehiculosPorMarca((String)panelMarcas.getComboBoxMarcas().getSelectedItem());
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -368,18 +369,24 @@ public class ControladorMarcas implements ActionListener {
     		    }
     			break;
     		case "ConfirmarAniadir":
-    			if(modelo.aniadirMarcas(dialogoAniadirC_M.getTxtMarca_2().getText())) {
-    				actualizarMarcas();
-    				SwingUtilities.invokeLater(() -> {
-    					GlassPanePopup.closePopupLast();
-    					GlassPanePopup.showPopup(new DialogoAvisos("Añadido", "La categoria ha sido \nañadida correctamente."));
-    				});
+    			if(!dialogoAniadirC_M.getTxtMarca_2().getText().isEmpty()) {
+    				if(modelo.aniadirMarcas(dialogoAniadirC_M.getTxtMarca_2().getText())) {
+    					actualizarMarcas();
+    					SwingUtilities.invokeLater(() -> {
+    						GlassPanePopup.closePopupLast();
+    						GlassPanePopup.showPopup(new DialogoAvisos("Añadido", "La categoria ha sido \nañadida correctamente."));
+    					});
+    				}else {
+    					SwingUtilities.invokeLater(() -> {
+    						GlassPanePopup.closePopupLast();
+    						GlassPanePopup.showPopup(new DialogoAvisos("Error", "No se pudo añadir\n una nueva categoria."));
+    					});
+    				}
     			}else {
-    				SwingUtilities.invokeLater(() -> {
-    					GlassPanePopup.closePopupLast();
-    					GlassPanePopup.showPopup(new DialogoAvisos("Error", "No se pudo añadir\n una nueva categoria."));
-    				});
+    				GlassPanePopup.closePopupLast();
+					GlassPanePopup.showPopup(new DialogoAvisos("Error", "Ingrese el nombre de la marca"));
     			}
+    			
     			break;
     		case "ConfirmarEliminarMarca":
     			if(modelo.eliminarMarcas((String)panelMarcas.getComboBoxMarcas().getSelectedItem())) {
@@ -401,22 +408,26 @@ public class ControladorMarcas implements ActionListener {
     			String nombreMarcaActual = (String) panelMarcas.getComboBoxMarcas().getSelectedItem();
     			String nuevoNombreMarca = dialogoAniadirC_M.getTxtMarca_2().getText();
     			int idMarca = modelo.obtenerIdMarcaPorNombre(nombreMarcaActual);
-    			if(modelo.editarMarcas(idMarca, nuevoNombreMarca)) {
-    				actualizarMarcas();
-    				cargarVehiculosPorMarca(nombreMarcaActual);
-    				SwingUtilities.invokeLater(() -> {
+    			
+    			if(!nuevoNombreMarca.isEmpty()) {
+    				if(modelo.editarMarcas(idMarca, nuevoNombreMarca)) {
+    					actualizarMarcas();
+    					cargarVehiculosPorMarca(nombreMarcaActual);
+    					SwingUtilities.invokeLater(() -> {
     					GlassPanePopup.closePopupLast();
     					GlassPanePopup.showPopup(new DialogoAvisos("Actualizado", "La categoria ha sido \neditada correctamente."));
-    				});
-    				
+    					});
+    					
+    				}else {
+    					SwingUtilities.invokeLater(() -> {
+   						GlassPanePopup.closePopupLast();
+   						GlassPanePopup.showPopup(new DialogoAvisos("Error", "No se pudo editar\n la categoria."));
+    					});
+    				}
     			}else {
-    				SwingUtilities.invokeLater(() -> {
-    					GlassPanePopup.closePopupLast();
-    					GlassPanePopup.showPopup(new DialogoAvisos("Error", "No se pudo editar\n la categoria."));
-    				});
+    				GlassPanePopup.closePopupLast();
+    				GlassPanePopup.showPopup(new DialogoAvisos("Error", "Ingrese el nuevo nombre de la \ncategoria"));
     			}
-    			
-    			
     			break;
     		}
     	}

@@ -606,7 +606,6 @@ public class DialogoRentar extends JPanel {
 		nPuertas.setText("" + vehiculo.getPuertasVehiculo());
 		kilometraje.setText("" + vehiculo.getKilometrajeVehiculo());
 		tTransmision.setText(vehiculo.getTransmision());
-		
 		precioD.setText(""+vehiculo.getTarifa().getSeguro_danios());
 		precioSVida.setText(""+vehiculo.getTarifa().getSeguro_vida());
 		precioK.setText(""+vehiculo.getTarifa().getSeguro_kilometraje());
@@ -614,11 +613,12 @@ public class DialogoRentar extends JPanel {
 		precioT.setText(""+vehiculo.getTarifa().getSeguro_tarifa_por_dia());
 		sumaTotal = vehiculo.getTarifa().getSeguro_danios()+vehiculo.getTarifa().getSeguro_vida()+vehiculo.getTarifa().getSeguro_kilometraje()+vehiculo.getTarifa().getSeguro_combustible();;
 		txtTotal.setText(""+vehiculo.getCostoTotalTarifa());
-		
 		txtFechaRenta.setText("");
 		
-//		comboBoxUsuarios.setSelectedItem();
+		txtFechaInicio.setText("");
+		txtFechaFinal.setText("");
 		
+				
 		lblImgCarro = new JLabel();
 		Thread loadImageThread = new Thread(() -> {
 			try {
