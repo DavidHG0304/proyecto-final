@@ -250,7 +250,7 @@ public class ControladorMarcas implements ActionListener {
     			break;
     		case "Agregar Marca pMarcas":
     			System.out.println("Aniadir");
-    			dialogoAniadirC_M = new DialogoAniadirC_M("Nombre de la nueva categoria");
+    			dialogoAniadirC_M = new DialogoAniadirC_M("Nombre de la nueva marca");
     			GlassPanePopup.showPopup(dialogoAniadirC_M);
     			dialogoAniadirC_M.getBoton().setActionCommand("ConfirmarAniadir");
     			dialogoAniadirC_M.getBoton().addActionListener(this);

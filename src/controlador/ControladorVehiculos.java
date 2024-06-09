@@ -333,6 +333,10 @@ public class ControladorVehiculos implements ActionListener{
 			String fechaInicial = dialogoRenta.getTxtFechaInicio().getText();
 			Double costo = Double.parseDouble(dialogoRenta.getTxtTotal().getText());
 			String nombreUsuario = (String) dialogoRenta.getComboBoxUsuarios().getSelectedItem();
+			String nombreVehiculo = (String) dialogoRenta.getComboBoxVehiculos().getSelectedItem();
+			
+			int vehiculoID = modelo.obtenerVehiculoIdPorNombre(nombreVehiculo);
+			
 			
 			boolean resultado2 = modelo.aniadirRentas(fechaFinal, fechaInicial, costo, nombreUsuario, vehiculoSeleccionado.getIdVehiculo());
 			if (resultado2) {
