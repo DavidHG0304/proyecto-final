@@ -196,14 +196,8 @@ public class ControladorVehiculos implements ActionListener{
 			vehiculoSeleccionado = pVehiculos.getVehiculoSeleccionado();
 			ArrayList<String> vehiculos = obtenerNombresCarros();
 			dialogoRenta = new DialogoRentar("Test", "Crear Renta", vehiculoSeleccionado, usuarios, null, vehiculos);
-			dialogoRenta.getComboBoxVehiculos().addActionListener(new ActionListener() {
-		        @Override
-		        public void actionPerformed(ActionEvent e) {
-		            String nombreVehiculoSeleccionado = (String) dialogoRenta.getComboBoxVehiculos().getSelectedItem();
-		            Vehiculos vehiculoSeleccionado = modelo.obtenerVehiculoPorNombre(nombreVehiculoSeleccionado);
-		            actualizarInformacionVehiculo(vehiculoSeleccionado);
-		        }
-		    });
+			dialogoRenta.getPanelCartas().remove(dialogoRenta.getComboBoxVehiculos());
+            dialogoRenta.getPanelCartas().remove(dialogoRenta.getDtrpnAuto());
 			dialogoRenta.getBtnCrear().addActionListener(this);
 			GlassPanePopup.showPopup(dialogoRenta);
 			break;

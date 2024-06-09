@@ -69,6 +69,8 @@ public class DialogoRentar extends JPanel {
 	private JPanel panel;
 	private String textoDelBoton;
 	
+	private JLabel dtrpnAuto;
+	private PanelRedondeado panelCartas;
 	private Vehiculos vehiculo;
 
 	/**
@@ -116,28 +118,7 @@ public class DialogoRentar extends JPanel {
 		add(txtFechaRenta);
         
         
-//        txtFechaN = new JTextFieldRedondeado(20, 20, new Color(0, 0, 0, 60));
-//        txtFechaN.setEditable(false);
-//        txtFechaN.setFont(new Font("Inter", Font.PLAIN, 11));
-//        txtFechaN.setBackground(new Color(0, 0, 0, 5));
-//        txtFechaN.setBounds(263, 458, 214, 25);
-//        add(txtFechaN);
-		
-//        JEditorPane lblFechaNacimiento = new JEditorPane();
-//        lblFechaNacimiento.setText("Fecha de nacimiento");
-//        lblFechaNacimiento.setOpaque(false);
-//        lblFechaNacimiento.setFont(new Font("Inter", Font.PLAIN, 11));
-//        lblFechaNacimiento.setFocusable(false);
-//        lblFechaNacimiento.setBounds(263, 439, 214, 19);
-//        add(lblFechaNacimiento);
-		
-//      RoundedPanel cartasCarros = new RoundedPanel(30, false, true, new Color(0, 0, 0, 61), 6);
-//      cartasCarros.setBackground(new Color(255, 255, 255));
-//      cartasCarros.setPreferredSize(new Dimension(208, 317));
-//      cartasCarros.setMaximumSize(new Dimension(208, 317));
-//      cartasCarros.setMinimumSize(new Dimension(208, 317));
-//      cartasCarros.setLayout(null);
-//      add(cartasCarros);
+
         
         JEditorPane lblNombrePersona = new JEditorPane();
         lblNombrePersona.setText("Nombre persona a rentar");
@@ -179,7 +160,7 @@ public class DialogoRentar extends JPanel {
         lblSeguroKilometraje.setBounds(24, 431, 110, 19);
         add(lblSeguroKilometraje);
 
-		PanelRedondeado panelCartas = new PanelRedondeado(30, false, true, new Color(0, 0, 0, 61), 6);
+		panelCartas = new PanelRedondeado(30, false, true, new Color(0, 0, 0, 61), 6);
 		panelCartas.setBackground(new Color(255, 255, 255));
 		panelCartas.setPreferredSize(new Dimension(208, 317));
 		panelCartas.setMaximumSize(new Dimension(208, 317));
@@ -288,7 +269,7 @@ public class DialogoRentar extends JPanel {
 		
 		comboBoxVehiculos.setModel(new DefaultComboBoxModel<>(carros.toArray(new String[0])));
 		
-		JLabel dtrpnAuto = new JLabel();
+		dtrpnAuto = new JLabel();
 		dtrpnAuto.setText("Auto");
 		dtrpnAuto.setOpaque(false);
 		dtrpnAuto.setFont(new Font("Inter", Font.PLAIN, 11));
@@ -870,6 +851,22 @@ public class DialogoRentar extends JPanel {
 
 	public void setVehiculo(Vehiculos vehiculo) {
 		this.vehiculo = vehiculo;
+	}
+
+	public JLabel getDtrpnAuto() {
+		return dtrpnAuto;
+	}
+
+	public void setDtrpnAuto(JLabel dtrpnAuto) {
+		this.dtrpnAuto = dtrpnAuto;
+	}
+
+	public PanelRedondeado getPanelCartas() {
+		return panelCartas;
+	}
+
+	public void setPanelCartas(PanelRedondeado panelCartas) {
+		this.panelCartas = panelCartas;
 	}
 	
 	
