@@ -100,6 +100,10 @@ public class DialogoDetallesCliente extends JPanel {
 		lblHistorialRentas.setBounds(-10, 11, 705, 43);
 		panel.add(lblHistorialRentas);
 		
+		JButton btnNewButton = new JButton("New button");
+		btnNewButton.setBounds(636, 20, 89, 23);
+		add(btnNewButton);
+		
 	}
 	
 	@Override
