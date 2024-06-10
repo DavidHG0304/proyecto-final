@@ -25,5 +25,3 @@ aram_22@alu.uabcs.mx  qweasdzxc
 
 ## Ejecutable Jar de versión estable (Link drive)
 https://drive.google.com/file/d/1IoVof6hvmRA4ZB6T9hMDEg5Ujnhu2FSs/view?usp=sharing
-<br />
-Módulo funcional - Clientes
