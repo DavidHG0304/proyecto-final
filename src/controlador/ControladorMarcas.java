@@ -205,14 +205,12 @@ public class ControladorMarcas implements ActionListener {
                 break;
                 
             case "EliminarMarca":
-            	System.out.println("Eliminar");
     			DialogoConfirmacion dialogoConfirmacion = new DialogoConfirmacion("¿Estas seguro de querer \neliminar la marca?", "");
     			GlassPanePopup.showPopup(dialogoConfirmacion);
     			dialogoConfirmacion.getBoton().addActionListener(this);
     			dialogoConfirmacion.getBoton().setActionCommand("ConfirmarEliminarMarca");
     		break;
     		case "EditarMarca":
-    			System.out.println("Editar");
     			dialogoAniadirC_M = new DialogoAniadirC_M("Editar nombre de la marca");
     			GlassPanePopup.showPopup(dialogoAniadirC_M);
     			dialogoAniadirC_M.getBoton().addActionListener(this);
@@ -227,7 +225,6 @@ public class ControladorMarcas implements ActionListener {
 //    			GlassPanePopup.showPopup(new DialogoConfirmacion("¿Estas seguro de querer \neliminar el auto?", ""));
 //    			break;
     		case "Rentar":
-    			System.out.println("HOASLDK");
     			ArrayList<String> usuarios = obtenerNombresUsuarios();
     			vehiculoSeleccionado = panelMarcas.getVehiculoSeleccionado();
     			ArrayList<String> vehiculos = obtenerNombresCarros();
@@ -244,7 +241,6 @@ public class ControladorMarcas implements ActionListener {
 //    			GlassPanePopup.showPopup(new DialogoAniadir("Editar vehiculo", eVehiculo));
     			break;
     		case "Agregar Marca pMarcas":
-    			System.out.println("Aniadir");
     			dialogoAniadirC_M = new DialogoAniadirC_M("Nombre de la nueva marca");
     			GlassPanePopup.showPopup(dialogoAniadirC_M);
     			dialogoAniadirC_M.getBoton().setActionCommand("ConfirmarAniadir");
@@ -255,7 +251,6 @@ public class ControladorMarcas implements ActionListener {
     			GlassPanePopup.showPopup(new DialogoDetalles("Test", modelo.obtenerRentasPorVehiculo(vehiculoSeleccionado.getIdVehiculo()), vehiculoSeleccionado));
     			break;
     		case "CrearUnVehiculo":
-    			System.out.println("Va a crear");
     			
     			String nombre = dialogoAniadir.getTxtNombre().getText();
     		    String anio = dialogoAniadir.getTxtAnio().getText();
@@ -264,8 +259,9 @@ public class ControladorMarcas implements ActionListener {
     		    if (!puertasString.equals("0")) {
     		        cantidadPuertas = Integer.parseInt(puertasString);
     		    } else {
-    		        System.out.println("Seleccione la cantidad de puertas");
-    		        return;
+    		    	GlassPanePopup.closePopupLast();
+    		    	GlassPanePopup.showPopup(new DialogoAvisos("Error", "Faltan campos por rellenar"));
+    		    	return;
     		    }
     		    String transmision = (String) dialogoAniadir.getComboBox().getSelectedItem();
     		    boolean aireAcondicionado = dialogoAniadir.getGrupoAireRadioButton().getSelection().getActionCommand().equals("Si");
@@ -290,7 +286,6 @@ public class ControladorMarcas implements ActionListener {
     		    }
     			break;
     		case "EditarUnVehiculo":
-    			System.out.println("Va a Editar");
     			vehiculoSeleccionado = panelMarcas.getVehiculoSeleccionado();
     			
     			nombre = dialogoAniadir.getTxtNombre().getText();

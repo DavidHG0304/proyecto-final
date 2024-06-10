@@ -169,13 +169,6 @@ public class ControladorClientes implements ActionListener{
                 });
             }
             break;
-		case "EditarCliente":
-			Usuarios usuarioSeleccionado = panelClientes.getUsuarioSeleccionado();
-            usuarioSeleccionado = panelClientes.getUsuarioSeleccionado();
-            if(usuarioSeleccionado != null) {
-            	prepararEdicionCliente(usuarioSeleccionado);   
-            }
-            break;
 		case "EditarUnCliente":
 //			System.out.println("HOLAWDITAR");
 			if (metodos.registroValido(new String(dialogoCrearCliente.getTxtContrasenia().getPassword()), new String(dialogoCrearCliente.getTxtConfirmarContrasenia().getPassword()), dialogoCrearCliente.getTxtNombre(), dialogoCrearCliente.getTxtApellidos(), dialogoCrearCliente.getTxtCorreo(), dialogoCrearCliente.getTxtContrasenia(), dialogoCrearCliente.getTxtConfirmarContrasenia())) {
@@ -201,7 +194,6 @@ public class ControladorClientes implements ActionListener{
 			accionRegistro();
 			break;
 		case "DetallesCliente":
-			System.out.println("Detalles");
 			Usuarios clienteSeleccionado = panelClientes.getUsuarioSeleccionado();
             prepararDetallesCliente(clienteSeleccionado);
             break;

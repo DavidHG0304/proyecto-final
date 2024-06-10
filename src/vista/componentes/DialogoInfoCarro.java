@@ -185,7 +185,7 @@ public class DialogoInfoCarro extends JPanel {
 		panel.add(lblImgCarro);
         
 		if (vehiculo != null) {
-			lblNombreVehiculo.setText(vehiculo.getNombreVehiculo()+" "+vehiculo.getModelo()+" - "+vehiculo.getCategoria());
+			lblNombreVehiculo.setText(vehiculo.getNombreVehiculo()+" - "+vehiculo.getModelo()+" - "+vehiculo.getCategoria());
 			tPersonas.setText(""+vehiculo.getPuertasVehiculo());
 			anioV.setText(vehiculo.getAñoVehiculo());
 			nPuertas.setText(""+vehiculo.getPuertasVehiculo());

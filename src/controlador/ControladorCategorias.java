@@ -207,14 +207,12 @@ public class ControladorCategorias implements ActionListener{
 			controlador.nuevoModelo.setRegistroEncontrado(false);
 			break;
 		case "EliminarCategoria":
-			System.out.println("Eliminar");
 			DialogoConfirmacion dialogoConfirmacion = new DialogoConfirmacion("¿Estas seguro de querer \neliminar la categoria?", "");
 			GlassPanePopup.showPopup(dialogoConfirmacion);
 			dialogoConfirmacion.getBoton().addActionListener(this);
 			dialogoConfirmacion.getBoton().setActionCommand("ConfirmarEliminarCategoria");
 		break;
 		case "EditarCategoria":
-			System.out.println("Editar");
 			dialogoAniadirC_M = new DialogoAniadirC_M("Editar nombre de la categoria");
 			GlassPanePopup.showPopup(dialogoAniadirC_M);
 			dialogoAniadirC_M.getBoton().addActionListener(this);
@@ -246,7 +244,6 @@ public class ControladorCategorias implements ActionListener{
 //			GlassPanePopup.showPopup(new DialogoAniadir("Editar vehiculo", vehiculo));
 			break;
 		case "Agregar Categoria pCategorias":
-			System.out.println("Aniadir");
 			dialogoAniadirC_M = new DialogoAniadirC_M("Nombre de la nueva categoria");
 			GlassPanePopup.showPopup(dialogoAniadirC_M);
 			dialogoAniadirC_M.getBoton().setActionCommand("ConfirmarAniadir");
@@ -257,7 +254,6 @@ public class ControladorCategorias implements ActionListener{
 			GlassPanePopup.showPopup(new DialogoDetalles("Test", modelo.obtenerRentasPorVehiculo(vehiculoSeleccionado.getIdVehiculo()), vehiculoSeleccionado));
 			break;
 		case "CrearUnVehiculo":
-			System.out.println("Va a crear");
 			
 			String nombre = dialogoAniadir.getTxtNombre().getText();
 		    String anio = dialogoAniadir.getTxtAnio().getText();
@@ -266,7 +262,8 @@ public class ControladorCategorias implements ActionListener{
 		    if (!puertasString.equals("0")) {
 		        cantidadPuertas = Integer.parseInt(puertasString);
 		    } else {
-		        System.out.println("Seleccione la cantidad de puertas");
+		    	GlassPanePopup.closePopupLast();
+		    	GlassPanePopup.showPopup(new DialogoAvisos("Error", "Faltan campos por rellenar"));
 		        return;
 		    }
 		    String transmision = (String) dialogoAniadir.getComboBox().getSelectedItem();
@@ -292,7 +289,6 @@ public class ControladorCategorias implements ActionListener{
 		    }
 			break;
 		case "EditarUnVehiculo":
-			System.out.println("Va a Editar");
 			vehiculoSeleccionado = panelCategorias.getVehiculoSeleccionado();
 			
 			nombre = dialogoAniadir.getTxtNombre().getText();

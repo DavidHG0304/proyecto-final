@@ -199,7 +199,6 @@ public class ControladorRentas implements ActionListener{
 			
 			break;
 		case "Agregar Renta pRentas":
-			System.out.println("AgregarRenta");
 			ArrayList<String> usuarios = obtenerNombresUsuarios();
 			ArrayList<String> vehiculos = obtenerNombresCarros();
 			ArrayList<Rentas> rentas = modelo.mostrarRentas();
@@ -231,7 +230,6 @@ public class ControladorRentas implements ActionListener{
             }
             break;
 		case "EditarLaRenta":
-			System.out.println("HOLA");
 			rentaSeleccionadaParaEditar = panelRentas.getRentaSeleccionada();
 			String fechaFinal = dialogoRenta.getTxtFechaFinal().getText();
 			String fechaInicial = dialogoRenta.getTxtFechaInicio().getText();

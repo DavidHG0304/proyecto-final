@@ -213,7 +213,6 @@ public class ControladorVehiculos implements ActionListener{
 			
 			
 			dialogoAniadir = new DialogoAniadir("Crear vehiculo", nVehiculo, categorias, marcas, null, null);
-//			dialogoAniadir = new DialogoAniadir("Crear vehiculo", nVehiculo, marcas, categorias, null, null);
 			dialogoAniadir.getBtnAgregar().addActionListener(this);
 			GlassPanePopup.showPopup(dialogoAniadir);
 			break;
@@ -222,7 +221,6 @@ public class ControladorVehiculos implements ActionListener{
 			GlassPanePopup.showPopup(new DialogoDetalles("Test", modelo.obtenerRentasPorVehiculo(vehiculoSeleccionado.getIdVehiculo()), vehiculoSeleccionado));
 			break;
 		case "CrearUnVehiculo":
-			System.out.println("Va a crear");
 			
 			String nombre = dialogoAniadir.getTxtNombre().getText();
 		    String anio = dialogoAniadir.getTxtAnio().getText();
@@ -231,7 +229,9 @@ public class ControladorVehiculos implements ActionListener{
 		    if (!puertasString.equals("0")) {
 		        cantidadPuertas = Integer.parseInt(puertasString);
 		    } else {
-		        System.out.println("Seleccione la cantidad de puertas");
+		    	SwingUtilities.invokeLater(() -> {
+		    		GlassPanePopup.showPopup(new DialogoAvisos("Error", "No rellenó todos los campos"));
+		    	});
 		        return;
 		    }
 		    String transmision = (String) dialogoAniadir.getComboBox().getSelectedItem();
@@ -249,16 +249,20 @@ public class ControladorVehiculos implements ActionListener{
 //		    boolean resultado = modelo.aniadirVehiculo(nombre, anio, cantidadPuertas, 3000, transmision, aireAcondicionado, modeloCarro, nombreMarca, nombreCategoria, "https://firebasestorage.googleapis.com/v0/b/fotinhoscarros.appspot.com/o/bugatata.png?alt=media&token=41feddc5-379f-429e-9040-16d7cd4bb739", seguroDanios, seguroVida, seguroKilometraje, combustible, tarifaPorDia);
 		    boolean resultado = modelo.aniadirVehiculo(nombre, anio, cantidadPuertas, 3000, transmision, aireAcondicionado, modeloCarro, nombreCategoria, nombreMarca, "https://firebasestorage.googleapis.com/v0/b/fotinhoscarros.appspot.com/o/bugatata.png?alt=media&token=41feddc5-379f-429e-9040-16d7cd4bb739", seguroDanios, seguroVida, seguroKilometraje, combustible, tarifaPorDia);
 			if (resultado) {
+				SwingUtilities.invokeLater(() ->{
 				GlassPanePopup.closePopupLast();
 				GlassPanePopup.showPopup(new DialogoAvisos("Vehiculo Creado", "El vehiculo ha sido credo con exito"));
+				});
 		        cargarVehiculos();
 		    } else {
 		    	GlassPanePopup.closePopupLast();
-		    	GlassPanePopup.showPopup(new DialogoAvisos("Error", "No se ha podido crear el vehiculo"));
+		    	SwingUtilities.invokeLater(() -> {
+		    		GlassPanePopup.closePopupLast();
+		    		GlassPanePopup.showPopup(new DialogoAvisos("Error", "No se ha podido crear el vehiculo"));
+		    	});
 		    }
 			break;
 		case "EditarUnVehiculo":
-			System.out.println("Va a Editar");
 			vehiculoSeleccionado = pVehiculos.getVehiculoSeleccionado();
 			
 			nombre = dialogoAniadir.getTxtNombre().getText();
@@ -268,7 +272,6 @@ public class ControladorVehiculos implements ActionListener{
 		    if (!puertasString.equals("0")) {
 		        cantidadPuertas = Integer.parseInt(puertasString);
 		    } else {
-		    	GlassPanePopup.closePopupLast();
 		    	GlassPanePopup.showPopup(new DialogoAvisos("Error", "Faltan campos por rellenar"));
 		        return;
 		    }
