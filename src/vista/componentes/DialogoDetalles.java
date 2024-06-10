@@ -5,7 +5,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.geom.RoundRectangle2D;
@@ -13,22 +12,20 @@ import java.util.ArrayList;
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JEditorPane;
 import java.awt.Font;
 import javax.swing.SwingConstants;
 import modelo.entidades.Rentas;
-import modelo.entidades.Tarifas;
 import modelo.entidades.Vehiculos;
 import raven.glasspanepopup.GlassPanePopup;
 import vista.recursos.componentesPersonalizados.BtnBordeado;
 import vista.recursos.componentesPersonalizados.ScrollBarPersonalizado;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import javax.swing.JComboBox;
-import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import java.awt.FlowLayout;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 // Importar las clases necesarias de iText
 import com.itextpdf.text.Document;
@@ -149,10 +146,9 @@ public class DialogoDetalles extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 try {
                     Document document = new Document();
-                    // Cambiar la ruta para guardar el archivo en el escritorio
-                    String home = System.getProperty("user.home");
-                    String filePath = home + "/Desktop/Detalles.pdf";
-                    PdfWriter.getInstance(document, new FileOutputStream(filePath));
+                    // Obtener la ruta del escritorio de manera más segura y portátil
+                    Path desktopPath = Paths.get(System.getProperty("user.home"), "Desktop", "Detalles.pdf");
+                    PdfWriter.getInstance(document, new FileOutputStream(desktopPath.toFile()));
                     document.open();
                     
                     // Añadir título
@@ -187,7 +183,7 @@ public class DialogoDetalles extends JPanel {
                     document.add(rentasTable);
                     
                     document.close();
-                    System.out.println("PDF generado exitosamente en el escritorio.");
+                    System.out.println("PDF generado exitosamente en el escritorio: " + desktopPath);
                 } catch (DocumentException | FileNotFoundException ex) {
                     ex.printStackTrace();
                 }
