@@ -10,14 +10,12 @@ import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.geom.RoundRectangle2D;
 import java.util.ArrayList;
-
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JEditorPane;
 import java.awt.Font;
 import javax.swing.SwingConstants;
-
 import modelo.entidades.Rentas;
 import modelo.entidades.Tarifas;
 import modelo.entidades.Vehiculos;
@@ -25,15 +23,26 @@ import raven.glasspanepopup.GlassPanePopup;
 import vista.recursos.componentesPersonalizados.BtnBordeado;
 import vista.recursos.componentesPersonalizados.JTextFieldRedondeado;
 import vista.recursos.componentesPersonalizados.ScrollBarPersonalizado;
-
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-
 import java.awt.FlowLayout;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.FontFactory;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 
 @SuppressWarnings("serial")
 public class DialogoDetalles extends JPanel {
@@ -57,7 +66,7 @@ public class DialogoDetalles extends JPanel {
         Image imagenReescalada = imagen.getScaledInstance(200, 130, Image.SCALE_SMOOTH);
         ImageIcon iconoReescalado = new ImageIcon(imagenReescalada);
         
-        BtnBordeado Cerrar = new BtnBordeado(30, false, true, new Color(0,0,0,60));
+        BtnBordeado Cerrar = new BtnBordeado(30, false, true, new Color(33, 147, 246));
         Cerrar.setBounds(20, 564, 115, 25);
         add(Cerrar);
         Cerrar.addActionListener(new ActionListener() {
@@ -83,11 +92,8 @@ public class DialogoDetalles extends JPanel {
         lblNewLabel.setFont(new Font("Inter", Font.BOLD, 14));
         lblNewLabel.setPreferredSize(new Dimension(695, 32));
         panel.add(lblNewLabel);
-        
-        
 
 		String[] columnas = { "Usuario", "Fecha Inicial", "Fecha Final", "Auto", "Pago" };
-		
 		String[][] datos = new String[rentas.size()][5];
 		for (int i = 0; i < rentas.size(); i++) {
 			Rentas renta = rentas.get(i);
@@ -140,31 +146,66 @@ public class DialogoDetalles extends JPanel {
 		lblHistorialRentas.setBounds(0, 250, 705, 43);
 		panel.add(lblHistorialRentas);
 		
-		BtnBordeado botonDescargarPDF = new BtnBordeado(30, false, true, new Color(33, 147, 246));
+		BtnBordeado botonDescargarPDF = new BtnBordeado(30, false, true, new Color(250,0,0));
 		botonDescargarPDF.setText("Descargar PDF");
+		botonDescargarPDF.setForeground(new Color(250,0,0));
 		botonDescargarPDF.setBounds(569, 20, 156, 23);
 		add(botonDescargarPDF);
 		botonDescargarPDF.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+				try {
+					Document documento = new Document();
+					Path desktopPath = Paths.get(System.getProperty("user.home"), "Desktop");
+					Path pdfPath = desktopPath.resolve("Detalles Vehiculo.pdf");
+					int contador = 1;
+					while(Files.exists(pdfPath)) {
+						pdfPath = desktopPath.resolve("(Detalles("+ contador +").pdf");
+						contador++;
+					}
+					PdfWriter.getInstance(documento, new FileOutputStream(pdfPath.toFile()));
+					documento.open();
+					
+					Paragraph tarifaTexto = new Paragraph("Tarifas", FontFactory.getFont(FontFactory.HELVETICA, 18, Font.BOLD));
+					tarifaTexto.setAlignment(Element.ALIGN_CENTER);
+		            documento.add(tarifaTexto);
+		            
+					documento.add(new Paragraph(" "));
+					PdfPTable tarifasTabla = new PdfPTable(columnas2.length);
+					for(String columna : columnas2) {
+						tarifasTabla.addCell(columna);
+					}
+					for(String dato : datos2[0]) {
+						tarifasTabla.addCell(dato);
+					}
+					documento.add(tarifasTabla);
+					documento.add(new Paragraph(" "));
+					Paragraph historialTexto = new Paragraph("Historial Rentas", FontFactory.getFont(FontFactory.HELVETICA, 18, Font.BOLD));
+					historialTexto.setAlignment(Element.ALIGN_CENTER);
+		            documento.add(historialTexto);
+					documento.add(new Paragraph(" "));
+					
+					PdfPTable rentasTable = new PdfPTable(columnas.length);
+					for(String columna : columnas) {
+						rentasTable.addCell(columna);
+					}
+					for(String[] fila : datos) {
+						for(String dato : fila) {
+							rentasTable.addCell(dato);
+						}
+					}
+					documento.add(rentasTable);
+					documento.close();
+					System.out.println("PDF generado");
+					
+				} catch (Exception e2) {
+					e2.printStackTrace();									
+				}
 			}
 		});
 		
-		
-		
 	}
-        
-//        JScrollPane scrollPane= new JScrollPane(panel);
-//		scrollPane.setBounds(10, 220, 894, 410);
-//		scrollPane.setBorder(null);
-//		scrollPane.setPreferredSize(new Dimension(894, 360));
-//		scrollPane.getVerticalScrollBar().setUI(new ScrollBarPersonalizado());
-//      scrollPane.getHorizontalScrollBar().setUI(new ScrollBarPersonalizado());
-//		scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-//		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-//		panel.add(scrollPane);
 	
 	
 	@Override

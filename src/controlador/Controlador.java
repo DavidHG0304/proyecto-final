@@ -77,18 +77,15 @@ public class Controlador implements ActionListener{
 	
 	// Metodo validacion Login
 	public void accionLogin() {
-//		if (metodos.loginValidado(new String(nuevaVista.getTxtContrasenia().getPassword()), nuevaVista.getTxtCorreo(), nuevaVista.getTxtContrasenia())) {
-//			Usuarios usuario = nuevoModelo.accionLogin(nuevaVista.getTxtCorreo().getText(), new String(nuevaVista.getTxtContrasenia().getPassword()));
-//	        if (usuario != null) {
-//	        	nuevaVista.getFrame().dispose();
-//	            panelPrincipal();
-//	        } else {
-//	        	metodos.loginNoValido(new String(nuevaVista.getTxtContrasenia().getPassword()), nuevaVista.getTxtCorreo(), nuevaVista.getTxtContrasenia(), nuevoModelo.isRegistroEncontrado());
-//	        }
-//		}
-    	nuevaVista.getFrame().dispose();
-        panelPrincipal();
-		
+		if (metodos.loginValidado(new String(nuevaVista.getTxtContrasenia().getPassword()), nuevaVista.getTxtCorreo(), nuevaVista.getTxtContrasenia())) {
+			Usuarios usuario = nuevoModelo.accionLogin(nuevaVista.getTxtCorreo().getText(), new String(nuevaVista.getTxtContrasenia().getPassword()));
+	        if (usuario != null) {
+	        	nuevaVista.getFrame().dispose();
+	            panelPrincipal();
+	        } else {
+	        	metodos.loginNoValido(new String(nuevaVista.getTxtContrasenia().getPassword()), nuevaVista.getTxtCorreo(), nuevaVista.getTxtContrasenia(), nuevoModelo.isRegistroEncontrado());
+	        }
+		}
 	}
 	
 	// Metodo validacion Registro

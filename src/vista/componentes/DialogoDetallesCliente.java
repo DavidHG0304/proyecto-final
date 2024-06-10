@@ -9,6 +9,10 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.geom.RoundRectangle2D;
+import java.io.FileOutputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 import javax.swing.JLabel;
@@ -17,6 +21,13 @@ import javax.swing.JButton;
 import javax.swing.JEditorPane;
 import java.awt.Font;
 import javax.swing.SwingConstants;
+
+import com.itextpdf.text.Document;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.FontFactory;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
 
 import modelo.entidades.Rentas;
 import modelo.entidades.Usuarios;
@@ -100,12 +111,52 @@ public class DialogoDetallesCliente extends JPanel {
 		lblHistorialRentas.setBounds(-10, 11, 705, 43);
 		panel.add(lblHistorialRentas);
 		
-		JButton btnNewButton = new JButton("New button");
-		btnNewButton.setBounds(636, 20, 89, 23);
-		add(btnNewButton);
+		BtnBordeado botonDescargarPDF = new BtnBordeado(30, false, true, new Color(250,0,0));
+		botonDescargarPDF.setText("Descargar PDF");
+		botonDescargarPDF.setForeground(new Color(250,0,0));
+		botonDescargarPDF.setBounds(569, 20, 156, 23);
+		add(botonDescargarPDF);
+		botonDescargarPDF.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try {
+					Document documento = new Document();
+					Path desktopPath = Paths.get(System.getProperty("user.home"), "Desktop");
+					Path pdfPath = desktopPath.resolve("Detalles Cliente.pdf");
+					int contador = 1;
+					while(Files.exists(pdfPath)) {
+						pdfPath = desktopPath.resolve("(Detalles("+ contador +").pdf");
+						contador++;
+					}
+					PdfWriter.getInstance(documento, new FileOutputStream(pdfPath.toFile()));
+					documento.open();
+					
+					Paragraph tarifaTexto = new Paragraph("Tarifas", FontFactory.getFont(FontFactory.HELVETICA, 18, Font.BOLD));
+					tarifaTexto.setAlignment(Element.ALIGN_CENTER);
+		            documento.add(tarifaTexto);
+		            documento.add(new Paragraph(" "));
+					PdfPTable rentasTable = new PdfPTable(columnas.length);
+					for(String columna : columnas) {
+						rentasTable.addCell(columna);
+					}
+					for(String[] fila : datos) {
+						for(String dato : fila) {
+							rentasTable.addCell(dato);
+						}
+					}
+					documento.add(rentasTable);
+					documento.close();
+					System.out.println("PDF generado");
+					
+				} catch (Exception e2) {
+					e2.printStackTrace();									
+				}
+			}
+		});
 		
 	}
-	
+		
 	@Override
 	protected void paintComponent (Graphics g) {
 		Graphics2D g2 = (Graphics2D) g.create();
