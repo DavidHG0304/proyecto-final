@@ -132,7 +132,7 @@ public class DialogoDetallesCliente extends JPanel {
 					PdfWriter.getInstance(documento, new FileOutputStream(pdfPath.toFile()));
 					documento.open();
 					
-					Paragraph tarifaTexto = new Paragraph("Tarifas", FontFactory.getFont(FontFactory.HELVETICA, 18, Font.BOLD));
+					Paragraph tarifaTexto = new Paragraph("Rentas Creadas", FontFactory.getFont(FontFactory.HELVETICA, 18, Font.BOLD));
 					tarifaTexto.setAlignment(Element.ALIGN_CENTER);
 		            documento.add(tarifaTexto);
 		            documento.add(new Paragraph(" "));
