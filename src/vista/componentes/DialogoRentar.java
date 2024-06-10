@@ -117,9 +117,6 @@ public class DialogoRentar extends JPanel {
 		txtFechaRenta.setBackground(new Color(0,0,0,5));
 		add(txtFechaRenta);
         
-        
-
-        
         JEditorPane lblNombrePersona = new JEditorPane();
         lblNombrePersona.setText("Nombre persona a rentar");
         lblNombrePersona.setOpaque(false);
@@ -373,7 +370,6 @@ public class DialogoRentar extends JPanel {
 		comboBoxUsuarios.setBackground(new Color(0, 0, 0, 5));
 		comboBoxUsuarios.setBounds(263, 405, 214, 25);
 		comboBoxUsuarios.setModel(new DefaultComboBoxModel<>(usuarios.toArray(new String[0])));
-//		comboBoxUsuarios.setModel(new DefaultComboBoxModel<>(new String[] {"Usuario1", "Usuario2", "Usuario3", "Usuario4", "Usuario5", "Usuario6"}));
         add(comboBoxUsuarios);
         
         precioT = new JLabel();

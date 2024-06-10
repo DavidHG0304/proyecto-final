@@ -241,7 +241,6 @@ public class ControladorCategorias implements ActionListener{
 			vehiculoSeleccionado = panelCategorias.getVehiculoSeleccionado();
 			prepararVehiculoEditar(vehiculoSeleccionado);
 //			vehiculo = new Vehiculos();
-//			GlassPanePopup.showPopup(new DialogoAniadir("Editar vehiculo", vehiculo));
 			break;
 		case "Agregar Categoria pCategorias":
 			dialogoAniadirC_M = new DialogoAniadirC_M("Nombre de la nueva categoria");
