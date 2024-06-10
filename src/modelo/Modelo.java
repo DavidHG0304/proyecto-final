@@ -669,7 +669,7 @@ public class Modelo {
 		}
 		return null;
 	}
-
+// Metodo Editar renta
 	public boolean editarRenta(int idRenta, String fechaFinal, String fechaInicial, 
 	        Double costo, String usuarioNombre, String nombreVehiculo, int vehiculoId) {
 	    try {
@@ -748,24 +748,47 @@ public class Modelo {
 	        return false;
 	    }
 
-	    String sql = "INSERT INTO rentas(fecha_inicial, fecha_final, costo, usuario_id, vehiculo_id) VALUES (?, ?, ?, ?, ?)";
+	    String verificarDisponibilidadSql = "SELECT COUNT(*) FROM rentas WHERE vehiculo_id = ? AND " +
+	                                        "(fecha_inicial <= ? AND fecha_final >= ?)";
+	    String insertarRentaSql = "INSERT INTO rentas(fecha_inicial, fecha_final, costo, usuario_id, vehiculo_id) VALUES (?, ?, ?, ?, ?)";
 
 	    try (Connection con = DriverManager.getConnection(
 	            "jdbc:mysql://monorail.proxy.rlwy.net:28289/railway?useSSL=false", "root",
-	            "AZsyCwUGzmURenQkgkEOksyBwsWuQBFI");
-	         PreparedStatement stmt = con.prepareStatement(sql)) {
+	            "AZsyCwUGzmURenQkgkEOksyBwsWuQBFI")) {
 
 	        con.setAutoCommit(false);
 
-	        stmt.setString(1, fechaInicial);
-	        stmt.setString(2, fechaFinal);
-	        stmt.setDouble(3, costo);
-	        stmt.setInt(4, usuarioId);
-	        stmt.setInt(5, vehiculoId);
+	        try (PreparedStatement verificarStmt = con.prepareStatement(verificarDisponibilidadSql)) {
+	            verificarStmt.setInt(1, vehiculoId);
+	            verificarStmt.setString(2, fechaFinal);
+	            verificarStmt.setString(3, fechaInicial);
 
-	        int filasAfectadas = stmt.executeUpdate();
-	        con.commit();
-	        return filasAfectadas > 0;
+	            try (ResultSet rs = verificarStmt.executeQuery()) {
+	                if (rs.next() && rs.getInt(1) > 0) {
+	                    System.out.println("El vehículo ya está reservado en estas fechas.");
+	                    con.rollback();
+	                    return false;
+	                }
+	            }
+	        }
+
+// Insertar la renta si el vehículo está disponible
+	        try (PreparedStatement stmt = con.prepareStatement(insertarRentaSql)) {
+	            stmt.setString(1, fechaInicial);
+	            stmt.setString(2, fechaFinal);
+	            stmt.setDouble(3, costo);
+	            stmt.setInt(4, usuarioId);
+	            stmt.setInt(5, vehiculoId);
+
+	            int filasAfectadas = stmt.executeUpdate();
+	            con.commit();
+	            return filasAfectadas > 0;
+
+	        } catch (SQLException e) {
+	            con.rollback();
+	            e.printStackTrace();
+	            return false;
+	        }
 
 	    } catch (SQLException e) {
 	        e.printStackTrace();
@@ -940,6 +963,7 @@ public class Modelo {
 	    return rentas;
 	}
 
+	// Metodo Eliminar rentas
 	public boolean eliminarRenta(int idRenta) {
 
 		try {
