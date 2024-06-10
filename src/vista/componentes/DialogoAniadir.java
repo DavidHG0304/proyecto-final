@@ -198,7 +198,6 @@ public class DialogoAniadir extends JPanel {
         comboBoxMarcas.setFont(new Font("Inter", Font.PLAIN, 11));
         comboBoxMarcas.setBackground(new Color(0, 0, 0, 5));
         comboBoxMarcas.setBounds(24, 243, 214, 25);
-//      comboBoxMarcas.setModel(new DefaultComboBoxModel<>(new String[] {"Automatico", "Manual"}));
         add(comboBoxMarcas);
         
         comboBoxCategorias = new ComboBoxRedondeado<String>(20, new Color(0, 0, 0, 60));
